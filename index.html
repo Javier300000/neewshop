@@ -124,9 +124,10 @@
       box-shadow: 0 0 14px rgba(255, 255, 255, 0.25);
     }
 
-    .pass-wrapper input.input-error {
-      border-color: var(--neon-pink);
-      box-shadow: 0 0 16px rgba(255, 0, 85, 0.45);
+    .pass-wrapper input.input-error,
+    .delete-pass-input.input-error {
+      border-color: var(--neon-pink) !important;
+      box-shadow: 0 0 16px rgba(255, 0, 85, 0.45) !important;
       animation: shake 0.35s ease;
     }
 
@@ -186,7 +187,7 @@
       max-width: 460px;
       background-color: var(--bg-black);
       min-height: 100vh;
-      padding-bottom: 95px;
+      padding-bottom: 105px;
       position: relative;
       border-left: 1px solid var(--border-dark);
       border-right: 1px solid var(--border-dark);
@@ -332,7 +333,7 @@
       box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
     }
 
-    /* TARJETAS DE ESTADO DE STOCK (SECCIÓN BAJO STOCK / SIN STOCK / EN STOCK) */
+    /* TARJETAS DE ESTADO DE STOCK */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -438,7 +439,7 @@
       box-shadow: 0 0 12px rgba(255, 0, 85, 0.35);
     }
 
-    /* Categorías de Ropa */
+    /* Categorías de Ropa y Calzado */
     .categories-scroll {
       display: flex;
       gap: 8px;
@@ -470,7 +471,6 @@
       font-weight: 800;
     }
 
-    /* Banner cuando se está viendo la sección de Bajo Stock */
     .section-banner {
       margin: 4px 20px 6px;
       padding: 10px 14px;
@@ -604,7 +604,6 @@
       white-space: nowrap;
     }
 
-    /* 16+: EN STOCK (Blanco Neón) */
     .status-ok {
       background: rgba(255, 255, 255, 0.1);
       color: var(--neon-white);
@@ -612,7 +611,6 @@
       box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
     }
 
-    /* 1-15: BAJO STOCK (Cian Neón) */
     .status-low {
       background: rgba(0, 240, 255, 0.12);
       color: var(--neon-cyan);
@@ -620,7 +618,6 @@
       box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
     }
 
-    /* 0: NO HAY STOCK (Rosa/Rojo Neón) */
     .status-out {
       background: rgba(255, 0, 85, 0.15);
       color: var(--neon-pink);
@@ -692,26 +689,68 @@
       font-size: 0.95rem;
     }
 
-    .fab-btn {
+    /* BARRA INFERIOR CON LOS 2 BOTONES: + PRODUCTO y + CATEGORÍA */
+    .bottom-dock {
       position: fixed;
-      bottom: 22px;
+      bottom: 18px;
+      width: 100%;
+      max-width: 460px;
+      padding: 0 16px;
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+
+    .fab-btn {
+      flex: 1.4;
       background: var(--neon-white);
       color: #000000;
       border: none;
-      padding: 15px 28px;
+      padding: 15px 16px;
       border-radius: 999px;
-      font-size: 0.92rem;
+      font-size: 0.85rem;
       font-weight: 900;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       cursor: pointer;
-      box-shadow: 0 0 24px rgba(255, 255, 255, 0.5);
-      z-index: 20;
+      box-shadow: 0 0 22px rgba(255, 255, 255, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       transition: transform 0.15s, box-shadow 0.2s;
+      white-space: nowrap;
     }
 
     .fab-btn:active {
       transform: scale(0.96);
-      box-shadow: 0 0 32px rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    }
+
+    .fab-cat-btn {
+      flex: 1;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(10px);
+      color: var(--neon-white);
+      border: 1.5px solid var(--neon-white);
+      padding: 15px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: transform 0.15s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .fab-cat-btn:active {
+      transform: scale(0.96);
+      background: var(--neon-white);
+      color: #000000;
     }
 
     .modal-overlay {
@@ -740,7 +779,7 @@
 
     .modal-sheet.danger-sheet {
       border-top: 2px solid var(--neon-pink);
-      box-shadow: 0 -4px 25px rgba(255, 0, 85, 0.2);
+      box-shadow: 0 -4px 25px rgba(255, 0, 85, 0.25);
     }
 
     @keyframes slideUp {
@@ -811,14 +850,61 @@
       box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
     }
 
+    .size-type-hint {
+      font-size: 0.75rem;
+      color: var(--neon-cyan);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    /* Estilos del Modal de Eliminación con Contraseña */
     .delete-text {
       color: var(--text-muted);
       font-size: 0.92rem;
       line-height: 1.45;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
     .delete-text strong { color: var(--text-white); }
+
+    .delete-pass-box {
+      margin-bottom: 8px;
+    }
+
+    .delete-pass-input {
+      width: 100%;
+      background: var(--bg-black);
+      border: 1px solid var(--border-dark);
+      color: var(--text-white);
+      padding: 13px 14px;
+      border-radius: 11px;
+      font-size: 0.95rem;
+      text-align: center;
+      letter-spacing: 2px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .delete-pass-input::placeholder {
+      letter-spacing: normal;
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    .delete-pass-input:focus {
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 12px rgba(255, 0, 85, 0.25);
+    }
+
+    .delete-error-msg {
+      color: var(--neon-pink);
+      font-size: 0.78rem;
+      font-weight: 700;
+      min-height: 20px;
+      margin-bottom: 12px;
+      text-align: center;
+      text-shadow: 0 0 8px rgba(255, 0, 85, 0.3);
+    }
 
     .confirm-actions {
       display: grid;
@@ -903,11 +989,11 @@
         </div>
       </div>
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Buscar prenda, color o talla..." oninput="renderProducts()" />
+        <input type="text" id="searchInput" placeholder="Buscar prenda, tenis, color o talla..." oninput="renderProducts()" />
       </div>
     </header>
 
-    <!-- TARJETAS CONTADORAS DE LOS 3 ESTADOS DE STOCK (SIN TOTAL DE STOCK) -->
+    <!-- TARJETAS CONTADORAS DE LOS 3 ESTADOS DE STOCK -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="setStockFilter('EN_STOCK')">
         <div class="kpi-label">En Stock</div>
@@ -939,15 +1025,8 @@
       <button class="stock-tab" id="tabOut" onclick="setStockFilter('SIN_STOCK')">🚫 No hay Stock (0)</button>
     </div>
 
-    <!-- Categorías de Prendas -->
-    <nav class="categories-scroll">
-      <button class="cat-chip active" onclick="setCategory('Todos')">Todos</button>
-      <button class="cat-chip" onclick="setCategory('Sudaderas')">Sudaderas</button>
-      <button class="cat-chip" onclick="setCategory('Sudaderas con gorro')">Sudaderas con gorro</button>
-      <button class="cat-chip" onclick="setCategory('Playeras')">Playeras</button>
-      <button class="cat-chip" onclick="setCategory('Shorts')">Shorts</button>
-      <button class="cat-chip" onclick="setCategory('Accesorios')">Accesorios</button>
-    </nav>
+    <!-- Barra de Categorías Dinámicas -->
+    <nav class="categories-scroll" id="categoriesBar"></nav>
 
     <!-- Aviso de Sección Activa -->
     <div class="section-banner" id="sectionBanner">
@@ -958,9 +1037,13 @@
     <main class="product-list" id="productList"></main>
   </div>
 
-  <button class="fab-btn" onclick="toggleModal(true)">+ AGREGAR PRODUCTO</button>
+  <!-- BARRA FLOTANTE CON LOS DOS BOTONES: AGREGAR PRODUCTO Y AGREGAR CATEGORÍA -->
+  <div class="bottom-dock">
+    <button class="fab-btn" onclick="toggleModal(true)">+ AGREGAR PRODUCTO</button>
+    <button class="fab-cat-btn" onclick="toggleCategoryModal(true)">+ CATEGORÍA</button>
+  </div>
 
-  <!-- Modal Agregar -->
+  <!-- Modal Agregar Producto -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -970,36 +1053,22 @@
       <form id="productForm" onsubmit="addProduct(event)">
         <div class="form-group">
           <label>Nombre del Producto</label>
-          <input type="text" id="pName" placeholder="Ej. Hoodie Oversize Neew" required />
+          <input type="text" id="pName" placeholder="Ej. Hoodie Oversize / Air Force 1" required />
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Categoría</label>
-            <select id="pCat" required>
-              <option value="Sudaderas">Sudaderas</option>
-              <option value="Sudaderas con gorro">Sudaderas con gorro</option>
-              <option value="Playeras">Playeras</option>
-              <option value="Shorts">Shorts</option>
-              <option value="Accesorios">Accesorios</option>
-            </select>
+            <select id="pCat" onchange="actualizarOpcionesTalla()" required></select>
           </div>
           <div class="form-group">
-            <label>Talla</label>
-            <select id="pSize" required>
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M" selected>M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-              <option value="XXL">XXL</option>
-              <option value="Unitalla">Unitalla</option>
-            </select>
+            <label id="sizeLabel">Talla</label>
+            <select id="pSize" required></select>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Color (Pinta el círculo automático)</label>
-            <input type="text" id="pColor" placeholder="Ej. Negro, Blanco, Gris, Azul..." required />
+            <label>Color (Círculo automático)</label>
+            <input type="text" id="pColor" placeholder="Ej. Negro, Blanco, Gris..." required />
           </div>
           <div class="form-group">
             <label>Precio ($ MXN)</label>
@@ -1015,29 +1084,101 @@
     </div>
   </div>
 
-  <!-- Modal Eliminar -->
-  <div class="modal-overlay" id="deleteModal">
-    <div class="modal-sheet danger-sheet">
+  <!-- Modal Agregar Nueva Categoría -->
+  <div class="modal-overlay" id="addCategoryModal">
+    <div class="modal-sheet">
       <div class="modal-header">
-        <div class="modal-title">Eliminar Prenda</div>
-        <button class="close-btn" onclick="closeDeleteModal()">✕</button>
+        <div class="modal-title">Nueva Categoría</div>
+        <button class="close-btn" onclick="toggleCategoryModal(false)">✕</button>
       </div>
-      <p class="delete-text" id="deleteMessage"></p>
-      <div class="confirm-actions">
-        <button class="cancel-action-btn" onclick="closeDeleteModal()">Cancelar</button>
-        <button class="confirm-delete-btn" onclick="confirmDeleteProduct()">Sí, Eliminar</button>
-      </div>
+      <form id="categoryForm" onsubmit="addCategory(event)">
+        <div class="form-group">
+          <label>Nombre de la Categoría</label>
+          <input
+            type="text"
+            id="cName"
+            placeholder="Ej. Tenis, Gorras, Pantalones..."
+            oninput="autoDetectarTipoTalla()"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Tipo de Tallas para esta Categoría</label>
+          <select id="cSizeType" required>
+            <option value="ropa">Ropa (XS, S, M, L, XL, XXL)</option>
+            <option value="calzado">Tenis / Calzado (22 MX a 30 MX)</option>
+            <option value="unitalla">Accesorios / Unitalla (Unitalla, Ajustable)</option>
+          </select>
+          <div class="size-type-hint" id="sizeTypeHint">
+            Al elegir esta categoría, el selector mostrará tallas de ropa o calzado automáticamente.
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Crear Categoría</button>
+      </form>
     </div>
   </div>
 
-  <!-- SDK de Firebase y Librería ExcelJS para crear archivos .xlsx con fórmulas -->
+  <!-- Modal Eliminar Producto (Con Contraseña Obligatoria) -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal-sheet danger-sheet">
+      <div class="modal-header">
+        <div class="modal-title">🔒 Autorizar Eliminación</div>
+        <button class="close-btn" onclick="closeDeleteModal()">✕</button>
+      </div>
+      <p class="delete-text" id="deleteMessage"></p>
+      <form onsubmit="confirmDeleteProduct(event)">
+        <div class="delete-pass-box">
+          <label>Contraseña para borrar producto</label>
+          <input
+            type="password"
+            id="deletePassInput"
+            class="delete-pass-input"
+            placeholder="Ingresa la contraseña..."
+            required
+          />
+        </div>
+        <div class="delete-error-msg" id="deleteErrorMsg"></div>
+        <div class="confirm-actions">
+          <button type="button" class="cancel-action-btn" onclick="closeDeleteModal()">Cancelar</button>
+          <button type="submit" class="confirm-delete-btn">Sí, Eliminar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SDK de Firebase y Librería ExcelJS -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 
   <script>
     const FIREBASE_DATABASE_URL = "https://neewshop-stock-default-rtdb.firebaseio.com/";
+
+    // 1. Contraseña para abrir la aplicación:
     const CLAVE_TIENDA = "neew2026";
+
+    // 2. Contraseña requerida para ELIMINAR un producto:
+    const CLAVE_ELIMINAR = "neew2026";
+
+    // Catálogo de tallas según el tipo de categoría
+    const SISTEMAS_TALLAS = {
+      ropa: ["XS", "S", "M", "L", "XL", "XXL", "Unitalla"],
+      calzado: [
+        "22 MX", "22.5 MX", "23 MX", "23.5 MX", "24 MX", "24.5 MX",
+        "25 MX", "25.5 MX", "26 MX", "26.5 MX", "27 MX", "27.5 MX",
+        "28 MX", "28.5 MX", "29 MX", "29.5 MX", "30 MX"
+      ],
+      unitalla: ["Unitalla", "Ajustable", "Chico", "Mediano", "Grande"]
+    };
+
+    const categoriasIniciales = [
+      { name: "Sudaderas", sizeType: "ropa" },
+      { name: "Sudaderas con gorro", sizeType: "ropa" },
+      { name: "Playeras", sizeType: "ropa" },
+      { name: "Shorts", sizeType: "ropa" },
+      { name: "Tenis", sizeType: "calzado" },
+      { name: "Accesorios", sizeType: "unitalla" }
+    ];
 
     const productosIniciales = [
       { id: 1, name: "Hoodie Oversize Acid Wash", category: "Sudaderas con gorro", size: "L", color: "Negro", price: 680, stock: 18 },
@@ -1047,13 +1188,13 @@
     ];
 
     let products = [];
+    let categories = [...categoriasIniciales];
     let activeCategory = "Todos";
-    let activeStockFilter = "TODOS"; // TODOS | EN_STOCK | BAJO_STOCK | SIN_STOCK
+    let activeStockFilter = "TODOS";
     let productToDeleteId = null;
     let dbRef = null;
     let firebaseIniciado = false;
 
-    // Detector inteligente de colores en español para pintar el circulito
     function obtenerColorCSS(textoColor) {
       if (!textoColor) return "#ffffff";
       const t = textoColor.toLowerCase().trim();
@@ -1076,7 +1217,6 @@
         { k: ["cafe", "café", "marron", "marrón", "chocolate", "brown", "tabaco"], hex: "#7f4f24" }
       ];
 
-      // Si el usuario escribe dos colores separados por "/" o "con" (ej. "Negro / Blanco")
       if (t.includes("/") || t.includes(" con ") || t.includes("-")) {
         const partes = t.split(/\/| con |-/).map(s => s.trim());
         const c1 = buscarHexSimple(partes[0], mapaColores);
@@ -1096,7 +1236,6 @@
       return "#cccccc";
     }
 
-    // Clasificación oficial pedida: 0 = NO HAY STOCK | 1-15 = BAJO STOCK | 16+ = EN STOCK
     function obtenerEstadoStock(cantidad) {
       const s = Number(cantidad) || 0;
       if (s === 0) {
@@ -1108,7 +1247,79 @@
       }
     }
 
+    // Detecta si una categoría es de tenis/calzado por su configuración o por su nombre
+    function obtenerTipoTallaDeCategoria(nombreCat) {
+      const encontrada = categories.find(c => c.name.toLowerCase() === (nombreCat || "").toLowerCase());
+      if (encontrada && encontrada.sizeType) {
+        return encontrada.sizeType;
+      }
+      const n = (nombreCat || "").toLowerCase();
+      if (n.includes("tenis") || n.includes("calzado") || n.includes("zapato") || n.includes("sneaker") || n.includes("sandalia") || n.includes("bota")) {
+        return "calzado";
+      }
+      if (n.includes("accesorio") || n.includes("gorra") || n.includes("lente") || n.includes("bolsa") || n.includes("mochila")) {
+        return "unitalla";
+      }
+      return "ropa";
+    }
+
+    // Actualiza el select de tallas (#pSize) cuando cambias de categoría en el modal Agregar Producto
+    function actualizarOpcionesTalla() {
+      const catSeleccionada = document.getElementById("pCat").value;
+      const selectTalla = document.getElementById("pSize");
+      const labelTalla = document.getElementById("sizeLabel");
+      const tipo = obtenerTipoTallaDeCategoria(catSeleccionada);
+
+      const listaTallas = SISTEMAS_TALLAS[tipo] || SISTEMAS_TALLAS.ropa;
+
+      if (tipo === "calzado") {
+        labelTalla.textContent = "Talla Calzado (MX)";
+      } else if (tipo === "unitalla") {
+        labelTalla.textContent = "Medida / Talla";
+      } else {
+        labelTalla.textContent = "Talla Ropa";
+      }
+
+      selectTalla.innerHTML = listaTallas.map(t => {
+        const isDefault = (tipo === "ropa" && t === "M") || (tipo === "calzado" && t === "26 MX") || (tipo === "unitalla" && t === "Unitalla");
+        return `<option value="${t}" ${isDefault ? "selected" : ""}>${t}</option>`;
+      }).join("");
+    }
+
+    // Cuando el usuario escribe "Tenis" en Nueva Categoría, selecciona automáticamente tallas MX
+    function autoDetectarTipoTalla() {
+      const val = document.getElementById("cName").value.toLowerCase();
+      const selectTipo = document.getElementById("cSizeType");
+      if (val.includes("tenis") || val.includes("calzado") || val.includes("zapato") || val.includes("sneaker") || val.includes("sandalia") || val.includes("bota")) {
+        selectTipo.value = "calzado";
+      } else if (val.includes("gorra") || val.includes("accesorio") || val.includes("lente") || val.includes("calcet")) {
+        selectTipo.value = "unitalla";
+      }
+    }
+
+    function renderCategoriesUI() {
+      const bar = document.getElementById("categoriesBar");
+      const chipsHTML = [
+        `<button class="cat-chip ${activeCategory === 'Todos' ? 'active' : ''}" onclick="setCategory('Todos')">Todos</button>`,
+        ...categories.map(c => {
+          const isAct = activeCategory === c.name ? "active" : "";
+          const icono = c.sizeType === "calzado" ? "👟 " : "";
+          return `<button class="cat-chip ${isAct}" onclick="setCategory('${c.name.replace(/'/g, "\\'")}')">${icono}${c.name}</button>`;
+        })
+      ];
+      bar.innerHTML = chipsHTML.join("");
+
+      const selectCat = document.getElementById("pCat");
+      const valorActual = selectCat.value;
+      selectCat.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
+      if (valorActual && categories.some(c => c.name === valorActual)) {
+        selectCat.value = valorActual;
+      }
+      actualizarOpcionesTalla();
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
+      renderCategoriesUI();
       const claveGuardada = localStorage.getItem("neewshop_auth_key");
       if (claveGuardada === CLAVE_TIENDA) {
         desbloquearApp(claveGuardada);
@@ -1170,41 +1381,49 @@
             if (data.initialized) {
               const rawItems = data.items || [];
               products = Array.isArray(rawItems) ? rawItems.filter(Boolean) : Object.values(rawItems);
+              if (data.categories) {
+                const rawCats = Array.isArray(data.categories) ? data.categories.filter(Boolean) : Object.values(data.categories);
+                if (rawCats.length > 0) categories = rawCats;
+              }
             } else {
               products = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
             }
           } else {
             products = productosIniciales;
+            categories = categoriasIniciales;
             saveToDB();
           }
+          renderCategoriesUI();
           renderProducts();
         });
       } else {
         document.getElementById("syncText").textContent = "Modo Local";
         products = JSON.parse(localStorage.getItem("neewshop_stock")) || productosIniciales;
+        categories = JSON.parse(localStorage.getItem("neewshop_categories")) || categoriasIniciales;
+        renderCategoriesUI();
         renderProducts();
       }
     }
 
     function saveToDB() {
       if (dbRef) {
-        // Guardamos con bandera initialized:true para que aunque borres todos los productos nunca revivan solos
         dbRef.set({
           initialized: true,
           updatedAt: Date.now(),
-          items: products
+          items: products,
+          categories: categories
         });
       } else {
         localStorage.setItem("neewshop_stock", JSON.stringify(products));
+        localStorage.setItem("neewshop_categories", JSON.stringify(categories));
+        renderCategoriesUI();
         renderProducts();
       }
     }
 
     function setCategory(cat) {
       activeCategory = cat;
-      document.querySelectorAll(".cat-chip").forEach(btn => {
-        btn.classList.toggle("active", btn.textContent === cat);
-      });
+      renderCategoriesUI();
       renderProducts();
     }
 
@@ -1256,7 +1475,36 @@
       products.unshift(newProduct);
       saveToDB();
       document.getElementById("productForm").reset();
+      actualizarOpcionesTalla();
       toggleModal(false);
+    }
+
+    function addCategory(e) {
+      e.preventDefault();
+      const nombre = document.getElementById("cName").value.trim();
+      const tipoTalla = document.getElementById("cSizeType").value;
+
+      if (!nombre) return;
+
+      const existe = categories.some(c => c.name.toLowerCase() === nombre.toLowerCase());
+      if (existe) {
+        alert("Esa categoría ya existe en neewshop.");
+        return;
+      }
+
+      categories.push({ name: nombre, sizeType: tipoTalla });
+      activeCategory = nombre;
+      saveToDB();
+
+      document.getElementById("categoryForm").reset();
+      toggleCategoryModal(false);
+    }
+
+    function toggleCategoryModal(show) {
+      document.getElementById("addCategoryModal").classList.toggle("open", show);
+      if (show) {
+        setTimeout(() => document.getElementById("cName").focus(), 120);
+      }
     }
 
     function askDeleteProduct(id) {
@@ -1265,23 +1513,51 @@
       productToDeleteId = id;
       document.getElementById("deleteMessage").innerHTML = 
         `¿Seguro que deseas eliminar <strong>${item.name}</strong> (Talla ${item.size} • ${item.color}) del inventario?`;
+      const passInput = document.getElementById("deletePassInput");
+      const errorMsg = document.getElementById("deleteErrorMsg");
+      passInput.value = "";
+      passInput.classList.remove("input-error");
+      errorMsg.textContent = "";
       document.getElementById("deleteModal").classList.add("open");
+      setTimeout(() => passInput.focus(), 150);
     }
 
     function closeDeleteModal() {
       productToDeleteId = null;
+      document.getElementById("deletePassInput").value = "";
+      document.getElementById("deleteErrorMsg").textContent = "";
       document.getElementById("deleteModal").classList.remove("open");
     }
 
-    function confirmDeleteProduct() {
-      if (productToDeleteId !== null) {
-        products = products.filter(p => p.id !== productToDeleteId);
-        saveToDB();
-        closeDeleteModal();
+    function confirmDeleteProduct(e) {
+      if (e) e.preventDefault();
+      if (productToDeleteId === null) return;
+
+      const passInput = document.getElementById("deletePassInput");
+      const errorMsg = document.getElementById("deleteErrorMsg");
+      const ingresada = passInput.value.trim();
+
+      if (ingresada !== CLAVE_ELIMINAR) {
+        errorMsg.textContent = "Contraseña incorrecta. No se eliminó la prenda.";
+        passInput.classList.remove("input-error");
+        void passInput.offsetWidth;
+        passInput.classList.add("input-error");
+        return;
       }
+
+      products = products.filter(p => p.id !== productToDeleteId);
+      saveToDB();
+      closeDeleteModal();
     }
 
     function toggleModal(show) {
+      if (show) {
+        renderCategoriesUI();
+        if (activeCategory !== "Todos") {
+          document.getElementById("pCat").value = activeCategory;
+          actualizarOpcionesTalla();
+        }
+      }
       document.getElementById("addModal").classList.toggle("open", show);
     }
 
@@ -1289,7 +1565,6 @@
       const list = document.getElementById("productList");
       const query = document.getElementById("searchInput").value.toLowerCase();
 
-      // Contadores por estado según la regla: 0 = NO HAY STOCK, 1-15 = BAJO STOCK, 16+ = EN STOCK
       const countOk = products.filter(p => (Number(p.stock) || 0) >= 16).length;
       const countLow = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
       const countOut = products.filter(p => (Number(p.stock) || 0) === 0).length;
@@ -1304,12 +1579,13 @@
         const matchesStock = activeStockFilter === "TODOS" || estado.codigo === activeStockFilter;
         const matchesSearch = p.name.toLowerCase().includes(query) ||
                               p.color.toLowerCase().includes(query) ||
-                              p.size.toLowerCase().includes(query);
+                              p.size.toLowerCase().includes(query) ||
+                              p.category.toLowerCase().includes(query);
         return matchesCat && matchesStock && matchesSearch;
       });
 
       if (filtered.length === 0) {
-        list.innerHTML = `<div class="empty-state">No hay prendas en esta vista o filtro.</div>`;
+        list.innerHTML = `<div class="empty-state">No hay productos en esta categoría o filtro.</div>`;
         return;
       }
 
@@ -1369,12 +1645,11 @@
         views: [{ state: "frozen", ySplit: 8 }]
       });
 
-      // Ancho de columnas
       sheet.columns = [
         { key: "num", width: 8 },
         { key: "name", width: 32 },
         { key: "cat", width: 24 },
-        { key: "size", width: 12 },
+        { key: "size", width: 14 },
         { key: "color", width: 18 },
         { key: "price", width: 16 },
         { key: "stock", width: 16 },
@@ -1382,7 +1657,6 @@
         { key: "total", width: 20 }
       ];
 
-      // 1. TÍTULO PRINCIPAL EN BLANCO Y NEGRO
       sheet.mergeCells("A1:I2");
       const titleCell = sheet.getCell("A1");
       titleCell.value = "NEEWSHOP — REPORTE OFICIAL DE INVENTARIO Y CONTROL DE STOCK";
@@ -1390,7 +1664,6 @@
       titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0A0A0A" } };
       titleCell.alignment = { vertical: "middle", horizontal: "center" };
 
-      // 2. PANEL DE RESUMEN AUTOMÁTICO CON FÓRMULAS DE EXCEL
       const startRow = 9;
       const endRow = Math.max(startRow, startRow + products.length - 1);
 
@@ -1399,12 +1672,11 @@
       sheet.getCell("A4").font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
       sheet.getCell("A4").fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1F1F1F" } };
 
-      // Tarjetas de Fórmulas Superiores
       const resumenFormulas = [
         { labelCelda: "A5", valCelda: "B5", titulo: "EN STOCK (16+)", formula: `COUNTIF(H${startRow}:H${endRow},"EN STOCK")`, color: "FF111111" },
         { labelCelda: "C5", valCelda: "D5", titulo: "BAJO STOCK (1-15)", formula: `COUNTIF(H${startRow}:H${endRow},"BAJO STOCK")`, color: "FF005F73" },
         { labelCelda: "E5", valCelda: "F5", titulo: "NO HAY STOCK (0)", formula: `COUNTIF(H${startRow}:H${endRow},"NO HAY STOCK")`, color: "FF9B0033" },
-        { labelCelda: "G5", valCelda: "H5", titulo: "TOTAL PRENDAS", formula: `SUM(G${startRow}:G${endRow})`, color: "FF262626" }
+        { labelCelda: "G5", valCelda: "H5", titulo: "TOTAL PRENDAS/PARES", formula: `SUM(G${startRow}:G${endRow})`, color: "FF262626" }
       ];
 
       resumenFormulas.forEach(item => {
@@ -1421,10 +1693,9 @@
         val.alignment = { vertical: "middle", horizontal: "center" };
       });
 
-      // 3. ENCABEZADOS DE LA TABLA DE PRODUCTOS (Fila 8)
       const headers = [
         "N°",
-        "PRENDA / MODELO",
+        "PRODUCTO / MODELO",
         "CATEGORÍA",
         "TALLA",
         "COLOR",
@@ -1449,7 +1720,6 @@
         };
       });
 
-      // 4. FILAS DE PRODUCTOS CON FÓRMULAS EXCEL DINÁMICAS
       products.forEach((p, idx) => {
         const rIdx = startRow + idx;
         const row = sheet.getRow(rIdx);
@@ -1464,9 +1734,7 @@
           p.color,
           priceNum,
           stockNum,
-          // Fórmula condicional en Excel: 0 -> NO HAY STOCK, <=15 -> BAJO STOCK, 16+ -> EN STOCK
           { formula: `IF(G${rIdx}=0,"NO HAY STOCK",IF(G${rIdx}<=15,"BAJO STOCK","EN STOCK"))` },
-          // Fórmula multiplicación Precio * Stock
           { formula: `F${rIdx}*G${rIdx}` }
         ];
 
@@ -1484,13 +1752,11 @@
             horizontal: (colNumber === 2 || colNumber === 3) ? "left" : "center"
           };
 
-          // Formato de moneda en Precio y Valor
           if (colNumber === 6 || colNumber === 9) {
             cell.numFmt = '"$"#,##0.00';
             cell.font = { bold: colNumber === 9, size: 10 };
           }
 
-          // Colorear celda de Estado según el nivel de stock
           if (colNumber === 8) {
             if (stockNum === 0) {
               cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFCCD9" } };
@@ -1506,7 +1772,6 @@
         });
       });
 
-      // 5. FILA FINAL DE TOTALES CON FÓRMULAS =SUM()
       const totalRowIndex = endRow + 1;
       const totalRow = sheet.getRow(totalRowIndex);
       totalRow.height = 26;
@@ -1528,7 +1793,6 @@
         }
       }
 
-      // Generar y descargar archivo .xlsx
       const buffer = await workbook.xlsx.writeBuffer();
       const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
       const url = URL.createObjectURL(blob);
