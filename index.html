@@ -12,7 +12,7 @@
       --bg-black: #040404;
       --glass-bg: rgba(20, 20, 20, 0.65);
       --glass-elevated: rgba(32, 32, 32, 0.75);
-      --glass-modal: rgba(14, 14, 14, 0.92);
+      --glass-modal: rgba(14, 14, 14, 0.96);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-border-hover: rgba(255, 255, 255, 0.3);
       --text-white: #ffffff;
@@ -93,7 +93,7 @@
 
     /* ENCABEZADO FLOTANTE INTELIGENTE */
     header {
-      padding: 14px 18px; position: sticky; top: 0; background: rgba(6, 6, 6, 0.82);
+      padding: 14px 18px; position: sticky; top: 0; background: rgba(6, 6, 6, 0.85);
       backdrop-filter: blur(20px); z-index: 20; border-bottom: 1px solid var(--glass-border);
       border-bottom-left-radius: 24px; border-bottom-right-radius: 24px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -308,17 +308,19 @@
       padding: 11px; border-radius: 14px; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
 
-    /* MODALES */
+    /* MODALES POSICIONADOS ARRIBA CUANDO ABRE EL TECLADO EN CELULAR */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.78); backdrop-filter: blur(10px);
-      display: none; justify-content: center; align-items: flex-end; z-index: 50;
+      display: none; justify-content: center; align-items: flex-start; z-index: 50;
+      padding-top: 35px;
     }
     .modal-overlay.open { display: flex; }
 
     .modal-sheet {
-      width: 100%; max-width: 440px; background: var(--glass-modal); backdrop-filter: blur(24px);
+      width: calc(100% - 24px); max-width: 440px; background: var(--glass-modal); backdrop-filter: blur(24px);
       border: 1px solid var(--glass-border); border-top: 2px solid var(--neon-white);
-      border-radius: 24px 24px 0 0; padding: 20px 18px 26px; max-height: 90vh; overflow-y: auto;
+      border-radius: 24px; padding: 20px 18px 26px; max-height: 85vh; overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
     }
     .modal-sheet.danger-sheet { border-top: 2px solid var(--neon-pink); }
     .modal-sheet.success-sheet { border-top: 2px solid var(--price-vip); }
@@ -389,7 +391,7 @@
       <div class="login-subtitle">Acceso Personal Autorizado</div>
       <form onsubmit="verificarAcceso(event)">
         <div class="pass-wrapper">
-          <input type="password" id="passInput" placeholder="Contraseña" required autocomplete="current-password" />
+          <input type="password" id="passInput" placeholder="Contraseña" autocomplete="current-password" required />
           <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()" id="eyeBtn">Ver</button>
         </div>
         <div class="login-error-msg" id="loginError"></div>
@@ -416,7 +418,6 @@
           </div>
         </div>
         <div class="search-box">
-          <!-- ATRIBUTOS AGREGADOS PARA EVITAR QUE EL TECLADO MUESTRE TARJETAS, CONTRASEÑAS O UBICACIONES -->
           <input type="text" id="searchInput" placeholder="Buscar prenda, tenis, color..." autocomplete="off" autocapitalize="off" spellcheck="false" oninput="renderProducts()" />
         </div>
       </div>
@@ -522,7 +523,6 @@
       <form onsubmit="confirmarEliminarVenta(event)">
         <div class="delete-pass-box">
           <label>Contraseña requerida</label>
-          <!-- AUTOCOMPLETE OFF PARA EVITAR SUGERENCIAS DE CONTRASEÑAS -->
           <input type="password" id="delSalePassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="new-password" required />
         </div>
         <div class="delete-error-msg" id="delSaleErrorMsg"></div>
