@@ -11,11 +11,11 @@
     :root {
       --bg-space: #030303;
       --glass-panel: rgba(255, 255, 255, 0.045);
-      --glass-card: rgba(18, 18, 18, 0.55);
-      --glass-card-hover: rgba(28, 28, 28, 0.68);
-      --glass-modal: rgba(12, 12, 12, 0.88);
+      --glass-card: rgba(18, 18, 18, 0.6);
+      --glass-card-hover: rgba(28, 28, 28, 0.75);
+      --glass-modal: rgba(12, 12, 12, 0.92);
       --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-border-bright: rgba(255, 255, 255, 0.35);
+      --glass-border-bright: rgba(255, 255, 255, 0.38);
       --text-white: #ffffff;
       --text-muted: #949494;
       --neon-white: #ffffff;
@@ -49,15 +49,16 @@
     .login-screen {
       position: fixed;
       inset: 0;
-      background: rgba(3, 3, 3, 0.78);
-      backdrop-filter: blur(35px);
-      -webkit-backdrop-filter: blur(35px);
+      background: rgba(3, 3, 3, 0.82);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
       z-index: 100;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      animation: fadeIn 0.3s ease;
     }
     .login-screen.hidden { display: none; }
 
@@ -66,6 +67,7 @@
       backdrop-filter: blur(30px); border: 1px solid var(--glass-border-bright);
       border-radius: 28px; padding: 32px 22px; text-align: center;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+      animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .login-logo {
       font-size: 1.9rem; font-weight: 900; letter-spacing: -0.8px; text-transform: lowercase;
@@ -78,8 +80,9 @@
     .pass-wrapper input {
       width: 100%; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--glass-border);
       color: var(--text-white); padding: 13px 50px 13px 14px; border-radius: 14px; font-size: 0.95rem; text-align: center; letter-spacing: 2px; outline: none;
+      transition: all 0.2s;
     }
-    .pass-wrapper input:focus { border-color: var(--neon-white); }
+    .pass-wrapper input:focus { border-color: var(--neon-white); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
     .pass-wrapper input.input-error { border-color: var(--neon-pink) !important; animation: shake 0.35s ease; }
     .toggle-pass-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
 
@@ -88,7 +91,9 @@
       width: 100%; background: #ffffff; color: #000000; border: none; padding: 14px;
       border-radius: 14px; font-size: 0.88rem; font-weight: 900; text-transform: uppercase;
       letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+      transition: transform 0.15s;
     }
+    .login-btn:active { transform: scale(0.97); }
 
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
@@ -96,12 +101,14 @@
       50% { transform: translateX(6px); }
       75% { transform: translateX(-4px); }
     }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scaleUp { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     /* CONTENEDOR PRINCIPAL */
     .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 110px; position: relative; }
 
     header {
-      padding: 14px 18px; position: sticky; top: 0; background: rgba(4, 4, 4, 0.62);
+      padding: 14px 18px; position: sticky; top: 0; background: rgba(4, 4, 4, 0.7);
       backdrop-filter: blur(25px); z-index: 20; border-bottom: 1px solid var(--glass-border);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
@@ -114,8 +121,9 @@
     .excel-btn {
       background: var(--glass-panel); color: var(--text-white); border: 1px solid var(--glass-border-bright);
       padding: 6px 11px; border-radius: 10px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
-      cursor: pointer; display: flex; align-items: center; gap: 5px;
+      cursor: pointer; display: flex; align-items: center; gap: 5px; transition: transform 0.15s;
     }
+    .excel-btn:active { transform: scale(0.95); }
     .excel-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .badge-live {
@@ -124,30 +132,32 @@
       color: var(--text-white); display: flex; align-items: center; gap: 5px;
     }
     .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon-white); box-shadow: 0 0 8px var(--neon-white); }
-    .lock-btn { background: var(--glass-panel); border: 1px solid var(--glass-border); color: var(--text-white); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .lock-btn { background: var(--glass-panel); border: 1px solid var(--glass-border); color: var(--text-white); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s; }
+    .lock-btn:active { transform: scale(0.92); }
     .lock-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .search-box { width: 100%; }
     .search-box input {
       width: 100%; background: rgba(255, 255, 255, 0.035); backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border); color: var(--text-white); padding: 10px 14px;
-      border-radius: 13px; font-size: 0.88rem; outline: none;
+      border-radius: 13px; font-size: 0.88rem; outline: none; transition: all 0.2s;
     }
     .search-box input::placeholder { color: #666; }
-    .search-box input:focus { border-color: var(--glass-border-bright); }
+    .search-box input:focus { border-color: var(--玻璃边框亮, var(--glass-border-bright)); background: rgba(255,255,255,0.06); }
 
-    /* TARJETAS KPI */
+    /* TARJETAS KPI (PANEL SUPERIOR ORGANIZADO) */
     .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 14px 16px 4px; }
     .kpi-card {
       background: var(--glass-card); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
       border-radius: 18px; padding: 12px; text-align: left; cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .kpi-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-2px); }
-    .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.1); }
-    .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.1); }
-    .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.1); }
-    .kpi-card.active-filter-green { border-color: var(--neon-green); background: rgba(0, 255, 102, 0.1); }
+    .kpi-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    .kpi-card:active { transform: scale(0.97); }
+    .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.12); }
+    .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.12); }
+    .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.12); }
+    .kpi-card.active-filter-green { border-color: var(--neon-green); background: rgba(0, 255, 102, 0.12); }
 
     .kpi-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
     .status-indicator-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
@@ -162,8 +172,8 @@
     .kpi-value.neon-white { color: var(--neon-white); }
     .kpi-value.neon-yellow { color: var(--neon-yellow); }
     .kpi-value.neon-pink { color: var(--neon-pink); }
-    .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.15rem; }
-    .kpi-value.neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); }
+    .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.05rem; }
+    .kpi-value.neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); font-size: 1.05rem; }
 
     /* FILTROS Y CATEGORÍAS */
     .controls-wrapper { display: flex; flex-direction: column; gap: 2px; }
@@ -174,12 +184,13 @@
       background: var(--glass-card); backdrop-filter: blur(15px); color: var(--text-muted);
       border: 1px solid var(--glass-border); padding: 7px 12px; border-radius: 12px;
       font-size: 0.7rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
     }
+    .stock-tab:active { transform: scale(0.95); }
     .stock-tab.active-all { background: var(--neon-white); color: #000; border-color: var(--neon-white); }
     .stock-tab.active-low { background: rgba(255, 234, 0, 0.16); color: var(--neon-yellow); border-color: var(--neon-yellow); }
     .stock-tab.active-out { background: rgba(255, 0, 85, 0.18); color: var(--neon-pink); border-color: var(--neon-pink); }
-    .stock-tab.active-sales { background: rgba(0, 255, 102, 0.16); color: var(--neon-green); border-color: var(--neon-green); }
+    .stock-tab.active-sales { background: rgba(0, 255, 102, 0.18); color: var(--neon-green); border-color: var(--neon-green); }
 
     .categories-bar-row { display: flex; align-items: center; padding: 4px 16px; gap: 8px; }
     .categories-scroll { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
@@ -187,16 +198,19 @@
 
     .delete-cat-chip {
       background: rgba(255, 0, 85, 0.1); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.35);
-      padding: 6px 11px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
+      padding: 6px 11px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: transform 0.15s;
     }
+    .delete-cat-chip:active { transform: scale(0.95); }
     .cat-chip {
       background: var(--glass-card); color: var(--text-white); border: 1px solid var(--glass-border);
-      padding: 6px 13px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; cursor: pointer;
+      padding: 6px 13px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: transform 0.15s;
     }
+    .cat-chip:active { transform: scale(0.95); }
     .cat-chip.active { background: var(--neon-white); color: #000; font-weight: 800; }
 
     .section-banner {
       margin: 4px 16px; padding: 10px 14px; border-radius: 13px; font-size: 0.72rem; font-weight: 800; display: none; align-items: center; justify-content: space-between;
+      animation: fadeIn 0.2s ease;
     }
     .section-banner.show-low { display: flex; background: rgba(255, 234, 0, 0.12); border: 1px solid rgba(255, 234, 0, 0.45); color: var(--neon-yellow); }
     .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.12); border: 1px solid rgba(255, 0, 85, 0.45); color: var(--neon-pink); }
@@ -208,9 +222,10 @@
     .product-card {
       background: var(--glass-card); backdrop-filter: blur(22px); border: 1px solid var(--glass-border);
       border-radius: 20px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .product-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-2px); }
+    .product-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-3px); box-shadow: 0 20px 45px rgba(0,0,0,0.6); }
+    .product-card:active { transform: scale(0.98); }
 
     .product-info { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
     .product-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
@@ -235,8 +250,9 @@
 
     .delete-btn {
       background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-muted);
-      width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+      width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s;
     }
+    .delete-btn:active { transform: scale(0.92); }
     .delete-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
     .delete-btn:hover { background: rgba(255, 0, 85, 0.2); color: var(--neon-pink); border-color: var(--neon-pink); }
 
@@ -244,19 +260,19 @@
       display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.5);
       padding: 3px; border-radius: 10px; border: 1px solid var(--glass-border);
     }
-    .stepper button { width: 27px; height: 27px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
-    .stepper button:active { background: var(--neon-white); color: #000; }
+    .stepper button { width: 27px; height: 27px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
+    .stepper button:active { transform: scale(0.9); background: var(--neon-white); color: #000; }
     .stock-count { min-width: 24px; text-align: center; font-weight: 800; font-size: 0.9rem; }
 
-    /* BOTÓN RÁPIDO DE VENTA EN TARJETA */
     .sell-card-btn {
       background: rgba(0, 255, 102, 0.15); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.4);
-      padding: 4px 10px; border-radius: 7px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; cursor: pointer;
+      padding: 4px 10px; border-radius: 7px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s;
     }
+    .sell-card-btn:active { transform: scale(0.94); }
     .sell-card-btn:hover { background: rgba(0, 255, 102, 0.28); }
 
     /* LISTA DE HISTORIAL DE VENTAS */
-    .sales-list { padding: 8px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .sales-list { padding: 8px 16px; display: flex; flex-direction: column; gap: 10px; animation: fadeIn 0.2s ease; }
     .sale-card {
       background: var(--glass-card); border: 1px solid rgba(0, 255, 102, 0.25); border-radius: 16px; padding: 12px 16px;
       display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -276,13 +292,16 @@
       border: 1px solid var(--glass-border-bright); border-radius: 999px;
       display: flex; gap: 7px; z-index: 30; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8);
     }
-    .fab-btn { flex: 1.4; background: #fff; color: #000; border: none; padding: 13px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .fab-cat-btn { flex: 1; background: rgba(255, 255, 255, 0.06); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.35); padding: 13px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .fab-btn { flex: 1.4; background: #fff; color: #000; border: none; padding: 13px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
+    .fab-btn:active { transform: scale(0.96); }
+    .fab-cat-btn { flex: 1; background: rgba(255, 255, 255, 0.06); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.35); padding: 13px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
+    .fab-cat-btn:active { transform: scale(0.96); }
 
     /* MODALES */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(18px);
       display: none; justify-content: center; align-items: flex-end; z-index: 50;
+      animation: fadeIn 0.2s ease;
     }
     .modal-overlay.open { display: flex; }
 
@@ -290,13 +309,18 @@
       width: 100%; max-width: 440px; background: var(--glass-modal); backdrop-filter: blur(35px);
       border: 1px solid var(--glass-border-bright); border-top: 2px solid var(--neon-white);
       border-radius: 26px 26px 0 0; padding: 22px 20px 28px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.85);
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .modal-sheet.danger-sheet { border-top: 2px solid var(--neon-pink); }
     .modal-sheet.success-sheet { border-top: 2px solid var(--neon-green); }
 
+    @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .modal-title { font-size: 1.1rem; font-weight: 800; }
-    .close-btn { background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--glass-border); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .close-btn { background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--glass-border); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
+    .close-btn:active { transform: scale(0.9); }
     .close-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2.2; }
 
     .form-group { margin-bottom: 12px; }
@@ -307,8 +331,9 @@
     input:focus, select:focus { border-color: var(--glass-border-bright); }
 
     .submit-btn {
-      width: 100%; background: #fff; color: #000; border: none; padding: 13px; border-radius: 12px; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-top: 8px; cursor: pointer;
+      width: 100%; background: #fff; color: #000; border: none; padding: 13px; border-radius: 12px; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-top: 8px; cursor: pointer; transition: transform 0.15s;
     }
+    .submit-btn:active { transform: scale(0.97); }
     .submit-btn.green-btn { background: var(--neon-green); color: #000; box-shadow: 0 0 20px rgba(0,255,102,0.4); }
 
     .size-type-hint { font-size: 0.7rem; color: var(--neon-yellow); margin-top: 5px; font-weight: 600; }
@@ -316,16 +341,20 @@
     .delete-pass-input { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border); color: #fff; padding: 11px; border-radius: 11px; font-size: 0.9rem; text-align: center; letter-spacing: 2px; outline: none; }
     .delete-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 10px; text-align: center; }
     .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .cancel-action-btn { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--glass-border); padding: 11px; border-radius: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
-    .confirm-delete-btn { background: var(--neon-pink); color: #fff; border: none; padding: 11px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .cancel-action-btn { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--glass-border); padding: 11px; border-radius: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: transform 0.15s; }
+    .cancel-action-btn:active { transform: scale(0.95); }
+    .confirm-delete-btn { background: var(--neon-pink); color: #fff; border: none; padding: 11px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s; }
+    .confirm-delete-btn:active { transform: scale(0.95); }
 
     .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
     .detail-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px; }
     .detail-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
     .detail-val { font-size: 1rem; font-weight: 900; color: #fff; margin-top: 3px; }
     .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
-    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-    .detail-del-btn { background: var(--neon-pink); color: #fff; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s; }
+    .detail-edit-btn:active { transform: scale(0.95); }
+    .detail-del-btn { background: var(--neon-pink); color: #fff; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s; }
+    .detail-del-btn:active { transform: scale(0.95); }
 
     .empty-state { grid-column: 1 / -1; text-align: center; padding: 40px 16px; color: var(--text-muted); font-size: 0.88rem; background: var(--glass-card); border: 1px dashed var(--glass-border); border-radius: 18px; }
 
@@ -334,7 +363,7 @@
       .header-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; }
       .brand-row { flex: 1; margin-bottom: 0; }
       .search-box { max-width: 360px; }
-      .kpi-grid { grid-template-columns: repeat(4, 1fr); padding: 22px 30px 6px; gap: 16px; }
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); padding: 22px 30px 6px; gap: 16px; }
       .product-list, .sales-list { padding: 14px 30px; grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .modal-overlay { align-items: center; padding: 20px; }
       .modal-sheet { border-radius: 26px; border: 1px solid var(--glass-border-bright); }
@@ -383,19 +412,27 @@
       </div>
     </header>
 
-    <!-- TARJETAS KPI (AHORA CON GANANCIA TOTAL DE VENTAS) -->
+    <!-- 3 TARJETAS KPI (ESTADO DE STOCK Y VALOR COSTO / INVERSIÓN) -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
-        <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
-        <div class="kpi-value neon-white"><span id="kpiOk">0</span><span class="kpi-range">16+</span></div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock (16+)</div>
+        <div class="kpi-value neon-white"><span id="kpiOk">0</span></div>
       </div>
       <div class="kpi-card" id="cardLow" onclick="vibrar(20); setStockFilter('BAJO_STOCK')">
-        <div class="kpi-label"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock</div>
-        <div class="kpi-value neon-yellow"><span id="kpiLow">0</span><span class="kpi-range">1-15</span></div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock (1-15)</div>
+        <div class="kpi-value neon-yellow"><span id="kpiLow">0</span></div>
       </div>
       <div class="kpi-card" id="cardOut" onclick="vibrar(20); setStockFilter('SIN_STOCK')">
-        <div class="kpi-label"><span class="status-indicator-dot dot-pink"></span> No hay Stock</div>
-        <div class="kpi-value neon-pink"><span id="kpiOut">0</span><span class="kpi-range">0</span></div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-pink"></span> Sin Stock (0)</div>
+        <div class="kpi-value neon-pink"><span id="kpiOut">0</span></div>
+      </div>
+    </section>
+
+    <!-- 2 TARJETAS INFERIORES DE VALOR FINANCIERO -->
+    <section class="kpi-grid" style="padding-top: 0px;">
+      <div class="kpi-card" style="cursor: default;">
+        <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Stock (Al Costo)</div>
+        <div class="kpi-value neon-cyan"><span id="kpiCostTotal" style="font-size: 1.05rem;">$0</span></div>
       </div>
       <div class="kpi-card" id="cardSales" onclick="vibrar(20); setStockFilter('VENTAS')">
         <div class="kpi-label"><span class="status-indicator-dot dot-green"></span> Ganancia Ventas</div>
@@ -437,7 +474,7 @@
   <div class="modal-overlay" id="sellModal">
     <div class="modal-sheet success-sheet">
       <div class="modal-header">
-        <div class="modal-title" id="sellModalTitle">Registrar Venta</div>
+        <div class="modal-title">Registrar Venta</div>
         <button class="close-btn" onclick="cerrarModalVenta()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <form id="sellForm" onsubmit="registrarVenta(event)">
@@ -625,15 +662,14 @@
     const CLAVE_TIENDA = "neew2026";
     const CLAVE_ELIMINAR = "neew2026";
 
-    // Sistema de Vibración Háptica Diferenciada
     function vibrar(tipo) {
       if (!navigator.vibrate) return;
-      if (tipo === 15) navigator.vibrate(15);                  // Clic normal / Pestañas
-      else if (tipo === 20) navigator.vibrate(25);              // Cambiar stock (+ / -)
-      else if (tipo === 25) navigator.vibrate([20, 40, 20]);    // Abrir modal / Dock
-      else if (tipo === 30) navigator.vibrate(40);              // Botón acción
-      else if (tipo === 60) navigator.vibrate([60, 40, 60]);    // Alerta / Borrar
-      else if (tipo === 100) navigator.vibrate([40, 60, 40, 80, 100]); // Éxito guardado
+      if (tipo === 15) navigator.vibrate(15);
+      else if (tipo === 20) navigator.vibrate(25);
+      else if (tipo === 25) navigator.vibrate([20, 40, 20]);
+      else if (tipo === 30) navigator.vibrate(40);
+      else if (tipo === 60) navigator.vibrate([60, 40, 60]);
+      else if (tipo === 100) navigator.vibrate([40, 60, 40, 80, 100]);
     }
 
     const SISTEMAS_TALLAS = {
@@ -904,7 +940,6 @@
       }
     }
 
-    // Abrir Modal de Venta Rápida
     function abrirModalVenta(id, event) {
       if (event) event.stopPropagation();
       vibrar(25);
@@ -968,10 +1003,8 @@
         return;
       }
 
-      // Descontar stock
       p.stock -= qty;
 
-      // Calcular costo y ganancia neta de la venta
       const costoUnitario = Number(p.cost) || 0;
       const costoTotal = costoUnitario * qty;
       const gananciaNeta = totalCobrado - costoTotal;
@@ -1219,11 +1252,12 @@
       document.getElementById("kpiLow").textContent = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
       document.getElementById("kpiOut").textContent = products.filter(p => (Number(p.stock) || 0) === 0).length;
 
-      // Ganancia total de ventas registradas
+      const costoTotalInvertido = products.reduce((acc, p) => acc + ((Number(p.cost) || 0) * (Number(p.stock) || 0)), 0);
+      document.getElementById("kpiCostTotal").textContent = "$" + costoTotalInvertido.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
       const gananciaVentasTotal = salesHistory.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
       document.getElementById("kpiSalesProfit").textContent = "$" + gananciaVentasTotal.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-      // Si se seleccionó la pestaña de Historial de Ventas
       if (activeStockFilter === "VENTAS") {
         if (salesHistory.length === 0) {
           list.innerHTML = `<div class="empty-state">No hay ventas registradas todavía. Vende algún producto para ver su ganancia aquí.</div>`;
