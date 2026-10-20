@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#050505" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | Stock</title>
+  <title>neewshop | Stock OS</title>
   <style>
     :root {
       --bg-black: #050505;
@@ -193,10 +193,10 @@
     }
 
     header {
-      padding: 20px 20px 14px;
+      padding: 18px 20px 14px;
       position: sticky;
       top: 0;
-      background: rgba(5, 5, 5, 0.9);
+      background: rgba(5, 5, 5, 0.92);
       backdrop-filter: blur(12px);
       z-index: 10;
       border-bottom: 1px solid var(--border-dark);
@@ -206,11 +206,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .brand-title {
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 900;
       letter-spacing: -0.5px;
       text-transform: lowercase;
@@ -234,19 +234,51 @@
       gap: 8px;
     }
 
-    .badge-live {
-      font-size: 0.7rem;
+    /* Botón Exportar Excel */
+    .excel-btn {
+      background: var(--bg-elevated);
+      color: var(--text-white);
+      border: 1px solid var(--neon-white);
+      padding: 6px 11px;
+      border-radius: 10px;
+      font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
-      padding: 5px 10px;
-      border-radius: 20px;
-      border: 1px solid var(--text-white);
-      color: var(--text-white);
-      letter-spacing: 0.8px;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+      letter-spacing: 0.4px;
+      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.18);
+      transition: all 0.2s;
+    }
+
+    .excel-btn:active {
+      background: var(--neon-white);
+      color: #000000;
+      transform: scale(0.96);
+    }
+
+    .excel-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .badge-live {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 5px 9px;
+      border-radius: 20px;
+      border: 1px solid var(--border-dark);
+      background: var(--bg-card);
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .sync-dot {
@@ -292,6 +324,7 @@
       border-radius: 12px;
       font-size: 0.92rem;
       outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
     }
 
     .search-box input:focus {
@@ -299,43 +332,118 @@
       box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
     }
 
+    /* TARJETAS DE ESTADO DE STOCK (SECCIÓN BAJO STOCK / SIN STOCK / EN STOCK) */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      padding: 18px 20px 8px;
+      padding: 16px 20px 6px;
     }
 
     .kpi-card {
       background: var(--bg-card);
       border: 1px solid var(--border-dark);
       border-radius: 14px;
-      padding: 12px;
+      padding: 12px 10px;
       text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .kpi-card.active-filter-white {
+      border-color: var(--neon-white);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.25);
+    }
+
+    .kpi-card.active-filter-cyan {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+    }
+
+    .kpi-card.active-filter-pink {
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 14px rgba(255, 0, 85, 0.35);
     }
 
     .kpi-label {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      letter-spacing: 0.4px;
+      margin-bottom: 5px;
+      font-weight: 700;
     }
 
     .kpi-value {
       font-size: 1.25rem;
-      font-weight: 800;
+      font-weight: 900;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .kpi-range {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-weight: 600;
     }
 
     .kpi-value.neon-white { color: var(--neon-white); text-shadow: 0 0 10px rgba(255, 255, 255, 0.35); }
-    .kpi-value.neon-pink { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 0, 85, 0.35); }
     .kpi-value.neon-cyan { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 240, 255, 0.35); }
+    .kpi-value.neon-pink { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 0, 85, 0.35); }
 
+    /* SECCIÓN RÁPIDA DE FILTRO POR NIVEL DE STOCK */
+    .stock-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 10px 20px 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .stock-tabs::-webkit-scrollbar { display: none; }
+
+    .stock-tab {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border-dark);
+      padding: 7px 13px;
+      border-radius: 10px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .stock-tab.active-all {
+      background: var(--neon-white);
+      color: #000;
+      border-color: var(--neon-white);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    }
+
+    .stock-tab.active-low {
+      background: rgba(0, 240, 255, 0.15);
+      color: var(--neon-cyan);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+    }
+
+    .stock-tab.active-out {
+      background: rgba(255, 0, 85, 0.18);
+      color: var(--neon-pink);
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 12px rgba(255, 0, 85, 0.35);
+    }
+
+    /* Categorías de Ropa */
     .categories-scroll {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding: 12px 20px;
+      padding: 10px 20px;
       scrollbar-width: none;
     }
 
@@ -345,9 +453,9 @@
       background: var(--bg-card);
       color: var(--text-white);
       border: 1px solid var(--border-dark);
-      padding: 8px 15px;
+      padding: 7px 14px;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
@@ -362,8 +470,35 @@
       font-weight: 800;
     }
 
+    /* Banner cuando se está viendo la sección de Bajo Stock */
+    .section-banner {
+      margin: 4px 20px 6px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-banner.show-low {
+      display: flex;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: var(--neon-cyan);
+    }
+
+    .section-banner.show-out {
+      display: flex;
+      background: rgba(255, 0, 85, 0.1);
+      border: 1px solid rgba(255, 0, 85, 0.45);
+      color: var(--neon-pink);
+    }
+
+    /* Lista de Productos */
     .product-list {
-      padding: 10px 20px;
+      padding: 8px 20px;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -377,17 +512,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: transform 0.15s, border-color 0.2s;
+    }
+
+    .product-card:hover {
+      border-color: #444444;
     }
 
     .product-info {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      max-width: 60%;
+      gap: 7px;
+      max-width: 62%;
     }
 
     .product-cat {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--text-muted);
@@ -396,29 +536,51 @@
 
     .product-name {
       font-size: 1rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-white);
       line-height: 1.25;
     }
 
+    /* Cajas (Pills) para Talla, Color con circulito y Precio */
     .product-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       align-items: center;
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      margin-top: 2px;
     }
 
     .meta-pill {
       background: var(--bg-elevated);
       color: var(--text-white);
-      padding: 2px 8px;
-      border-radius: 6px;
+      padding: 4px 9px;
+      border-radius: 7px;
+      font-size: 0.75rem;
       font-weight: 700;
       border: 1px solid #333333;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
     }
 
+    .price-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: var(--neon-white);
+      font-weight: 800;
+    }
+
+    .color-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      flex-shrink: 0;
+    }
+
+    /* Controles de Stock y Semáforo */
     .stock-controls {
       display: flex;
       flex-direction: column;
@@ -433,14 +595,16 @@
     }
 
     .stock-status {
-      font-size: 0.68rem;
-      font-weight: 800;
-      padding: 3px 8px;
+      font-size: 0.65rem;
+      font-weight: 900;
+      padding: 4px 8px;
       border-radius: 6px;
       text-transform: uppercase;
       letter-spacing: 0.4px;
+      white-space: nowrap;
     }
 
+    /* 16+: EN STOCK (Blanco Neón) */
     .status-ok {
       background: rgba(255, 255, 255, 0.1);
       color: var(--neon-white);
@@ -448,6 +612,7 @@
       box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
     }
 
+    /* 1-15: BAJO STOCK (Cian Neón) */
     .status-low {
       background: rgba(0, 240, 255, 0.12);
       color: var(--neon-cyan);
@@ -455,6 +620,7 @@
       box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
     }
 
+    /* 0: NO HAY STOCK (Rosa/Rojo Neón) */
     .status-out {
       background: rgba(255, 0, 85, 0.15);
       color: var(--neon-pink);
@@ -473,6 +639,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      transition: all 0.2s;
     }
 
     .delete-btn svg {
@@ -509,6 +676,7 @@
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
+      transition: all 0.15s;
     }
 
     .stepper button:active {
@@ -538,6 +706,12 @@
       cursor: pointer;
       box-shadow: 0 0 24px rgba(255, 255, 255, 0.5);
       z-index: 20;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .fab-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 0 32px rgba(255, 255, 255, 0.8);
     }
 
     .modal-overlay {
@@ -558,12 +732,20 @@
       max-width: 460px;
       background: var(--bg-card);
       border-top: 2px solid var(--neon-white);
+      box-shadow: 0 -4px 25px rgba(255, 255, 255, 0.15);
       border-radius: 24px 24px 0 0;
       padding: 24px 20px 30px;
+      animation: slideUp 0.25s ease-out;
     }
 
     .modal-sheet.danger-sheet {
       border-top: 2px solid var(--neon-pink);
+      box-shadow: 0 -4px 25px rgba(255, 0, 85, 0.2);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
     }
 
     .modal-header {
@@ -573,7 +755,7 @@
       margin-bottom: 18px;
     }
 
-    .modal-title { font-size: 1.2rem; font-weight: 800; }
+    .modal-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.3px; }
 
     .close-btn {
       background: var(--bg-elevated);
@@ -583,6 +765,7 @@
       height: 32px;
       border-radius: 50%;
       cursor: pointer;
+      font-weight: 700;
     }
 
     .form-group { margin-bottom: 14px; }
@@ -608,6 +791,11 @@
       outline: none;
     }
 
+    input:focus, select:focus {
+      border-color: var(--neon-white);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
     .submit-btn {
       width: 100%;
       background: var(--neon-white);
@@ -620,6 +808,7 @@
       text-transform: uppercase;
       margin-top: 8px;
       cursor: pointer;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
     }
 
     .delete-text {
@@ -643,6 +832,7 @@
       border: 1px solid var(--border-dark);
       padding: 13px;
       border-radius: 12px;
+      font-size: 0.9rem;
       font-weight: 800;
       text-transform: uppercase;
       cursor: pointer;
@@ -654,9 +844,11 @@
       border: none;
       padding: 13px;
       border-radius: 12px;
+      font-size: 0.9rem;
       font-weight: 900;
       text-transform: uppercase;
       cursor: pointer;
+      box-shadow: 0 0 18px rgba(255, 0, 85, 0.45);
     }
 
     .empty-state {
@@ -692,6 +884,15 @@
       <div class="brand-row">
         <div class="brand-title">neew<span>shop</span></div>
         <div class="header-actions">
+          <button class="excel-btn" onclick="exportarExcel()" title="Descargar tabla de Excel con fórmulas">
+            <svg viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="8" y1="13" x2="16" y2="13"></line>
+              <line x1="8" y1="17" x2="16" y2="17"></line>
+            </svg>
+            Excel
+          </button>
           <div class="badge-live"><span class="sync-dot"></span> <span id="syncText">En Vivo</span></div>
           <button class="lock-btn" onclick="bloquearApp()" title="Cerrar sesión / Bloquear">
             <svg viewBox="0 0 24 24">
@@ -706,21 +907,39 @@
       </div>
     </header>
 
+    <!-- TARJETAS CONTADORAS DE LOS 3 ESTADOS DE STOCK (SIN TOTAL DE STOCK) -->
     <section class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Total Prendas</div>
-        <div class="kpi-value neon-white" id="kpiTotal">0</div>
+      <div class="kpi-card" id="cardOk" onclick="setStockFilter('EN_STOCK')">
+        <div class="kpi-label">En Stock</div>
+        <div class="kpi-value neon-white">
+          <span id="kpiOk">0</span>
+          <span class="kpi-range">16+</span>
+        </div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Stock Bajo</div>
-        <div class="kpi-value neon-pink" id="kpiLow">0</div>
+      <div class="kpi-card" id="cardLow" onclick="setStockFilter('BAJO_STOCK')">
+        <div class="kpi-label">Bajo Stock</div>
+        <div class="kpi-value neon-cyan">
+          <span id="kpiLow">0</span>
+          <span class="kpi-range">1-15</span>
+        </div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Valor Stock</div>
-        <div class="kpi-value neon-cyan" id="kpiValue">$0</div>
+      <div class="kpi-card" id="cardOut" onclick="setStockFilter('SIN_STOCK')">
+        <div class="kpi-label">No hay Stock</div>
+        <div class="kpi-value neon-pink">
+          <span id="kpiOut">0</span>
+          <span class="kpi-range">0</span>
+        </div>
       </div>
     </section>
 
+    <!-- SECCIÓN DE BAJO STOCK / PESTAÑAS DE ESTADO -->
+    <div class="stock-tabs">
+      <button class="stock-tab active-all" id="tabAll" onclick="setStockFilter('TODOS')">📦 Todo el Stock</button>
+      <button class="stock-tab" id="tabLow" onclick="setStockFilter('BAJO_STOCK')">⚡ Sección Bajo Stock (1-15)</button>
+      <button class="stock-tab" id="tabOut" onclick="setStockFilter('SIN_STOCK')">🚫 No hay Stock (0)</button>
+    </div>
+
+    <!-- Categorías de Prendas -->
     <nav class="categories-scroll">
       <button class="cat-chip active" onclick="setCategory('Todos')">Todos</button>
       <button class="cat-chip" onclick="setCategory('Sudaderas')">Sudaderas</button>
@@ -729,6 +948,12 @@
       <button class="cat-chip" onclick="setCategory('Shorts')">Shorts</button>
       <button class="cat-chip" onclick="setCategory('Accesorios')">Accesorios</button>
     </nav>
+
+    <!-- Aviso de Sección Activa -->
+    <div class="section-banner" id="sectionBanner">
+      <span id="bannerText">Mostrando sección Bajo Stock</span>
+      <span style="cursor:pointer; text-decoration:underline;" onclick="setStockFilter('TODOS')">Ver todo</span>
+    </div>
 
     <main class="product-list" id="productList"></main>
   </div>
@@ -761,18 +986,20 @@
           <div class="form-group">
             <label>Talla</label>
             <select id="pSize" required>
+              <option value="XS">XS</option>
               <option value="S">S</option>
               <option value="M" selected>M</option>
               <option value="L">L</option>
               <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
               <option value="Unitalla">Unitalla</option>
             </select>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Color</label>
-            <input type="text" id="pColor" placeholder="Ej. Negro / Blanco" required />
+            <label>Color (Pinta el círculo automático)</label>
+            <input type="text" id="pColor" placeholder="Ej. Negro, Blanco, Gris, Azul..." required />
           </div>
           <div class="form-group">
             <label>Precio ($ MXN)</label>
@@ -781,7 +1008,7 @@
         </div>
         <div class="form-group">
           <label>Cantidad Inicial en Stock</label>
-          <input type="number" id="pStock" placeholder="15" min="0" required />
+          <input type="number" id="pStock" placeholder="20" min="0" required />
         </div>
         <button type="submit" class="submit-btn">Guardar en Inventario</button>
       </form>
@@ -803,29 +1030,83 @@
     </div>
   </div>
 
-  <!-- SDK de Firebase -->
+  <!-- SDK de Firebase y Librería ExcelJS para crear archivos .xlsx con fórmulas -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 
   <script>
-    // TU LINK DE FIREBASE YA INTEGRADO:
     const FIREBASE_DATABASE_URL = "https://neewshop-stock-default-rtdb.firebaseio.com/";
-    
-    // CONTRASEÑA DE EQUIPO (Puedes cambiarla aquí si deseas otra):
     const CLAVE_TIENDA = "neew2026";
 
-    const defaultProducts = [
-      { id: 1, name: "Hoodie Oversize Acid Wash", category: "Sudaderas con gorro", size: "L", color: "Negro", price: 680, stock: 14 },
-      { id: 2, name: "Crewneck Minimal Neew", category: "Sudaderas", size: "M", color: "Blanco", price: 550, stock: 4 },
-      { id: 3, name: "Playera Heavyweight Boxy", category: "Playeras", size: "M", color: "Negro", price: 320, stock: 22 },
-      { id: 4, name: "Short Cargo Street", category: "Shorts", size: "L", color: "Gris", price: 420, stock: 0 }
+    const productosIniciales = [
+      { id: 1, name: "Hoodie Oversize Acid Wash", category: "Sudaderas con gorro", size: "L", color: "Negro", price: 680, stock: 18 },
+      { id: 2, name: "Crewneck Minimal Neew", category: "Sudaderas", size: "M", color: "Blanco", price: 550, stock: 8 },
+      { id: 3, name: "Playera Heavyweight Boxy", category: "Playeras", size: "M", color: "Gris", price: 320, stock: 22 },
+      { id: 4, name: "Short Cargo Street", category: "Shorts", size: "L", color: "Negro", price: 420, stock: 0 }
     ];
 
     let products = [];
     let activeCategory = "Todos";
+    let activeStockFilter = "TODOS"; // TODOS | EN_STOCK | BAJO_STOCK | SIN_STOCK
     let productToDeleteId = null;
     let dbRef = null;
     let firebaseIniciado = false;
+
+    // Detector inteligente de colores en español para pintar el circulito
+    function obtenerColorCSS(textoColor) {
+      if (!textoColor) return "#ffffff";
+      const t = textoColor.toLowerCase().trim();
+
+      const mapaColores = [
+        { k: ["negro", "black", "carbon", "carbón", "oscuro"], hex: "#111111" },
+        { k: ["blanco", "white", "hueso", "marfil", "off white"], hex: "#ffffff" },
+        { k: ["gris", "gray", "grey", "plata", "plateado", "jaspe"], hex: "#8e8e93" },
+        { k: ["beige", "arena", "crema", "camel", "caqui", "khaki", "nude"], hex: "#d8c3a5" },
+        { k: ["rojo", "red", "vino", "guinda", "burgundy", "cherry"], hex: "#ff2a4b" },
+        { k: ["azul marino", "navy"], hex: "#1b3b6f" },
+        { k: ["azul cielo", "celeste", "baby blue", "cian", "turquesa"], hex: "#00f0ff" },
+        { k: ["azul", "blue", "rey", "mezclilla", "denim"], hex: "#1e6bff" },
+        { k: ["verde militar", "olivo", "olive", "kaki"], hex: "#556b2f" },
+        { k: ["verde", "green", "menta", "esmeralda", "lima"], hex: "#00e676" },
+        { k: ["rosa", "pink", "fiucsa", "fucsia", "pastel", "magenta"], hex: "#ff4da6" },
+        { k: ["morado", "purple", "lila", "violeta", "lavanda"], hex: "#9d4edd" },
+        { k: ["amarillo", "yellow", "mostaza", "dorado", "oro"], hex: "#ffd60a" },
+        { k: ["naranja", "orange", "coral", "terracota", "hed"], hex: "#ff7b00" },
+        { k: ["cafe", "café", "marron", "marrón", "chocolate", "brown", "tabaco"], hex: "#7f4f24" }
+      ];
+
+      // Si el usuario escribe dos colores separados por "/" o "con" (ej. "Negro / Blanco")
+      if (t.includes("/") || t.includes(" con ") || t.includes("-")) {
+        const partes = t.split(/\/| con |-/).map(s => s.trim());
+        const c1 = buscarHexSimple(partes[0], mapaColores);
+        const c2 = buscarHexSimple(partes[1] || "", mapaColores);
+        return `linear-gradient(135deg, ${c1} 50%, ${c2} 50%)`;
+      }
+
+      return buscarHexSimple(t, mapaColores);
+    }
+
+    function buscarHexSimple(fragmento, mapa) {
+      for (const item of mapa) {
+        for (const palabra of item.k) {
+          if (fragmento.includes(palabra)) return item.hex;
+        }
+      }
+      return "#cccccc";
+    }
+
+    // Clasificación oficial pedida: 0 = NO HAY STOCK | 1-15 = BAJO STOCK | 16+ = EN STOCK
+    function obtenerEstadoStock(cantidad) {
+      const s = Number(cantidad) || 0;
+      if (s === 0) {
+        return { codigo: "SIN_STOCK", texto: "NO HAY STOCK", clase: "status-out" };
+      } else if (s <= 15) {
+        return { codigo: "BAJO_STOCK", texto: "BAJO STOCK", clase: "status-low" };
+      } else {
+        return { codigo: "EN_STOCK", texto: "EN STOCK", clase: "status-ok" };
+      }
+    }
 
     window.addEventListener("DOMContentLoaded", () => {
       const claveGuardada = localStorage.getItem("neewshop_auth_key");
@@ -881,28 +1162,38 @@
           firebase.initializeApp({ databaseURL: FIREBASE_DATABASE_URL });
           firebaseIniciado = true;
         }
-        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock");
+        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v2");
 
         dbRef.on("value", (snapshot) => {
           const data = snapshot.val();
-          if (data) {
-            products = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
+          if (data !== null) {
+            if (data.initialized) {
+              const rawItems = data.items || [];
+              products = Array.isArray(rawItems) ? rawItems.filter(Boolean) : Object.values(rawItems);
+            } else {
+              products = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
+            }
           } else {
-            products = defaultProducts;
-            dbRef.set(products);
+            products = productosIniciales;
+            saveToDB();
           }
           renderProducts();
         });
       } else {
         document.getElementById("syncText").textContent = "Modo Local";
-        products = JSON.parse(localStorage.getItem("neewshop_stock")) || defaultProducts;
+        products = JSON.parse(localStorage.getItem("neewshop_stock")) || productosIniciales;
         renderProducts();
       }
     }
 
     function saveToDB() {
       if (dbRef) {
-        dbRef.set(products);
+        // Guardamos con bandera initialized:true para que aunque borres todos los productos nunca revivan solos
+        dbRef.set({
+          initialized: true,
+          updatedAt: Date.now(),
+          items: products
+        });
       } else {
         localStorage.setItem("neewshop_stock", JSON.stringify(products));
         renderProducts();
@@ -917,10 +1208,36 @@
       renderProducts();
     }
 
+    function setStockFilter(filtro) {
+      activeStockFilter = (activeStockFilter === filtro && filtro !== "TODOS") ? "TODOS" : filtro;
+
+      document.getElementById("tabAll").className = "stock-tab" + (activeStockFilter === "TODOS" ? " active-all" : "");
+      document.getElementById("tabLow").className = "stock-tab" + (activeStockFilter === "BAJO_STOCK" ? " active-low" : "");
+      document.getElementById("tabOut").className = "stock-tab" + (activeStockFilter === "SIN_STOCK" ? " active-out" : "");
+
+      document.getElementById("cardOk").className = "kpi-card" + (activeStockFilter === "EN_STOCK" ? " active-filter-white" : "");
+      document.getElementById("cardLow").className = "kpi-card" + (activeStockFilter === "BAJO_STOCK" ? " active-filter-cyan" : "");
+      document.getElementById("cardOut").className = "kpi-card" + (activeStockFilter === "SIN_STOCK" ? " active-filter-pink" : "");
+
+      const banner = document.getElementById("sectionBanner");
+      const bannerText = document.getElementById("bannerText");
+      banner.className = "section-banner";
+
+      if (activeStockFilter === "BAJO_STOCK") {
+        banner.classList.add("show-low");
+        bannerText.textContent = "⚡ SECCIÓN BAJO STOCK (1 a 15 unidades)";
+      } else if (activeStockFilter === "SIN_STOCK") {
+        banner.classList.add("show-out");
+        bannerText.textContent = "🚫 SECCIÓN NO HAY STOCK (0 unidades)";
+      }
+
+      renderProducts();
+    }
+
     function updateStock(id, delta) {
       const item = products.find(p => p.id === id);
       if (item) {
-        item.stock = Math.max(0, item.stock + delta);
+        item.stock = Math.max(0, (Number(item.stock) || 0) + delta);
         saveToDB();
       }
     }
@@ -947,7 +1264,7 @@
       if (!item) return;
       productToDeleteId = id;
       document.getElementById("deleteMessage").innerHTML = 
-        `¿Seguro que deseas eliminar <strong>${item.name}</strong> (Talla ${item.size} • ${item.color}) del stock?`;
+        `¿Seguro que deseas eliminar <strong>${item.name}</strong> (Talla ${item.size} • ${item.color}) del inventario?`;
       document.getElementById("deleteModal").classList.add("open");
     }
 
@@ -972,37 +1289,33 @@
       const list = document.getElementById("productList");
       const query = document.getElementById("searchInput").value.toLowerCase();
 
-      const totalItems = products.reduce((acc, p) => acc + p.stock, 0);
-      const lowStockItems = products.filter(p => p.stock <= 5).length;
-      const totalValue = products.reduce((acc, p) => acc + (p.stock * p.price), 0);
+      // Contadores por estado según la regla: 0 = NO HAY STOCK, 1-15 = BAJO STOCK, 16+ = EN STOCK
+      const countOk = products.filter(p => (Number(p.stock) || 0) >= 16).length;
+      const countLow = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
+      const countOut = products.filter(p => (Number(p.stock) || 0) === 0).length;
 
-      document.getElementById("kpiTotal").textContent = totalItems;
-      document.getElementById("kpiLow").textContent = lowStockItems;
-      document.getElementById("kpiValue").textContent = "$" + totalValue.toLocaleString("es-MX");
+      document.getElementById("kpiOk").textContent = countOk;
+      document.getElementById("kpiLow").textContent = countLow;
+      document.getElementById("kpiOut").textContent = countOut;
 
       const filtered = products.filter(p => {
+        const estado = obtenerEstadoStock(p.stock);
         const matchesCat = activeCategory === "Todos" || p.category === activeCategory;
+        const matchesStock = activeStockFilter === "TODOS" || estado.codigo === activeStockFilter;
         const matchesSearch = p.name.toLowerCase().includes(query) ||
                               p.color.toLowerCase().includes(query) ||
                               p.size.toLowerCase().includes(query);
-        return matchesCat && matchesSearch;
+        return matchesCat && matchesStock && matchesSearch;
       });
 
       if (filtered.length === 0) {
-        list.innerHTML = `<div class="empty-state">No se encontraron prendas en esta sección.</div>`;
+        list.innerHTML = `<div class="empty-state">No hay prendas en esta vista o filtro.</div>`;
         return;
       }
 
       list.innerHTML = filtered.map(p => {
-        let statusClass = "status-ok";
-        let statusText = "En Stock";
-        if (p.stock === 0) {
-          statusClass = "status-out";
-          statusText = "Agotado";
-        } else if (p.stock <= 5) {
-          statusClass = "status-low";
-          statusText = "Poco Stock";
-        }
+        const estado = obtenerEstadoStock(p.stock);
+        const bgColorDot = obtenerColorCSS(p.color);
 
         return `
           <div class="product-card">
@@ -1011,13 +1324,16 @@
               <div class="product-name">${p.name}</div>
               <div class="product-meta">
                 <span class="meta-pill">Talla ${p.size}</span>
-                <span>${p.color}</span>
-                <span>• $${p.price}</span>
+                <span class="meta-pill">
+                  <span class="color-dot" style="background: ${bgColorDot};"></span>
+                  ${p.color}
+                </span>
+                <span class="meta-pill price-pill">$${Number(p.price).toLocaleString("es-MX")}</span>
               </div>
             </div>
             <div class="stock-controls">
               <div class="status-row">
-                <span class="stock-status ${statusClass}">${statusText}</span>
+                <span class="stock-status ${estado.clase}">${estado.texto}</span>
                 <button class="delete-btn" onclick="askDeleteProduct(${p.id})" title="Eliminar">
                   <svg viewBox="0 0 24 24">
                     <polyline points="3 6 5 6 21 6"></polyline>
@@ -1034,6 +1350,196 @@
           </div>
         `;
       }).join("");
+    }
+
+    // =========================================================================
+    // EXPORTADOR A EXCEL (.XLSX) CON DISEÑO PROFESIONAL Y FÓRMULAS REALES
+    // =========================================================================
+    async function exportarExcel() {
+      if (!window.ExcelJS) {
+        alert("Cargando módulo de Excel, intenta de nuevo en un segundo.");
+        return;
+      }
+
+      const workbook = new ExcelJS.Workbook();
+      workbook.creator = "neewshop Stock OS";
+      workbook.created = new Date();
+
+      const sheet = workbook.addWorksheet("Inventario neewshop", {
+        views: [{ state: "frozen", ySplit: 8 }]
+      });
+
+      // Ancho de columnas
+      sheet.columns = [
+        { key: "num", width: 8 },
+        { key: "name", width: 32 },
+        { key: "cat", width: 24 },
+        { key: "size", width: 12 },
+        { key: "color", width: 18 },
+        { key: "price", width: 16 },
+        { key: "stock", width: 16 },
+        { key: "status", width: 20 },
+        { key: "total", width: 20 }
+      ];
+
+      // 1. TÍTULO PRINCIPAL EN BLANCO Y NEGRO
+      sheet.mergeCells("A1:I2");
+      const titleCell = sheet.getCell("A1");
+      titleCell.value = "NEEWSHOP — REPORTE OFICIAL DE INVENTARIO Y CONTROL DE STOCK";
+      titleCell.font = { name: "Calibri", size: 15, bold: true, color: { argb: "FFFFFFFF" } };
+      titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0A0A0A" } };
+      titleCell.alignment = { vertical: "middle", horizontal: "center" };
+
+      // 2. PANEL DE RESUMEN AUTOMÁTICO CON FÓRMULAS DE EXCEL
+      const startRow = 9;
+      const endRow = Math.max(startRow, startRow + products.length - 1);
+
+      sheet.mergeCells("A4:C4");
+      sheet.getCell("A4").value = "RESUMEN CON FÓRMULAS AUTOMÁTICAS";
+      sheet.getCell("A4").font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
+      sheet.getCell("A4").fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1F1F1F" } };
+
+      // Tarjetas de Fórmulas Superiores
+      const resumenFormulas = [
+        { labelCelda: "A5", valCelda: "B5", titulo: "EN STOCK (16+)", formula: `COUNTIF(H${startRow}:H${endRow},"EN STOCK")`, color: "FF111111" },
+        { labelCelda: "C5", valCelda: "D5", titulo: "BAJO STOCK (1-15)", formula: `COUNTIF(H${startRow}:H${endRow},"BAJO STOCK")`, color: "FF005F73" },
+        { labelCelda: "E5", valCelda: "F5", titulo: "NO HAY STOCK (0)", formula: `COUNTIF(H${startRow}:H${endRow},"NO HAY STOCK")`, color: "FF9B0033" },
+        { labelCelda: "G5", valCelda: "H5", titulo: "TOTAL PRENDAS", formula: `SUM(G${startRow}:G${endRow})`, color: "FF262626" }
+      ];
+
+      resumenFormulas.forEach(item => {
+        const lbl = sheet.getCell(item.labelCelda);
+        const val = sheet.getCell(item.valCelda);
+        lbl.value = item.titulo;
+        lbl.font = { bold: true, size: 9, color: { argb: "FFFFFFFF" } };
+        lbl.fill = { type: "pattern", pattern: "solid", fgColor: { argb: item.color } };
+        lbl.alignment = { vertical: "middle", horizontal: "center" };
+
+        val.value = { formula: products.length > 0 ? item.formula : "0" };
+        val.font = { bold: true, size: 12, color: { argb: "FF000000" } };
+        val.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF2F2F2" } };
+        val.alignment = { vertical: "middle", horizontal: "center" };
+      });
+
+      // 3. ENCABEZADOS DE LA TABLA DE PRODUCTOS (Fila 8)
+      const headers = [
+        "N°",
+        "PRENDA / MODELO",
+        "CATEGORÍA",
+        "TALLA",
+        "COLOR",
+        "PRECIO UNIT.",
+        "STOCK ACTUAL",
+        "ESTADO (FÓRMULA)",
+        "VALOR EN STOCK (FÓRMULA)"
+      ];
+
+      const headerRow = sheet.getRow(8);
+      headerRow.values = headers;
+      headerRow.height = 26;
+      headerRow.eachCell((cell) => {
+        cell.font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
+        cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0A0A0A" } };
+        cell.alignment = { vertical: "middle", horizontal: "center" };
+        cell.border = {
+          top: { style: "thin", color: { argb: "FF444444" } },
+          bottom: { style: "medium", color: { argb: "FF000000" } },
+          left: { style: "thin", color: { argb: "FF444444" } },
+          right: { style: "thin", color: { argb: "FF444444" } }
+        };
+      });
+
+      // 4. FILAS DE PRODUCTOS CON FÓRMULAS EXCEL DINÁMICAS
+      products.forEach((p, idx) => {
+        const rIdx = startRow + idx;
+        const row = sheet.getRow(rIdx);
+        const stockNum = Number(p.stock) || 0;
+        const priceNum = Number(p.price) || 0;
+
+        row.values = [
+          idx + 1,
+          p.name,
+          p.category,
+          p.size,
+          p.color,
+          priceNum,
+          stockNum,
+          // Fórmula condicional en Excel: 0 -> NO HAY STOCK, <=15 -> BAJO STOCK, 16+ -> EN STOCK
+          { formula: `IF(G${rIdx}=0,"NO HAY STOCK",IF(G${rIdx}<=15,"BAJO STOCK","EN STOCK"))` },
+          // Fórmula multiplicación Precio * Stock
+          { formula: `F${rIdx}*G${rIdx}` }
+        ];
+
+        row.height = 22;
+
+        row.eachCell((cell, colNumber) => {
+          cell.border = {
+            top: { style: "thin", color: { argb: "FFD9D9D9" } },
+            bottom: { style: "thin", color: { argb: "FFD9D9D9" } },
+            left: { style: "thin", color: { argb: "FFD9D9D9" } },
+            right: { style: "thin", color: { argb: "FFD9D9D9" } }
+          };
+          cell.alignment = {
+            vertical: "middle",
+            horizontal: (colNumber === 2 || colNumber === 3) ? "left" : "center"
+          };
+
+          // Formato de moneda en Precio y Valor
+          if (colNumber === 6 || colNumber === 9) {
+            cell.numFmt = '"$"#,##0.00';
+            cell.font = { bold: colNumber === 9, size: 10 };
+          }
+
+          // Colorear celda de Estado según el nivel de stock
+          if (colNumber === 8) {
+            if (stockNum === 0) {
+              cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFCCD9" } };
+              cell.font = { bold: true, color: { argb: "FF9B0033" } };
+            } else if (stockNum <= 15) {
+              cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFCCF7FF" } };
+              cell.font = { bold: true, color: { argb: "FF005F73" } };
+            } else {
+              cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFEFEFEF" } };
+              cell.font = { bold: true, color: { argb: "FF111111" } };
+            }
+          }
+        });
+      });
+
+      // 5. FILA FINAL DE TOTALES CON FÓRMULAS =SUM()
+      const totalRowIndex = endRow + 1;
+      const totalRow = sheet.getRow(totalRowIndex);
+      totalRow.height = 26;
+
+      sheet.mergeCells(`A${totalRowIndex}:E${totalRowIndex}`);
+      totalRow.getCell(1).value = "TOTALES GENERALES DEL INVENTARIO";
+      totalRow.getCell(6).value = { formula: products.length > 0 ? `AVERAGE(F${startRow}:F${endRow})` : 0 };
+      totalRow.getCell(7).value = { formula: products.length > 0 ? `SUM(G${startRow}:G${endRow})` : 0 };
+      totalRow.getCell(8).value = "—";
+      totalRow.getCell(9).value = { formula: products.length > 0 ? `SUM(I${startRow}:I${endRow})` : 0 };
+
+      for (let c = 1; c <= 9; c++) {
+        const cell = totalRow.getCell(c);
+        cell.font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
+        cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF111111" } };
+        cell.alignment = { vertical: "middle", horizontal: "center" };
+        if (c === 6 || c === 9) {
+          cell.numFmt = '"$"#,##0.00';
+        }
+      }
+
+      // Generar y descargar archivo .xlsx
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const fecha = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `Inventario_neewshop_${fecha}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   </script>
 </body>
