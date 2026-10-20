@@ -22,6 +22,7 @@
       --neon-white: #ffffff;
       --neon-yellow: #ffea00;
       --neon-pink: #ff0055;
+      --neon-cyan: #00f0ff;
     }
 
     * {
@@ -357,10 +358,10 @@
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.15);
     }
 
-    /* TARJETAS DE ESTADO DE STOCK (LIQUID GLASS KPI) */
+    /* TARJETAS DE ESTADO DE STOCK (KPI) */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       padding: 14px 16px 4px;
     }
@@ -425,9 +426,10 @@
     .dot-white { background: var(--neon-white); box-shadow: 0 0 6px var(--neon-white); }
     .dot-yellow { background: var(--neon-yellow); box-shadow: 0 0 6px var(--neon-yellow); }
     .dot-pink { background: var(--neon-pink); box-shadow: 0 0 6px var(--neon-pink); }
+    .dot-cyan { background: var(--neon-cyan); box-shadow: 0 0 6px var(--neon-cyan); }
 
     .kpi-value {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 900;
       display: flex;
       align-items: baseline;
@@ -435,7 +437,7 @@
     }
 
     .kpi-range {
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       color: var(--text-muted);
       font-weight: 700;
     }
@@ -443,6 +445,7 @@
     .kpi-value.neon-white { color: var(--neon-white); text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
     .kpi-value.neon-yellow { color: var(--neon-yellow); text-shadow: 0 0 10px rgba(255, 234, 0, 0.45); }
     .kpi-value.neon-pink { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 0, 85, 0.45); }
+    .kpi-value.neon-cyan { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 240, 255, 0.45); font-size: 1.15rem; }
 
     /* FILTROS Y CATEGORÍAS */
     .controls-wrapper {
@@ -1089,9 +1092,9 @@
       .header-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; }
       .brand-row { flex: 1; margin-bottom: 0; }
       .search-box { max-width: 360px; }
-      .kpi-grid { padding: 22px 30px 6px; gap: 16px; }
+      .kpi-grid { grid-template-columns: repeat(4, 1fr); padding: 22px 30px 6px; gap: 16px; }
       .kpi-card { padding: 16px 20px; }
-      .kpi-value { font-size: 1.65rem; }
+      .kpi-value { font-size: 1.55rem; }
       .controls-wrapper { padding: 4px 30px 0; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
       .stock-tabs, .categories-bar-row { padding: 4px 0; }
       .section-banner { margin: 8px 30px 4px; }
@@ -1147,7 +1150,7 @@
       </div>
     </header>
 
-    <!-- TARJETAS CONTADORAS DE ESTADO -->
+    <!-- 4 TARJETAS CONTADORAS (INCLUYENDO VALOR DE INVERSIÓN / COSTO) -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
@@ -1160,6 +1163,10 @@
       <div class="kpi-card" id="cardOut" onclick="setStockFilter('SIN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-pink"></span> No hay Stock</div>
         <div class="kpi-value neon-pink"><span id="kpiOut">0</span><span class="kpi-range">0</span></div>
+      </div>
+      <div class="kpi-card" style="cursor: default;">
+        <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Inversión</div>
+        <div class="kpi-value neon-cyan"><span id="kpiCostTotal" style="font-size: 1.05rem;">$0</span></div>
       </div>
     </section>
 
@@ -1711,6 +1718,10 @@
       document.getElementById("kpiLow").textContent = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
       document.getElementById("kpiOut").textContent = products.filter(p => (Number(p.stock) || 0) === 0).length;
 
+      // Cálculo del valor de stock al precio de COSTO (Inversión total)
+      const costoTotalInvertido = products.reduce((acc, p) => acc + ((Number(p.cost) || 0) * (Number(p.stock) || 0)), 0);
+      document.getElementById("kpiCostTotal").textContent = "$" + costoTotalInvertido.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
       const filtered = products.filter(p => {
         const estado = obtenerEstadoStock(p.stock);
         const matchesCat = activeCategory === "Todos" || p.category === activeCategory;
@@ -1770,12 +1781,12 @@
         { key: "num", width: 8 }, { key: "name", width: 30 }, { key: "cat", width: 20 },
         { key: "size", width: 12 }, { key: "color", width: 16 }, { key: "cost", width: 15 },
         { key: "price", width: 15 }, { key: "wholesale", width: 15 }, { key: "vip", width: 15 },
-        { key: "stock", width: 12 }, { key: "status", width: 18 }, { key: "profit", width: 18 }, { key: "total", width: 18 }
+        { key: "stock", width: 12 }, { key: "status", width: 18 }, { key: "totalCost", width: 18 }, { key: "profit", width: 18 }, { key: "total", width: 18 }
       ];
 
-      sheet.mergeCells("A1:M2");
+      sheet.mergeCells("A1:N2");
       const titleCell = sheet.getCell("A1");
-      titleCell.value = "NEEWSHOP — REPORTE DE INVENTARIO Y CONTROL DE PRECIOS";
+      titleCell.value = "NEEWSHOP — REPORTE DE INVENTARIO Y CONTROL DE COSTOS";
       titleCell.font = { name: "Calibri", size: 14, bold: true, color: { argb: "FFFFFFFF" } };
       titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0A0A0A" } };
       titleCell.alignment = { vertical: "middle", horizontal: "center" };
@@ -1784,15 +1795,14 @@
       const endRow = Math.max(startRow, startRow + products.length - 1);
 
       sheet.mergeCells("A4:C4");
-      sheet.getCell("A4").value = "RESUMEN DE STOCK";
+      sheet.getCell("A4").value = "RESUMEN FINANCIERO";
       sheet.getCell("A4").font = { bold: true, size: 9, color: { argb: "FFFFFFFF" } };
       sheet.getCell("A4").fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1F1F1F" } };
 
       const resumenFormulas = [
-        { l: "A5", v: "B5", t: "EN STOCK", f: `COUNTIF(K${startRow}:K${endRow},"EN STOCK")`, c: "FF111111", tc: "FFFFFFFF" },
-        { l: "C5", v: "D5", t: "BAJO STOCK", f: `COUNTIF(K${startRow}:K${endRow},"BAJO STOCK")`, c: "FFFFEA00", tc: "FF000000" },
-        { l: "E5", v: "F5", t: "SIN STOCK", f: `COUNTIF(K${startRow}:K${endRow},"NO HAY STOCK")`, c: "FF9B0033", tc: "FFFFFFFF" },
-        { l: "G5", v: "H5", t: "TOTAL UNIDADES", f: `SUM(J${startRow}:J${endRow})`, c: "FF262626", tc: "FFFFFFFF" }
+        { l: "A5", v: "B5", t: "INVERSIÓN TOTAL (COSTO)", f: `SUM(L${startRow}:L${endRow})`, c: "FF005F73", tc: "FFFFFFFF" },
+        { l: "C5", v: "D5", t: "VALOR VENTA (MENUDEO)", f: `SUM(N${startRow}:N${endRow})`, c: "FF111111", tc: "FFFFFFFF" },
+        { l: "E5", v: "F5", t: "TOTAL UNIDADES", f: `SUM(J${startRow}:J${endRow})`, c: "FF262626", tc: "FFFFFFFF" }
       ];
 
       resumenFormulas.forEach(item => {
@@ -1805,10 +1815,11 @@
         sheet.getCell(item.v).font = { bold: true, size: 11, color: { argb: "FF000000" } };
         sheet.getCell(item.v).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF2F2F2" } };
         sheet.getCell(item.v).alignment = { vertical: "middle", horizontal: "center" };
+        sheet.getCell(item.v).numFmt = '"$"#,##0.00';
       });
 
       const headerRow = sheet.getRow(8);
-      headerRow.values = ["N°", "PRODUCTO", "CATEGORÍA", "TALLA", "COLOR", "COSTO", "MENUDEO", "MAYOREO", "VIP", "STOCK", "ESTADO", "UTILIDAD MENUDEO", "VALOR TOTAL"];
+      headerRow.values = ["N°", "PRODUCTO", "CATEGORÍA", "TALLA", "COLOR", "COSTO", "MENUDEO", "MAYOREO", "VIP", "STOCK", "ESTADO", "INVERSIÓN TOTAL", "UTILIDAD", "VALOR VENTA"];
       headerRow.height = 24;
       headerRow.eachCell(cell => {
         cell.font = { bold: true, size: 9, color: { argb: "FFFFFFFF" } };
@@ -1824,13 +1835,14 @@
           idx + 1, p.name, p.category, p.size, p.color,
           Number(p.cost) || 0, Number(p.price) || 0, Number(p.wholesale) || 0, Number(p.vip) || 0, stockNum,
           { formula: `IF(J${rIdx}=0,"NO HAY STOCK",IF(J${rIdx}<=15,"BAJO STOCK","EN STOCK"))` },
-          { formula: `(G${rIdx}-F${rIdx})*J${rIdx}` },
-          { formula: `G${rIdx}*J${rIdx}` }
+          { formula: `F${rIdx}*J${rIdx}` }, // Inversión total al costo
+          { formula: `(G${rIdx}-F${rIdx})*J${rIdx}` }, // Utilidad total
+          { formula: `G${rIdx}*J${rIdx}` }  // Valor de venta total
         ];
         row.height = 20;
         row.eachCell((cell, colNum) => {
           cell.alignment = { vertical: "middle", horizontal: (colNum === 2 || colNum === 3) ? "left" : "center" };
-          if (colNum >= 6 && colNum <= 9 || colNum === 12 || colNum === 13) cell.numFmt = '"$"#,##0.00';
+          if ((colNum >= 6 && colNum <= 9) || colNum === 12 || colNum === 13 || colNum === 14) cell.numFmt = '"$"#,##0.00';
           if (colNum === 11) {
             if (stockNum === 0) { cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFCCD9" } }; cell.font = { bold: true, color: { argb: "FF9B0033" } }; }
             else if (stockNum <= 15) { cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFF3B0" } }; cell.font = { bold: true, color: { argb: "FF7A6200" } }; }
