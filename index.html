@@ -456,15 +456,40 @@
       border-color: var(--neon-pink);
     }
 
+    .categories-bar-row {
+      display: flex;
+      align-items: center;
+      padding: 4px 16px;
+      gap: 8px;
+    }
+
     .categories-scroll {
       display: flex;
       gap: 6px;
       overflow-x: auto;
-      padding: 6px 16px;
       scrollbar-width: none;
+      flex: 1;
     }
 
     .categories-scroll::-webkit-scrollbar { display: none; }
+
+    .delete-cat-chip {
+      background: rgba(255, 0, 85, 0.1);
+      color: var(--neon-pink);
+      border: 1px solid rgba(255, 0, 85, 0.35);
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .delete-cat-chip:active {
+      background: rgba(255, 0, 85, 0.25);
+    }
 
     .cat-chip {
       background: var(--glass-bg);
@@ -581,6 +606,13 @@
       background: rgba(255, 255, 255, 0.08);
       border-color: rgba(255, 255, 255, 0.3);
       color: var(--neon-white);
+      font-weight: 800;
+    }
+
+    .wholesale-pill {
+      background: rgba(255, 234, 0, 0.1);
+      border-color: rgba(255, 234, 0, 0.35);
+      color: var(--neon-yellow);
       font-weight: 800;
     }
 
@@ -774,6 +806,8 @@
       border-top: 2px solid var(--neon-white);
       border-radius: 22px 22px 0 0;
       padding: 20px 18px 26px;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-sheet.danger-sheet {
@@ -934,7 +968,7 @@
       .kpi-card { padding: 16px 18px; }
       .kpi-value { font-size: 1.6rem; }
       .controls-wrapper { padding: 4px 28px 0; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-      .stock-tabs, .categories-scroll { padding: 4px 0; }
+      .stock-tabs, .categories-bar-row { padding: 4px 0; }
       .section-banner { margin: 8px 28px 4px; }
       .product-list { padding: 12px 28px; grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .modal-overlay { align-items: center; padding: 20px; }
@@ -1004,7 +1038,7 @@
       </div>
     </section>
 
-    <!-- FILTROS Y CATEGORÍAS -->
+    <!-- FILTROS Y CATEGORÍAS CON BOTÓN DE ELIMINAR CATEGORÍA -->
     <div class="controls-wrapper">
       <div class="stock-tabs">
         <button class="stock-tab active-all" id="tabAll" onclick="setStockFilter('TODOS')"><span class="status-indicator-dot dot-white"></span> Todo</button>
@@ -1012,7 +1046,10 @@
         <button class="stock-tab" id="tabOut" onclick="setStockFilter('SIN_STOCK')"><span class="status-indicator-dot dot-pink"></span> Sin Stock (0)</button>
       </div>
 
-      <nav class="categories-scroll" id="categoriesBar"></nav>
+      <div class="categories-bar-row">
+        <nav class="categories-scroll" id="categoriesBar"></nav>
+        <button class="delete-cat-chip" onclick="toggleDeleteCategoryModal(true)">Eliminar Categoría</button>
+      </div>
     </div>
 
     <!-- BANNER DE SECCIÓN -->
@@ -1034,7 +1071,7 @@
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
       <div class="modal-header">
-        <div class="modal-title">Nuevo Producto</div>
+        <div class="modal-title">Nuevo Producto con 4 Precios</div>
         <button class="close-btn" onclick="toggleModal(false)" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <form id="productForm" onsubmit="addProduct(event)">
@@ -1058,14 +1095,32 @@
             <input type="text" id="pColor" placeholder="Ej. Negro, Blanco..." required />
           </div>
           <div class="form-group">
-            <label>Precio ($ MXN)</label>
-            <input type="number" id="pPrice" placeholder="550" min="1" required />
+            <label>Stock Inicial</label>
+            <input type="number" id="pStock" placeholder="20" min="0" required />
           </div>
         </div>
-        <div class="form-group">
-          <label>Stock Inicial</label>
-          <input type="number" id="pStock" placeholder="20" min="0" required />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Costo (Lo que nos cuesta)</label>
+            <input type="number" id="pCost" placeholder="300" min="0" step="0.5" required />
+          </div>
+          <div class="form-group">
+            <label>Precio Menudeo</label>
+            <input type="number" id="pPrice" placeholder="550" min="1" step="0.5" required />
+          </div>
         </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Precio Mayoreo</label>
+            <input type="number" id="pWholesale" placeholder="450" min="1" step="0.5" required />
+          </div>
+          <div class="form-group">
+            <label>Precio VIP</label>
+            <input type="number" id="pVip" placeholder="400" min="1" step="0.5" required />
+          </div>
+        </div>
+
         <button type="submit" class="submit-btn">Guardar en Inventario</button>
       </form>
     </div>
@@ -1093,6 +1148,31 @@
           <div class="size-type-hint" id="sizeTypeHint">El selector de tallas se adaptará automáticamente.</div>
         </div>
         <button type="submit" class="submit-btn">Crear Categoría</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL ELIMINAR CATEGORÍA -->
+  <div class="modal-overlay" id="deleteCategoryModal">
+    <div class="modal-sheet danger-sheet">
+      <div class="modal-header">
+        <div class="modal-title">Eliminar Categoría</div>
+        <button class="close-btn" onclick="toggleDeleteCategoryModal(false)" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+      <form onsubmit="confirmDeleteCategory(event)">
+        <div class="form-group">
+          <label>Selecciona la categoría a borrar</label>
+          <select id="delCatSelect" required></select>
+        </div>
+        <div class="delete-pass-box">
+          <label>Contraseña requerida</label>
+          <input type="password" id="deleteCatPassInput" class="delete-pass-input" placeholder="Contraseña..." required />
+        </div>
+        <div class="delete-error-msg" id="deleteCatErrorMsg"></div>
+        <div class="confirm-actions">
+          <button type="button" class="cancel-action-btn" onclick="toggleDeleteCategoryModal(false)">Cancelar</button>
+          <button type="submit" class="confirm-delete-btn">Eliminar Categoría</button>
+        </div>
       </form>
     </div>
   </div>
@@ -1145,10 +1225,10 @@
     ];
 
     const productosIniciales = [
-      { id: 1, name: "Hoodie Oversize Acid Wash", category: "Sudaderas con gorro", size: "L", color: "Negro", price: 680, stock: 18 },
-      { id: 2, name: "Crewneck Minimal Neew", category: "Sudaderas", size: "M", color: "Blanco", price: 550, stock: 8 },
-      { id: 3, name: "Playera Heavyweight Boxy", category: "Playeras", size: "M", color: "Gris", price: 320, stock: 22 },
-      { id: 4, name: "Short Cargo Street", category: "Shorts", size: "L", color: "Negro", price: 420, stock: 0 }
+      { id: 1, name: "Hoodie Oversize Acid Wash", category: "Sudaderas con gorro", size: "L", color: "Negro", cost: 350, price: 680, wholesale: 580, vip: 520, stock: 18 },
+      { id: 2, name: "Crewneck Minimal Neew", category: "Sudaderas", size: "M", color: "Blanco", cost: 280, price: 550, wholesale: 470, vip: 420, stock: 8 },
+      { id: 3, name: "Playera Heavyweight Boxy", category: "Playeras", size: "M", color: "Gris", cost: 160, price: 320, wholesale: 270, vip: 240, stock: 22 },
+      { id: 4, name: "Short Cargo Street", category: "Shorts", size: "L", color: "Negro", cost: 210, price: 420, wholesale: 360, vip: 320, stock: 0 }
     ];
 
     let products = [];
@@ -1247,6 +1327,11 @@
       selectCat.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
       if (valorActual && categories.some(c => c.name === valorActual)) selectCat.value = valorActual;
       actualizarOpcionesTalla();
+
+      const delSelect = document.getElementById("delCatSelect");
+      if (delSelect) {
+        delSelect.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
+      }
     }
 
     window.addEventListener("DOMContentLoaded", () => {
@@ -1294,7 +1379,7 @@
           firebase.initializeApp({ databaseURL: FIREBASE_DATABASE_URL });
           firebaseIniciado = true;
         }
-        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v2");
+        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v3");
         dbRef.on("value", (snapshot) => {
           const data = snapshot.val();
           if (data !== null) {
@@ -1381,8 +1466,11 @@
         category: document.getElementById("pCat").value,
         size: document.getElementById("pSize").value,
         color: document.getElementById("pColor").value.trim(),
-        price: parseFloat(document.getElementById("pPrice").value),
-        stock: parseInt(document.getElementById("pStock").value, 10)
+        cost: parseFloat(document.getElementById("pCost").value) || 0,
+        price: parseFloat(document.getElementById("pPrice").value) || 0,
+        wholesale: parseFloat(document.getElementById("pWholesale").value) || 0,
+        vip: parseFloat(document.getElementById("pVip").value) || 0,
+        stock: parseInt(document.getElementById("pStock").value, 10) || 0
       };
       products.unshift(newProduct);
       saveToDB();
@@ -1410,6 +1498,39 @@
     function toggleCategoryModal(show) {
       document.getElementById("addCategoryModal").classList.toggle("open", show);
       if (show) setTimeout(() => document.getElementById("cName").focus(), 120);
+    }
+
+    function toggleDeleteCategoryModal(show) {
+      document.getElementById("deleteCategoryModal").classList.toggle("open", show);
+      if (show) {
+        renderCategoriesUI();
+        document.getElementById("deleteCatPassInput").value = "";
+        document.getElementById("deleteCatErrorMsg").textContent = "";
+      }
+    }
+
+    function confirmDeleteCategory(e) {
+      e.preventDefault();
+      const catName = document.getElementById("delCatSelect").value;
+      const passInput = document.getElementById("deleteCatPassInput");
+      const errorMsg = document.getElementById("deleteCatErrorMsg");
+
+      if (passInput.value.trim() !== CLAVE_ELIMINAR) {
+        errorMsg.textContent = "Contraseña incorrecta.";
+        return;
+      }
+
+      // Validar si hay productos usando esta categoría
+      const tieneProductos = products.some(p => p.category.toLowerCase() === catName.toLowerCase());
+      if (tieneProductos) {
+        errorMsg.textContent = "No se puede borrar: hay productos en esta categoría.";
+        return;
+      }
+
+      categories = categories.filter(c => c.name.toLowerCase() !== catName.toLowerCase());
+      if (activeCategory === catName) activeCategory = "Todos";
+      saveToDB();
+      toggleDeleteCategoryModal(false);
     }
 
     function askDeleteProduct(id) {
@@ -1482,6 +1603,9 @@
       list.innerHTML = filtered.map(p => {
         const estado = obtenerEstadoStock(p.stock);
         const bgColorDot = obtenerColorCSS(p.color);
+        const precioMenudeo = Number(p.price) || 0;
+        const precioMayoreo = Number(p.wholesale) || 0;
+
         return `
           <div class="product-card">
             <div class="product-info">
@@ -1490,7 +1614,8 @@
               <div class="product-meta">
                 <span class="meta-pill">Talla ${p.size}</span>
                 <span class="meta-pill"><span class="color-dot" style="background: ${bgColorDot};"></span>${p.color}</span>
-                <span class="meta-pill price-pill">$${Number(p.price).toLocaleString("es-MX")}</span>
+                <span class="meta-pill price-pill">Men: $${precioMenudeo.toLocaleString("es-MX")}</span>
+                ${precioMayoreo > 0 ? `<span class="meta-pill wholesale-pill">May: $${precioMayoreo.toLocaleString("es-MX")}</span>` : ''}
               </div>
             </div>
             <div class="stock-controls">
@@ -1519,13 +1644,14 @@
 
       sheet.columns = [
         { key: "num", width: 8 }, { key: "name", width: 30 }, { key: "cat", width: 20 },
-        { key: "size", width: 12 }, { key: "color", width: 16 }, { key: "price", width: 15 },
-        { key: "stock", width: 15 }, { key: "status", width: 18 }, { key: "total", width: 18 }
+        { key: "size", width: 12 }, { key: "color", width: 16 }, { key: "cost", width: 15 },
+        { key: "price", width: 15 }, { key: "wholesale", width: 15 }, { key: "vip", width: 15 },
+        { key: "stock", width: 12 }, { key: "status", width: 18 }, { key: "profit", width: 18 }, { key: "total", width: 18 }
       ];
 
-      sheet.mergeCells("A1:I2");
+      sheet.mergeCells("A1:M2");
       const titleCell = sheet.getCell("A1");
-      titleCell.value = "NEEWSHOP — REPORTE DE INVENTARIO Y STOCK";
+      titleCell.value = "NEEWSHOP — REPORTE DE INVENTARIO Y CONTROL DE PRECIOS";
       titleCell.font = { name: "Calibri", size: 14, bold: true, color: { argb: "FFFFFFFF" } };
       titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0A0A0A" } };
       titleCell.alignment = { vertical: "middle", horizontal: "center" };
@@ -1539,10 +1665,10 @@
       sheet.getCell("A4").fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1F1F1F" } };
 
       const resumenFormulas = [
-        { l: "A5", v: "B5", t: "EN STOCK", f: `COUNTIF(H${startRow}:H${endRow},"EN STOCK")`, c: "FF111111", tc: "FFFFFFFF" },
-        { l: "C5", v: "D5", t: "BAJO STOCK", f: `COUNTIF(H${startRow}:H${endRow},"BAJO STOCK")`, c: "FFFFEA00", tc: "FF000000" },
-        { l: "E5", v: "F5", t: "SIN STOCK", f: `COUNTIF(H${startRow}:H${endRow},"NO HAY STOCK")`, c: "FF9B0033", tc: "FFFFFFFF" },
-        { l: "G5", v: "H5", t: "TOTAL UNIDADES", f: `SUM(G${startRow}:G${endRow})`, c: "FF262626", tc: "FFFFFFFF" }
+        { l: "A5", v: "B5", t: "EN STOCK", f: `COUNTIF(K${startRow}:K${endRow},"EN STOCK")`, c: "FF111111", tc: "FFFFFFFF" },
+        { l: "C5", v: "D5", t: "BAJO STOCK", f: `COUNTIF(K${startRow}:K${endRow},"BAJO STOCK")`, c: "FFFFEA00", tc: "FF000000" },
+        { l: "E5", v: "F5", t: "SIN STOCK", f: `COUNTIF(K${startRow}:K${endRow},"NO HAY STOCK")`, c: "FF9B0033", tc: "FFFFFFFF" },
+        { l: "G5", v: "H5", t: "TOTAL UNIDADES", f: `SUM(J${startRow}:J${endRow})`, c: "FF262626", tc: "FFFFFFFF" }
       ];
 
       resumenFormulas.forEach(item => {
@@ -1558,7 +1684,7 @@
       });
 
       const headerRow = sheet.getRow(8);
-      headerRow.values = ["N°", "PRODUCTO", "CATEGORÍA", "TALLA", "COLOR", "PRECIO", "STOCK", "ESTADO", "VALOR TOTAL"];
+      headerRow.values = ["N°", "PRODUCTO", "CATEGORÍA", "TALLA", "COLOR", "COSTO", "MENUDEO", "MAYOREO", "VIP", "STOCK", "ESTADO", "UTILIDAD MENUDEO", "VALOR TOTAL"];
       headerRow.height = 24;
       headerRow.eachCell(cell => {
         cell.font = { bold: true, size: 9, color: { argb: "FFFFFFFF" } };
@@ -1571,15 +1697,17 @@
         const row = sheet.getRow(rIdx);
         const stockNum = Number(p.stock) || 0;
         row.values = [
-          idx + 1, p.name, p.category, p.size, p.color, Number(p.price) || 0, stockNum,
-          { formula: `IF(G${rIdx}=0,"NO HAY STOCK",IF(G${rIdx}<=15,"BAJO STOCK","EN STOCK"))` },
-          { formula: `F${rIdx}*G${rIdx}` }
+          idx + 1, p.name, p.category, p.size, p.color,
+          Number(p.cost) || 0, Number(p.price) || 0, Number(p.wholesale) || 0, Number(p.vip) || 0, stockNum,
+          { formula: `IF(J${rIdx}=0,"NO HAY STOCK",IF(J${rIdx}<=15,"BAJO STOCK","EN STOCK"))` },
+          { formula: `(G${rIdx}-F${rIdx})*J${rIdx}` },
+          { formula: `G${rIdx}*J${rIdx}` }
         ];
         row.height = 20;
         row.eachCell((cell, colNum) => {
           cell.alignment = { vertical: "middle", horizontal: (colNum === 2 || colNum === 3) ? "left" : "center" };
-          if (colNum === 6 || colNum === 9) cell.numFmt = '"$"#,##0.00';
-          if (colNum === 8) {
+          if (colNum >= 6 && colNum <= 9 || colNum === 12 || colNum === 13) cell.numFmt = '"$"#,##0.00';
+          if (colNum === 11) {
             if (stockNum === 0) { cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFCCD9" } }; cell.font = { bold: true, color: { argb: "FF9B0033" } }; }
             else if (stockNum <= 15) { cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFF3B0" } }; cell.font = { bold: true, color: { argb: "FF7A6200" } }; }
             else { cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFEFEFEF" } }; cell.font = { bold: true, color: { argb: "FF111111" } }; }
