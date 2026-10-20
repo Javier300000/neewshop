@@ -91,7 +91,7 @@
     /* CONTENEDOR PRINCIPAL */
     .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 140px; position: relative; }
 
-    /* ENCABEZADO FLOTANTE INTELIGENTE (SE OCULTA AL BAJAR Y APARECE AL SUBIR) */
+    /* ENCABEZADO FLOTANTE INTELIGENTE */
     header {
       padding: 14px 18px; position: sticky; top: 0; background: rgba(6, 6, 6, 0.85);
       backdrop-filter: blur(20px); z-index: 20; border-bottom: 1px solid var(--glass-border);
@@ -99,9 +99,7 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       transition: transform 0.3s ease-in-out;
     }
-    header.header-hidden {
-      transform: translateY(-100%);
-    }
+    header.header-hidden { transform: translateY(-100%); }
 
     .header-inner { display: flex; flex-direction: column; gap: 10px; }
     .brand-row { display: flex; justify-content: space-between; align-items: center; }
@@ -143,13 +141,17 @@
     .search-box input::placeholder { color: #666; }
     .search-box input:focus { border-color: var(--neon-white); }
 
-    /* TARJETAS KPI (5 TARJETAS) */
-    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 12px 16px 4px; }
+    /* TARJETAS KPI (ACOMODADAS EN 2 COLUMNAS SIMÉTRICAS EN MÓVIL, LA 5TA OCUPA ANCHO COMPLETO O BALANCEADA) */
+    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 14px 16px 4px; }
     .kpi-card {
       background: var(--glass-bg); backdrop-filter: blur(14px); border: 1px solid var(--glass-border);
       border-radius: 18px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.15s;
     }
     .kpi-card:hover { border-color: rgba(255,255,255,0.25); }
+    
+    /* La 5ta tarjeta (Total Ventas) se extiende a lo ancho para lucir perfecta abajo */
+    .kpi-card-full { grid-column: span 2; }
+
     .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.08); }
     .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.08); }
     .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.08); }
@@ -169,7 +171,7 @@
     .kpi-value.neon-yellow { color: var(--neon-yellow); }
     .kpi-value.neon-pink { color: var(--neon-pink); }
     .kpi-value.neon-cyan { color: var(--price-menudeo); font-size: 1.05rem; }
-    .kpi-value.neon-green { color: var(--price-vip); font-size: 1.05rem; text-shadow: 0 0 8px rgba(0,255,102,0.3); }
+    .kpi-value.neon-green { color: var(--price-vip); font-size: 1.1rem; text-shadow: 0 0 8px rgba(0,255,102,0.3); }
 
     /* FILTROS Y CATEGORÍAS */
     .controls-wrapper { display: flex; flex-direction: column; gap: 2px; }
@@ -249,7 +251,6 @@
     .stepper button:active { background: var(--neon-white); color: #000; }
     .stock-count { min-width: 22px; text-align: center; font-weight: 800; font-size: 0.88rem; }
 
-    /* SELECTOR DE PRECIO SIN COLOR LLAMATIVO (ESTILO SUTIL Y LIMPIO) */
     .card-bottom-action {
       display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;
       border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; margin-top: 2px;
@@ -270,8 +271,10 @@
     .sales-list { padding: 8px 16px; display: grid; grid-template-columns: 1fr; gap: 10px; }
     .sale-card {
       background: var(--glass-bg); border: 1px solid rgba(0, 255, 102, 0.25); border-radius: 18px; padding: 14px 18px;
-      display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4); cursor: pointer;
+      transition: all 0.2s ease;
     }
+    .sale-card:hover { border-color: var(--price-vip); transform: translateY(-2px); }
     .sale-info { display: flex; flex-direction: column; gap: 4px; }
     .sale-title { font-size: 0.92rem; font-weight: 800; color: var(--text-white); }
     .sale-sub { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
@@ -368,6 +371,7 @@
       .brand-row { flex: 1; margin-bottom: 0; }
       .search-box { max-width: 350px; }
       .kpi-grid { grid-template-columns: repeat(5, 1fr); padding: 20px 28px 6px; gap: 12px; }
+      .kpi-card-full { grid-column: span 1; }
       .kpi-card { padding: 14px 16px; }
       .kpi-value { font-size: 1.4rem; }
       .product-list, .sales-list { padding: 12px 28px; grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -418,7 +422,7 @@
       </div>
     </header>
 
-    <!-- 5 TARJETAS KPI -->
+    <!-- 5 TARJETAS KPI (ACOMODADAS EN 2 COLUMNAS + 1 ANCHO COMPLETO PARA CELULAR) -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
@@ -436,9 +440,9 @@
         <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Inversión</div>
         <div class="kpi-value neon-white"><span id="kpiCostTotal" style="font-size: 1.05rem;">$0</span></div>
       </div>
-      <div class="kpi-card" id="cardSales" onclick="vibrar(20); setStockFilter('VENTAS')">
+      <div class="kpi-card kpi-card-full" id="cardSales" onclick="vibrar(20); setStockFilter('VENTAS')">
         <div class="kpi-label"><span class="status-indicator-dot dot-green"></span> Total Ventas</div>
-        <div class="kpi-value neon-green" style="color:var(--price-vip); font-size: 1.05rem;"><span id="kpiSalesProfit">$0</span></div>
+        <div class="kpi-value neon-green" style="color:var(--price-vip);"><span id="kpiSalesProfit">$0</span></div>
       </div>
     </section>
 
@@ -492,6 +496,40 @@
         <span class="cart-total-val" id="cartModalTotal">$0</span>
       </div>
       <button type="button" class="submit-btn green-btn" onclick="confirmarPedidoCarrito()">Confirmar Pedido y Descontar Stock</button>
+    </div>
+  </div>
+
+  <!-- MODAL DETALLE / ELIMINAR VENTA DEL HISTORIAL -->
+  <div class="modal-overlay" id="saleDetailModal">
+    <div class="modal-sheet success-sheet">
+      <div class="modal-header">
+        <div class="modal-title">Detalle del Pedido Vendido</div>
+        <button class="close-btn" onclick="cerrarModalDetalleVenta()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+      <div id="saleDetailContent" style="margin-bottom: 16px;"></div>
+      <button type="button" class="submit-btn" style="background:var(--neon-pink); color:#fff;" onclick="pedirPasswordEliminarVenta()">Eliminar este Registro de Venta</button>
+    </div>
+  </div>
+
+  <!-- MODAL CONTRASEÑA ELIMINAR VENTA -->
+  <div class="modal-overlay" id="deleteSaleModal">
+    <div class="modal-sheet danger-sheet">
+      <div class="modal-header">
+        <div class="modal-title">Autorizar Eliminación</div>
+        <button class="close-btn" onclick="cerrarModalPasswordVenta()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+      <p class="delete-text">¿Estás seguro de borrar este registro de venta? (Esto no restaura el stock automáticamente).</p>
+      <form onsubmit="confirmarEliminarVenta(event)">
+        <div class="delete-pass-box">
+          <label>Contraseña requerida</label>
+          <input type="password" id="delSalePassInput" class="delete-pass-input" placeholder="Contraseña..." required />
+        </div>
+        <div class="delete-error-msg" id="delSaleErrorMsg"></div>
+        <div class="confirm-actions">
+          <button type="button" class="cancel-action-btn" onclick="cerrarModalPasswordVenta()">Cancelar</button>
+          <button type="submit" class="confirm-delete-btn">Eliminar</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -651,7 +689,6 @@
     const CLAVE_TIENDA = "neew2026";
     const CLAVE_ELIMINAR = "neew2026";
 
-    // Ocultar o mostrar encabezado flotante al hacer scroll
     let lastScrollTop = 0;
     window.addEventListener("scroll", function() {
       let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
@@ -704,6 +741,7 @@
     let activeStockFilter = "TODOS";
     let productToDeleteId = null;
     let currentSelectedProduct = null;
+    let selectedSaleForDetail = null;
     let dbRef = null;
     let firebaseIniciado = false;
 
@@ -847,7 +885,7 @@
           firebase.initializeApp({ databaseURL: FIREBASE_DATABASE_URL });
           firebaseIniciado = true;
         }
-        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v12");
+        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v13");
         dbRef.on("value", (snapshot) => {
           const data = snapshot.val();
           if (data !== null) {
@@ -911,9 +949,9 @@
       
       const cardSales = document.getElementById("cardSales");
       if (activeStockFilter === "VENTAS") {
-        cardSales.className = "kpi-card active-filter-green";
+        cardSales.className = "kpi-card kpi-card-full active-filter-green";
       } else {
-        cardSales.className = "kpi-card";
+        cardSales.className = "kpi-card kpi-card-full";
       }
 
       const banner = document.getElementById("sectionBanner");
@@ -1070,6 +1108,8 @@
         }
       });
 
+      const detalleItemsTexto = cartItems.map(i => `${i.qty}x ${i.name} (Talla ${i.size}, ${i.color}) a precio ${i.priceType}`).join(" | ");
+
       const nuevaVenta = {
         id: Date.now(),
         date: new Date().toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
@@ -1077,6 +1117,7 @@
         category: "Varios",
         size: "Varias",
         color: "Varios",
+        itemsDetail: detalleItemsTexto,
         qty: cartItems.reduce((acc, i) => acc + i.qty, 0),
         priceType: "Múltiple",
         totalSold: totalCobradoPedido,
@@ -1089,6 +1130,69 @@
       saveToDB();
       cerrarModalCarrito();
       setStockFilter("VENTAS");
+    }
+
+    // --- GESTIÓN DE VER Y ELIMINAR VENTAS DEL HISTORIAL ---
+    function verDetalleVenta(saleId) {
+      vibrar(25);
+      const s = salesHistory.find(item => item.id === saleId);
+      if (!s) return;
+      selectedSaleForDetail = s;
+
+      const content = document.getElementById("saleDetailContent");
+      content.innerHTML = `
+        <div class="detail-grid">
+          <div class="detail-box"><div class="detail-label">Fecha y Hora</div><div class="detail-val" style="font-size:0.8rem;">${s.date}</div></div>
+          <div class="detail-box"><div class="detail-label">Total Unidades</div><div class="detail-val">${s.qty} pzas</div></div>
+          <div class="detail-box" style="grid-column: span 2;"><div class="detail-label">Productos Vendidos (Detalle)</div><div class="detail-val" style="font-size:0.85rem; font-weight:600; color:var(--text-white); margin-top:5px;">${s.itemsDetail || s.name}</div></div>
+          <div class="detail-box"><div class="detail-label">Total Cobrado</div><div class="detail-val" style="color:var(--price-menudeo);">$${Number(s.totalSold).toLocaleString("es-MX")}</div></div>
+          <div class="detail-box"><div class="detail-label">Ganancia Neta</div><div class="detail-val" style="color:var(--price-vip);">+$${Number(s.profit).toLocaleString("es-MX", {minimumFractionDigits: 2})}</div></div>
+        </div>
+      `;
+      document.getElementById("saleDetailModal").classList.add("open");
+    }
+
+    function cerrarModalDetalleVenta() {
+      vibrar(15);
+      document.getElementById("saleDetailModal").classList.remove("open");
+    }
+
+    function pedirPasswordEliminarVenta() {
+      vibrar(30);
+      cerrarModalDetalleVenta();
+      document.getElementById("delSalePassInput").value = "";
+      document.getElementById("delSaleErrorMsg").textContent = "";
+      document.getElementById("deleteSaleModal").classList.add("open");
+      setTimeout(() => document.getElementById("delSalePassInput").focus(), 150);
+    }
+
+    function cerrarModalPasswordVenta() {
+      vibrar(15);
+      document.getElementById("deleteSaleModal").classList.remove("open");
+      selectedSaleForDetail = null;
+    }
+
+    function confirmarEliminarVenta(e) {
+      e.preventDefault();
+      const passInput = document.getElementById("delSalePassInput");
+      const errorMsg = document.getElementById("delSaleErrorMsg");
+
+      if (passInput.value.trim() !== CLAVE_ELIMINAR) {
+        vibrar(60);
+        errorMsg.textContent = "Contraseña incorrecta.";
+        passInput.classList.remove("input-error");
+        void passInput.offsetWidth;
+        passInput.classList.add("input-error");
+        return;
+      }
+
+      if (selectedSaleForDetail) {
+        vibrar(100);
+        salesHistory = salesHistory.filter(s => s.id !== selectedSaleForDetail.id);
+        saveToDB();
+        cerrarModalPasswordVenta();
+        renderProducts();
+      }
     }
 
     function abrirModalCrear() {
@@ -1326,12 +1430,12 @@
         }
         list.className = "sales-list";
         list.innerHTML = salesHistory.map(s => `
-          <div class="sale-card">
+          <div class="sale-card" onclick="verDetalleVenta(${s.id})">
             <div class="sale-info">
               <div class="sale-title">${s.name}</div>
               <div class="sale-sub">${s.category} • Cantidad total: <strong>${s.qty} pzas</strong></div>
               <div class="sale-sub">Total Cobrado: <strong>$${Number(s.totalSold).toLocaleString("es-MX")}</strong></div>
-              <div class="sale-sub" style="color: #666; font-size: 0.65rem;">${s.date}</div>
+              <div class="sale-sub" style="color: #666; font-size: 0.65rem;">${s.date} (Toca para ver o eliminar)</div>
             </div>
             <div class="sale-profit">
               <div class="sale-profit-val">+$${Number(s.profit).toLocaleString("es-MX", { minimumFractionDigits: 2 })}</div>
