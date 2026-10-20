@@ -158,8 +158,8 @@
     .kpi-value.neon-white { color: var(--neon-white); }
     .kpi-value.neon-yellow { color: var(--neon-yellow); }
     .kpi-value.neon-pink { color: var(--neon-pink); }
-    .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.1rem; }
-    .kpi-value.neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); font-size: 1.1rem; }
+    .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.05rem; }
+    .kpi-value.neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); font-size: 1.05rem; }
 
     /* FILTROS Y CATEGORÍAS */
     .controls-wrapper { display: flex; flex-direction: column; gap: 4px; padding-top: 4px; }
@@ -201,60 +201,72 @@
     .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.12); border: 1px solid rgba(255, 0, 85, 0.45); color: var(--neon-pink); }
     .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.45); color: var(--neon-green); }
 
-    /* CUADRÍCULA DE PRODUCTOS */
+    /* CUADRÍCULA DE PRODUCTOS (TARJETAS AMPLIADAS CON BOTÓN INTEGRADO ABAJO) */
     .product-list { padding: 10px 18px; display: grid; grid-template-columns: 1fr; gap: 14px; }
 
     .product-card {
       background: var(--glass-card); backdrop-filter: blur(22px); border: 1px solid var(--glass-border);
-      border-radius: 22px; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .product-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-3px); box-shadow: 0 20px 45px rgba(0,0,0,0.6); }
     .product-card:active { transform: scale(0.98); }
 
-    .product-info { display: flex; flex-direction: column; gap: 7px; flex: 1; min-width: 0; }
-    .product-cat { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
-    .product-name { font-size: 1rem; font-weight: 800; color: var(--text-white); line-height: 1.3; }
+    .product-top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; width: 100%; }
 
-    .product-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .product-info { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
+    .product-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
+    .product-name { font-size: 0.98rem; font-weight: 800; color: var(--text-white); line-height: 1.3; }
+
+    .product-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
     .meta-pill {
-      background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 4px 10px; border-radius: 8px;
-      font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+      background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 3px 8px; border-radius: 7px;
+      font-size: 0.68rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
     }
     .price-pill { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.35); color: var(--neon-white); font-weight: 800; }
     .wholesale-pill { background: rgba(255, 234, 0, 0.1); border-color: rgba(255, 234, 0, 0.4); color: var(--neon-yellow); font-weight: 800; }
-    .color-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; }
+    .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 
     /* CONTROLES DE STOCK Y SEMÁFORO */
-    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; flex-shrink: 0; }
-    .status-row { display: flex; align-items: center; gap: 6px; }
-    .stock-status { font-size: 0.62rem; font-weight: 900; padding: 4px 9px; border-radius: 7px; text-transform: uppercase; white-space: nowrap; }
+    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
+    .status-row { display: flex; align-items: center; gap: 5px; }
+    .stock-status { font-size: 0.6rem; font-weight: 900; padding: 3px 7px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
     .status-ok { background: rgba(255, 255, 255, 0.12); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.45); }
     .status-low { background: rgba(255, 234, 0, 0.15); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.55); }
     .status-out { background: rgba(255, 0, 85, 0.16); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.55); }
 
     .delete-btn {
       background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-muted);
-      width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s;
+      width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s;
     }
     .delete-btn:active { transform: scale(0.92); }
-    .delete-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .delete-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
     .delete-btn:hover { background: rgba(255, 0, 85, 0.2); color: var(--neon-pink); border-color: var(--neon-pink); }
 
     .stepper {
-      display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.5);
-      padding: 4px; border-radius: 11px; border: 1px solid var(--glass-border);
+      display: flex; align-items: center; gap: 5px; background: rgba(0, 0, 0, 0.5);
+      padding: 3px; border-radius: 9px; border: 1px solid var(--glass-border);
     }
-    .stepper button { width: 28px; height: 28px; border-radius: 8px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
+    .stepper button { width: 26px; height: 26px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.9rem; font-weight: 700; cursor: pointer; }
     .stepper button:active { transform: scale(0.9); background: var(--neon-white); color: #000; }
-    .stock-count { min-width: 26px; text-align: center; font-weight: 800; font-size: 0.95rem; }
+    .stock-count { min-width: 22px; text-align: center; font-weight: 800; font-size: 0.88rem; }
 
-    .sell-card-btn {
-      background: rgba(0, 255, 102, 0.18); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.45);
-      padding: 5px 11px; border-radius: 8px; font-size: 0.68rem; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s;
+    /* BOTÓN INFERIOR DENTRO DE LA TARJETA (AGREGAR AL PEDIDO) */
+    .card-bottom-action {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;
+      border-top: 1px solid rgba(255,255,255,0.07); padding-top: 10px; margin-top: 2px;
     }
-    .sell-card-btn:active { transform: scale(0.94); }
-    .sell-card-btn:hover { background: rgba(0, 255, 102, 0.3); }
+    .price-select-mini {
+      background: rgba(0,0,0,0.6); border: 1px solid var(--glass-border); color: var(--neon-yellow);
+      padding: 6px 8px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; outline: none; flex: 1;
+    }
+    .sell-card-full-btn {
+      background: rgba(0, 255, 102, 0.18); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.45);
+      padding: 7px 14px; border-radius: 9px; font-size: 0.72rem; font-weight: 900; text-transform: uppercase; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 5px; transition: transform 0.15s; flex: 1.2;
+    }
+    .sell-card-full-btn:active { transform: scale(0.96); }
+    .sell-card-full-btn:hover { background: rgba(0, 255, 102, 0.3); }
 
     /* LISTA DE HISTORIAL DE VENTAS */
     .sales-list { padding: 10px 18px; display: grid; grid-template-columns: 1fr; gap: 12px; }
@@ -269,37 +281,32 @@
     .sale-profit-val { font-size: 1.1rem; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 10px rgba(0,255,102,0.3); }
     .sale-profit-lbl { font-size: 0.62rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
 
-    /* DOCK FLOTANTE COMPACTO Y ORDENADO */
+    /* DOCK FLOTANTE */
     .bottom-dock {
-      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
-      width: calc(100% - 24px); max-width: 440px; padding: 6px;
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      width: calc(100% - 28px); max-width: 440px; padding: 6px;
       background: rgba(16, 16, 16, 0.85); backdrop-filter: blur(30px);
       border: 1px solid var(--glass-border-bright); border-radius: 22px;
       display: flex; flex-direction: column; gap: 6px; z-index: 30; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
     }
-    
     .dock-top-row { display: flex; width: 100%; }
     .dock-bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; }
 
     .fab-cart-btn {
       width: 100%; background: var(--neon-green); color: #000; border: none; padding: 11px;
       border-radius: 14px; font-size: 0.78rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
-      box-shadow: 0 0 18px rgba(0, 255, 102, 0.4); transition: transform 0.15s;
+      box-shadow: 0 0 18px rgba(0, 255, 102, 0.4);
     }
-    .fab-cart-btn:active { transform: scale(0.97); }
     .fab-cart-btn.hidden { display: none; }
 
     .fab-btn {
       background: #fff; color: #000; border: none; padding: 11px; border-radius: 14px;
-      font-size: 0.75rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s;
+      font-size: 0.75rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
-    .fab-btn:active { transform: scale(0.96); }
-
     .fab-cat-btn {
       background: rgba(255, 255, 255, 0.06); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 11px; border-radius: 14px; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s;
+      padding: 11px; border-radius: 14px; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
-    .fab-cat-btn:active { transform: scale(0.96); }
 
     /* MODALES */
     .modal-overlay {
@@ -457,7 +464,7 @@
     <main class="product-list" id="productList"></main>
   </div>
 
-  <!-- DOCK FLOTANTE ORDENADO Y COMPACTO -->
+  <!-- DOCK FLOTANTE COMPACTO Y ORDENADO -->
   <div class="bottom-dock">
     <div class="dock-top-row">
       <button class="fab-cart-btn hidden" id="fabCartBtn" onclick="vibrar(25); abrirModalCarrito()">
@@ -825,7 +832,7 @@
           firebase.initializeApp({ databaseURL: FIREBASE_DATABASE_URL });
           firebaseIniciado = true;
         }
-        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v6");
+        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v7");
         dbRef.on("value", (snapshot) => {
           const data = snapshot.val();
           if (data !== null) {
@@ -920,7 +927,7 @@
       }
     }
 
-    function agregarAlCarrito(id, event) {
+    function agregarAlCarritoSeleccionado(id, event) {
       if (event) event.stopPropagation();
       vibrar(25);
       const p = products.find(prod => prod.id === id);
@@ -931,7 +938,15 @@
         return;
       }
 
-      const existente = cartItems.find(item => item.id === id);
+      const selectTipo = document.getElementById(`selPrice_${id}`);
+      const priceType = selectTipo ? selectTipo.value : "price";
+
+      let chosenPrice = Number(p.price) || 0;
+      let labelPrecio = "Menudeo";
+      if (priceType === "wholesale") { chosenPrice = Number(p.wholesale) || chosenPrice; labelPrecio = "Mayoreo"; }
+      if (priceType === "vip") { chosenPrice = Number(p.vip) || chosenPrice; labelPrecio = "VIP"; }
+
+      const existente = cartItems.find(item => item.id === id && item.priceType === labelPrecio);
       if (existente) {
         if (existente.qty < p.stock) {
           existente.qty++;
@@ -946,7 +961,8 @@
           size: p.size,
           color: p.color,
           cost: Number(p.cost) || 0,
-          price: Number(p.price) || 0,
+          price: chosenPrice,
+          priceType: labelPrecio,
           qty: 1,
           maxStock: p.stock
         });
@@ -984,7 +1000,7 @@
           <div class="cart-item-row">
             <div>
               <div class="cart-item-name">${item.name}</div>
-              <div class="cart-item-sub">Talla ${item.size} • ${item.color} • $${item.price} c/u</div>
+              <div class="cart-item-sub">Talla ${item.size} • ${item.color} • ${item.priceType} ($${item.price} c/u)</div>
             </div>
             <div style="display:flex; align-items:center; gap:8px;">
               <span style="font-weight:900; font-size:0.9rem;">${item.qty} pzas</span>
@@ -1040,7 +1056,7 @@
         size: "Varias",
         color: "Varios",
         qty: cartItems.reduce((acc, i) => acc + i.qty, 0),
-        priceType: "Menudeo / Mixto",
+        priceType: "Múltiple",
         totalSold: totalCobradoPedido,
         profit: gananciaTotalPedido
       };
@@ -1320,30 +1336,40 @@
         const bgColorDot = obtenerColorCSS(p.color);
         const precioMenudeo = Number(p.price) || 0;
         const precioMayoreo = Number(p.wholesale) || 0;
+        const precioVip = Number(p.vip) || 0;
 
         return `
           <div class="product-card" onclick="verDetalles(${p.id})">
-            <div class="product-info">
-              <span class="product-cat">${p.category}</span>
-              <div class="product-name">${p.name}</div>
-              <div class="product-meta">
-                <span class="meta-pill">Talla ${p.size}</span>
-                <span class="meta-pill"><span class="color-dot" style="background: ${bgColorDot};"></span>${p.color}</span>
-                <span class="meta-pill price-pill">Men: $${precioMenudeo.toLocaleString("es-MX")}</span>
-                ${precioMayoreo > 0 ? `<span class="meta-pill wholesale-pill">May: $${precioMayoreo.toLocaleString("es-MX")}</span>` : ''}
+            <div class="product-top-row">
+              <div class="product-info">
+                <span class="product-cat">${p.category}</span>
+                <div class="product-name">${p.name}</div>
+                <div class="product-meta">
+                  <span class="meta-pill">Talla ${p.size}</span>
+                  <span class="meta-pill"><span class="color-dot" style="background: ${bgColorDot};"></span>${p.color}</span>
+                  <span class="meta-pill price-pill">Men: $${precioMenudeo.toLocaleString("es-MX")}</span>
+                  ${precioMayoreo > 0 ? `<span class="meta-pill wholesale-pill">May: $${precioMayoreo.toLocaleString("es-MX")}</span>` : ''}
+                </div>
+              </div>
+              <div class="stock-controls">
+                <div class="status-row">
+                  <span class="stock-status ${estado.clase}">${estado.texto}</span>
+                  <button class="delete-btn" onclick="event.stopPropagation(); askDeleteProduct(${p.id})" title="Eliminar"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                </div>
+                <div class="stepper" onclick="event.stopPropagation()">
+                  <button onclick="updateStock(${p.id}, -1, event)">−</button>
+                  <span class="stock-count">${p.stock}</span>
+                  <button onclick="updateStock(${p.id}, 1, event)">+</button>
+                </div>
               </div>
             </div>
-            <div class="stock-controls">
-              <div class="status-row">
-                <button class="sell-card-btn" onclick="agregarAlCarrito(${p.id}, event)">+ Pedido</button>
-                <span class="stock-status ${estado.clase}">${estado.texto}</span>
-                <button class="delete-btn" onclick="event.stopPropagation(); askDeleteProduct(${p.id})" title="Eliminar"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
-              </div>
-              <div class="stepper" onclick="event.stopPropagation()">
-                <button onclick="updateStock(${p.id}, -1, event)">−</button>
-                <span class="stock-count">${p.stock}</span>
-                <button onclick="updateStock(${p.id}, 1, event)">+</button>
-              </div>
+            <div class="card-bottom-action" onclick="event.stopPropagation()">
+              <select id="selPrice_${p.id}" class="price-select-mini">
+                <option value="price">Menudeo ($${precioMenudeo})</option>
+                ${precioMayoreo > 0 ? `<option value="wholesale">Mayoreo ($${precioMayoreo})</option>` : ''}
+                ${precioVip > 0 ? `<option value="vip">VIP ($${precioVip})</option>` : ''}
+              </select>
+              <button class="sell-card-full-btn" onclick="agregarAlCarritoSeleccionado(${p.id}, event)">+ Agregar al Pedido</button>
             </div>
           </div>
         `;
