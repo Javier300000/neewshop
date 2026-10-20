@@ -91,7 +91,7 @@
     }
 
     /* CONTENEDOR PRINCIPAL */
-    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 140px; position: relative; }
+    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 120px; position: relative; }
 
     header {
       padding: 16px 20px; position: sticky; top: 0; background: rgba(4, 4, 4, 0.75);
@@ -131,7 +131,7 @@
     .search-box input::placeholder { color: #666; }
     .search-box input:focus { border-color: var(--glass-border-bright); background: rgba(255,255,255,0.07); }
 
-    /* PANEL SUPERIOR DE INDICADORES (KPIs ORGANIZADOS) */
+    /* PANEL SUPERIOR DE INDICADORES (5 KPIs CON COLORES ÚNICOS) */
     .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 16px 18px 4px; }
     .kpi-card {
       background: var(--glass-card); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
@@ -153,13 +153,15 @@
     .dot-cyan { background: var(--neon-cyan); box-shadow: 0 0 6px var(--neon-cyan); }
     .dot-green { background: var(--neon-green); box-shadow: 0 0 6px var(--neon-green); }
 
-    .kpi-value { font-size: 1.35rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; }
+    .kpi-value { font-size: 1.25rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; }
     .kpi-range { font-size: 0.62rem; color: var(--text-muted); font-weight: 700; }
-    .kpi-value.neon-white { color: var(--neon-white); }
-    .kpi-value.neon-yellow { color: var(--neon-yellow); }
-    .kpi-value.neon-pink { color: var(--neon-pink); }
-    .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.05rem; }
-    .kpi-value.neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); font-size: 1.05rem; }
+    
+    /* COLORES SIN REPETIR EN LOS VALORES DE CADA TARJETA */
+    .kpi-value.val-white { color: var(--neon-white); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    .kpi-value.val-yellow { color: var(--neon-yellow); text-shadow: 0 0 10px rgba(255,234,0,0.3); }
+    .kpi-value.val-pink { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,85,0.3); }
+    .kpi-value.val-cyan { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0,240,255,0.3); font-size: 1.05rem; }
+    .kpi-value.val-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0,255,102,0.4); font-size: 1.05rem; }
 
     /* FILTROS Y CATEGORÍAS */
     .controls-wrapper { display: flex; flex-direction: column; gap: 4px; padding-top: 4px; }
@@ -201,7 +203,7 @@
     .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.12); border: 1px solid rgba(255, 0, 85, 0.45); color: var(--neon-pink); }
     .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.45); color: var(--neon-green); }
 
-    /* CUADRÍCULA DE PRODUCTOS (TARJETAS AMPLIADAS CON BOTÓN INTEGRADO ABAJO) */
+    /* CUADRÍCULA DE PRODUCTOS */
     .product-list { padding: 10px 18px; display: grid; grid-template-columns: 1fr; gap: 14px; }
 
     .product-card {
@@ -214,44 +216,44 @@
 
     .product-top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; width: 100%; }
 
-    .product-info { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
-    .product-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
-    .product-name { font-size: 0.98rem; font-weight: 800; color: var(--text-white); line-height: 1.3; }
+    .product-info { display: flex; flex-direction: column; gap: 7px; flex: 1; min-width: 0; }
+    .product-cat { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
+    .product-name { font-size: 1rem; font-weight: 800; color: var(--text-white); line-height: 1.3; }
 
-    .product-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+    .product-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
     .meta-pill {
-      background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 3px 8px; border-radius: 7px;
-      font-size: 0.68rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+      background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 4px 10px; border-radius: 8px;
+      font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
     }
     .price-pill { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.35); color: var(--neon-white); font-weight: 800; }
     .wholesale-pill { background: rgba(255, 234, 0, 0.1); border-color: rgba(255, 234, 0, 0.4); color: var(--neon-yellow); font-weight: 800; }
-    .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; }
+    .color-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 
     /* CONTROLES DE STOCK Y SEMÁFORO */
-    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
-    .status-row { display: flex; align-items: center; gap: 5px; }
-    .stock-status { font-size: 0.6rem; font-weight: 900; padding: 3px 7px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
+    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; flex-shrink: 0; }
+    .status-row { display: flex; align-items: center; gap: 6px; }
+    .stock-status { font-size: 0.62rem; font-weight: 900; padding: 4px 9px; border-radius: 7px; text-transform: uppercase; white-space: nowrap; }
     .status-ok { background: rgba(255, 255, 255, 0.12); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.45); }
     .status-low { background: rgba(255, 234, 0, 0.15); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.55); }
     .status-out { background: rgba(255, 0, 85, 0.16); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.55); }
 
     .delete-btn {
       background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-muted);
-      width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s;
+      width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s;
     }
     .delete-btn:active { transform: scale(0.92); }
-    .delete-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .delete-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
     .delete-btn:hover { background: rgba(255, 0, 85, 0.2); color: var(--neon-pink); border-color: var(--neon-pink); }
 
     .stepper {
-      display: flex; align-items: center; gap: 5px; background: rgba(0, 0, 0, 0.5);
-      padding: 3px; border-radius: 9px; border: 1px solid var(--glass-border);
+      display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.5);
+      padding: 4px; border-radius: 11px; border: 1px solid var(--glass-border);
     }
-    .stepper button { width: 26px; height: 26px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.9rem; font-weight: 700; cursor: pointer; }
+    .stepper button { width: 28px; height: 28px; border-radius: 8px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
     .stepper button:active { transform: scale(0.9); background: var(--neon-white); color: #000; }
-    .stock-count { min-width: 22px; text-align: center; font-weight: 800; font-size: 0.88rem; }
+    .stock-count { min-width: 26px; text-align: center; font-weight: 800; font-size: 0.95rem; }
 
-    /* BOTÓN INFERIOR DENTRO DE LA TARJETA (AGREGAR AL PEDIDO) */
+    /* BOTÓN INFERIOR DENTRO DE LA TARJETA */
     .card-bottom-action {
       display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;
       border-top: 1px solid rgba(255,255,255,0.07); padding-top: 10px; margin-top: 2px;
@@ -283,7 +285,7 @@
 
     /* DOCK FLOTANTE */
     .bottom-dock {
-      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
       width: calc(100% - 28px); max-width: 440px; padding: 6px;
       background: rgba(16, 16, 16, 0.85); backdrop-filter: blur(30px);
       border: 1px solid var(--glass-border-bright); border-radius: 22px;
@@ -420,23 +422,23 @@
       </div>
     </header>
 
-    <!-- 4 TARJETAS KPI -->
+    <!-- 4 TARJETAS KPI (COLORES ÚNICOS SIN REPETIR) -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
-        <div class="kpi-value neon-white"><span id="kpiOk">0</span><span class="kpi-range">16+</span></div>
+        <div class="kpi-value val-white"><span id="kpiOk">0</span><span class="kpi-range">16+</span></div>
       </div>
       <div class="kpi-card" id="cardLow" onclick="vibrar(20); setStockFilter('BAJO_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock</div>
-        <div class="kpi-value neon-yellow"><span id="kpiLow">0</span><span class="kpi-range">1-15</span></div>
+        <div class="kpi-value val-yellow"><span id="kpiLow">0</span><span class="kpi-range">1-15</span></div>
       </div>
       <div class="kpi-card" id="cardOut" onclick="vibrar(20); setStockFilter('SIN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-pink"></span> Sin Stock</div>
-        <div class="kpi-value neon-pink"><span id="kpiOut">0</span><span class="kpi-range">0</span></div>
+        <div class="kpi-value val-pink"><span id="kpiOut">0</span><span class="kpi-range">0</span></div>
       </div>
       <div class="kpi-card" style="cursor: default;">
         <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Inversión</div>
-        <div class="kpi-value neon-cyan"><span id="kpiCostTotal" style="font-size: 1.05rem;">$0</span></div>
+        <div class="kpi-value val-cyan"><span id="kpiCostTotal">$0</span></div>
       </div>
     </section>
 
@@ -464,7 +466,7 @@
     <main class="product-list" id="productList"></main>
   </div>
 
-  <!-- DOCK FLOTANTE COMPACTO Y ORDENADO -->
+  <!-- DOCK FLOTANTE ORDENADO Y COMPACTO -->
   <div class="bottom-dock">
     <div class="dock-top-row">
       <button class="fab-cart-btn hidden" id="fabCartBtn" onclick="vibrar(25); abrirModalCarrito()">
