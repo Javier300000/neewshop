@@ -11,9 +11,9 @@
     :root {
       --bg-space: #030303;
       --glass-panel: rgba(255, 255, 255, 0.045);
-      --glass-card: rgba(18, 18, 18, 0.6);
-      --glass-card-hover: rgba(28, 28, 28, 0.75);
-      --glass-modal: rgba(12, 12, 12, 0.94);
+      --glass-card: rgba(18, 18, 18, 0.62);
+      --glass-card-hover: rgba(28, 28, 28, 0.78);
+      --glass-modal: rgba(12, 12, 12, 0.95);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-border-bright: rgba(255, 255, 255, 0.38);
       --text-white: #ffffff;
@@ -23,6 +23,8 @@
       --neon-pink: #ff0055;
       --neon-cyan: #00f0ff;
       --neon-green: #00ff66;
+      --neon-purple: #9d4edd;
+      --neon-orange: #ff7b00;
     }
 
     * {
@@ -79,9 +81,7 @@
       width: 100%; background: #ffffff; color: #000000; border: none; padding: 15px;
       border-radius: 14px; font-size: 0.9rem; font-weight: 900; text-transform: uppercase;
       letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
-      transition: transform 0.15s;
     }
-    .login-btn:active { transform: scale(0.97); }
 
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
@@ -91,7 +91,7 @@
     }
 
     /* CONTENEDOR PRINCIPAL */
-    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 120px; position: relative; }
+    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 140px; position: relative; }
 
     header {
       padding: 16px 20px; position: sticky; top: 0; background: rgba(4, 4, 4, 0.75);
@@ -107,9 +107,8 @@
     .excel-btn {
       background: var(--glass-panel); color: var(--text-white); border: 1px solid var(--glass-border-bright);
       padding: 7px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
-      cursor: pointer; display: flex; align-items: center; gap: 5px; transition: transform 0.15s;
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
     }
-    .excel-btn:active { transform: scale(0.95); }
     .excel-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .badge-live {
@@ -118,20 +117,19 @@
       color: var(--text-white); display: flex; align-items: center; gap: 5px;
     }
     .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon-white); box-shadow: 0 0 8px var(--neon-white); }
-    .lock-btn { background: var(--glass-panel); border: 1px solid var(--glass-border); color: var(--text-white); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s; }
-    .lock-btn:active { transform: scale(0.92); }
+    .lock-btn { background: var(--glass-panel); border: 1px solid var(--glass-border); color: var(--text-white); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .lock-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .search-box { width: 100%; }
     .search-box input {
       width: 100%; background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border); color: var(--text-white); padding: 12px 16px;
-      border-radius: 14px; font-size: 0.92rem; outline: none; transition: all 0.2s;
+      border-radius: 14px; font-size: 0.92rem; outline: none;
     }
     .search-box input::placeholder { color: #666; }
     .search-box input:focus { border-color: var(--glass-border-bright); background: rgba(255,255,255,0.07); }
 
-    /* PANEL SUPERIOR DE INDICADORES (5 KPIs CON COLORES ÚNICOS) */
+    /* PANEL SUPERIOR DE INDICADORES (5 KPIS CON COLORES ÚNICOS) */
     .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 16px 18px 4px; }
     .kpi-card {
       background: var(--glass-card); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
@@ -140,6 +138,7 @@
     }
     .kpi-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-2px); }
     .kpi-card:active { transform: scale(0.97); }
+
     .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.12); }
     .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.12); }
     .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.12); }
@@ -147,21 +146,22 @@
 
     .kpi-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .status-indicator-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    
     .dot-white { background: var(--neon-white); box-shadow: 0 0 6px var(--neon-white); }
     .dot-yellow { background: var(--neon-yellow); box-shadow: 0 0 6px var(--neon-yellow); }
     .dot-pink { background: var(--neon-pink); box-shadow: 0 0 6px var(--neon-pink); }
     .dot-cyan { background: var(--neon-cyan); box-shadow: 0 0 6px var(--neon-cyan); }
     .dot-green { background: var(--neon-green); box-shadow: 0 0 6px var(--neon-green); }
 
-    .kpi-value { font-size: 1.25rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; }
+    .kpi-value { font-size: 1.3rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; }
     .kpi-range { font-size: 0.62rem; color: var(--text-muted); font-weight: 700; }
-    
-    /* COLORES SIN REPETIR EN LOS VALORES DE CADA TARJETA */
-    .kpi-value.val-white { color: var(--neon-white); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-    .kpi-value.val-yellow { color: var(--neon-yellow); text-shadow: 0 0 10px rgba(255,234,0,0.3); }
-    .kpi-value.val-pink { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,85,0.3); }
-    .kpi-value.val-cyan { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0,240,255,0.3); font-size: 1.05rem; }
-    .kpi-value.val-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0,255,102,0.4); font-size: 1.05rem; }
+
+    /* Colores únicos sin repetir para los valores principales */
+    .val-white { color: var(--neon-white); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    .val-yellow { color: var(--neon-yellow); text-shadow: 0 0 10px rgba(255,234,0,0.3); }
+    .val-pink { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,85,0.3); }
+    .val-cyan { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0,240,255,0.3); font-size: 1.05rem; }
+    .val-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0,255,102,0.4); font-size: 1.05rem; }
 
     /* FILTROS Y CATEGORÍAS */
     .controls-wrapper { display: flex; flex-direction: column; gap: 4px; padding-top: 4px; }
@@ -174,7 +174,6 @@
       font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
       display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
     }
-    .stock-tab:active { transform: scale(0.95); }
     .stock-tab.active-all { background: var(--neon-white); color: #000; border-color: var(--neon-white); box-shadow: 0 0 15px rgba(255,255,255,0.3); }
     .stock-tab.active-low { background: rgba(255, 234, 0, 0.18); color: var(--neon-yellow); border-color: var(--neon-yellow); box-shadow: 0 0 15px rgba(255,234,0,0.25); }
     .stock-tab.active-out { background: rgba(255, 0, 85, 0.2); color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255,0,85,0.3); }
@@ -186,14 +185,12 @@
 
     .delete-cat-chip {
       background: rgba(255, 0, 85, 0.1); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.35);
-      padding: 7px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: transform 0.15s;
+      padding: 7px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
     }
-    .delete-cat-chip:active { transform: scale(0.95); }
     .cat-chip {
       background: var(--glass-card); color: var(--text-white); border: 1px solid var(--glass-border);
-      padding: 7px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: transform 0.15s;
+      padding: 7px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; cursor: pointer;
     }
-    .cat-chip:active { transform: scale(0.95); }
     .cat-chip.active { background: var(--neon-white); color: #000; font-weight: 800; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
 
     .section-banner {
@@ -203,30 +200,38 @@
     .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.12); border: 1px solid rgba(255, 0, 85, 0.45); color: var(--neon-pink); }
     .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.45); color: var(--neon-green); }
 
-    /* CUADRÍCULA DE PRODUCTOS */
+    /* CUADRÍCULA DE PRODUCTOS (CADA COSA CON SU COLOR ÚNICO SIN REPETIR) */
     .product-list { padding: 10px 18px; display: grid; grid-template-columns: 1fr; gap: 14px; }
 
     .product-card {
       background: var(--glass-card); backdrop-filter: blur(22px); border: 1px solid var(--glass-border);
       border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
     }
-    .product-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-3px); box-shadow: 0 20px 45px rgba(0,0,0,0.6); }
-    .product-card:active { transform: scale(0.98); }
+    .product-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-3px); }
 
     .product-top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; width: 100%; }
 
     .product-info { display: flex; flex-direction: column; gap: 7px; flex: 1; min-width: 0; }
-    .product-cat { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
+    
+    /* Categoría en Cian */
+    .product-cat { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--neon-cyan); font-weight: 800; text-shadow: 0 0 8px rgba(0,240,255,0.25); }
     .product-name { font-size: 1rem; font-weight: 800; color: var(--text-white); line-height: 1.3; }
 
     .product-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-    .meta-pill {
-      background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 4px 10px; border-radius: 8px;
-      font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
-    }
-    .price-pill { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.35); color: var(--neon-white); font-weight: 800; }
-    .wholesale-pill { background: rgba(255, 234, 0, 0.1); border-color: rgba(255, 234, 0, 0.4); color: var(--neon-yellow); font-weight: 800; }
+    
+    /* Talla en Púrpura Neón */
+    .size-pill-custom { background: rgba(157, 78, 221, 0.15); color: var(--neon-purple); border: 1px solid rgba(157, 78, 221, 0.45); padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; }
+    
+    /* Color en Naranja Neón */
+    .color-pill-custom { background: rgba(255, 123, 0, 0.15); color: var(--neon-orange); border: 1px solid rgba(255, 123, 0, 0.45); padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; }
+
+    /* Precio Menudeo en Blanco */
+    .price-pill { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.35); color: var(--neon-white); font-weight: 800; padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; border: 1px solid rgba(255,255,255,0.2); }
+    
+    /* Precio Mayoreo en Amarillo */
+    .wholesale-pill { background: rgba(255, 234, 0, 0.1); border-color: rgba(255, 234, 0, 0.4); color: var(--neon-yellow); font-weight: 800; padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; border: 1px solid rgba(255,234,0,0.3); }
+    
     .color-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 
     /* CONTROLES DE STOCK Y SEMÁFORO */
@@ -239,35 +244,32 @@
 
     .delete-btn {
       background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-muted);
-      width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s;
+      width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
-    .delete-btn:active { transform: scale(0.92); }
-    .delete-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
     .delete-btn:hover { background: rgba(255, 0, 85, 0.2); color: var(--neon-pink); border-color: var(--neon-pink); }
 
     .stepper {
       display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.5);
       padding: 4px; border-radius: 11px; border: 1px solid var(--glass-border);
     }
-    .stepper button { width: 28px; height: 28px; border-radius: 8px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
-    .stepper button:active { transform: scale(0.9); background: var(--neon-white); color: #000; }
+    .stepper button { width: 28px; height: 28px; border-radius: 8px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .stepper button:active { background: var(--neon-white); color: #000; }
     .stock-count { min-width: 26px; text-align: center; font-weight: 800; font-size: 0.95rem; }
 
-    /* BOTÓN INFERIOR DENTRO DE LA TARJETA */
+    /* BOTÓN INFERIOR DENTRO DE LA TARJETA (AGREGAR AL PEDIDO EN VERDE NEÓN) */
     .card-bottom-action {
       display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;
       border-top: 1px solid rgba(255,255,255,0.07); padding-top: 10px; margin-top: 2px;
     }
     .price-select-mini {
-      background: rgba(0,0,0,0.6); border: 1px solid var(--glass-border); color: var(--neon-yellow);
+      background: rgba(0,0,0,0.6); border: 1px solid var(--glass-border); color: var(--neon-cyan);
       padding: 6px 8px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; outline: none; flex: 1;
     }
     .sell-card-full-btn {
       background: rgba(0, 255, 102, 0.18); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.45);
       padding: 7px 14px; border-radius: 9px; font-size: 0.72rem; font-weight: 900; text-transform: uppercase; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 5px; transition: transform 0.15s; flex: 1.2;
+      display: flex; align-items: center; justify-content: center; gap: 5px; flex: 1.2; box-shadow: 0 0 10px rgba(0,255,102,0.15);
     }
-    .sell-card-full-btn:active { transform: scale(0.96); }
     .sell-card-full-btn:hover { background: rgba(0, 255, 102, 0.3); }
 
     /* LISTA DE HISTORIAL DE VENTAS */
@@ -371,9 +373,9 @@
       .header-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 24px; }
       .brand-row { flex: 1; margin-bottom: 0; }
       .search-box { max-width: 380px; }
-      .kpi-grid { grid-template-columns: repeat(4, 1fr); padding: 24px 32px 8px; gap: 18px; }
-      .kpi-card { padding: 18px 22px; }
-      .kpi-value { font-size: 1.65rem; }
+      .kpi-grid { grid-template-columns: repeat(5, 1fr); padding: 24px 32px 8px; gap: 14px; }
+      .kpi-card { padding: 16px 18px; }
+      .kpi-value { font-size: 1.4rem; }
       .product-list, .sales-list { padding: 16px 32px; grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .modal-overlay { align-items: center; padding: 24px; }
       .modal-sheet { border-radius: 28px; border: 1px solid var(--glass-border-bright); }
@@ -422,7 +424,7 @@
       </div>
     </header>
 
-    <!-- 4 TARJETAS KPI (COLORES ÚNICOS SIN REPETIR) -->
+    <!-- 5 TARJETAS KPI (COLORES ÚNICOS SIN REPETIR) -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
@@ -439,6 +441,10 @@
       <div class="kpi-card" style="cursor: default;">
         <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Inversión</div>
         <div class="kpi-value val-cyan"><span id="kpiCostTotal">$0</span></div>
+      </div>
+      <div class="kpi-card" id="cardSales" onclick="vibrar(20); setStockFilter('VENTAS')">
+        <div class="kpi-label"><span class="status-indicator-dot dot-green"></span> Total Ventas</div>
+        <div class="kpi-value val-green"><span id="kpiSalesProfit">$0</span></div>
       </div>
     </section>
 
@@ -1134,10 +1140,10 @@
 
       content.innerHTML = `
         <div class="detail-grid">
-          <div class="detail-box"><div class="detail-label">Categoría</div><div class="detail-val" style="font-size:0.85rem;">${p.category}</div></div>
-          <div class="detail-box"><div class="detail-label">Talla / Medida</div><div class="detail-val" style="font-size:0.85rem;">${p.size}</div></div>
-          <div class="detail-box"><div class="detail-label">Color</div><div class="detail-val" style="font-size:0.85rem;">${p.color}</div></div>
-          <div class="detail-box"><div class="detail-label">Stock Actual</div><div class="detail-val" style="font-size:0.85rem;">${stock} pzas</div></div>
+          <div class="detail-box"><div class="detail-label">Categoría</div><div class="detail-val" style="color:var(--neon-cyan);">${p.category}</div></div>
+          <div class="detail-box"><div class="detail-label">Talla / Medida</div><div class="detail-val" style="color:var(--neon-purple);">${p.size}</div></div>
+          <div class="detail-box"><div class="detail-label">Color</div><div class="detail-val" style="color:var(--neon-orange);">${p.color}</div></div>
+          <div class="detail-box"><div class="detail-label">Stock Actual</div><div class="detail-val" style="color:#fff;">${stock} pzas</div></div>
           <div class="detail-box"><div class="detail-label">Costo (Adquisición)</div><div class="detail-val" style="color:var(--neon-cyan);">$${costo.toLocaleString("es-MX")}</div></div>
           <div class="detail-box"><div class="detail-label">Precio Menudeo</div><div class="detail-val" style="color:var(--neon-white);">$${menudeo.toLocaleString("es-MX")}</div></div>
           <div class="detail-box"><div class="detail-label">Precio Mayoreo</div><div class="detail-val" style="color:var(--neon-yellow);">$${mayoreo.toLocaleString("es-MX")}</div></div>
@@ -1296,6 +1302,10 @@
       const costoTotalInvertido = products.reduce((acc, p) => acc + ((Number(p.cost) || 0) * (Number(p.stock) || 0)), 0);
       document.getElementById("kpiCostTotal").textContent = "$" + costoTotalInvertido.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+      // Suma total de ganancias de ventas realizadas
+      const gananciaVentasTotal = salesHistory.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
+      document.getElementById("kpiSalesProfit").textContent = "$" + gananciaVentasTotal.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
       if (activeStockFilter === "VENTAS") {
         if (salesHistory.length === 0) {
           list.innerHTML = `<div class="empty-state">No hay ventas registradas todavía. Agrega productos al pedido para ver su ganancia aquí.</div>`;
@@ -1347,10 +1357,10 @@
                 <span class="product-cat">${p.category}</span>
                 <div class="product-name">${p.name}</div>
                 <div class="product-meta">
-                  <span class="meta-pill">Talla ${p.size}</span>
-                  <span class="meta-pill"><span class="color-dot" style="background: ${bgColorDot};"></span>${p.color}</span>
-                  <span class="meta-pill price-pill">Men: $${precioMenudeo.toLocaleString("es-MX")}</span>
-                  ${precioMayoreo > 0 ? `<span class="meta-pill wholesale-pill">May: $${precioMayoreo.toLocaleString("es-MX")}</span>` : ''}
+                  <span class="size-pill-custom">Talla ${p.size}</span>
+                  <span class="color-pill-custom"><span class="color-dot" style="background: ${bgColorDot};"></span>${p.color}</span>
+                  <span class="price-pill">Men: $${precioMenudeo.toLocaleString("es-MX")}</span>
+                  ${precioMayoreo > 0 ? `<span class="wholesale-pill">May: $${precioMayoreo.toLocaleString("es-MX")}</span>` : ''}
                 </div>
               </div>
               <div class="stock-controls">
