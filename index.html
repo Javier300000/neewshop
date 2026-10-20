@@ -6,13 +6,14 @@
   <meta name="theme-color" content="#030303" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | POS & Inventory OS</title>
+  <title>neewshop | POS & Sales OS</title>
   <style>
     :root {
       --bg-space: #030303;
-      --glass-card: rgba(18, 18, 18, 0.65);
-      --glass-card-hover: rgba(28, 28, 28, 0.82);
-      --glass-modal: rgba(10, 10, 10, 0.94);
+      --glass-panel: rgba(255, 255, 255, 0.045);
+      --glass-card: rgba(18, 18, 18, 0.6);
+      --glass-card-hover: rgba(28, 28, 28, 0.75);
+      --glass-modal: rgba(12, 12, 12, 0.94);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-border-bright: rgba(255, 255, 255, 0.38);
       --text-white: #ffffff;
@@ -397,7 +398,7 @@
       </div>
     </header>
 
-    <!-- 4 TARJETAS KPI (ESTADO Y VALORES FINANCIEROS CLAROS) -->
+    <!-- 4 TARJETAS KPI -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
@@ -412,7 +413,7 @@
         <div class="kpi-value neon-pink"><span id="kpiOut">0</span><span class="kpi-range">0</span></div>
       </div>
       <div class="kpi-card" style="cursor: default;">
-        <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Inversión (Costo)</div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Inversión</div>
         <div class="kpi-value neon-cyan"><span id="kpiCostTotal" style="font-size: 1.05rem;">$0</span></div>
       </div>
     </section>
@@ -866,7 +867,6 @@
       document.getElementById("cardOk").className = "kpi-card" + (activeStockFilter === "EN_STOCK" ? " active-filter-white" : "");
       document.getElementById("cardLow").className = "kpi-card" + (activeStockFilter === "BAJO_STOCK" ? " active-filter-yellow" : "");
       document.getElementById("cardOut").className = "kpi-card" + (activeStockFilter === "SIN_STOCK" ? " active-filter-pink" : "");
-      document.getElementById("cardSales").className = "kpi-card" + (activeStockFilter === "VENTAS" ? " active-filter-green" : "");
 
       const banner = document.getElementById("sectionBanner");
       const bannerText = document.getElementById("bannerText");
@@ -901,7 +901,6 @@
       }
     }
 
-    // --- GESTIÓN DEL CARRITO DE PEDIDOS ---
     function agregarAlCarrito(id, event) {
       if (event) event.stopPropagation();
       vibrar(25);
@@ -1259,9 +1258,6 @@
 
       const costoTotalInvertido = products.reduce((acc, p) => acc + ((Number(p.cost) || 0) * (Number(p.stock) || 0)), 0);
       document.getElementById("kpiCostTotal").textContent = "$" + costoTotalInvertido.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      const gananciaVentasTotal = salesHistory.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
-      document.getElementById("kpiSalesProfit").textContent = "$" + gananciaVentasTotal.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
       if (activeStockFilter === "VENTAS") {
         if (salesHistory.length === 0) {
