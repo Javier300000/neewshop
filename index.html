@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#020202" />
+  <meta name="theme-color" content="#030303" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | Stock & Sales OS</title>
+  <title>neewshop | POS & Inventory OS</title>
   <style>
     :root {
       --bg-space: #030303;
-      --glass-panel: rgba(255, 255, 255, 0.045);
-      --glass-card: rgba(18, 18, 18, 0.6);
-      --glass-card-hover: rgba(28, 28, 28, 0.75);
-      --glass-modal: rgba(12, 12, 12, 0.92);
+      --glass-card: rgba(18, 18, 18, 0.65);
+      --glass-card-hover: rgba(28, 28, 28, 0.82);
+      --glass-modal: rgba(10, 10, 10, 0.94);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-border-bright: rgba(255, 255, 255, 0.38);
       --text-white: #ffffff;
@@ -36,8 +35,8 @@
     body {
       background-color: var(--bg-space);
       background-image:
-        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.07) 0%, transparent 40%),
-        radial-gradient(circle at 90% 20%, rgba(255, 234, 0, 0.045) 0%, transparent 40%),
+        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(255, 234, 0, 0.04) 0%, transparent 40%),
         radial-gradient(circle at 50% 90%, rgba(0, 255, 102, 0.04) 0%, transparent 45%);
       background-attachment: fixed;
       color: var(--text-white);
@@ -47,50 +46,38 @@
 
     /* PANTALLA DE ACCESO */
     .login-screen {
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 3, 3, 0.82);
-      backdrop-filter: blur(40px);
-      -webkit-backdrop-filter: blur(40px);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      animation: fadeIn 0.3s ease;
+      position: fixed; inset: 0; background: rgba(3, 3, 3, 0.88);
+      backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+      z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
     }
     .login-screen.hidden { display: none; }
 
     .login-card {
-      width: 100%; max-width: 360px; background: var(--glass-card);
+      width: 100%; max-width: 380px; background: var(--glass-card);
       backdrop-filter: blur(30px); border: 1px solid var(--glass-border-bright);
-      border-radius: 28px; padding: 32px 22px; text-align: center;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-      animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 28px; padding: 36px 24px; text-align: center; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
     }
     .login-logo {
-      font-size: 1.9rem; font-weight: 900; letter-spacing: -0.8px; text-transform: lowercase;
-      color: var(--text-white); display: inline-flex; align-items: center; gap: 5px; margin-bottom: 6px;
+      font-size: 2.1rem; font-weight: 900; letter-spacing: -0.8px; text-transform: lowercase;
+      color: var(--text-white); display: inline-flex; align-items: center; gap: 6px; margin-bottom: 8px;
     }
-    .login-logo span { background: var(--text-white); color: var(--bg-space); padding: 2px 9px; border-radius: 7px; }
-    .login-subtitle { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 24px; }
+    .login-logo span { background: var(--text-white); color: var(--bg-space); padding: 2px 10px; border-radius: 8px; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
+    .login-subtitle { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 26px; }
 
-    .pass-wrapper { position: relative; margin-bottom: 12px; }
+    .pass-wrapper { position: relative; margin-bottom: 14px; }
     .pass-wrapper input {
-      width: 100%; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--glass-border);
-      color: var(--text-white); padding: 13px 50px 13px 14px; border-radius: 14px; font-size: 0.95rem; text-align: center; letter-spacing: 2px; outline: none;
-      transition: all 0.2s;
+      width: 100%; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--glass-border);
+      color: var(--text-white); padding: 14px 50px 14px 14px; border-radius: 14px; font-size: 1rem; text-align: center; letter-spacing: 2px; outline: none;
     }
     .pass-wrapper input:focus { border-color: var(--neon-white); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
     .pass-wrapper input.input-error { border-color: var(--neon-pink) !important; animation: shake 0.35s ease; }
-    .toggle-pass-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .toggle-pass-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
 
-    .login-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
+    .login-error-msg { color: var(--neon-pink); font-size: 0.75rem; font-weight: 700; min-height: 20px; margin-bottom: 10px; }
     .login-btn {
-      width: 100%; background: #ffffff; color: #000000; border: none; padding: 14px;
-      border-radius: 14px; font-size: 0.88rem; font-weight: 900; text-transform: uppercase;
-      letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+      width: 100%; background: #ffffff; color: #000000; border: none; padding: 15px;
+      border-radius: 14px; font-size: 0.9rem; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
       transition: transform 0.15s;
     }
     .login-btn:active { transform: scale(0.97); }
@@ -101,272 +88,270 @@
       50% { transform: translateX(6px); }
       75% { transform: translateX(-4px); }
     }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes scaleUp { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     /* CONTENEDOR PRINCIPAL */
-    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 110px; position: relative; }
+    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 120px; position: relative; }
 
     header {
-      padding: 14px 18px; position: sticky; top: 0; background: rgba(4, 4, 4, 0.7);
+      padding: 16px 20px; position: sticky; top: 0; background: rgba(4, 4, 4, 0.75);
       backdrop-filter: blur(25px); z-index: 20; border-bottom: 1px solid var(--glass-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
-    .header-inner { display: flex; flex-direction: column; gap: 10px; }
+    .header-inner { display: flex; flex-direction: column; gap: 12px; }
     .brand-row { display: flex; justify-content: space-between; align-items: center; }
-    .brand-title { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.5px; text-transform: lowercase; color: var(--text-white); display: flex; align-items: center; gap: 4px; }
-    .brand-title span { background: var(--text-white); color: var(--bg-space); padding: 1px 7px; border-radius: 6px; }
+    .brand-title { font-size: 1.45rem; font-weight: 900; letter-spacing: -0.5px; text-transform: lowercase; color: var(--text-white); display: flex; align-items: center; gap: 5px; }
+    .brand-title span { background: var(--text-white); color: var(--bg-space); padding: 1px 8px; border-radius: 6px; box-shadow: 0 0 12px rgba(255,255,255,0.3); }
 
-    .header-actions { display: flex; align-items: center; gap: 7px; }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
     .excel-btn {
       background: var(--glass-panel); color: var(--text-white); border: 1px solid var(--glass-border-bright);
-      padding: 6px 11px; border-radius: 10px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      padding: 7px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
       cursor: pointer; display: flex; align-items: center; gap: 5px; transition: transform 0.15s;
     }
     .excel-btn:active { transform: scale(0.95); }
-    .excel-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .excel-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .badge-live {
-      font-size: 0.64rem; font-weight: 800; text-transform: uppercase; padding: 5px 9px;
+      font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 6px 10px;
       border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass-panel);
       color: var(--text-white); display: flex; align-items: center; gap: 5px;
     }
     .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon-white); box-shadow: 0 0 8px var(--neon-white); }
-    .lock-btn { background: var(--glass-panel); border: 1px solid var(--glass-border); color: var(--text-white); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s; }
+    .lock-btn { background: var(--glass-panel); border: 1px solid var(--glass-border); color: var(--text-white); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s; }
     .lock-btn:active { transform: scale(0.92); }
-    .lock-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .lock-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .search-box { width: 100%; }
     .search-box input {
-      width: 100%; background: rgba(255, 255, 255, 0.035); backdrop-filter: blur(15px);
-      border: 1px solid var(--glass-border); color: var(--text-white); padding: 10px 14px;
-      border-radius: 13px; font-size: 0.88rem; outline: none; transition: all 0.2s;
+      width: 100%; background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border); color: var(--text-white); padding: 12px 16px;
+      border-radius: 14px; font-size: 0.92rem; outline: none; transition: all 0.2s;
     }
     .search-box input::placeholder { color: #666; }
-    .search-box input:focus { border-color: var(--玻璃边框亮, var(--glass-border-bright)); background: rgba(255,255,255,0.06); }
+    .search-box input:focus { border-color: var(--glass-border-bright); background: rgba(255,255,255,0.07); }
 
-    /* TARJETAS KPI (PANEL SUPERIOR ORGANIZADO) */
-    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 14px 16px 4px; }
+    /* PANEL SUPERIOR DE INDICADORES (KPIs ORGANIZADOS) */
+    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 16px 18px 4px; }
     .kpi-card {
       background: var(--glass-card); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
-      border-radius: 18px; padding: 12px; text-align: left; cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      border-radius: 18px; padding: 14px; text-align: left; cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .kpi-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    .kpi-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-2px); }
     .kpi-card:active { transform: scale(0.97); }
     .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.12); }
     .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.12); }
     .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.12); }
     .kpi-card.active-filter-green { border-color: var(--neon-green); background: rgba(0, 255, 102, 0.12); }
 
-    .kpi-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
-    .status-indicator-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-    .dot-white { background: var(--neon-white); }
-    .dot-yellow { background: var(--neon-yellow); }
-    .dot-pink { background: var(--neon-pink); }
-    .dot-cyan { background: var(--neon-cyan); }
-    .dot-green { background: var(--neon-green); }
+    .kpi-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .status-indicator-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .dot-white { background: var(--neon-white); box-shadow: 0 0 6px var(--neon-white); }
+    .dot-yellow { background: var(--neon-yellow); box-shadow: 0 0 6px var(--neon-yellow); }
+    .dot-pink { background: var(--neon-pink); box-shadow: 0 0 6px var(--neon-pink); }
+    .dot-cyan { background: var(--neon-cyan); box-shadow: 0 0 6px var(--neon-cyan); }
+    .dot-green { background: var(--neon-green); box-shadow: 0 0 6px var(--neon-green); }
 
-    .kpi-value { font-size: 1.25rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; }
-    .kpi-range { font-size: 0.6rem; color: var(--text-muted); font-weight: 700; }
+    .kpi-value { font-size: 1.35rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; }
+    .kpi-range { font-size: 0.62rem; color: var(--text-muted); font-weight: 700; }
     .kpi-value.neon-white { color: var(--neon-white); }
     .kpi-value.neon-yellow { color: var(--neon-yellow); }
     .kpi-value.neon-pink { color: var(--neon-pink); }
-    .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.05rem; }
-    .kpi-value.neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); font-size: 1.05rem; }
+    .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.1rem; }
+    .kpi-value.neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); font-size: 1.1rem; }
 
     /* FILTROS Y CATEGORÍAS */
-    .controls-wrapper { display: flex; flex-direction: column; gap: 2px; }
-    .stock-tabs { display: flex; gap: 6px; padding: 8px 16px 2px; overflow-x: auto; scrollbar-width: none; }
+    .controls-wrapper { display: flex; flex-direction: column; gap: 4px; padding-top: 4px; }
+    .stock-tabs { display: flex; gap: 6px; padding: 8px 18px 2px; overflow-x: auto; scrollbar-width: none; }
     .stock-tabs::-webkit-scrollbar { display: none; }
 
     .stock-tab {
       background: var(--glass-card); backdrop-filter: blur(15px); color: var(--text-muted);
-      border: 1px solid var(--glass-border); padding: 7px 12px; border-radius: 12px;
-      font-size: 0.7rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
+      border: 1px solid var(--glass-border); padding: 8px 13px; border-radius: 12px;
+      font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
       display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
     }
     .stock-tab:active { transform: scale(0.95); }
-    .stock-tab.active-all { background: var(--neon-white); color: #000; border-color: var(--neon-white); }
-    .stock-tab.active-low { background: rgba(255, 234, 0, 0.16); color: var(--neon-yellow); border-color: var(--neon-yellow); }
-    .stock-tab.active-out { background: rgba(255, 0, 85, 0.18); color: var(--neon-pink); border-color: var(--neon-pink); }
-    .stock-tab.active-sales { background: rgba(0, 255, 102, 0.18); color: var(--neon-green); border-color: var(--neon-green); }
+    .stock-tab.active-all { background: var(--neon-white); color: #000; border-color: var(--neon-white); box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+    .stock-tab.active-low { background: rgba(255, 234, 0, 0.18); color: var(--neon-yellow); border-color: var(--neon-yellow); box-shadow: 0 0 15px rgba(255,234,0,0.25); }
+    .stock-tab.active-out { background: rgba(255, 0, 85, 0.2); color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255,0,85,0.3); }
+    .stock-tab.active-sales { background: rgba(0, 255, 102, 0.2); color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 15px rgba(0,255,102,0.3); }
 
-    .categories-bar-row { display: flex; align-items: center; padding: 4px 16px; gap: 8px; }
+    .categories-bar-row { display: flex; align-items: center; padding: 4px 18px; gap: 8px; }
     .categories-scroll { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
     .categories-scroll::-webkit-scrollbar { display: none; }
 
     .delete-cat-chip {
       background: rgba(255, 0, 85, 0.1); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.35);
-      padding: 6px 11px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: transform 0.15s;
+      padding: 7px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: transform 0.15s;
     }
     .delete-cat-chip:active { transform: scale(0.95); }
     .cat-chip {
       background: var(--glass-card); color: var(--text-white); border: 1px solid var(--glass-border);
-      padding: 6px 13px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: transform 0.15s;
+      padding: 7px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: transform 0.15s;
     }
     .cat-chip:active { transform: scale(0.95); }
-    .cat-chip.active { background: var(--neon-white); color: #000; font-weight: 800; }
+    .cat-chip.active { background: var(--neon-white); color: #000; font-weight: 800; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
 
     .section-banner {
-      margin: 4px 16px; padding: 10px 14px; border-radius: 13px; font-size: 0.72rem; font-weight: 800; display: none; align-items: center; justify-content: space-between;
-      animation: fadeIn 0.2s ease;
+      margin: 6px 18px; padding: 11px 16px; border-radius: 14px; font-size: 0.75rem; font-weight: 800; display: none; align-items: center; justify-content: space-between;
     }
     .section-banner.show-low { display: flex; background: rgba(255, 234, 0, 0.12); border: 1px solid rgba(255, 234, 0, 0.45); color: var(--neon-yellow); }
     .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.12); border: 1px solid rgba(255, 0, 85, 0.45); color: var(--neon-pink); }
     .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.45); color: var(--neon-green); }
 
     /* CUADRÍCULA DE PRODUCTOS */
-    .product-list { padding: 8px 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .product-list { padding: 10px 18px; display: grid; grid-template-columns: 1fr; gap: 14px; }
 
     .product-card {
       background: var(--glass-card); backdrop-filter: blur(22px); border: 1px solid var(--glass-border);
-      border-radius: 20px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border-radius: 22px; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .product-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-3px); box-shadow: 0 20px 45px rgba(0,0,0,0.6); }
     .product-card:active { transform: scale(0.98); }
 
-    .product-info { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
-    .product-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
-    .product-name { font-size: 0.95rem; font-weight: 800; color: var(--text-white); line-height: 1.3; }
+    .product-info { display: flex; flex-direction: column; gap: 7px; flex: 1; min-width: 0; }
+    .product-cat { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
+    .product-name { font-size: 1rem; font-weight: 800; color: var(--text-white); line-height: 1.3; }
 
-    .product-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+    .product-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
     .meta-pill {
-      background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 4px 9px; border-radius: 7px;
-      font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+      background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 4px 10px; border-radius: 8px;
+      font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
     }
     .price-pill { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.35); color: var(--neon-white); font-weight: 800; }
     .wholesale-pill { background: rgba(255, 234, 0, 0.1); border-color: rgba(255, 234, 0, 0.4); color: var(--neon-yellow); font-weight: 800; }
-    .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; }
+    .color-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 
     /* CONTROLES DE STOCK Y SEMÁFORO */
-    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
-    .status-row { display: flex; align-items: center; gap: 5px; }
-    .stock-status { font-size: 0.6rem; font-weight: 900; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
+    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; flex-shrink: 0; }
+    .status-row { display: flex; align-items: center; gap: 6px; }
+    .stock-status { font-size: 0.62rem; font-weight: 900; padding: 4px 9px; border-radius: 7px; text-transform: uppercase; white-space: nowrap; }
     .status-ok { background: rgba(255, 255, 255, 0.12); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.45); }
     .status-low { background: rgba(255, 234, 0, 0.15); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.55); }
     .status-out { background: rgba(255, 0, 85, 0.16); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.55); }
 
     .delete-btn {
       background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-muted);
-      width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s;
+      width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s;
     }
     .delete-btn:active { transform: scale(0.92); }
-    .delete-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .delete-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
     .delete-btn:hover { background: rgba(255, 0, 85, 0.2); color: var(--neon-pink); border-color: var(--neon-pink); }
 
     .stepper {
       display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.5);
-      padding: 3px; border-radius: 10px; border: 1px solid var(--glass-border);
+      padding: 4px; border-radius: 11px; border: 1px solid var(--glass-border);
     }
-    .stepper button { width: 27px; height: 27px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
+    .stepper button { width: 28px; height: 28px; border-radius: 8px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
     .stepper button:active { transform: scale(0.9); background: var(--neon-white); color: #000; }
-    .stock-count { min-width: 24px; text-align: center; font-weight: 800; font-size: 0.9rem; }
+    .stock-count { min-width: 26px; text-align: center; font-weight: 800; font-size: 0.95rem; }
 
     .sell-card-btn {
-      background: rgba(0, 255, 102, 0.15); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.4);
-      padding: 4px 10px; border-radius: 7px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s;
+      background: rgba(0, 255, 102, 0.18); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.45);
+      padding: 5px 11px; border-radius: 8px; font-size: 0.68rem; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s;
     }
     .sell-card-btn:active { transform: scale(0.94); }
-    .sell-card-btn:hover { background: rgba(0, 255, 102, 0.28); }
+    .sell-card-btn:hover { background: rgba(0, 255, 102, 0.3); }
 
     /* LISTA DE HISTORIAL DE VENTAS */
-    .sales-list { padding: 8px 16px; display: flex; flex-direction: column; gap: 10px; animation: fadeIn 0.2s ease; }
+    .sales-list { padding: 10px 18px; display: flex; flex-direction: column; gap: 12px; }
     .sale-card {
-      background: var(--glass-card); border: 1px solid rgba(0, 255, 102, 0.25); border-radius: 16px; padding: 12px 16px;
+      background: var(--glass-card); border: 1px solid rgba(0, 255, 102, 0.25); border-radius: 18px; padding: 14px 18px;
       display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
-    .sale-info { display: flex; flex-direction: column; gap: 4px; }
-    .sale-title { font-size: 0.92rem; font-weight: 800; color: #fff; }
-    .sale-sub { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+    .sale-info { display: flex; flex-direction: column; gap: 5px; }
+    .sale-title { font-size: 0.98rem; font-weight: 800; color: #fff; }
+    .sale-sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
     .sale-profit { text-align: right; }
-    .sale-profit-val { font-size: 1rem; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 10px rgba(0,255,102,0.3); }
-    .sale-profit-lbl { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+    .sale-profit-val { font-size: 1.1rem; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 10px rgba(0,255,102,0.3); }
+    .sale-profit-lbl { font-size: 0.62rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
 
     /* DOCK FLOTANTE */
     .bottom-dock {
-      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-      width: calc(100% - 24px); max-width: 480px; padding: 7px;
-      background: rgba(16, 16, 16, 0.75); backdrop-filter: blur(30px);
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      width: calc(100% - 28px); max-width: 520px; padding: 8px;
+      background: rgba(16, 16, 16, 0.82); backdrop-filter: blur(30px);
       border: 1px solid var(--glass-border-bright); border-radius: 999px;
-      display: flex; gap: 7px; z-index: 30; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8);
+      display: flex; gap: 8px; z-index: 30; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
     }
-    .fab-btn { flex: 1.4; background: #fff; color: #000; border: none; padding: 13px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
-    .fab-btn:active { transform: scale(0.96); }
-    .fab-cat-btn { flex: 1; background: rgba(255, 255, 255, 0.06); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.35); padding: 13px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
-    .fab-cat-btn:active { transform: scale(0.96); }
+    .fab-btn { flex: 1.3; background: #fff; color: #000; border: none; padding: 13px; border-radius: 999px; font-size: 0.78rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .fab-cat-btn { flex: 1; background: rgba(255, 255, 255, 0.06); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.35); padding: 13px; border-radius: 999px; font-size: 0.76rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .fab-cart-btn {
+      flex: 1.4; background: var(--neon-green); color: #000; border: none; padding: 13px;
+      border-radius: 999px; font-size: 0.78rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+      box-shadow: 0 0 20px rgba(0, 255, 102, 0.45);
+    }
+    .fab-cart-btn.hidden { display: none; }
 
     /* MODALES */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(18px);
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.78); backdrop-filter: blur(18px);
       display: none; justify-content: center; align-items: flex-end; z-index: 50;
-      animation: fadeIn 0.2s ease;
     }
     .modal-overlay.open { display: flex; }
 
     .modal-sheet {
-      width: 100%; max-width: 440px; background: var(--glass-modal); backdrop-filter: blur(35px);
+      width: 100%; max-width: 460px; background: var(--glass-modal); backdrop-filter: blur(35px);
       border: 1px solid var(--glass-border-bright); border-top: 2px solid var(--neon-white);
-      border-radius: 26px 26px 0 0; padding: 22px 20px 28px; max-height: 90vh; overflow-y: auto;
-      box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.85);
-      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 28px 28px 0 0; padding: 24px 22px 30px; max-height: 90vh; overflow-y: auto;
     }
     .modal-sheet.danger-sheet { border-top: 2px solid var(--neon-pink); }
     .modal-sheet.success-sheet { border-top: 2px solid var(--neon-green); }
 
-    @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .modal-title { font-size: 1.15rem; font-weight: 800; }
+    .close-btn { background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--glass-border); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .close-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.2; }
 
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .modal-title { font-size: 1.1rem; font-weight: 800; }
-    .close-btn { background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--glass-border); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
-    .close-btn:active { transform: scale(0.9); }
-    .close-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2.2; }
+    .cart-items-container { max-height: 260px; overflow-y: auto; margin-bottom: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .cart-item-row { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .cart-item-name { font-size: 0.9rem; font-weight: 800; color: #fff; }
+    .cart-item-sub { font-size: 0.72rem; color: var(--text-muted); }
+    .cart-total-box { background: rgba(0,255,102,0.1); border: 1px solid rgba(0,255,102,0.35); border-radius: 14px; padding: 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .cart-total-lbl { font-size: 0.78rem; text-transform: uppercase; font-weight: 800; color: var(--neon-green); }
+    .cart-total-val { font-size: 1.25rem; font-weight: 900; color: var(--neon-green); }
 
-    .form-group { margin-bottom: 12px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    label { display: block; font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; font-weight: 700; }
-    input, select { width: 100%; background: rgba(0, 0, 0, 0.55); border: 1px solid var(--glass-border); color: #fff; padding: 10px 12px; border-radius: 11px; font-size: 0.88rem; outline: none; }
+    .form-group { margin-bottom: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    label { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-weight: 700; }
+    input, select { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border); color: #fff; padding: 11px 14px; border-radius: 12px; font-size: 0.9rem; outline: none; }
     select option { background: #111; color: #fff; }
     input:focus, select:focus { border-color: var(--glass-border-bright); }
 
-    .submit-btn {
-      width: 100%; background: #fff; color: #000; border: none; padding: 13px; border-radius: 12px; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-top: 8px; cursor: pointer; transition: transform 0.15s;
-    }
-    .submit-btn:active { transform: scale(0.97); }
-    .submit-btn.green-btn { background: var(--neon-green); color: #000; box-shadow: 0 0 20px rgba(0,255,102,0.4); }
+    .submit-btn { width: 100%; background: #fff; color: #000; border: none; padding: 14px; border-radius: 13px; font-size: 0.88rem; font-weight: 900; text-transform: uppercase; margin-top: 8px; cursor: pointer; }
+    .submit-btn.green-btn { background: var(--neon-green); color: #000; box-shadow: 0 0 22px rgba(0,255,102,0.45); }
 
-    .size-type-hint { font-size: 0.7rem; color: var(--neon-yellow); margin-top: 5px; font-weight: 600; }
-    .delete-text { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px; }
-    .delete-pass-input { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border); color: #fff; padding: 11px; border-radius: 11px; font-size: 0.9rem; text-align: center; letter-spacing: 2px; outline: none; }
-    .delete-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 10px; text-align: center; }
-    .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .cancel-action-btn { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--glass-border); padding: 11px; border-radius: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: transform 0.15s; }
-    .cancel-action-btn:active { transform: scale(0.95); }
-    .confirm-delete-btn { background: var(--neon-pink); color: #fff; border: none; padding: 11px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s; }
-    .confirm-delete-btn:active { transform: scale(0.95); }
+    .size-type-hint { font-size: 0.72rem; color: var(--neon-yellow); margin-top: 6px; font-weight: 600; }
+    .delete-text { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 14px; }
+    .delete-pass-input { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border); color: #fff; padding: 12px; border-radius: 12px; font-size: 0.92rem; text-align: center; letter-spacing: 2px; outline: none; }
+    .delete-error-msg { color: var(--neon-pink); font-size: 0.76rem; font-weight: 700; min-height: 18px; margin-bottom: 10px; text-align: center; }
+    .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cancel-action-btn { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--glass-border); padding: 12px; border-radius: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+    .confirm-delete-btn { background: var(--neon-pink); color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    .detail-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px; }
-    .detail-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
-    .detail-val { font-size: 1rem; font-weight: 900; color: #fff; margin-top: 3px; }
-    .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
-    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s; }
-    .detail-edit-btn:active { transform: scale(0.95); }
-    .detail-del-btn { background: var(--neon-pink); color: #fff; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.15s; }
-    .detail-del-btn:active { transform: scale(0.95); }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .detail-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); border-radius: 13px; padding: 11px; }
+    .detail-label { font-size: 0.64rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+    .detail-val { font-size: 1.05rem; font-weight: 900; color: #fff; margin-top: 3px; }
+    .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 13px; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .detail-del-btn { background: var(--neon-pink); color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-    .empty-state { grid-column: 1 / -1; text-align: center; padding: 40px 16px; color: var(--text-muted); font-size: 0.88rem; background: var(--glass-card); border: 1px dashed var(--glass-border); border-radius: 18px; }
+    .empty-state { grid-column: 1 / -1; text-align: center; padding: 50px 18px; color: var(--text-muted); font-size: 0.9rem; background: var(--glass-card); border: 1px dashed var(--glass-border); border-radius: 20px; }
 
     @media (min-width: 768px) {
-      header { padding: 18px 30px; }
-      .header-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; }
+      header { padding: 18px 32px; }
+      .header-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 24px; }
       .brand-row { flex: 1; margin-bottom: 0; }
-      .search-box { max-width: 360px; }
-      .kpi-grid { grid-template-columns: repeat(3, 1fr); padding: 22px 30px 6px; gap: 16px; }
-      .product-list, .sales-list { padding: 14px 30px; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-      .modal-overlay { align-items: center; padding: 20px; }
-      .modal-sheet { border-radius: 26px; border: 1px solid var(--glass-border-bright); }
+      .search-box { max-width: 380px; }
+      .kpi-grid { grid-template-columns: repeat(4, 1fr); padding: 24px 32px 8px; gap: 18px; }
+      .kpi-card { padding: 18px 22px; }
+      .kpi-value { font-size: 1.65rem; }
+      .product-list, .sales-list { padding: 16px 32px; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .modal-overlay { align-items: center; padding: 24px; }
+      .modal-sheet { border-radius: 28px; border: 1px solid var(--glass-border-bright); }
     }
     @media (min-width: 1100px) { .product-list, .sales-list { grid-template-columns: repeat(3, 1fr); } }
   </style>
@@ -412,31 +397,23 @@
       </div>
     </header>
 
-    <!-- 3 TARJETAS KPI (ESTADO DE STOCK Y VALOR COSTO / INVERSIÓN) -->
+    <!-- 4 TARJETAS KPI (ESTADO Y VALORES FINANCIEROS CLAROS) -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
-        <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock (16+)</div>
-        <div class="kpi-value neon-white"><span id="kpiOk">0</span></div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
+        <div class="kpi-value neon-white"><span id="kpiOk">0</span><span class="kpi-range">16+</span></div>
       </div>
       <div class="kpi-card" id="cardLow" onclick="vibrar(20); setStockFilter('BAJO_STOCK')">
-        <div class="kpi-label"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock (1-15)</div>
-        <div class="kpi-value neon-yellow"><span id="kpiLow">0</span></div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock</div>
+        <div class="kpi-value neon-yellow"><span id="kpiLow">0</span><span class="kpi-range">1-15</span></div>
       </div>
       <div class="kpi-card" id="cardOut" onclick="vibrar(20); setStockFilter('SIN_STOCK')">
-        <div class="kpi-label"><span class="status-indicator-dot dot-pink"></span> Sin Stock (0)</div>
-        <div class="kpi-value neon-pink"><span id="kpiOut">0</span></div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-pink"></span> Sin Stock</div>
+        <div class="kpi-value neon-pink"><span id="kpiOut">0</span><span class="kpi-range">0</span></div>
       </div>
-    </section>
-
-    <!-- 2 TARJETAS INFERIORES DE VALOR FINANCIERO -->
-    <section class="kpi-grid" style="padding-top: 0px;">
       <div class="kpi-card" style="cursor: default;">
-        <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Stock (Al Costo)</div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Inversión (Costo)</div>
         <div class="kpi-value neon-cyan"><span id="kpiCostTotal" style="font-size: 1.05rem;">$0</span></div>
-      </div>
-      <div class="kpi-card" id="cardSales" onclick="vibrar(20); setStockFilter('VENTAS')">
-        <div class="kpi-label"><span class="status-indicator-dot dot-green"></span> Ganancia Ventas</div>
-        <div class="kpi-value neon-green"><span id="kpiSalesProfit" style="font-size: 1.05rem;">$0</span></div>
       </div>
     </section>
 
@@ -464,45 +441,28 @@
     <main class="product-list" id="productList"></main>
   </div>
 
-  <!-- DOCK FLOTANTE -->
+  <!-- DOCK FLOTANTE INFERIOR -->
   <div class="bottom-dock">
+    <button class="fab-cart-btn hidden" id="fabCartBtn" onclick="vibrar(25); abrirModalCarrito()">
+      🛒 Pedido (<span id="cartCount">0</span>) • $<span id="cartTotalSum">0</span>
+    </button>
     <button class="fab-btn" onclick="vibrar(25); abrirModalCrear()">+ PRODUCTO</button>
     <button class="fab-cat-btn" onclick="vibrar(25); toggleCategoryModal(true)">+ CATEGORÍA</button>
   </div>
 
-  <!-- MODAL REGISTRAR VENTA -->
-  <div class="modal-overlay" id="sellModal">
+  <!-- MODAL CARRITO / PEDIDO MULTI-PRODUCTO -->
+  <div class="modal-overlay" id="cartModal">
     <div class="modal-sheet success-sheet">
       <div class="modal-header">
-        <div class="modal-title">Registrar Venta</div>
-        <button class="close-btn" onclick="cerrarModalVenta()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        <div class="modal-title">Pedido Actual / Checkout</div>
+        <button class="close-btn" onclick="cerrarModalCarrito()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <form id="sellForm" onsubmit="registrarVenta(event)">
-        <input type="hidden" id="sellProdId" />
-        <div class="form-group">
-          <label>Prenda / Producto</label>
-          <input type="text" id="sellProdName" readonly style="color: var(--neon-green); font-weight: 800;" />
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Cantidad Vendida</label>
-            <input type="number" id="sellQty" value="1" min="1" required />
-          </div>
-          <div class="form-group">
-            <label>Precio de Venta</label>
-            <select id="sellPriceType" onchange="actualizarPrecioVentaModal()" required>
-              <option value="price">Menudeo ($<span id="optMen"></span>)</option>
-              <option value="wholesale">Mayoreo ($<span id="optMay"></span>)</option>
-              <option value="vip">VIP ($<span id="optVip"></span>)</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Total Cobrado ($ MXN)</label>
-          <input type="number" id="sellTotalAmount" step="0.5" required />
-        </div>
-        <button type="submit" class="submit-btn green-btn">Confirmar Venta y Descontar Stock</button>
-      </form>
+      <div class="cart-items-container" id="cartItemsContainer"></div>
+      <div class="cart-total-box">
+        <span class="cart-total-lbl">Total del Pedido:</span>
+        <span class="cart-total-val" id="cartModalTotal">$0</span>
+      </div>
+      <button type="button" class="submit-btn green-btn" onclick="confirmarPedidoCarrito()">Confirmar Pedido y Descontar Stock</button>
     </div>
   </div>
 
@@ -696,6 +656,7 @@
 
     let products = [];
     let salesHistory = [];
+    let cartItems = [];
     let categories = [...categoriasIniciales];
     let activeCategory = "Todos";
     let activeStockFilter = "TODOS";
@@ -844,7 +805,7 @@
           firebase.initializeApp({ databaseURL: FIREBASE_DATABASE_URL });
           firebaseIniciado = true;
         }
-        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v4");
+        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v6");
         dbRef.on("value", (snapshot) => {
           const data = snapshot.val();
           if (data !== null) {
@@ -940,93 +901,137 @@
       }
     }
 
-    function abrirModalVenta(id, event) {
+    // --- GESTIÓN DEL CARRITO DE PEDIDOS ---
+    function agregarAlCarrito(id, event) {
       if (event) event.stopPropagation();
       vibrar(25);
       const p = products.find(prod => prod.id === id);
       if (!p) return;
 
       if ((Number(p.stock) || 0) <= 0) {
-        alert("Este producto no tiene stock disponible para vender.");
+        alert("Este producto no tiene stock disponible.");
         return;
       }
 
-      currentSelectedProduct = p;
-      document.getElementById("sellProdId").value = p.id;
-      document.getElementById("sellProdName").value = `${p.name} (Talla ${p.size} • ${p.color})`;
-      document.getElementById("sellQty").value = 1;
-      document.getElementById("sellQty").max = p.stock;
-
-      document.getElementById("optMen").textContent = Number(p.price || 0).toLocaleString("es-MX");
-      document.getElementById("optMay").textContent = Number(p.wholesale || 0).toLocaleString("es-MX");
-      document.getElementById("optVip").textContent = Number(p.vip || 0).toLocaleString("es-MX");
-
-      document.getElementById("sellPriceType").value = "price";
-      actualizarPrecioVentaModal();
-
-      document.getElementById("sellModal").classList.add("open");
+      const existente = cartItems.find(item => item.id === id);
+      if (existente) {
+        if (existente.qty < p.stock) {
+          existente.qty++;
+        } else {
+          alert("Has alcanzado el límite del stock disponible.");
+        }
+      } else {
+        cartItems.push({
+          id: p.id,
+          name: p.name,
+          category: p.category,
+          size: p.size,
+          color: p.color,
+          cost: Number(p.cost) || 0,
+          price: Number(p.price) || 0,
+          qty: 1,
+          maxStock: p.stock
+        });
+      }
+      actualizarBotonCarritoFlotante();
     }
 
-    function cerrarModalVenta() {
+    function actualizarBotonCarritoFlotante() {
+      const btn = document.getElementById("fabCartBtn");
+      const countSpan = document.getElementById("cartCount");
+      const totalSpan = document.getElementById("cartTotalSum");
+
+      const totalItems = cartItems.reduce((acc, item) => acc + item.qty, 0);
+      const totalSum = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+      countSpan.textContent = totalItems;
+      totalSpan.textContent = totalSum.toLocaleString("es-MX");
+
+      if (totalItems > 0) {
+        btn.classList.remove("hidden");
+      } else {
+        btn.classList.add("hidden");
+      }
+    }
+
+    function abrirModalCarrito() {
+      vibrar(25);
+      const container = document.getElementById("cartItemsContainer");
+      let sumaTotal = 0;
+
+      container.innerHTML = cartItems.map((item, idx) => {
+        const sub = item.price * item.qty;
+        sumaTotal += sub;
+        return `
+          <div class="cart-item-row">
+            <div>
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-sub">Talla ${item.size} • ${item.color} • $${item.price} c/u</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-weight:900; font-size:0.9rem;">${item.qty} pzas</span>
+              <button onclick="quitarDelCarrito(${idx})" style="background:none; border:none; color:var(--neon-pink); cursor:pointer; font-weight:900; font-size:1rem;">✕</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("cartModalTotal").textContent = "$" + sumaTotal.toLocaleString("es-MX");
+      document.getElementById("cartModal").classList.add("open");
+    }
+
+    function quitarDelCarrito(index) {
+      vibrar(20);
+      cartItems.splice(index, 1);
+      actualizarBotonCarritoFlotante();
+      if (cartItems.length === 0) {
+        cerrarModalCarrito();
+      } else {
+        abrirModalCarrito();
+      }
+    }
+
+    function cerrarModalCarrito() {
       vibrar(15);
-      document.getElementById("sellModal").classList.remove("open");
+      document.getElementById("cartModal").classList.remove("open");
     }
 
-    function actualizarPrecioVentaModal() {
-      if (!currentSelectedProduct) return;
-      const p = currentSelectedProduct;
-      const tipo = document.getElementById("sellPriceType").value;
-      const qty = parseInt(document.getElementById("sellQty").value, 10) || 1;
-
-      let unitPrice = Number(p.price) || 0;
-      if (tipo === "wholesale") unitPrice = Number(p.wholesale) || unitPrice;
-      if (tipo === "vip") unitPrice = Number(p.vip) || unitPrice;
-
-      document.getElementById("sellTotalAmount").value = unitPrice * qty;
-    }
-
-    document.getElementById("sellQty").addEventListener("input", actualizarPrecioVentaModal);
-
-    function registrarVenta(e) {
-      e.preventDefault();
+    function confirmarPedidoCarrito() {
+      if (cartItems.length === 0) return;
       vibrar(100);
-      const prodId = Number(document.getElementById("sellProdId").value);
-      const qty = parseInt(document.getElementById("sellQty").value, 10) || 1;
-      const tipoPrecio = document.getElementById("sellPriceType").value;
-      const totalCobrado = parseFloat(document.getElementById("sellTotalAmount").value) || 0;
 
-      const p = products.find(prod => prod.id === prodId);
-      if (!p) return;
+      let gananciaTotalPedido = 0;
+      let totalCobradoPedido = 0;
 
-      if (p.stock < qty) {
-        alert("No hay suficiente stock para esta venta.");
-        return;
-      }
-
-      p.stock -= qty;
-
-      const costoUnitario = Number(p.cost) || 0;
-      const costoTotal = costoUnitario * qty;
-      const gananciaNeta = totalCobrado - costoTotal;
-
-      const nombreTipoPrecio = tipoPrecio === "price" ? "Menudeo" : (tipoPrecio === "wholesale" ? "Mayoreo" : "VIP");
+      cartItems.forEach(cartItem => {
+        const p = products.find(prod => prod.id === cartItem.id);
+        if (p) {
+          p.stock = Math.max(0, p.stock - cartItem.qty);
+          const costoTotalItem = cartItem.cost * cartItem.qty;
+          const ventaTotalItem = cartItem.price * cartItem.qty;
+          gananciaTotalPedido += (ventaTotalItem - costoTotalItem);
+          totalCobradoPedido += ventaTotalItem;
+        }
+      });
 
       const nuevaVenta = {
         id: Date.now(),
         date: new Date().toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
-        name: p.name,
-        category: p.category,
-        size: p.size,
-        color: p.color,
-        qty: qty,
-        priceType: nombreTipoPrecio,
-        totalSold: totalCobrado,
-        profit: gananciaNeta
+        name: `Pedido Múltiple (${cartItems.length} prod)`,
+        category: "Varios",
+        size: "Varias",
+        color: "Varios",
+        qty: cartItems.reduce((acc, i) => acc + i.qty, 0),
+        priceType: "Menudeo / Mixto",
+        totalSold: totalCobradoPedido,
+        profit: gananciaTotalPedido
       };
 
       salesHistory.unshift(nuevaVenta);
+      cartItems = [];
+      actualizarBotonCarritoFlotante();
       saveToDB();
-      cerrarModalVenta();
+      cerrarModalCarrito();
       setStockFilter("VENTAS");
     }
 
@@ -1260,7 +1265,7 @@
 
       if (activeStockFilter === "VENTAS") {
         if (salesHistory.length === 0) {
-          list.innerHTML = `<div class="empty-state">No hay ventas registradas todavía. Vende algún producto para ver su ganancia aquí.</div>`;
+          list.innerHTML = `<div class="empty-state">No hay ventas registradas todavía. Agrega productos al pedido para ver su ganancia aquí.</div>`;
           return;
         }
         list.className = "sales-list";
@@ -1268,8 +1273,8 @@
           <div class="sale-card">
             <div class="sale-info">
               <div class="sale-title">${s.name}</div>
-              <div class="sale-sub">${s.category} • Talla ${s.size} • ${s.color}</div>
-              <div class="sale-sub">Vendidos: <strong>${s.qty} pzas</strong> a precio <strong>${s.priceType}</strong> ($${Number(s.totalSold).toLocaleString("es-MX")})</div>
+              <div class="sale-sub">${s.category} • Cantidad total: <strong>${s.qty} pzas</strong></div>
+              <div class="sale-sub">Total Cobrado: <strong>$${Number(s.totalSold).toLocaleString("es-MX")}</strong></div>
               <div class="sale-sub" style="color: #666; font-size: 0.65rem;">${s.date}</div>
             </div>
             <div class="sale-profit">
@@ -1315,7 +1320,7 @@
             </div>
             <div class="stock-controls">
               <div class="status-row">
-                <button class="sell-card-btn" onclick="abrirModalVenta(${p.id}, event)">Vender</button>
+                <button class="sell-card-btn" onclick="agregarAlCarrito(${p.id}, event)">+ Pedido</button>
                 <span class="stock-status ${estado.clase}">${estado.texto}</span>
                 <button class="delete-btn" onclick="event.stopPropagation(); askDeleteProduct(${p.id})" title="Eliminar"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
               </div>
