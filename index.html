@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#020202" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | Stock OS</title>
+  <title>neewshop | Stock & Sales OS</title>
   <style>
     :root {
       --bg-space: #030303;
@@ -22,6 +22,7 @@
       --neon-yellow: #ffea00;
       --neon-pink: #ff0055;
       --neon-cyan: #00f0ff;
+      --neon-green: #00ff66;
     }
 
     * {
@@ -37,7 +38,7 @@
       background-image:
         radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.07) 0%, transparent 40%),
         radial-gradient(circle at 90% 20%, rgba(255, 234, 0, 0.045) 0%, transparent 40%),
-        radial-gradient(circle at 50% 90%, rgba(255, 0, 85, 0.045) 0%, transparent 45%);
+        radial-gradient(circle at 50% 90%, rgba(0, 255, 102, 0.04) 0%, transparent 45%);
       background-attachment: fixed;
       color: var(--text-white);
       min-height: 100vh;
@@ -58,114 +59,35 @@
       align-items: center;
       padding: 20px;
     }
-
     .login-screen.hidden { display: none; }
 
     .login-card {
-      width: 100%;
-      max-width: 360px;
-      background: var(--glass-card);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      border: 1px solid var(--glass-border-bright);
-      border-radius: 28px;
-      padding: 32px 22px;
-      text-align: center;
+      width: 100%; max-width: 360px; background: var(--glass-card);
+      backdrop-filter: blur(30px); border: 1px solid var(--glass-border-bright);
+      border-radius: 28px; padding: 32px 22px; text-align: center;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
     }
-
     .login-logo {
-      font-size: 1.9rem;
-      font-weight: 900;
-      letter-spacing: -0.8px;
-      text-transform: lowercase;
-      color: var(--text-white);
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      margin-bottom: 6px;
+      font-size: 1.9rem; font-weight: 900; letter-spacing: -0.8px; text-transform: lowercase;
+      color: var(--text-white); display: inline-flex; align-items: center; gap: 5px; margin-bottom: 6px;
     }
+    .login-logo span { background: var(--text-white); color: var(--bg-space); padding: 2px 9px; border-radius: 7px; }
+    .login-subtitle { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 24px; }
 
-    .login-logo span {
-      background: var(--text-white);
-      color: var(--bg-space);
-      padding: 2px 9px;
-      border-radius: 7px;
-    }
-
-    .login-subtitle {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-weight: 700;
-      margin-bottom: 24px;
-    }
-
-    .pass-wrapper {
-      position: relative;
-      margin-bottom: 12px;
-    }
-
+    .pass-wrapper { position: relative; margin-bottom: 12px; }
     .pass-wrapper input {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid var(--glass-border);
-      color: var(--text-white);
-      padding: 13px 50px 13px 14px;
-      border-radius: 14px;
-      font-size: 0.95rem;
-      text-align: center;
-      letter-spacing: 2px;
-      outline: none;
+      width: 100%; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--glass-border);
+      color: var(--text-white); padding: 13px 50px 13px 14px; border-radius: 14px; font-size: 0.95rem; text-align: center; letter-spacing: 2px; outline: none;
     }
+    .pass-wrapper input:focus { border-color: var(--neon-white); }
+    .pass-wrapper input.input-error { border-color: var(--neon-pink) !important; animation: shake 0.35s ease; }
+    .toggle-pass-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
 
-    .pass-wrapper input:focus {
-      border-color: var(--neon-white);
-    }
-
-    .pass-wrapper input.input-error,
-    .delete-pass-input.input-error {
-      border-color: var(--neon-pink) !important;
-      animation: shake 0.35s ease;
-    }
-
-    .toggle-pass-btn {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 4px;
-    }
-
-    .login-error-msg {
-      color: var(--neon-pink);
-      font-size: 0.74rem;
-      font-weight: 700;
-      min-height: 18px;
-      margin-bottom: 8px;
-    }
-
+    .login-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
     .login-btn {
-      width: 100%;
-      background: #ffffff;
-      color: #000000;
-      border: none;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: 0.88rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+      width: 100%; background: #ffffff; color: #000000; border: none; padding: 14px;
+      border-radius: 14px; font-size: 0.88rem; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
     }
 
     @keyframes shake {
@@ -176,288 +98,116 @@
     }
 
     /* CONTENEDOR PRINCIPAL */
-    .app-container {
-      width: 100%;
-      max-width: 1240px;
-      margin: 0 auto;
-      min-height: 100vh;
-      padding-bottom: 110px;
-      position: relative;
-    }
+    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 110px; position: relative; }
 
     header {
-      padding: 14px 18px;
-      position: sticky;
-      top: 0;
-      background: rgba(4, 4, 4, 0.62);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      z-index: 20;
-      border-bottom: 1px solid var(--glass-border);
+      padding: 14px 18px; position: sticky; top: 0; background: rgba(4, 4, 4, 0.62);
+      backdrop-filter: blur(25px); z-index: 20; border-bottom: 1px solid var(--glass-border);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
+    .header-inner { display: flex; flex-direction: column; gap: 10px; }
+    .brand-row { display: flex; justify-content: space-between; align-items: center; }
+    .brand-title { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.5px; text-transform: lowercase; color: var(--text-white); display: flex; align-items: center; gap: 4px; }
+    .brand-title span { background: var(--text-white); color: var(--bg-space); padding: 1px 7px; border-radius: 6px; }
 
-    .header-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .brand-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .brand-title {
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      text-transform: lowercase;
-      color: var(--text-white);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .brand-title span {
-      background: var(--text-white);
-      color: var(--bg-space);
-      padding: 1px 7px;
-      border-radius: 6px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
+    .header-actions { display: flex; align-items: center; gap: 7px; }
     .excel-btn {
-      background: var(--glass-panel);
-      backdrop-filter: blur(12px);
-      color: var(--text-white);
-      border: 1px solid var(--glass-border-bright);
-      padding: 6px 11px;
-      border-radius: 10px;
-      font-size: 0.68rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      background: var(--glass-panel); color: var(--text-white); border: 1px solid var(--glass-border-bright);
+      padding: 6px 11px; border-radius: 10px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
     }
-
     .excel-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .badge-live {
-      font-size: 0.64rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      padding: 5px 9px;
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass-panel);
-      color: var(--text-white);
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      font-size: 0.64rem; font-weight: 800; text-transform: uppercase; padding: 5px 9px;
+      border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass-panel);
+      color: var(--text-white); display: flex; align-items: center; gap: 5px;
     }
-
-    .sync-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--neon-white);
-      box-shadow: 0 0 8px var(--neon-white);
-    }
-
-    .lock-btn {
-      background: var(--glass-panel);
-      border: 1px solid var(--glass-border);
-      color: var(--text-white);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
+    .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon-white); box-shadow: 0 0 8px var(--neon-white); }
+    .lock-btn { background: var(--glass-panel); border: 1px solid var(--glass-border); color: var(--text-white); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .lock-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .search-box { width: 100%; }
-
     .search-box input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.035);
-      backdrop-filter: blur(15px);
-      border: 1px solid var(--glass-border);
-      color: var(--text-white);
-      padding: 10px 14px;
-      border-radius: 13px;
-      font-size: 0.88rem;
-      outline: none;
+      width: 100%; background: rgba(255, 255, 255, 0.035); backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border); color: var(--text-white); padding: 10px 14px;
+      border-radius: 13px; font-size: 0.88rem; outline: none;
     }
-
     .search-box input::placeholder { color: #666; }
-
     .search-box input:focus { border-color: var(--glass-border-bright); }
 
     /* TARJETAS KPI */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      padding: 14px 16px 4px;
-    }
-
+    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 14px 16px 4px; }
     .kpi-card {
-      background: var(--glass-card);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 18px;
-      padding: 12px;
-      text-align: left;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      background: var(--glass-card); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+      border-radius: 18px; padding: 12px; text-align: left; cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       transition: all 0.2s ease;
     }
-
-    .kpi-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); }
+    .kpi-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-2px); }
     .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.1); }
     .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.1); }
     .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.1); }
+    .kpi-card.active-filter-green { border-color: var(--neon-green); background: rgba(0, 255, 102, 0.1); }
 
-    .kpi-label {
-      font-size: 0.62rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
+    .kpi-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
     .status-indicator-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
     .dot-white { background: var(--neon-white); }
     .dot-yellow { background: var(--neon-yellow); }
     .dot-pink { background: var(--neon-pink); }
     .dot-cyan { background: var(--neon-cyan); }
+    .dot-green { background: var(--neon-green); }
 
-    .kpi-value {
-      font-size: 1.25rem;
-      font-weight: 900;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-    }
-
+    .kpi-value { font-size: 1.25rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; }
     .kpi-range { font-size: 0.6rem; color: var(--text-muted); font-weight: 700; }
     .kpi-value.neon-white { color: var(--neon-white); }
     .kpi-value.neon-yellow { color: var(--neon-yellow); }
     .kpi-value.neon-pink { color: var(--neon-pink); }
     .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.15rem; }
+    .kpi-value.neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); }
 
     /* FILTROS Y CATEGORÍAS */
     .controls-wrapper { display: flex; flex-direction: column; gap: 2px; }
-
-    .stock-tabs {
-      display: flex;
-      gap: 6px;
-      padding: 8px 16px 2px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
+    .stock-tabs { display: flex; gap: 6px; padding: 8px 16px 2px; overflow-x: auto; scrollbar-width: none; }
     .stock-tabs::-webkit-scrollbar { display: none; }
 
     .stock-tab {
-      background: var(--glass-card);
-      color: var(--text-muted);
-      border: 1px solid var(--glass-border);
-      padding: 7px 12px;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      white-space: nowrap;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      background: var(--glass-card); backdrop-filter: blur(15px); color: var(--text-muted);
+      border: 1px solid var(--glass-border); padding: 7px 12px; border-radius: 12px;
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px;
     }
     .stock-tab.active-all { background: var(--neon-white); color: #000; border-color: var(--neon-white); }
     .stock-tab.active-low { background: rgba(255, 234, 0, 0.16); color: var(--neon-yellow); border-color: var(--neon-yellow); }
     .stock-tab.active-out { background: rgba(255, 0, 85, 0.18); color: var(--neon-pink); border-color: var(--neon-pink); }
+    .stock-tab.active-sales { background: rgba(0, 255, 102, 0.16); color: var(--neon-green); border-color: var(--neon-green); }
 
     .categories-bar-row { display: flex; align-items: center; padding: 4px 16px; gap: 8px; }
     .categories-scroll { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
     .categories-scroll::-webkit-scrollbar { display: none; }
 
     .delete-cat-chip {
-      background: rgba(255, 0, 85, 0.1);
-      color: var(--neon-pink);
-      border: 1px solid rgba(255, 0, 85, 0.35);
-      padding: 6px 11px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      white-space: nowrap;
-      cursor: pointer;
+      background: rgba(255, 0, 85, 0.1); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.35);
+      padding: 6px 11px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
     }
-
     .cat-chip {
-      background: var(--glass-card);
-      color: var(--text-white);
-      border: 1px solid var(--glass-border);
-      padding: 6px 13px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
+      background: var(--glass-card); color: var(--text-white); border: 1px solid var(--glass-border);
+      padding: 6px 13px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; cursor: pointer;
     }
     .cat-chip.active { background: var(--neon-white); color: #000; font-weight: 800; }
 
     .section-banner {
-      margin: 4px 16px;
-      padding: 10px 14px;
-      border-radius: 13px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      display: none;
-      align-items: center;
-      justify-content: space-between;
+      margin: 4px 16px; padding: 10px 14px; border-radius: 13px; font-size: 0.72rem; font-weight: 800; display: none; align-items: center; justify-content: space-between;
     }
     .section-banner.show-low { display: flex; background: rgba(255, 234, 0, 0.12); border: 1px solid rgba(255, 234, 0, 0.45); color: var(--neon-yellow); }
     .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.12); border: 1px solid rgba(255, 0, 85, 0.45); color: var(--neon-pink); }
+    .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.45); color: var(--neon-green); }
 
-    /* CUADRÍCULA DE PRODUCTOS (CLICKABLE CARDS) */
-    .product-list {
-      padding: 8px 16px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
+    /* CUADRÍCULA DE PRODUCTOS */
+    .product-list { padding: 8px 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
 
     .product-card {
-      background: var(--glass-card);
-      backdrop-filter: blur(22px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      background: var(--glass-card); backdrop-filter: blur(22px); border: 1px solid var(--glass-border);
+      border-radius: 20px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
     .product-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-2px); }
@@ -468,17 +218,8 @@
 
     .product-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
     .meta-pill {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-white);
-      padding: 4px 9px;
-      border-radius: 7px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 4px 9px; border-radius: 7px;
+      font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
     }
     .price-pill { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.35); color: var(--neon-white); font-weight: 800; }
     .wholesale-pill { background: rgba(255, 234, 0, 0.1); border-color: rgba(255, 234, 0, 0.4); color: var(--neon-yellow); font-weight: 800; }
@@ -492,20 +233,40 @@
     .status-low { background: rgba(255, 234, 0, 0.15); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.55); }
     .status-out { background: rgba(255, 0, 85, 0.16); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.55); }
 
+    .delete-btn {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-muted);
+      width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .delete-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .delete-btn:hover { background: rgba(255, 0, 85, 0.2); color: var(--neon-pink); border-color: var(--neon-pink); }
+
     .stepper {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 3px;
-      border-radius: 10px;
-      border: 1px solid var(--glass-border);
+      display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.5);
+      padding: 3px; border-radius: 10px; border: 1px solid var(--glass-border);
     }
-    .stepper button {
-      width: 27px; height: 27px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.08); color: var(--text-white); font-size: 0.95rem; font-weight: 700; cursor: pointer;
-    }
+    .stepper button { width: 27px; height: 27px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
     .stepper button:active { background: var(--neon-white); color: #000; }
     .stock-count { min-width: 24px; text-align: center; font-weight: 800; font-size: 0.9rem; }
+
+    /* BOTÓN RÁPIDO DE VENTA EN TARJETA */
+    .sell-card-btn {
+      background: rgba(0, 255, 102, 0.15); color: var(--neon-green); border: 1px solid rgba(0, 255, 102, 0.4);
+      padding: 4px 10px; border-radius: 7px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; cursor: pointer;
+    }
+    .sell-card-btn:hover { background: rgba(0, 255, 102, 0.28); }
+
+    /* LISTA DE HISTORIAL DE VENTAS */
+    .sales-list { padding: 8px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .sale-card {
+      background: var(--glass-card); border: 1px solid rgba(0, 255, 102, 0.25); border-radius: 16px; padding: 12px 16px;
+      display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .sale-info { display: flex; flex-direction: column; gap: 4px; }
+    .sale-title { font-size: 0.92rem; font-weight: 800; color: #fff; }
+    .sale-sub { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+    .sale-profit { text-align: right; }
+    .sale-profit-val { font-size: 1rem; font-weight: 900; color: var(--neon-green); text-shadow: 0 0 10px rgba(0,255,102,0.3); }
+    .sale-profit-lbl { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
 
     /* DOCK FLOTANTE */
     .bottom-dock {
@@ -518,7 +279,7 @@
     .fab-btn { flex: 1.4; background: #fff; color: #000; border: none; padding: 13px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .fab-cat-btn { flex: 1; background: rgba(255, 255, 255, 0.06); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.35); padding: 13px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    /* MODALES Y VENTANA DETALLES */
+    /* MODALES */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(18px);
       display: none; justify-content: center; align-items: flex-end; z-index: 50;
@@ -531,6 +292,7 @@
       border-radius: 26px 26px 0 0; padding: 22px 20px 28px; max-height: 90vh; overflow-y: auto;
     }
     .modal-sheet.danger-sheet { border-top: 2px solid var(--neon-pink); }
+    .modal-sheet.success-sheet { border-top: 2px solid var(--neon-green); }
 
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .modal-title { font-size: 1.1rem; font-weight: 800; }
@@ -547,30 +309,23 @@
     .submit-btn {
       width: 100%; background: #fff; color: #000; border: none; padding: 13px; border-radius: 12px; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-top: 8px; cursor: pointer;
     }
+    .submit-btn.green-btn { background: var(--neon-green); color: #000; box-shadow: 0 0 20px rgba(0,255,102,0.4); }
+
     .size-type-hint { font-size: 0.7rem; color: var(--neon-yellow); margin-top: 5px; font-weight: 600; }
-
-    /* DETALLES DE PRODUCTO (MODAL) */
-    .detail-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
-    }
-    .detail-box {
-      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px;
-    }
-    .detail-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
-    .detail-val { font-size: 1rem; font-weight: 900; color: #fff; margin-top: 3px; }
-
-    .detail-actions {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;
-    }
-    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-    .detail-del-btn { background: var(--neon-pink); color: #fff; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-
     .delete-text { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px; }
     .delete-pass-input { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border); color: #fff; padding: 11px; border-radius: 11px; font-size: 0.9rem; text-align: center; letter-spacing: 2px; outline: none; }
     .delete-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 10px; text-align: center; }
     .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .cancel-action-btn { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--glass-border); padding: 11px; border-radius: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
     .confirm-delete-btn { background: var(--neon-pink); color: #fff; border: none; padding: 11px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .detail-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px; }
+    .detail-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+    .detail-val { font-size: 1rem; font-weight: 900; color: #fff; margin-top: 3px; }
+    .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .detail-del-btn { background: var(--neon-pink); color: #fff; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
     .empty-state { grid-column: 1 / -1; text-align: center; padding: 40px 16px; color: var(--text-muted); font-size: 0.88rem; background: var(--glass-card); border: 1px dashed var(--glass-border); border-radius: 18px; }
 
@@ -580,21 +335,20 @@
       .brand-row { flex: 1; margin-bottom: 0; }
       .search-box { max-width: 360px; }
       .kpi-grid { grid-template-columns: repeat(4, 1fr); padding: 22px 30px 6px; gap: 16px; }
-      .product-list { padding: 14px 30px; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .product-list, .sales-list { padding: 14px 30px; grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .modal-overlay { align-items: center; padding: 20px; }
       .modal-sheet { border-radius: 26px; border: 1px solid var(--glass-border-bright); }
     }
-    @media (min-width: 1100px) { .product-list { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1100px) { .product-list, .sales-list { grid-template-columns: repeat(3, 1fr); } }
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA DE BLOQUEO CON CONTRASEÑA -->
+  <!-- PANTALLA DE BLOQUEO -->
   <div class="login-screen" id="loginScreen">
     <div class="login-card">
       <div class="login-logo">neew<span>shop</span></div>
       <div class="login-subtitle">Acceso Personal Autorizado</div>
-
       <form onsubmit="verificarAcceso(event)">
         <div class="pass-wrapper">
           <input type="password" id="passInput" placeholder="Contraseña" required autocomplete="current-password" />
@@ -629,53 +383,90 @@
       </div>
     </header>
 
-    <!-- TARJETAS KPI -->
+    <!-- TARJETAS KPI (AHORA CON GANANCIA TOTAL DE VENTAS) -->
     <section class="kpi-grid">
-      <div class="kpi-card" id="cardOk" onclick="setStockFilter('EN_STOCK')">
+      <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
         <div class="kpi-value neon-white"><span id="kpiOk">0</span><span class="kpi-range">16+</span></div>
       </div>
-      <div class="kpi-card" id="cardLow" onclick="setStockFilter('BAJO_STOCK')">
+      <div class="kpi-card" id="cardLow" onclick="vibrar(20); setStockFilter('BAJO_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock</div>
         <div class="kpi-value neon-yellow"><span id="kpiLow">0</span><span class="kpi-range">1-15</span></div>
       </div>
-      <div class="kpi-card" id="cardOut" onclick="setStockFilter('SIN_STOCK')">
+      <div class="kpi-card" id="cardOut" onclick="vibrar(20); setStockFilter('SIN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-pink"></span> No hay Stock</div>
         <div class="kpi-value neon-pink"><span id="kpiOut">0</span><span class="kpi-range">0</span></div>
       </div>
-      <div class="kpi-card" style="cursor: default;">
-        <div class="kpi-label"><span class="status-indicator-dot dot-cyan"></span> Valor Inversión</div>
-        <div class="kpi-value neon-cyan"><span id="kpiCostTotal" style="font-size: 1.05rem;">$0</span></div>
+      <div class="kpi-card" id="cardSales" onclick="vibrar(20); setStockFilter('VENTAS')">
+        <div class="kpi-label"><span class="status-indicator-dot dot-green"></span> Ganancia Ventas</div>
+        <div class="kpi-value neon-green"><span id="kpiSalesProfit" style="font-size: 1.05rem;">$0</span></div>
       </div>
     </section>
 
     <!-- FILTROS Y CATEGORÍAS -->
     <div class="controls-wrapper">
       <div class="stock-tabs">
-        <button class="stock-tab active-all" id="tabAll" onclick="setStockFilter('TODOS')"><span class="status-indicator-dot dot-white"></span> Todo</button>
-        <button class="stock-tab" id="tabLow" onclick="setStockFilter('BAJO_STOCK')"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock (1-15)</button>
-        <button class="stock-tab" id="tabOut" onclick="setStockFilter('SIN_STOCK')"><span class="status-indicator-dot dot-pink"></span> Sin Stock (0)</button>
+        <button class="stock-tab active-all" id="tabAll" onclick="vibrar(15); setStockFilter('TODOS')"><span class="status-indicator-dot dot-white"></span> Todo</button>
+        <button class="stock-tab" id="tabLow" onclick="vibrar(15); setStockFilter('BAJO_STOCK')"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock</button>
+        <button class="stock-tab" id="tabOut" onclick="vibrar(15); setStockFilter('SIN_STOCK')"><span class="status-indicator-dot dot-pink"></span> Sin Stock</button>
+        <button class="stock-tab" id="tabSales" onclick="vibrar(25); setStockFilter('VENTAS')"><span class="status-indicator-dot dot-green"></span> Historial Ventas</button>
       </div>
 
-      <div class="categories-bar-row">
+      <div class="categories-bar-row" id="catBarRow">
         <nav class="categories-scroll" id="categoriesBar"></nav>
-        <button class="delete-cat-chip" onclick="toggleDeleteCategoryModal(true)">Eliminar Categoría</button>
+        <button class="delete-cat-chip" onclick="vibrar(30); toggleDeleteCategoryModal(true)">Eliminar Cat</button>
       </div>
     </div>
 
     <!-- BANNER DE SECCIÓN -->
     <div class="section-banner" id="sectionBanner">
-      <span id="bannerText">SECCIÓN BAJO STOCK</span>
-      <span style="cursor:pointer; text-decoration:underline;" onclick="setStockFilter('TODOS')">Ver todo</span>
+      <span id="bannerText">SECCIÓN</span>
+      <span style="cursor:pointer; text-decoration:underline;" onclick="vibrar(15); setStockFilter('TODOS')">Ver todo</span>
     </div>
 
     <main class="product-list" id="productList"></main>
   </div>
 
-  <!-- DOCK FLOTANTE INFERIOR -->
+  <!-- DOCK FLOTANTE -->
   <div class="bottom-dock">
-    <button class="fab-btn" onclick="abrirModalCrear()">+ PRODUCTO</button>
-    <button class="fab-cat-btn" onclick="toggleCategoryModal(true)">+ CATEGORÍA</button>
+    <button class="fab-btn" onclick="vibrar(25); abrirModalCrear()">+ PRODUCTO</button>
+    <button class="fab-cat-btn" onclick="vibrar(25); toggleCategoryModal(true)">+ CATEGORÍA</button>
+  </div>
+
+  <!-- MODAL REGISTRAR VENTA -->
+  <div class="modal-overlay" id="sellModal">
+    <div class="modal-sheet success-sheet">
+      <div class="modal-header">
+        <div class="modal-title" id="sellModalTitle">Registrar Venta</div>
+        <button class="close-btn" onclick="cerrarModalVenta()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+      <form id="sellForm" onsubmit="registrarVenta(event)">
+        <input type="hidden" id="sellProdId" />
+        <div class="form-group">
+          <label>Prenda / Producto</label>
+          <input type="text" id="sellProdName" readonly style="color: var(--neon-green); font-weight: 800;" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cantidad Vendida</label>
+            <input type="number" id="sellQty" value="1" min="1" required />
+          </div>
+          <div class="form-group">
+            <label>Precio de Venta</label>
+            <select id="sellPriceType" onchange="actualizarPrecioVentaModal()" required>
+              <option value="price">Menudeo ($<span id="optMen"></span>)</option>
+              <option value="wholesale">Mayoreo ($<span id="optMay"></span>)</option>
+              <option value="vip">VIP ($<span id="optVip"></span>)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Total Cobrado ($ MXN)</label>
+          <input type="number" id="sellTotalAmount" step="0.5" required />
+        </div>
+        <button type="submit" class="submit-btn green-btn">Confirmar Venta y Descontar Stock</button>
+      </form>
+    </div>
   </div>
 
   <!-- MODAL AGREGAR / EDITAR PRODUCTO -->
@@ -711,7 +502,6 @@
             <input type="number" id="pStock" placeholder="20" min="0" required />
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label>Costo (Nos cuesta)</label>
@@ -732,13 +522,12 @@
             <input type="number" id="pVip" placeholder="400" min="1" step="0.5" required />
           </div>
         </div>
-
         <button type="submit" class="submit-btn" id="btnGuardarProd">Guardar en Inventario</button>
       </form>
     </div>
   </div>
 
-  <!-- MODAL DETALLES DEL PRODUCTO (INFORMACIÓN COMPLETA + EDITAR + ELIMINAR) -->
+  <!-- MODAL DETALLES DEL PRODUCTO -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -747,8 +536,8 @@
       </div>
       <div id="detailContent"></div>
       <div class="detail-actions">
-        <button class="detail-edit-btn" onclick="editarProductoDesdeDetalle()">Editar</button>
-        <button class="detail-del-btn" onclick="eliminarProductoDesdeDetalle()">Eliminar</button>
+        <button class="detail-edit-btn" onclick="vibrar(30); editarProductoDesdeDetalle()">Editar</button>
+        <button class="detail-del-btn" onclick="vibrar(60); eliminarProductoDesdeDetalle()">Eliminar</button>
       </div>
     </div>
   </div>
@@ -836,6 +625,17 @@
     const CLAVE_TIENDA = "neew2026";
     const CLAVE_ELIMINAR = "neew2026";
 
+    // Sistema de Vibración Háptica Diferenciada
+    function vibrar(tipo) {
+      if (!navigator.vibrate) return;
+      if (tipo === 15) navigator.vibrate(15);                  // Clic normal / Pestañas
+      else if (tipo === 20) navigator.vibrate(25);              // Cambiar stock (+ / -)
+      else if (tipo === 25) navigator.vibrate([20, 40, 20]);    // Abrir modal / Dock
+      else if (tipo === 30) navigator.vibrate(40);              // Botón acción
+      else if (tipo === 60) navigator.vibrate([60, 40, 60]);    // Alerta / Borrar
+      else if (tipo === 100) navigator.vibrate([40, 60, 40, 80, 100]); // Éxito guardado
+    }
+
     const SISTEMAS_TALLAS = {
       ropa: ["XS", "S", "M", "L", "XL", "XXL", "Unitalla"],
       calzado: ["22 MX", "22.5 MX", "23 MX", "23.5 MX", "24 MX", "24.5 MX", "25 MX", "25.5 MX", "26 MX", "26.5 MX", "27 MX", "27.5 MX", "28 MX", "28.5 MX", "29 MX", "30 MX"],
@@ -859,6 +659,7 @@
     ];
 
     let products = [];
+    let salesHistory = [];
     let categories = [...categoriasIniciales];
     let activeCategory = "Todos";
     let activeStockFilter = "TODOS";
@@ -942,8 +743,8 @@
     function renderCategoriesUI() {
       const bar = document.getElementById("categoriesBar");
       const chipsHTML = [
-        `<button class="cat-chip ${activeCategory === 'Todos' ? 'active' : ''}" onclick="setCategory('Todos')">Todos</button>`,
-        ...categories.map(c => `<button class="cat-chip ${activeCategory === c.name ? 'active' : ''}" onclick="setCategory('${c.name.replace(/'/g, "\\'")}')">${c.name}</button>`)
+        `<button class="cat-chip ${activeCategory === 'Todos' ? 'active' : ''}" onclick="vibrar(15); setCategory('Todos')">Todos</button>`,
+        ...categories.map(c => `<button class="cat-chip ${activeCategory === c.name ? 'active' : ''}" onclick="vibrar(15); setCategory('${c.name.replace(/'/g, "\\'")}')">${c.name}</button>`)
       ];
       bar.innerHTML = chipsHTML.join("");
 
@@ -976,11 +777,13 @@
       const passInput = document.getElementById("passInput");
       const errorMsg = document.getElementById("loginError");
       if (passInput.value.trim() === CLAVE_TIENDA) {
+        vibrar(100);
         localStorage.setItem("neewshop_auth_key", CLAVE_TIENDA);
         errorMsg.textContent = "";
         passInput.value = "";
         desbloquearApp(CLAVE_TIENDA);
       } else {
+        vibrar(60);
         errorMsg.textContent = "Contraseña incorrecta.";
         passInput.classList.remove("input-error");
         void passInput.offsetWidth;
@@ -994,6 +797,7 @@
     }
 
     function bloquearApp() {
+      vibrar(30);
       localStorage.removeItem("neewshop_auth_key");
       document.getElementById("loginScreen").classList.remove("hidden");
     }
@@ -1004,12 +808,13 @@
           firebase.initializeApp({ databaseURL: FIREBASE_DATABASE_URL });
           firebaseIniciado = true;
         }
-        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v3");
+        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v4");
         dbRef.on("value", (snapshot) => {
           const data = snapshot.val();
           if (data !== null) {
             if (data.initialized) {
               products = Array.isArray(data.items) ? data.items.filter(Boolean) : Object.values(data.items || {});
+              salesHistory = Array.isArray(data.sales) ? data.sales.filter(Boolean) : Object.values(data.sales || {});
               if (data.categories) {
                 const rawCats = Array.isArray(data.categories) ? data.categories.filter(Boolean) : Object.values(data.categories);
                 if (rawCats.length > 0) categories = rawCats;
@@ -1019,6 +824,7 @@
             }
           } else {
             products = productosIniciales;
+            salesHistory = [];
             categories = categoriasIniciales;
             saveToDB();
           }
@@ -1028,6 +834,7 @@
       } else {
         document.getElementById("syncText").textContent = "Local";
         products = JSON.parse(localStorage.getItem("neewshop_stock")) || productosIniciales;
+        salesHistory = JSON.parse(localStorage.getItem("neewshop_sales")) || [];
         categories = JSON.parse(localStorage.getItem("neewshop_categories")) || categoriasIniciales;
         renderCategoriesUI();
         renderProducts();
@@ -1036,9 +843,10 @@
 
     function saveToDB() {
       if (dbRef) {
-        dbRef.set({ initialized: true, updatedAt: Date.now(), items: products, categories: categories });
+        dbRef.set({ initialized: true, updatedAt: Date.now(), items: products, sales: salesHistory, categories: categories });
       } else {
         localStorage.setItem("neewshop_stock", JSON.stringify(products));
+        localStorage.setItem("neewshop_sales", JSON.stringify(salesHistory));
         localStorage.setItem("neewshop_categories", JSON.stringify(categories));
         renderCategoriesUI();
         renderProducts();
@@ -1056,27 +864,39 @@
       document.getElementById("tabAll").className = "stock-tab" + (activeStockFilter === "TODOS" ? " active-all" : "");
       document.getElementById("tabLow").className = "stock-tab" + (activeStockFilter === "BAJO_STOCK" ? " active-low" : "");
       document.getElementById("tabOut").className = "stock-tab" + (activeStockFilter === "SIN_STOCK" ? " active-out" : "");
+      document.getElementById("tabSales").className = "stock-tab" + (activeStockFilter === "VENTAS" ? " active-sales" : "");
 
       document.getElementById("cardOk").className = "kpi-card" + (activeStockFilter === "EN_STOCK" ? " active-filter-white" : "");
       document.getElementById("cardLow").className = "kpi-card" + (activeStockFilter === "BAJO_STOCK" ? " active-filter-yellow" : "");
       document.getElementById("cardOut").className = "kpi-card" + (activeStockFilter === "SIN_STOCK" ? " active-filter-pink" : "");
+      document.getElementById("cardSales").className = "kpi-card" + (activeStockFilter === "VENTAS" ? " active-filter-green" : "");
 
       const banner = document.getElementById("sectionBanner");
       const bannerText = document.getElementById("bannerText");
+      const catBarRow = document.getElementById("catBarRow");
       banner.className = "section-banner";
 
       if (activeStockFilter === "BAJO_STOCK") {
         banner.classList.add("show-low");
         bannerText.textContent = "SECCIÓN BAJO STOCK (1 A 15 UNIDADES)";
+        catBarRow.style.display = "flex";
       } else if (activeStockFilter === "SIN_STOCK") {
         banner.classList.add("show-out");
         bannerText.textContent = "SECCIÓN NO HAY STOCK (0 UNIDADES)";
+        catBarRow.style.display = "flex";
+      } else if (activeStockFilter === "VENTAS") {
+        banner.classList.add("show-sales");
+        bannerText.textContent = "HISTORIAL DE VENTAS Y GANANCIAS";
+        catBarRow.style.display = "none";
+      } else {
+        catBarRow.style.display = "flex";
       }
       renderProducts();
     }
 
     function updateStock(id, delta, event) {
       if (event) event.stopPropagation();
+      vibrar(20);
       const item = products.find(p => p.id === id);
       if (item) {
         item.stock = Math.max(0, (Number(item.stock) || 0) + delta);
@@ -1084,7 +904,101 @@
       }
     }
 
+    // Abrir Modal de Venta Rápida
+    function abrirModalVenta(id, event) {
+      if (event) event.stopPropagation();
+      vibrar(25);
+      const p = products.find(prod => prod.id === id);
+      if (!p) return;
+
+      if ((Number(p.stock) || 0) <= 0) {
+        alert("Este producto no tiene stock disponible para vender.");
+        return;
+      }
+
+      currentSelectedProduct = p;
+      document.getElementById("sellProdId").value = p.id;
+      document.getElementById("sellProdName").value = `${p.name} (Talla ${p.size} • ${p.color})`;
+      document.getElementById("sellQty").value = 1;
+      document.getElementById("sellQty").max = p.stock;
+
+      document.getElementById("optMen").textContent = Number(p.price || 0).toLocaleString("es-MX");
+      document.getElementById("optMay").textContent = Number(p.wholesale || 0).toLocaleString("es-MX");
+      document.getElementById("optVip").textContent = Number(p.vip || 0).toLocaleString("es-MX");
+
+      document.getElementById("sellPriceType").value = "price";
+      actualizarPrecioVentaModal();
+
+      document.getElementById("sellModal").classList.add("open");
+    }
+
+    function cerrarModalVenta() {
+      vibrar(15);
+      document.getElementById("sellModal").classList.remove("open");
+    }
+
+    function actualizarPrecioVentaModal() {
+      if (!currentSelectedProduct) return;
+      const p = currentSelectedProduct;
+      const tipo = document.getElementById("sellPriceType").value;
+      const qty = parseInt(document.getElementById("sellQty").value, 10) || 1;
+
+      let unitPrice = Number(p.price) || 0;
+      if (tipo === "wholesale") unitPrice = Number(p.wholesale) || unitPrice;
+      if (tipo === "vip") unitPrice = Number(p.vip) || unitPrice;
+
+      document.getElementById("sellTotalAmount").value = unitPrice * qty;
+    }
+
+    document.getElementById("sellQty").addEventListener("input", actualizarPrecioVentaModal);
+
+    function registrarVenta(e) {
+      e.preventDefault();
+      vibrar(100);
+      const prodId = Number(document.getElementById("sellProdId").value);
+      const qty = parseInt(document.getElementById("sellQty").value, 10) || 1;
+      const tipoPrecio = document.getElementById("sellPriceType").value;
+      const totalCobrado = parseFloat(document.getElementById("sellTotalAmount").value) || 0;
+
+      const p = products.find(prod => prod.id === prodId);
+      if (!p) return;
+
+      if (p.stock < qty) {
+        alert("No hay suficiente stock para esta venta.");
+        return;
+      }
+
+      // Descontar stock
+      p.stock -= qty;
+
+      // Calcular costo y ganancia neta de la venta
+      const costoUnitario = Number(p.cost) || 0;
+      const costoTotal = costoUnitario * qty;
+      const gananciaNeta = totalCobrado - costoTotal;
+
+      const nombreTipoPrecio = tipoPrecio === "price" ? "Menudeo" : (tipoPrecio === "wholesale" ? "Mayoreo" : "VIP");
+
+      const nuevaVenta = {
+        id: Date.now(),
+        date: new Date().toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
+        name: p.name,
+        category: p.category,
+        size: p.size,
+        color: p.color,
+        qty: qty,
+        priceType: nombreTipoPrecio,
+        totalSold: totalCobrado,
+        profit: gananciaNeta
+      };
+
+      salesHistory.unshift(nuevaVenta);
+      saveToDB();
+      cerrarModalVenta();
+      setStockFilter("VENTAS");
+    }
+
     function abrirModalCrear() {
+      vibrar(25);
       document.getElementById("modalProductTitle").textContent = "Nuevo Producto con 4 Precios";
       document.getElementById("btnGuardarProd").textContent = "Guardar en Inventario";
       document.getElementById("productForm").reset();
@@ -1099,6 +1013,7 @@
 
     function guardarProducto(e) {
       e.preventDefault();
+      vibrar(100);
       const idExistente = document.getElementById("pId").value;
       const pData = {
         name: document.getElementById("pName").value.trim(),
@@ -1113,13 +1028,11 @@
       };
 
       if (idExistente) {
-        // Editando existente
         const index = products.findIndex(p => p.id == idExistente);
         if (index !== -1) {
           products[index] = { ...products[index], ...pData };
         }
       } else {
-        // Creando nuevo
         const nuevo = { id: Date.now(), ...pData };
         products.unshift(nuevo);
       }
@@ -1131,6 +1044,7 @@
     }
 
     function verDetalles(id) {
+      vibrar(25);
       const p = products.find(prod => prod.id === id);
       if (!p) return;
       currentSelectedProduct = p;
@@ -1161,6 +1075,7 @@
     }
 
     function cerrarDetalles() {
+      vibrar(15);
       document.getElementById("detailModal").classList.remove("open");
     }
 
@@ -1195,6 +1110,7 @@
 
     function addCategory(e) {
       e.preventDefault();
+      vibrar(100);
       const nombre = document.getElementById("cName").value.trim();
       const tipoTalla = document.getElementById("cSizeType").value;
       if (!nombre) return;
@@ -1210,11 +1126,13 @@
     }
 
     function toggleCategoryModal(show) {
+      vibrar(25);
       document.getElementById("addCategoryModal").classList.toggle("open", show);
       if (show) setTimeout(() => document.getElementById("cName").focus(), 120);
     }
 
     function toggleDeleteCategoryModal(show) {
+      vibrar(25);
       document.getElementById("deleteCategoryModal").classList.toggle("open", show);
       if (show) {
         renderCategoriesUI();
@@ -1230,16 +1148,19 @@
       const errorMsg = document.getElementById("deleteCatErrorMsg");
 
       if (passInput.value.trim() !== CLAVE_ELIMINAR) {
+        vibrar(60);
         errorMsg.textContent = "Contraseña incorrecta.";
         return;
       }
 
       const tieneProductos = products.some(p => p.category.toLowerCase() === catName.toLowerCase());
       if (tieneProductos) {
+        vibrar(60);
         errorMsg.textContent = "No se puede borrar: hay productos en esta categoría.";
         return;
       }
 
+      vibrar(100);
       categories = categories.filter(c => c.name.toLowerCase() !== catName.toLowerCase());
       if (activeCategory === catName) activeCategory = "Todos";
       saveToDB();
@@ -1247,6 +1168,7 @@
     }
 
     function askDeleteProduct(id) {
+      vibrar(30);
       const item = products.find(p => p.id === id);
       if (!item) return;
       productToDeleteId = id;
@@ -1259,6 +1181,7 @@
     }
 
     function closeDeleteModal() {
+      vibrar(15);
       productToDeleteId = null;
       document.getElementById("deletePassInput").value = "";
       document.getElementById("deleteModal").classList.remove("open");
@@ -1270,18 +1193,21 @@
       const passInput = document.getElementById("deletePassInput");
       const errorMsg = document.getElementById("deleteErrorMsg");
       if (passInput.value.trim() !== CLAVE_ELIMINAR) {
+        vibrar(60);
         errorMsg.textContent = "Contraseña incorrecta.";
         passInput.classList.remove("input-error");
         void passInput.offsetWidth;
         passInput.classList.add("input-error");
         return;
       }
+      vibrar(100);
       products = products.filter(p => p.id !== productToDeleteId);
       saveToDB();
       closeDeleteModal();
     }
 
     function toggleModal(show) {
+      vibrar(25);
       document.getElementById("addModal").classList.toggle("open", show);
     }
 
@@ -1293,9 +1219,35 @@
       document.getElementById("kpiLow").textContent = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
       document.getElementById("kpiOut").textContent = products.filter(p => (Number(p.stock) || 0) === 0).length;
 
-      const costoTotalInvertido = products.reduce((acc, p) => acc + ((Number(p.cost) || 0) * (Number(p.stock) || 0)), 0);
-      document.getElementById("kpiCostTotal").textContent = "$" + costoTotalInvertido.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      // Ganancia total de ventas registradas
+      const gananciaVentasTotal = salesHistory.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
+      document.getElementById("kpiSalesProfit").textContent = "$" + gananciaVentasTotal.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+      // Si se seleccionó la pestaña de Historial de Ventas
+      if (activeStockFilter === "VENTAS") {
+        if (salesHistory.length === 0) {
+          list.innerHTML = `<div class="empty-state">No hay ventas registradas todavía. Vende algún producto para ver su ganancia aquí.</div>`;
+          return;
+        }
+        list.className = "sales-list";
+        list.innerHTML = salesHistory.map(s => `
+          <div class="sale-card">
+            <div class="sale-info">
+              <div class="sale-title">${s.name}</div>
+              <div class="sale-sub">${s.category} • Talla ${s.size} • ${s.color}</div>
+              <div class="sale-sub">Vendidos: <strong>${s.qty} pzas</strong> a precio <strong>${s.priceType}</strong> ($${Number(s.totalSold).toLocaleString("es-MX")})</div>
+              <div class="sale-sub" style="color: #666; font-size: 0.65rem;">${s.date}</div>
+            </div>
+            <div class="sale-profit">
+              <div class="sale-profit-val">+$${Number(s.profit).toLocaleString("es-MX", { minimumFractionDigits: 2 })}</div>
+              <div class="sale-profit-lbl">Ganancia neta</div>
+            </div>
+          </div>
+        `).join("");
+        return;
+      }
+
+      list.className = "product-list";
       const filtered = products.filter(p => {
         const estado = obtenerEstadoStock(p.stock);
         const matchesCat = activeCategory === "Todos" || p.category === activeCategory;
@@ -1329,6 +1281,7 @@
             </div>
             <div class="stock-controls">
               <div class="status-row">
+                <button class="sell-card-btn" onclick="abrirModalVenta(${p.id}, event)">Vender</button>
                 <span class="stock-status ${estado.clase}">${estado.texto}</span>
                 <button class="delete-btn" onclick="event.stopPropagation(); askDeleteProduct(${p.id})" title="Eliminar"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
               </div>
@@ -1344,6 +1297,7 @@
     }
 
     async function exportarExcel() {
+      vibrar(30);
       if (!window.ExcelJS) {
         alert("Cargando módulo de Excel, intenta de nuevo.");
         return;
