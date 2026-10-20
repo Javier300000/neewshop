@@ -10,13 +10,13 @@
   <style>
     :root {
       --bg-black: #040404;
-      --glass-bg: rgba(20, 20, 20, 0.58);
-      --glass-elevated: rgba(34, 34, 34, 0.65);
-      --glass-modal: rgba(16, 16, 16, 0.84);
+      --glass-bg: rgba(20, 20, 20, 0.6);
+      --glass-elevated: rgba(32, 32, 32, 0.7);
+      --glass-modal: rgba(14, 14, 14, 0.88);
       --glass-border: rgba(255, 255, 255, 0.1);
       --glass-border-hover: rgba(255, 255, 255, 0.28);
       --text-white: #ffffff;
-      --text-muted: #909090;
+      --text-muted: #8a8a8a;
       --neon-white: #ffffff;
       --neon-yellow: #ffea00;
       --neon-pink: #ff0055;
@@ -33,22 +33,20 @@
     body {
       background-color: var(--bg-black);
       background-image:
-        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.06) 0%, transparent 35%),
-        radial-gradient(circle at 85% 25%, rgba(255, 234, 0, 0.04) 0%, transparent 35%),
-        radial-gradient(circle at 50% 85%, rgba(255, 0, 85, 0.04) 0%, transparent 40%);
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.05) 0%, transparent 35%),
+        radial-gradient(circle at 85% 25%, rgba(255, 234, 0, 0.035) 0%, transparent 35%),
+        radial-gradient(circle at 50% 85%, rgba(255, 0, 85, 0.035) 0%, transparent 40%);
       background-attachment: fixed;
       color: var(--text-white);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ==========================================
-       PANTALLA DE ACCESO CON CONTRASEÑA (GLASS)
-       ========================================== */
+    /* PANTALLA DE ACCESO CON CONTRASEÑA */
     .login-screen {
       position: fixed;
       inset: 0;
-      background: rgba(4, 4, 4, 0.85);
+      background: rgba(4, 4, 4, 0.88);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       z-index: 100;
@@ -56,8 +54,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 24px;
-      transition: opacity 0.25s ease;
+      padding: 20px;
     }
 
     .login-screen.hidden {
@@ -66,49 +63,48 @@
 
     .login-card {
       width: 100%;
-      max-width: 400px;
+      max-width: 360px;
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      border-radius: 26px;
-      padding: 38px 28px;
+      border-radius: 24px;
+      padding: 28px 20px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 255, 255, 0.03);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
     }
 
     .login-logo {
-      font-size: 2.1rem;
+      font-size: 1.8rem;
       font-weight: 900;
       letter-spacing: -0.8px;
       text-transform: lowercase;
       color: var(--text-white);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 8px;
+      gap: 5px;
+      margin-bottom: 6px;
     }
 
     .login-logo span {
       background: var(--text-white);
       color: var(--bg-black);
-      padding: 2px 10px;
-      border-radius: 8px;
-      box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
+      padding: 2px 8px;
+      border-radius: 6px;
     }
 
     .login-subtitle {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       font-weight: 700;
-      margin-bottom: 28px;
+      margin-bottom: 22px;
     }
 
     .pass-wrapper {
       position: relative;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .pass-wrapper input {
@@ -116,55 +112,47 @@
       background: rgba(0, 0, 0, 0.6);
       border: 1px solid var(--glass-border);
       color: var(--text-white);
-      padding: 14px 55px 14px 16px;
-      border-radius: 14px;
-      font-size: 1rem;
+      padding: 12px 50px 12px 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
       text-align: center;
       letter-spacing: 2px;
       outline: none;
-      transition: all 0.2s;
-    }
-
-    .pass-wrapper input::placeholder {
-      letter-spacing: normal;
-      color: #666;
-      font-size: 0.9rem;
     }
 
     .pass-wrapper input:focus {
       border-color: var(--neon-white);
-      box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
     }
 
     .pass-wrapper input.input-error,
     .delete-pass-input.input-error {
       border-color: var(--neon-pink) !important;
-      box-shadow: 0 0 16px rgba(255, 0, 85, 0.45) !important;
+      box-shadow: 0 0 14px rgba(255, 0, 85, 0.45) !important;
       animation: shake 0.35s ease;
     }
 
     .toggle-pass-btn {
       position: absolute;
-      right: 12px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      padding: 4px 6px;
+      padding: 4px;
     }
 
     .login-error-msg {
       color: var(--neon-pink);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      min-height: 20px;
-      margin-bottom: 10px;
-      text-shadow: 0 0 8px rgba(255, 0, 85, 0.3);
+      min-height: 18px;
+      margin-bottom: 8px;
     }
 
     .login-btn {
@@ -172,51 +160,40 @@
       background: var(--neon-white);
       color: #000000;
       border: none;
-      padding: 15px;
-      border-radius: 14px;
-      font-size: 0.92rem;
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 0.88rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       cursor: pointer;
-      box-shadow: 0 0 22px rgba(255, 255, 255, 0.35);
-      transition: transform 0.15s, box-shadow 0.2s;
-    }
-
-    .login-btn:hover {
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
-    }
-
-    .login-btn:active {
-      transform: scale(0.98);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
     }
 
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-7px); }
-      50% { transform: translateX(7px); }
-      75% { transform: translateX(-5px); }
+      25% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      75% { transform: translateX(-4px); }
     }
 
-    /* ==========================================
-       CONTENEDOR ADAPTATIVO (MÓVIL Y ESCRITORIO)
-       ========================================== */
+    /* CONTENEDOR PRINCIPAL */
     .app-container {
       width: 100%;
       max-width: 1240px;
       margin: 0 auto;
       min-height: 100vh;
-      padding-bottom: 120px;
+      padding-bottom: 100px;
       position: relative;
     }
 
     header {
-      padding: 18px 20px;
+      padding: 12px 16px;
       position: sticky;
       top: 0;
-      background: rgba(8, 8, 8, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(6, 6, 6, 0.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       z-index: 20;
       border-bottom: 1px solid var(--glass-border);
     }
@@ -224,7 +201,7 @@
     .header-inner {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
     }
 
     .brand-row {
@@ -234,113 +211,92 @@
     }
 
     .brand-title {
-      font-size: 1.55rem;
+      font-size: 1.35rem;
       font-weight: 900;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.5px;
       text-transform: lowercase;
       color: var(--text-white);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
     .brand-title span {
       background: var(--text-white);
       color: var(--bg-black);
-      padding: 2px 9px;
-      border-radius: 7px;
-      box-shadow: 0 0 14px rgba(255, 255, 255, 0.45);
+      padding: 1px 7px;
+      border-radius: 6px;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 7px;
     }
 
     .excel-btn {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.07);
       backdrop-filter: blur(10px);
       color: var(--text-white);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 0.72rem;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.68rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.4px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.12);
-      transition: all 0.2s;
-    }
-
-    .excel-btn:hover {
-      background: var(--neon-white);
-      color: #000000;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.45);
-    }
-
-    .excel-btn:active {
-      transform: scale(0.96);
+      gap: 4px;
     }
 
     .excel-btn svg {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
     }
 
     .badge-live {
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       font-weight: 800;
       text-transform: uppercase;
-      padding: 7px 11px;
-      border-radius: 20px;
+      padding: 5px 8px;
+      border-radius: 16px;
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       color: var(--text-white);
       display: flex;
       align-items: center;
-      gap: 6px;
-      letter-spacing: 0.5px;
+      gap: 5px;
     }
 
     .sync-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--neon-white);
-      box-shadow: 0 0 8px var(--neon-white);
+      box-shadow: 0 0 6px var(--neon-white);
     }
 
     .lock-btn {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--glass-border);
       color: var(--text-white);
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .lock-btn:hover {
-      border-color: var(--neon-pink);
-      color: var(--neon-pink);
-      box-shadow: 0 0 12px rgba(255, 0, 85, 0.3);
     }
 
     .lock-btn svg {
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
@@ -353,108 +309,84 @@
     .search-box input {
       width: 100%;
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border);
       color: var(--text-white);
-      padding: 12px 18px;
-      border-radius: 14px;
-      font-size: 0.92rem;
+      padding: 10px 14px;
+      border-radius: 11px;
+      font-size: 0.88rem;
       outline: none;
-      transition: all 0.2s;
     }
 
     .search-box input::placeholder {
-      color: #777;
+      color: #666;
     }
 
     .search-box input:focus {
-      background: rgba(255, 255, 255, 0.09);
       border-color: var(--neon-white);
-      box-shadow: 0 0 16px rgba(255, 255, 255, 0.18);
     }
 
-    /* ==========================================
-       TARJETAS CONTADORAS DE ESTADO (GLASS KPI)
-       ========================================== */
+    /* TARJETAS DE ESTADO DE STOCK (KPI) */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      padding: 20px 20px 8px;
+      gap: 8px;
+      padding: 12px 16px 4px;
     }
 
     .kpi-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--glass-border);
-      border-radius: 18px;
-      padding: 16px 14px;
+      border-radius: 14px;
+      padding: 10px 10px;
       text-align: left;
       cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .kpi-card:hover {
-      border-color: var(--glass-border-hover);
-      transform: translateY(-2px);
+      transition: all 0.15s;
     }
 
     .kpi-card.active-filter-white {
       border-color: var(--neon-white);
-      background: rgba(255, 255, 255, 0.09);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .kpi-card.active-filter-yellow {
       border-color: var(--neon-yellow);
       background: rgba(255, 234, 0, 0.08);
-      box-shadow: 0 0 20px rgba(255, 234, 0, 0.22);
     }
 
     .kpi-card.active-filter-pink {
       border-color: var(--neon-pink);
-      background: rgba(255, 0, 85, 0.09);
-      box-shadow: 0 0 20px rgba(255, 0, 85, 0.25);
+      background: rgba(255, 0, 85, 0.08);
     }
 
     .kpi-label {
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 8px;
+      letter-spacing: 0.4px;
+      margin-bottom: 4px;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .status-indicator-dot {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       display: inline-block;
       flex-shrink: 0;
     }
 
-    .dot-white {
-      background: var(--neon-white);
-      box-shadow: 0 0 8px var(--neon-white);
-    }
-
-    .dot-yellow {
-      background: var(--neon-yellow);
-      box-shadow: 0 0 8px var(--neon-yellow);
-    }
-
-    .dot-pink {
-      background: var(--neon-pink);
-      box-shadow: 0 0 8px var(--neon-pink);
-    }
+    .dot-white { background: var(--neon-white); box-shadow: 0 0 6px var(--neon-white); }
+    .dot-yellow { background: var(--neon-yellow); box-shadow: 0 0 6px var(--neon-yellow); }
+    .dot-pink { background: var(--neon-pink); box-shadow: 0 0 6px var(--neon-pink); }
 
     .kpi-value {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 900;
       display: flex;
       align-items: baseline;
@@ -462,28 +394,26 @@
     }
 
     .kpi-range {
-      font-size: 0.7rem;
+      font-size: 0.62rem;
       color: var(--text-muted);
       font-weight: 700;
     }
 
-    .kpi-value.neon-white { color: var(--neon-white); text-shadow: 0 0 12px rgba(255, 255, 255, 0.35); }
-    .kpi-value.neon-yellow { color: var(--neon-yellow); text-shadow: 0 0 12px rgba(255, 234, 0, 0.4); }
-    .kpi-value.neon-pink { color: var(--neon-pink); text-shadow: 0 0 12px rgba(255, 0, 85, 0.4); }
+    .kpi-value.neon-white { color: var(--neon-white); }
+    .kpi-value.neon-yellow { color: var(--neon-yellow); }
+    .kpi-value.neon-pink { color: var(--neon-pink); }
 
-    /* ==========================================
-       FILTROS DE SECCIÓN Y CATEGORÍAS
-       ========================================== */
+    /* FILTROS Y CATEGORÍAS */
     .controls-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
     }
 
     .stock-tabs {
       display: flex;
-      gap: 8px;
-      padding: 12px 20px 4px;
+      gap: 6px;
+      padding: 8px 16px 2px;
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -492,54 +422,45 @@
 
     .stock-tab {
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
       color: var(--text-muted);
       border: 1px solid var(--glass-border);
-      padding: 9px 15px;
-      border-radius: 12px;
-      font-size: 0.75rem;
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-size: 0.7rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       white-space: nowrap;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-
-    .stock-tab:hover {
-      border-color: var(--glass-border-hover);
-      color: var(--text-white);
+      gap: 6px;
     }
 
     .stock-tab.active-all {
       background: var(--neon-white);
       color: #000000;
       border-color: var(--neon-white);
-      box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
     }
 
     .stock-tab.active-low {
       background: rgba(255, 234, 0, 0.14);
       color: var(--neon-yellow);
       border-color: var(--neon-yellow);
-      box-shadow: 0 0 16px rgba(255, 234, 0, 0.28);
     }
 
     .stock-tab.active-out {
-      background: rgba(255, 0, 85, 0.16);
+      background: rgba(255, 0, 85, 0.15);
       color: var(--neon-pink);
       border-color: var(--neon-pink);
-      box-shadow: 0 0 16px rgba(255, 0, 85, 0.32);
     }
 
     .categories-scroll {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
-      padding: 10px 20px;
+      padding: 6px 16px;
       scrollbar-width: none;
     }
 
@@ -547,288 +468,252 @@
 
     .cat-chip {
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
       color: var(--text-white);
       border: 1px solid var(--glass-border);
-      padding: 8px 16px;
+      padding: 6px 12px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .cat-chip:hover {
-      border-color: var(--glass-border-hover);
     }
 
     .cat-chip.active {
       background: var(--neon-white);
       color: #000000;
       border-color: var(--neon-white);
-      box-shadow: 0 0 16px rgba(255, 255, 255, 0.45);
       font-weight: 800;
     }
 
     .section-banner {
-      margin: 6px 20px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      font-size: 0.78rem;
+      margin: 4px 16px;
+      padding: 9px 12px;
+      border-radius: 11px;
+      font-size: 0.72rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
       display: none;
       align-items: center;
       justify-content: space-between;
-      backdrop-filter: blur(12px);
     }
 
     .section-banner.show-low {
       display: flex;
       background: rgba(255, 234, 0, 0.1);
-      border: 1px solid rgba(255, 234, 0, 0.45);
+      border: 1px solid rgba(255, 234, 0, 0.4);
       color: var(--neon-yellow);
     }
 
     .section-banner.show-out {
       display: flex;
-      background: rgba(255, 0, 85, 0.12);
-      border: 1px solid rgba(255, 0, 85, 0.5);
+      background: rgba(255, 0, 85, 0.1);
+      border: 1px solid rgba(255, 0, 85, 0.4);
       color: var(--neon-pink);
     }
 
-    /* ==========================================
-       CUADRÍCULA DE PRODUCTOS (RESPONSIVE GRID)
-       ========================================== */
+    /* CUADRÍCULA DE PRODUCTOS */
     .product-list {
-      padding: 12px 20px;
+      padding: 8px 16px;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 10px;
     }
 
     .product-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 18px;
+      border-radius: 16px;
+      padding: 12px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .product-card:hover {
-      border-color: var(--glass-border-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+      gap: 10px;
     }
 
     .product-info {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 5px;
       flex: 1;
       min-width: 0;
     }
 
     .product-cat {
-      font-size: 0.66rem;
+      font-size: 0.62rem;
       text-transform: uppercase;
-      letter-spacing: 0.9px;
+      letter-spacing: 0.7px;
       color: var(--text-muted);
       font-weight: 700;
     }
 
     .product-name {
-      font-size: 1.02rem;
+      font-size: 0.92rem;
       font-weight: 800;
       color: var(--text-white);
-      line-height: 1.3;
+      line-height: 1.25;
       word-wrap: break-word;
     }
 
     .product-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
       align-items: center;
-      margin-top: 2px;
     }
 
     .meta-pill {
       background: var(--glass-elevated);
       color: var(--text-white);
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.7rem;
       font-weight: 700;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       white-space: nowrap;
     }
 
     .price-pill {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.3);
       color: var(--neon-white);
       font-weight: 800;
     }
 
     .color-dot {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       display: inline-block;
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       flex-shrink: 0;
     }
 
-    /* Controles de Stock y Semáforo de Colores */
+    /* CONTROLES DE STOCK Y SEMÁFORO */
     .stock-controls {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 10px;
+      gap: 7px;
       flex-shrink: 0;
     }
 
     .status-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .stock-status {
-      font-size: 0.64rem;
+      font-size: 0.6rem;
       font-weight: 900;
-      padding: 4px 9px;
-      border-radius: 7px;
+      padding: 3px 7px;
+      border-radius: 5px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       white-space: nowrap;
     }
 
-    /* 16+: EN STOCK (Blanco) */
     .status-ok {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       color: var(--neon-white);
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.4);
     }
 
-    /* 1-15: BAJO STOCK (Amarillo) */
     .status-low {
-      background: rgba(255, 234, 0, 0.14);
+      background: rgba(255, 234, 0, 0.12);
       color: var(--neon-yellow);
-      border: 1px solid rgba(255, 234, 0, 0.55);
-      box-shadow: 0 0 10px rgba(255, 234, 0, 0.22);
+      border: 1px solid rgba(255, 234, 0, 0.5);
     }
 
-    /* 0: NO HAY STOCK (Rosa/Rojo) */
     .status-out {
-      background: rgba(255, 0, 85, 0.16);
+      background: rgba(255, 0, 85, 0.14);
       color: var(--neon-pink);
-      border: 1px solid rgba(255, 0, 85, 0.55);
-      box-shadow: 0 0 10px rgba(255, 0, 85, 0.25);
+      border: 1px solid rgba(255, 0, 85, 0.5);
     }
 
     .delete-btn {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--glass-border);
       color: var(--text-muted);
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+      width: 25px;
+      height: 25px;
+      border-radius: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s;
     }
 
     .delete-btn svg {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
     }
 
-    .delete-btn:hover,
     .delete-btn:active {
-      background: rgba(255, 0, 85, 0.18);
+      background: rgba(255, 0, 85, 0.15);
       color: var(--neon-pink);
-      border-color: var(--neon-pink);
-      box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
     }
 
     .stepper {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(0, 0, 0, 0.45);
-      padding: 4px;
-      border-radius: 11px;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 3px;
+      border-radius: 9px;
       border: 1px solid var(--glass-border);
     }
 
     .stepper button {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
       border: none;
-      background: rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text-white);
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .stepper button:hover {
-      background: rgba(255, 255, 255, 0.18);
     }
 
     .stepper button:active {
       background: var(--neon-white);
       color: #000000;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
     }
 
     .stock-count {
-      min-width: 26px;
+      min-width: 22px;
       text-align: center;
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
     }
 
-    /* ==========================================
-       DOCK FLOTANTE INFERIOR TRANSLÚCIDO
-       ========================================== */
+    /* DOCK FLOTANTE INFERIOR */
     .bottom-dock {
       position: fixed;
-      bottom: 20px;
+      bottom: 16px;
       left: 50%;
       transform: translateX(-50%);
-      width: calc(100% - 32px);
-      max-width: 520px;
-      padding: 8px;
-      background: rgba(14, 14, 14, 0.72);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      width: calc(100% - 24px);
+      max-width: 480px;
+      padding: 6px;
+      background: rgba(14, 14, 14, 0.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       z-index: 30;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
     }
 
     .fab-btn {
@@ -836,252 +721,181 @@
       background: var(--neon-white);
       color: #000000;
       border: none;
-      padding: 14px 18px;
+      padding: 12px 14px;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.76rem;
       font-weight: 900;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       cursor: pointer;
-      box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
       white-space: nowrap;
-    }
-
-    .fab-btn:hover {
-      box-shadow: 0 0 26px rgba(255, 255, 255, 0.65);
-    }
-
-    .fab-btn:active {
-      transform: scale(0.97);
     }
 
     .fab-cat-btn {
       flex: 1;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       color: var(--neon-white);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 14px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 12px 10px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.74rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
       white-space: nowrap;
     }
 
-    .fab-cat-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: var(--neon-white);
-    }
-
-    .fab-cat-btn:active {
-      transform: scale(0.97);
-    }
-
-    /* ==========================================
-       VENTANAS MODALES TRANSLÚCIDAS
-       ========================================== */
+    /* VENTANAS MODALES */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: none;
       justify-content: center;
       align-items: flex-end;
       z-index: 50;
-      padding: 0;
     }
 
     .modal-overlay.open { display: flex; }
 
     .modal-sheet {
       width: 100%;
-      max-width: 480px;
+      max-width: 440px;
       background: var(--glass-modal);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
+      backdrop-filter: blur(24px);
       border: 1px solid var(--glass-border);
       border-top: 2px solid var(--neon-white);
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
-      border-radius: 26px 26px 0 0;
-      padding: 26px 22px 32px;
-      animation: slideUp 0.22s ease-out;
+      border-radius: 22px 22px 0 0;
+      padding: 20px 18px 26px;
     }
 
     .modal-sheet.danger-sheet {
       border-top: 2px solid var(--neon-pink);
-      box-shadow: 0 -10px 40px rgba(255, 0, 85, 0.2);
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .modal-title { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.3px; }
+    .modal-title { font-size: 1.05rem; font-weight: 800; }
 
     .close-btn {
       background: rgba(255, 255, 255, 0.08);
       color: var(--text-white);
       border: 1px solid var(--glass-border);
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
     }
 
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
+    .close-btn svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.2; }
 
-    .close-btn svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      stroke-width: 2.2;
-    }
-
-    .form-group { margin-bottom: 15px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { margin-bottom: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     label {
       display: block;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       font-weight: 700;
-      letter-spacing: 0.4px;
     }
 
     input, select {
       width: 100%;
-      background: rgba(0, 0, 0, 0.55);
+      background: rgba(0, 0, 0, 0.6);
       border: 1px solid var(--glass-border);
       color: var(--text-white);
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-size: 0.92rem;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.88rem;
       outline: none;
-      transition: all 0.2s;
     }
 
-    select option {
-      background: #111111;
-      color: #ffffff;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--neon-white);
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.18);
-    }
+    select option { background: #111; color: #fff; }
 
     .submit-btn {
       width: 100%;
       background: var(--neon-white);
       color: #000000;
       border: none;
-      padding: 15px;
-      border-radius: 14px;
-      font-size: 0.9rem;
+      padding: 13px;
+      border-radius: 11px;
+      font-size: 0.85rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-top: 8px;
+      margin-top: 6px;
       cursor: pointer;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      transition: all 0.2s;
-    }
-
-    .submit-btn:hover {
-      box-shadow: 0 0 28px rgba(255, 255, 255, 0.55);
     }
 
     .size-type-hint {
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       color: var(--neon-yellow);
-      margin-top: 7px;
+      margin-top: 5px;
       font-weight: 600;
     }
 
     .delete-text {
       color: var(--text-muted);
-      font-size: 0.92rem;
-      line-height: 1.45;
-      margin-bottom: 14px;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      margin-bottom: 12px;
     }
 
     .delete-text strong { color: var(--text-white); }
 
-    .delete-pass-box { margin-bottom: 8px; }
+    .delete-pass-box { margin-bottom: 6px; }
 
     .delete-pass-input {
       width: 100%;
       background: rgba(0, 0, 0, 0.6);
       border: 1px solid var(--glass-border);
       color: var(--text-white);
-      padding: 13px 14px;
-      border-radius: 12px;
-      font-size: 0.95rem;
+      padding: 11px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
       text-align: center;
       letter-spacing: 2px;
       outline: none;
-      transition: all 0.2s;
-    }
-
-    .delete-pass-input::placeholder {
-      letter-spacing: normal;
-      color: #666;
-      font-size: 0.85rem;
-    }
-
-    .delete-pass-input:focus {
-      border-color: var(--neon-pink);
-      box-shadow: 0 0 12px rgba(255, 0, 85, 0.25);
     }
 
     .delete-error-msg {
       color: var(--neon-pink);
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      min-height: 20px;
-      margin-bottom: 12px;
+      min-height: 18px;
+      margin-bottom: 10px;
       text-align: center;
     }
 
     .confirm-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
 
     .cancel-action-btn {
       background: rgba(255, 255, 255, 0.06);
       color: var(--text-white);
       border: 1px solid var(--glass-border);
-      padding: 13px;
-      border-radius: 12px;
-      font-size: 0.88rem;
+      padding: 11px;
+      border-radius: 10px;
+      font-size: 0.82rem;
       font-weight: 800;
       text-transform: uppercase;
       cursor: pointer;
@@ -1091,103 +905,44 @@
       background: var(--neon-pink);
       color: var(--text-white);
       border: none;
-      padding: 13px;
-      border-radius: 12px;
-      font-size: 0.88rem;
+      padding: 11px;
+      border-radius: 10px;
+      font-size: 0.82rem;
       font-weight: 900;
       text-transform: uppercase;
       cursor: pointer;
-      box-shadow: 0 0 18px rgba(255, 0, 85, 0.45);
     }
 
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 50px 20px;
+      padding: 40px 16px;
       color: var(--text-muted);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       background: var(--glass-bg);
       border: 1px dashed var(--glass-border);
-      border-radius: 20px;
+      border-radius: 16px;
     }
 
-    /* ==========================================
-       ADAPTACIÓN PARA COMPUTADORAS Y TABLETS
-       ========================================== */
+    /* ESCRITORIO Y TABLETS */
     @media (min-width: 768px) {
-      header {
-        padding: 20px 32px;
-      }
-
-      .header-inner {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        gap: 24px;
-      }
-
-      .brand-row {
-        flex: 1;
-        margin-bottom: 0;
-      }
-
-      .search-box {
-        max-width: 380px;
-      }
-
-      .kpi-grid {
-        padding: 26px 32px 10px;
-        gap: 18px;
-      }
-
-      .kpi-card {
-        padding: 20px 22px;
-      }
-
-      .kpi-value {
-        font-size: 1.85rem;
-      }
-
-      .controls-wrapper {
-        padding: 6px 32px 0;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .stock-tabs,
-      .categories-scroll {
-        padding: 6px 0;
-      }
-
-      .section-banner {
-        margin: 10px 32px 4px;
-      }
-
-      .product-list {
-        padding: 16px 32px;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-      }
-
-      .modal-overlay {
-        align-items: center;
-        padding: 24px;
-      }
-
-      .modal-sheet {
-        border-radius: 26px;
-        border: 1px solid var(--glass-border);
-        border-top: 2px solid var(--neon-white);
-      }
+      header { padding: 16px 28px; }
+      .header-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; }
+      .brand-row { flex: 1; margin-bottom: 0; }
+      .search-box { max-width: 350px; }
+      .kpi-grid { padding: 20px 28px 6px; gap: 14px; }
+      .kpi-card { padding: 16px 18px; }
+      .kpi-value { font-size: 1.6rem; }
+      .controls-wrapper { padding: 4px 28px 0; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+      .stock-tabs, .categories-scroll { padding: 4px 0; }
+      .section-banner { margin: 8px 28px 4px; }
+      .product-list { padding: 12px 28px; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .modal-overlay { align-items: center; padding: 20px; }
+      .modal-sheet { border-radius: 24px; border: 1px solid var(--glass-border); border-top: 2px solid var(--neon-white); }
     }
 
     @media (min-width: 1100px) {
-      .product-list {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .product-list { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
@@ -1201,7 +956,7 @@
 
       <form onsubmit="verificarAcceso(event)">
         <div class="pass-wrapper">
-          <input type="password" id="passInput" placeholder="Contraseña de equipo" required autocomplete="current-password" />
+          <input type="password" id="passInput" placeholder="Contraseña" required autocomplete="current-password" />
           <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()" id="eyeBtn">Ver</button>
         </div>
         <div class="login-error-msg" id="loginError"></div>
@@ -1217,85 +972,50 @@
         <div class="brand-row">
           <div class="brand-title">neew<span>shop</span></div>
           <div class="header-actions">
-            <button class="excel-btn" onclick="exportarExcel()" title="Descargar tabla de Excel con fórmulas">
-              <svg viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="8" y1="13" x2="16" y2="13"></line>
-                <line x1="8" y1="17" x2="16" y2="17"></line>
-              </svg>
-              Exportar Excel
+            <button class="excel-btn" onclick="exportarExcel()" title="Descargar Excel">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line></svg>
+              Excel
             </button>
             <div class="badge-live"><span class="sync-dot"></span> <span id="syncText">En Vivo</span></div>
             <button class="lock-btn" onclick="bloquearApp()" title="Bloquear sesión">
-              <svg viewBox="0 0 24 24">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
             </button>
           </div>
         </div>
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Buscar prenda, tenis, color o talla..." oninput="renderProducts()" />
+          <input type="text" id="searchInput" placeholder="Buscar prenda, tenis, color..." oninput="renderProducts()" />
         </div>
       </div>
     </header>
 
-    <!-- TARJETAS CONTADORAS DE LOS 3 ESTADOS DE STOCK -->
+    <!-- TARJETAS CONTADORAS DE ESTADO -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="setStockFilter('EN_STOCK')">
-        <div class="kpi-label">
-          <span class="status-indicator-dot dot-white"></span>
-          En Stock
-        </div>
-        <div class="kpi-value neon-white">
-          <span id="kpiOk">0</span>
-          <span class="kpi-range">16+</span>
-        </div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
+        <div class="kpi-value neon-white"><span id="kpiOk">0</span><span class="kpi-range">16+</span></div>
       </div>
       <div class="kpi-card" id="cardLow" onclick="setStockFilter('BAJO_STOCK')">
-        <div class="kpi-label">
-          <span class="status-indicator-dot dot-yellow"></span>
-          Bajo Stock
-        </div>
-        <div class="kpi-value neon-yellow">
-          <span id="kpiLow">0</span>
-          <span class="kpi-range">1-15</span>
-        </div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock</div>
+        <div class="kpi-value neon-yellow"><span id="kpiLow">0</span><span class="kpi-range">1-15</span></div>
       </div>
       <div class="kpi-card" id="cardOut" onclick="setStockFilter('SIN_STOCK')">
-        <div class="kpi-label">
-          <span class="status-indicator-dot dot-pink"></span>
-          No hay Stock
-        </div>
-        <div class="kpi-value neon-pink">
-          <span id="kpiOut">0</span>
-          <span class="kpi-range">0</span>
-        </div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-pink"></span> No hay Stock</div>
+        <div class="kpi-value neon-pink"><span id="kpiOut">0</span><span class="kpi-range">0</span></div>
       </div>
     </section>
 
-    <!-- FILTROS DE ESTADO Y BARRA DE CATEGORÍAS -->
+    <!-- FILTROS Y CATEGORÍAS -->
     <div class="controls-wrapper">
       <div class="stock-tabs">
-        <button class="stock-tab active-all" id="tabAll" onclick="setStockFilter('TODOS')">
-          <span class="status-indicator-dot dot-white"></span>
-          Todo el Stock
-        </button>
-        <button class="stock-tab" id="tabLow" onclick="setStockFilter('BAJO_STOCK')">
-          <span class="status-indicator-dot dot-yellow"></span>
-          Sección Bajo Stock (1-15)
-        </button>
-        <button class="stock-tab" id="tabOut" onclick="setStockFilter('SIN_STOCK')">
-          <span class="status-indicator-dot dot-pink"></span>
-          No hay Stock (0)
-        </button>
+        <button class="stock-tab active-all" id="tabAll" onclick="setStockFilter('TODOS')"><span class="status-indicator-dot dot-white"></span> Todo</button>
+        <button class="stock-tab" id="tabLow" onclick="setStockFilter('BAJO_STOCK')"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock (1-15)</button>
+        <button class="stock-tab" id="tabOut" onclick="setStockFilter('SIN_STOCK')"><span class="status-indicator-dot dot-pink"></span> Sin Stock (0)</button>
       </div>
 
       <nav class="categories-scroll" id="categoriesBar"></nav>
     </div>
 
-    <!-- Aviso de Sección Activa -->
+    <!-- BANNER DE SECCIÓN -->
     <div class="section-banner" id="sectionBanner">
       <span id="bannerText">SECCIÓN BAJO STOCK</span>
       <span style="cursor:pointer; text-decoration:underline;" onclick="setStockFilter('TODOS')">Ver todo</span>
@@ -1304,25 +1024,23 @@
     <main class="product-list" id="productList"></main>
   </div>
 
-  <!-- DOCK FLOTANTE CON LOS DOS BOTONES -->
+  <!-- DOCK FLOTANTE INFERIOR -->
   <div class="bottom-dock">
-    <button class="fab-btn" onclick="toggleModal(true)">+ AGREGAR PRODUCTO</button>
+    <button class="fab-btn" onclick="toggleModal(true)">+ PRODUCTO</button>
     <button class="fab-cat-btn" onclick="toggleCategoryModal(true)">+ CATEGORÍA</button>
   </div>
 
-  <!-- Modal Agregar Producto -->
+  <!-- MODAL AGREGAR PRODUCTO -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title">Nuevo Producto</div>
-        <button class="close-btn" onclick="toggleModal(false)" aria-label="Cerrar">
-          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
+        <button class="close-btn" onclick="toggleModal(false)" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <form id="productForm" onsubmit="addProduct(event)">
         <div class="form-group">
           <label>Nombre del Producto</label>
-          <input type="text" id="pName" placeholder="Ej. Hoodie Oversize / Tenis Low" required />
+          <input type="text" id="pName" placeholder="Ej. Hoodie Oversize / Tenis" required />
         </div>
         <div class="form-row">
           <div class="form-group">
@@ -1336,8 +1054,8 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Color (Círculo automático)</label>
-            <input type="text" id="pColor" placeholder="Ej. Negro, Blanco, Gris..." required />
+            <label>Color</label>
+            <input type="text" id="pColor" placeholder="Ej. Negro, Blanco..." required />
           </div>
           <div class="form-group">
             <label>Precio ($ MXN)</label>
@@ -1345,7 +1063,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Cantidad Inicial en Stock</label>
+          <label>Stock Inicial</label>
           <input type="number" id="pStock" placeholder="20" min="0" required />
         </div>
         <button type="submit" class="submit-btn">Guardar en Inventario</button>
@@ -1353,93 +1071,67 @@
     </div>
   </div>
 
-  <!-- Modal Agregar Nueva Categoría -->
+  <!-- MODAL AGREGAR CATEGORÍA -->
   <div class="modal-overlay" id="addCategoryModal">
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title">Nueva Categoría</div>
-        <button class="close-btn" onclick="toggleCategoryModal(false)" aria-label="Cerrar">
-          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
+        <button class="close-btn" onclick="toggleCategoryModal(false)" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <form id="categoryForm" onsubmit="addCategory(event)">
         <div class="form-group">
-          <label>Nombre de la Categoría</label>
-          <input
-            type="text"
-            id="cName"
-            placeholder="Ej. Tenis, Gorras, Pantalones..."
-            oninput="autoDetectarTipoTalla()"
-            required
-          />
+          <label>Nombre de Categoría</label>
+          <input type="text" id="cName" placeholder="Ej. Tenis, Gorras..." oninput="autoDetectarTipoTalla()" required />
         </div>
         <div class="form-group">
-          <label>Tipo de Tallas para esta Categoría</label>
+          <label>Tipo de Tallas</label>
           <select id="cSizeType" required>
             <option value="ropa">Ropa (XS, S, M, L, XL, XXL)</option>
             <option value="calzado">Tenis / Calzado (22 MX a 30 MX)</option>
-            <option value="unitalla">Accesorios / Unitalla (Unitalla, Ajustable)</option>
+            <option value="unitalla">Accesorios / Unitalla</option>
           </select>
-          <div class="size-type-hint" id="sizeTypeHint">
-            Al elegir esta categoría, el selector cambiará automáticamente a sus tallas correspondientes.
-          </div>
+          <div class="size-type-hint" id="sizeTypeHint">El selector de tallas se adaptará automáticamente.</div>
         </div>
         <button type="submit" class="submit-btn">Crear Categoría</button>
       </form>
     </div>
   </div>
 
-  <!-- Modal Eliminar Producto (Con Contraseña Obligatoria) -->
+  <!-- MODAL ELIMINAR PRODUCTO -->
   <div class="modal-overlay" id="deleteModal">
     <div class="modal-sheet danger-sheet">
       <div class="modal-header">
         <div class="modal-title">Autorizar Eliminación</div>
-        <button class="close-btn" onclick="closeDeleteModal()" aria-label="Cerrar">
-          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
+        <button class="close-btn" onclick="closeDeleteModal()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <p class="delete-text" id="deleteMessage"></p>
       <form onsubmit="confirmDeleteProduct(event)">
         <div class="delete-pass-box">
-          <label>Contraseña para borrar producto</label>
-          <input
-            type="password"
-            id="deletePassInput"
-            class="delete-pass-input"
-            placeholder="Ingresa la contraseña..."
-            required
-          />
+          <label>Contraseña requerida</label>
+          <input type="password" id="deletePassInput" class="delete-pass-input" placeholder="Contraseña..." required />
         </div>
         <div class="delete-error-msg" id="deleteErrorMsg"></div>
         <div class="confirm-actions">
           <button type="button" class="cancel-action-btn" onclick="closeDeleteModal()">Cancelar</button>
-          <button type="submit" class="confirm-delete-btn">Sí, Eliminar</button>
+          <button type="submit" class="confirm-delete-btn">Eliminar</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- SDK de Firebase y Librería ExcelJS -->
+  <!-- SCRIPTS -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 
   <script>
     const FIREBASE_DATABASE_URL = "https://neewshop-stock-default-rtdb.firebaseio.com/";
-
-    // 1. Contraseña para abrir la aplicación:
     const CLAVE_TIENDA = "neew2026";
-
-    // 2. Contraseña requerida para ELIMINAR un producto:
     const CLAVE_ELIMINAR = "neew2026";
 
     const SISTEMAS_TALLAS = {
       ropa: ["XS", "S", "M", "L", "XL", "XXL", "Unitalla"],
-      calzado: [
-        "22 MX", "22.5 MX", "23 MX", "23.5 MX", "24 MX", "24.5 MX",
-        "25 MX", "25.5 MX", "26 MX", "26.5 MX", "27 MX", "27.5 MX",
-        "28 MX", "28.5 MX", "29 MX", "29.5 MX", "30 MX"
-      ],
+      calzado: ["22 MX", "22.5 MX", "23 MX", "23.5 MX", "24 MX", "24.5 MX", "25 MX", "25.5 MX", "26 MX", "26.5 MX", "27 MX", "27.5 MX", "28 MX", "28.5 MX", "29 MX", "30 MX"],
       unitalla: ["Unitalla", "Ajustable", "Chico", "Mediano", "Grande"]
     };
 
@@ -1470,7 +1162,6 @@
     function obtenerColorCSS(textoColor) {
       if (!textoColor) return "#ffffff";
       const t = textoColor.toLowerCase().trim();
-
       const mapaColores = [
         { k: ["negro", "black", "carbon", "carbón", "oscuro"], hex: "#111111" },
         { k: ["blanco", "white", "hueso", "marfil", "off white"], hex: "#ffffff" },
@@ -1485,17 +1176,15 @@
         { k: ["rosa", "pink", "fiucsa", "fucsia", "pastel", "magenta"], hex: "#ff4da6" },
         { k: ["morado", "purple", "lila", "violeta", "lavanda"], hex: "#9d4edd" },
         { k: ["amarillo", "yellow", "mostaza", "dorado", "oro"], hex: "#ffea00" },
-        { k: ["naranja", "orange", "coral", "terracota", "hed"], hex: "#ff7b00" },
+        { k: ["naranja", "orange", "coral", "terracota"], hex: "#ff7b00" },
         { k: ["cafe", "café", "marron", "marrón", "chocolate", "brown", "tabaco"], hex: "#7f4f24" }
       ];
-
       if (t.includes("/") || t.includes(" con ") || t.includes("-")) {
         const partes = t.split(/\/| con |-/).map(s => s.trim());
         const c1 = buscarHexSimple(partes[0], mapaColores);
         const c2 = buscarHexSimple(partes[1] || "", mapaColores);
         return `linear-gradient(135deg, ${c1} 50%, ${c2} 50%)`;
       }
-
       return buscarHexSimple(t, mapaColores);
     }
 
@@ -1510,27 +1199,17 @@
 
     function obtenerEstadoStock(cantidad) {
       const s = Number(cantidad) || 0;
-      if (s === 0) {
-        return { codigo: "SIN_STOCK", texto: "NO HAY STOCK", clase: "status-out" };
-      } else if (s <= 15) {
-        return { codigo: "BAJO_STOCK", texto: "BAJO STOCK", clase: "status-low" };
-      } else {
-        return { codigo: "EN_STOCK", texto: "EN STOCK", clase: "status-ok" };
-      }
+      if (s === 0) return { codigo: "SIN_STOCK", texto: "NO HAY STOCK", clase: "status-out" };
+      if (s <= 15) return { codigo: "BAJO_STOCK", texto: "BAJO STOCK", clase: "status-low" };
+      return { codigo: "EN_STOCK", texto: "EN STOCK", clase: "status-ok" };
     }
 
     function obtenerTipoTallaDeCategoria(nombreCat) {
       const encontrada = categories.find(c => c.name.toLowerCase() === (nombreCat || "").toLowerCase());
-      if (encontrada && encontrada.sizeType) {
-        return encontrada.sizeType;
-      }
+      if (encontrada && encontrada.sizeType) return encontrada.sizeType;
       const n = (nombreCat || "").toLowerCase();
-      if (n.includes("tenis") || n.includes("calzado") || n.includes("zapato") || n.includes("sneaker") || n.includes("sandalia") || n.includes("bota")) {
-        return "calzado";
-      }
-      if (n.includes("accesorio") || n.includes("gorra") || n.includes("lente") || n.includes("bolsa") || n.includes("mochila")) {
-        return "unitalla";
-      }
+      if (n.includes("tenis") || n.includes("calzado") || n.includes("zapato") || n.includes("sneaker") || n.includes("sandalia") || n.includes("bota")) return "calzado";
+      if (n.includes("accesorio") || n.includes("gorra") || n.includes("lente") || n.includes("bolsa") || n.includes("mochila")) return "unitalla";
       return "ropa";
     }
 
@@ -1539,17 +1218,9 @@
       const selectTalla = document.getElementById("pSize");
       const labelTalla = document.getElementById("sizeLabel");
       const tipo = obtenerTipoTallaDeCategoria(catSeleccionada);
-
       const listaTallas = SISTEMAS_TALLAS[tipo] || SISTEMAS_TALLAS.ropa;
 
-      if (tipo === "calzado") {
-        labelTalla.textContent = "Talla Calzado (MX)";
-      } else if (tipo === "unitalla") {
-        labelTalla.textContent = "Medida / Talla";
-      } else {
-        labelTalla.textContent = "Talla Ropa";
-      }
-
+      labelTalla.textContent = tipo === "calzado" ? "Talla (MX)" : (tipo === "unitalla" ? "Medida" : "Talla");
       selectTalla.innerHTML = listaTallas.map(t => {
         const isDefault = (tipo === "ropa" && t === "M") || (tipo === "calzado" && t === "26 MX") || (tipo === "unitalla" && t === "Unitalla");
         return `<option value="${t}" ${isDefault ? "selected" : ""}>${t}</option>`;
@@ -1559,66 +1230,48 @@
     function autoDetectarTipoTalla() {
       const val = document.getElementById("cName").value.toLowerCase();
       const selectTipo = document.getElementById("cSizeType");
-      if (val.includes("tenis") || val.includes("calzado") || val.includes("zapato") || val.includes("sneaker") || val.includes("sandalia") || val.includes("bota")) {
-        selectTipo.value = "calzado";
-      } else if (val.includes("gorra") || val.includes("accesorio") || val.includes("lente") || val.includes("calcet")) {
-        selectTipo.value = "unitalla";
-      }
+      if (val.includes("tenis") || val.includes("calzado") || val.includes("zapato") || val.includes("sneaker") || val.includes("sandalia")) selectTipo.value = "calzado";
+      else if (val.includes("gorra") || val.includes("accesorio") || val.includes("lente")) selectTipo.value = "unitalla";
     }
 
     function renderCategoriesUI() {
       const bar = document.getElementById("categoriesBar");
       const chipsHTML = [
         `<button class="cat-chip ${activeCategory === 'Todos' ? 'active' : ''}" onclick="setCategory('Todos')">Todos</button>`,
-        ...categories.map(c => {
-          const isAct = activeCategory === c.name ? "active" : "";
-          return `<button class="cat-chip ${isAct}" onclick="setCategory('${c.name.replace(/'/g, "\\'")}')">${c.name}</button>`;
-        })
+        ...categories.map(c => `<button class="cat-chip ${activeCategory === c.name ? 'active' : ''}" onclick="setCategory('${c.name.replace(/'/g, "\\'")}')">${c.name}</button>`)
       ];
       bar.innerHTML = chipsHTML.join("");
 
       const selectCat = document.getElementById("pCat");
       const valorActual = selectCat.value;
       selectCat.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
-      if (valorActual && categories.some(c => c.name === valorActual)) {
-        selectCat.value = valorActual;
-      }
+      if (valorActual && categories.some(c => c.name === valorActual)) selectCat.value = valorActual;
       actualizarOpcionesTalla();
     }
 
     window.addEventListener("DOMContentLoaded", () => {
       renderCategoriesUI();
-      const claveGuardada = localStorage.getItem("neewshop_auth_key");
-      if (claveGuardada === CLAVE_TIENDA) {
-        desbloquearApp(claveGuardada);
-      }
+      if (localStorage.getItem("neewshop_auth_key") === CLAVE_TIENDA) desbloquearApp(CLAVE_TIENDA);
     });
 
     function togglePasswordVisibility() {
       const input = document.getElementById("passInput");
       const btn = document.getElementById("eyeBtn");
-      if (input.type === "password") {
-        input.type = "text";
-        btn.textContent = "Ocultar";
-      } else {
-        input.type = "password";
-        btn.textContent = "Ver";
-      }
+      input.type = input.type === "password" ? "text" : "password";
+      btn.textContent = input.type === "password" ? "Ver" : "Ocultar";
     }
 
     function verificarAcceso(e) {
       e.preventDefault();
       const passInput = document.getElementById("passInput");
       const errorMsg = document.getElementById("loginError");
-      const ingresada = passInput.value.trim();
-
-      if (ingresada === CLAVE_TIENDA) {
-        localStorage.setItem("neewshop_auth_key", ingresada);
+      if (passInput.value.trim() === CLAVE_TIENDA) {
+        localStorage.setItem("neewshop_auth_key", CLAVE_TIENDA);
         errorMsg.textContent = "";
         passInput.value = "";
-        desbloquearApp(ingresada);
+        desbloquearApp(CLAVE_TIENDA);
       } else {
-        errorMsg.textContent = "Contraseña incorrecta. Acceso denegado.";
+        errorMsg.textContent = "Contraseña incorrecta.";
         passInput.classList.remove("input-error");
         void passInput.offsetWidth;
         passInput.classList.add("input-error");
@@ -1642,13 +1295,11 @@
           firebaseIniciado = true;
         }
         dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v2");
-
         dbRef.on("value", (snapshot) => {
           const data = snapshot.val();
           if (data !== null) {
             if (data.initialized) {
-              const rawItems = data.items || [];
-              products = Array.isArray(rawItems) ? rawItems.filter(Boolean) : Object.values(rawItems);
+              products = Array.isArray(data.items) ? data.items.filter(Boolean) : Object.values(data.items || {});
               if (data.categories) {
                 const rawCats = Array.isArray(data.categories) ? data.categories.filter(Boolean) : Object.values(data.categories);
                 if (rawCats.length > 0) categories = rawCats;
@@ -1665,7 +1316,7 @@
           renderProducts();
         });
       } else {
-        document.getElementById("syncText").textContent = "Modo Local";
+        document.getElementById("syncText").textContent = "Local";
         products = JSON.parse(localStorage.getItem("neewshop_stock")) || productosIniciales;
         categories = JSON.parse(localStorage.getItem("neewshop_categories")) || categoriasIniciales;
         renderCategoriesUI();
@@ -1675,12 +1326,7 @@
 
     function saveToDB() {
       if (dbRef) {
-        dbRef.set({
-          initialized: true,
-          updatedAt: Date.now(),
-          items: products,
-          categories: categories
-        });
+        dbRef.set({ initialized: true, updatedAt: Date.now(), items: products, categories: categories });
       } else {
         localStorage.setItem("neewshop_stock", JSON.stringify(products));
         localStorage.setItem("neewshop_categories", JSON.stringify(categories));
@@ -1697,7 +1343,6 @@
 
     function setStockFilter(filtro) {
       activeStockFilter = (activeStockFilter === filtro && filtro !== "TODOS") ? "TODOS" : filtro;
-
       document.getElementById("tabAll").className = "stock-tab" + (activeStockFilter === "TODOS" ? " active-all" : "");
       document.getElementById("tabLow").className = "stock-tab" + (activeStockFilter === "BAJO_STOCK" ? " active-low" : "");
       document.getElementById("tabOut").className = "stock-tab" + (activeStockFilter === "SIN_STOCK" ? " active-out" : "");
@@ -1717,7 +1362,6 @@
         banner.classList.add("show-out");
         bannerText.textContent = "SECCIÓN NO HAY STOCK (0 UNIDADES)";
       }
-
       renderProducts();
     }
 
@@ -1751,41 +1395,31 @@
       e.preventDefault();
       const nombre = document.getElementById("cName").value.trim();
       const tipoTalla = document.getElementById("cSizeType").value;
-
       if (!nombre) return;
-
-      const existe = categories.some(c => c.name.toLowerCase() === nombre.toLowerCase());
-      if (existe) {
-        alert("Esa categoría ya existe en neewshop.");
+      if (categories.some(c => c.name.toLowerCase() === nombre.toLowerCase())) {
+        alert("Esa categoría ya existe.");
         return;
       }
-
       categories.push({ name: nombre, sizeType: tipoTalla });
       activeCategory = nombre;
       saveToDB();
-
       document.getElementById("categoryForm").reset();
       toggleCategoryModal(false);
     }
 
     function toggleCategoryModal(show) {
       document.getElementById("addCategoryModal").classList.toggle("open", show);
-      if (show) {
-        setTimeout(() => document.getElementById("cName").focus(), 120);
-      }
+      if (show) setTimeout(() => document.getElementById("cName").focus(), 120);
     }
 
     function askDeleteProduct(id) {
       const item = products.find(p => p.id === id);
       if (!item) return;
       productToDeleteId = id;
-      document.getElementById("deleteMessage").innerHTML = 
-        `¿Seguro que deseas eliminar <strong>${item.name}</strong> (Talla ${item.size} • ${item.color}) del inventario?`;
+      document.getElementById("deleteMessage").innerHTML = `¿Eliminar <strong>${item.name}</strong> (${item.size} • ${item.color})?`;
       const passInput = document.getElementById("deletePassInput");
-      const errorMsg = document.getElementById("deleteErrorMsg");
       passInput.value = "";
-      passInput.classList.remove("input-error");
-      errorMsg.textContent = "";
+      document.getElementById("deleteErrorMsg").textContent = "";
       document.getElementById("deleteModal").classList.add("open");
       setTimeout(() => passInput.focus(), 150);
     }
@@ -1793,26 +1427,21 @@
     function closeDeleteModal() {
       productToDeleteId = null;
       document.getElementById("deletePassInput").value = "";
-      document.getElementById("deleteErrorMsg").textContent = "";
       document.getElementById("deleteModal").classList.remove("open");
     }
 
     function confirmDeleteProduct(e) {
       if (e) e.preventDefault();
       if (productToDeleteId === null) return;
-
       const passInput = document.getElementById("deletePassInput");
       const errorMsg = document.getElementById("deleteErrorMsg");
-      const ingresada = passInput.value.trim();
-
-      if (ingresada !== CLAVE_ELIMINAR) {
-        errorMsg.textContent = "Contraseña incorrecta. No se eliminó la prenda.";
+      if (passInput.value.trim() !== CLAVE_ELIMINAR) {
+        errorMsg.textContent = "Contraseña incorrecta.";
         passInput.classList.remove("input-error");
         void passInput.offsetWidth;
         passInput.classList.add("input-error");
         return;
       }
-
       products = products.filter(p => p.id !== productToDeleteId);
       saveToDB();
       closeDeleteModal();
@@ -1833,34 +1462,26 @@
       const list = document.getElementById("productList");
       const query = document.getElementById("searchInput").value.toLowerCase();
 
-      const countOk = products.filter(p => (Number(p.stock) || 0) >= 16).length;
-      const countLow = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
-      const countOut = products.filter(p => (Number(p.stock) || 0) === 0).length;
-
-      document.getElementById("kpiOk").textContent = countOk;
-      document.getElementById("kpiLow").textContent = countLow;
-      document.getElementById("kpiOut").textContent = countOut;
+      document.getElementById("kpiOk").textContent = products.filter(p => (Number(p.stock) || 0) >= 16).length;
+      document.getElementById("kpiLow").textContent = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
+      document.getElementById("kpiOut").textContent = products.filter(p => (Number(p.stock) || 0) === 0).length;
 
       const filtered = products.filter(p => {
         const estado = obtenerEstadoStock(p.stock);
         const matchesCat = activeCategory === "Todos" || p.category === activeCategory;
         const matchesStock = activeStockFilter === "TODOS" || estado.codigo === activeStockFilter;
-        const matchesSearch = p.name.toLowerCase().includes(query) ||
-                              p.color.toLowerCase().includes(query) ||
-                              p.size.toLowerCase().includes(query) ||
-                              p.category.toLowerCase().includes(query);
+        const matchesSearch = p.name.toLowerCase().includes(query) || p.color.toLowerCase().includes(query) || p.size.toLowerCase().includes(query) || p.category.toLowerCase().includes(query);
         return matchesCat && matchesStock && matchesSearch;
       });
 
       if (filtered.length === 0) {
-        list.innerHTML = `<div class="empty-state">No hay productos en esta categoría o filtro.</div>`;
+        list.innerHTML = `<div class="empty-state">No hay productos en esta sección.</div>`;
         return;
       }
 
       list.innerHTML = filtered.map(p => {
         const estado = obtenerEstadoStock(p.stock);
         const bgColorDot = obtenerColorCSS(p.color);
-
         return `
           <div class="product-card">
             <div class="product-info">
@@ -1868,22 +1489,14 @@
               <div class="product-name">${p.name}</div>
               <div class="product-meta">
                 <span class="meta-pill">Talla ${p.size}</span>
-                <span class="meta-pill">
-                  <span class="color-dot" style="background: ${bgColorDot};"></span>
-                  ${p.color}
-                </span>
+                <span class="meta-pill"><span class="color-dot" style="background: ${bgColorDot};"></span>${p.color}</span>
                 <span class="meta-pill price-pill">$${Number(p.price).toLocaleString("es-MX")}</span>
               </div>
             </div>
             <div class="stock-controls">
               <div class="status-row">
                 <span class="stock-status ${estado.clase}">${estado.texto}</span>
-                <button class="delete-btn" onclick="askDeleteProduct(${p.id})" title="Eliminar">
-                  <svg viewBox="0 0 24 24">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                  </svg>
-                </button>
+                <button class="delete-btn" onclick="askDeleteProduct(${p.id})" title="Eliminar"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
               </div>
               <div class="stepper">
                 <button onclick="updateStock(${p.id}, -1)">−</button>
@@ -1896,39 +1509,24 @@
       }).join("");
     }
 
-    // =========================================================================
-    // EXPORTADOR A EXCEL (.XLSX) CON DISEÑO Y FÓRMULAS REALES
-    // =========================================================================
     async function exportarExcel() {
       if (!window.ExcelJS) {
-        alert("Cargando módulo de Excel, intenta de nuevo en un segundo.");
+        alert("Cargando módulo de Excel, intenta de nuevo.");
         return;
       }
-
       const workbook = new ExcelJS.Workbook();
-      workbook.creator = "neewshop Stock OS";
-      workbook.created = new Date();
-
-      const sheet = workbook.addWorksheet("Inventario neewshop", {
-        views: [{ state: "frozen", ySplit: 8 }]
-      });
+      const sheet = workbook.addWorksheet("Inventario neewshop", { views: [{ state: "frozen", ySplit: 8 }] });
 
       sheet.columns = [
-        { key: "num", width: 8 },
-        { key: "name", width: 32 },
-        { key: "cat", width: 24 },
-        { key: "size", width: 14 },
-        { key: "color", width: 18 },
-        { key: "price", width: 16 },
-        { key: "stock", width: 16 },
-        { key: "status", width: 20 },
-        { key: "total", width: 20 }
+        { key: "num", width: 8 }, { key: "name", width: 30 }, { key: "cat", width: 20 },
+        { key: "size", width: 12 }, { key: "color", width: 16 }, { key: "price", width: 15 },
+        { key: "stock", width: 15 }, { key: "status", width: 18 }, { key: "total", width: 18 }
       ];
 
       sheet.mergeCells("A1:I2");
       const titleCell = sheet.getCell("A1");
-      titleCell.value = "NEEWSHOP — REPORTE OFICIAL DE INVENTARIO Y CONTROL DE STOCK";
-      titleCell.font = { name: "Calibri", size: 15, bold: true, color: { argb: "FFFFFFFF" } };
+      titleCell.value = "NEEWSHOP — REPORTE DE INVENTARIO Y STOCK";
+      titleCell.font = { name: "Calibri", size: 14, bold: true, color: { argb: "FFFFFFFF" } };
       titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0A0A0A" } };
       titleCell.alignment = { vertical: "middle", horizontal: "center" };
 
@@ -1936,138 +1534,65 @@
       const endRow = Math.max(startRow, startRow + products.length - 1);
 
       sheet.mergeCells("A4:C4");
-      sheet.getCell("A4").value = "RESUMEN CON FÓRMULAS AUTOMÁTICAS";
-      sheet.getCell("A4").font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
+      sheet.getCell("A4").value = "RESUMEN DE STOCK";
+      sheet.getCell("A4").font = { bold: true, size: 9, color: { argb: "FFFFFFFF" } };
       sheet.getCell("A4").fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1F1F1F" } };
 
       const resumenFormulas = [
-        { labelCelda: "A5", valCelda: "B5", titulo: "EN STOCK (16+)", formula: `COUNTIF(H${startRow}:H${endRow},"EN STOCK")`, color: "FF111111", textColor: "FFFFFFFF" },
-        { labelCelda: "C5", valCelda: "D5", titulo: "BAJO STOCK (1-15)", formula: `COUNTIF(H${startRow}:H${endRow},"BAJO STOCK")`, color: "FFFFEA00", textColor: "FF000000" },
-        { labelCelda: "E5", valCelda: "F5", titulo: "NO HAY STOCK (0)", formula: `COUNTIF(H${startRow}:H${endRow},"NO HAY STOCK")`, color: "FF9B0033", textColor: "FFFFFFFF" },
-        { labelCelda: "G5", valCelda: "H5", titulo: "TOTAL UNIDADES", formula: `SUM(G${startRow}:G${endRow})`, color: "FF262626", textColor: "FFFFFFFF" }
+        { l: "A5", v: "B5", t: "EN STOCK", f: `COUNTIF(H${startRow}:H${endRow},"EN STOCK")`, c: "FF111111", tc: "FFFFFFFF" },
+        { l: "C5", v: "D5", t: "BAJO STOCK", f: `COUNTIF(H${startRow}:H${endRow},"BAJO STOCK")`, c: "FFFFEA00", tc: "FF000000" },
+        { l: "E5", v: "F5", t: "SIN STOCK", f: `COUNTIF(H${startRow}:H${endRow},"NO HAY STOCK")`, c: "FF9B0033", tc: "FFFFFFFF" },
+        { l: "G5", v: "H5", t: "TOTAL UNIDADES", f: `SUM(G${startRow}:G${endRow})`, c: "FF262626", tc: "FFFFFFFF" }
       ];
 
       resumenFormulas.forEach(item => {
-        const lbl = sheet.getCell(item.labelCelda);
-        const val = sheet.getCell(item.valCelda);
-        lbl.value = item.titulo;
-        lbl.font = { bold: true, size: 9, color: { argb: item.textColor } };
-        lbl.fill = { type: "pattern", pattern: "solid", fgColor: { argb: item.color } };
-        lbl.alignment = { vertical: "middle", horizontal: "center" };
+        sheet.getCell(item.l).value = item.t;
+        sheet.getCell(item.l).font = { bold: true, size: 8, color: { argb: item.tc } };
+        sheet.getCell(item.l).fill = { type: "pattern", pattern: "solid", fgColor: { argb: item.c } };
+        sheet.getCell(item.l).alignment = { vertical: "middle", horizontal: "center" };
 
-        val.value = { formula: products.length > 0 ? item.formula : "0" };
-        val.font = { bold: true, size: 12, color: { argb: "FF000000" } };
-        val.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF2F2F2" } };
-        val.alignment = { vertical: "middle", horizontal: "center" };
+        sheet.getCell(item.v).value = { formula: products.length > 0 ? item.f : "0" };
+        sheet.getCell(item.v).font = { bold: true, size: 11, color: { argb: "FF000000" } };
+        sheet.getCell(item.v).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF2F2F2" } };
+        sheet.getCell(item.v).alignment = { vertical: "middle", horizontal: "center" };
       });
 
-      const headers = [
-        "N°",
-        "PRODUCTO / MODELO",
-        "CATEGORÍA",
-        "TALLA",
-        "COLOR",
-        "PRECIO UNIT.",
-        "STOCK ACTUAL",
-        "ESTADO (FÓRMULA)",
-        "VALOR EN STOCK (FÓRMULA)"
-      ];
-
       const headerRow = sheet.getRow(8);
-      headerRow.values = headers;
-      headerRow.height = 26;
-      headerRow.eachCell((cell) => {
-        cell.font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
+      headerRow.values = ["N°", "PRODUCTO", "CATEGORÍA", "TALLA", "COLOR", "PRECIO", "STOCK", "ESTADO", "VALOR TOTAL"];
+      headerRow.height = 24;
+      headerRow.eachCell(cell => {
+        cell.font = { bold: true, size: 9, color: { argb: "FFFFFFFF" } };
         cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0A0A0A" } };
         cell.alignment = { vertical: "middle", horizontal: "center" };
-        cell.border = {
-          top: { style: "thin", color: { argb: "FF444444" } },
-          bottom: { style: "medium", color: { argb: "FF000000" } },
-          left: { style: "thin", color: { argb: "FF444444" } },
-          right: { style: "thin", color: { argb: "FF444444" } }
-        };
       });
 
       products.forEach((p, idx) => {
         const rIdx = startRow + idx;
         const row = sheet.getRow(rIdx);
         const stockNum = Number(p.stock) || 0;
-        const priceNum = Number(p.price) || 0;
-
         row.values = [
-          idx + 1,
-          p.name,
-          p.category,
-          p.size,
-          p.color,
-          priceNum,
-          stockNum,
+          idx + 1, p.name, p.category, p.size, p.color, Number(p.price) || 0, stockNum,
           { formula: `IF(G${rIdx}=0,"NO HAY STOCK",IF(G${rIdx}<=15,"BAJO STOCK","EN STOCK"))` },
           { formula: `F${rIdx}*G${rIdx}` }
         ];
-
-        row.height = 22;
-
-        row.eachCell((cell, colNumber) => {
-          cell.border = {
-            top: { style: "thin", color: { argb: "FFD9D9D9" } },
-            bottom: { style: "thin", color: { argb: "FFD9D9D9" } },
-            left: { style: "thin", color: { argb: "FFD9D9D9" } },
-            right: { style: "thin", color: { argb: "FFD9D9D9" } }
-          };
-          cell.alignment = {
-            vertical: "middle",
-            horizontal: (colNumber === 2 || colNumber === 3) ? "left" : "center"
-          };
-
-          if (colNumber === 6 || colNumber === 9) {
-            cell.numFmt = '"$"#,##0.00';
-            cell.font = { bold: colNumber === 9, size: 10 };
-          }
-
-          if (colNumber === 8) {
-            if (stockNum === 0) {
-              cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFCCD9" } };
-              cell.font = { bold: true, color: { argb: "FF9B0033" } };
-            } else if (stockNum <= 15) {
-              cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFF3B0" } };
-              cell.font = { bold: true, color: { argb: "FF7A6200" } };
-            } else {
-              cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFEFEFEF" } };
-              cell.font = { bold: true, color: { argb: "FF111111" } };
-            }
+        row.height = 20;
+        row.eachCell((cell, colNum) => {
+          cell.alignment = { vertical: "middle", horizontal: (colNum === 2 || colNum === 3) ? "left" : "center" };
+          if (colNum === 6 || colNum === 9) cell.numFmt = '"$"#,##0.00';
+          if (colNum === 8) {
+            if (stockNum === 0) { cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFCCD9" } }; cell.font = { bold: true, color: { argb: "FF9B0033" } }; }
+            else if (stockNum <= 15) { cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFF3B0" } }; cell.font = { bold: true, color: { argb: "FF7A6200" } }; }
+            else { cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFEFEFEF" } }; cell.font = { bold: true, color: { argb: "FF111111" } }; }
           }
         });
       });
-
-      const totalRowIndex = endRow + 1;
-      const totalRow = sheet.getRow(totalRowIndex);
-      totalRow.height = 26;
-
-      sheet.mergeCells(`A${totalRowIndex}:E${totalRowIndex}`);
-      totalRow.getCell(1).value = "TOTALES GENERALES DEL INVENTARIO";
-      totalRow.getCell(6).value = { formula: products.length > 0 ? `AVERAGE(F${startRow}:F${endRow})` : 0 };
-      totalRow.getCell(7).value = { formula: products.length > 0 ? `SUM(G${startRow}:G${endRow})` : 0 };
-      totalRow.getCell(8).value = "—";
-      totalRow.getCell(9).value = { formula: products.length > 0 ? `SUM(I${startRow}:I${endRow})` : 0 };
-
-      for (let c = 1; c <= 9; c++) {
-        const cell = totalRow.getCell(c);
-        cell.font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
-        cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF111111" } };
-        cell.alignment = { vertical: "middle", horizontal: "center" };
-        if (c === 6 || c === 9) {
-          cell.numFmt = '"$"#,##0.00';
-        }
-      }
 
       const buffer = await workbook.xlsx.writeBuffer();
       const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      const fecha = new Date().toISOString().slice(0, 10);
       a.href = url;
-      a.download = `Inventario_neewshop_${fecha}.xlsx`;
+      a.download = `Inventario_neewshop_${new Date().toISOString().slice(0, 10)}.xlsx`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
