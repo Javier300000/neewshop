@@ -13,10 +13,9 @@
       --glass-panel: rgba(255, 255, 255, 0.045);
       --glass-card: rgba(18, 18, 18, 0.55);
       --glass-card-hover: rgba(28, 28, 28, 0.68);
-      --glass-modal: rgba(12, 12, 12, 0.82);
+      --glass-modal: rgba(12, 12, 12, 0.88);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-border-bright: rgba(255, 255, 255, 0.35);
-      --glass-highlight: rgba(255, 255, 255, 0.08);
       --text-white: #ffffff;
       --text-muted: #949494;
       --neon-white: #ffffff;
@@ -45,7 +44,7 @@
       overflow-x: hidden;
     }
 
-    /* PANTALLA DE ACCESO (LIQUID GLASS) */
+    /* PANTALLA DE ACCESO */
     .login-screen {
       position: fixed;
       inset: 0;
@@ -60,9 +59,7 @@
       padding: 20px;
     }
 
-    .login-screen.hidden {
-      display: none;
-    }
+    .login-screen.hidden { display: none; }
 
     .login-card {
       width: 100%;
@@ -74,7 +71,7 @@
       border-radius: 28px;
       padding: 32px 22px;
       text-align: center;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
     }
 
     .login-logo {
@@ -94,7 +91,6 @@
       color: var(--bg-space);
       padding: 2px 9px;
       border-radius: 7px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     }
 
     .login-subtitle {
@@ -122,18 +118,15 @@
       text-align: center;
       letter-spacing: 2px;
       outline: none;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
     }
 
     .pass-wrapper input:focus {
       border-color: var(--neon-white);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 255, 255, 0.25);
     }
 
     .pass-wrapper input.input-error,
     .delete-pass-input.input-error {
       border-color: var(--neon-pink) !important;
-      box-shadow: 0 0 16px rgba(255, 0, 85, 0.5) !important;
       animation: shake 0.35s ease;
     }
 
@@ -162,9 +155,9 @@
 
     .login-btn {
       width: 100%;
-      background: rgba(255, 255, 255, 0.92);
+      background: #ffffff;
       color: #000000;
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      border: none;
       padding: 14px;
       border-radius: 14px;
       font-size: 0.88rem;
@@ -172,13 +165,7 @@
       text-transform: uppercase;
       letter-spacing: 0.8px;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-      transition: all 0.2s;
-    }
-
-    .login-btn:hover {
-      background: #ffffff;
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.45);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
     }
 
     @keyframes shake {
@@ -238,7 +225,6 @@
       color: var(--bg-space);
       padding: 1px 7px;
       border-radius: 6px;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
     }
 
     .header-actions {
@@ -262,22 +248,9 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      transition: all 0.2s;
     }
 
-    .excel-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: #fff;
-    }
-
-    .excel-btn svg {
-      width: 12px;
-      height: 12px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
+    .excel-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .badge-live {
       font-size: 0.64rem;
@@ -287,7 +260,6 @@
       border-radius: 20px;
       border: 1px solid var(--glass-border);
       background: var(--glass-panel);
-      backdrop-filter: blur(10px);
       color: var(--text-white);
       display: flex;
       align-items: center;
@@ -313,52 +285,29 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s;
     }
 
-    .lock-btn:hover {
-      border-color: var(--neon-pink);
-      color: var(--neon-pink);
-    }
+    .lock-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-    .lock-btn svg {
-      width: 13px;
-      height: 13px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-
-    .search-box {
-      width: 100%;
-    }
+    .search-box { width: 100%; }
 
     .search-box input {
       width: 100%;
       background: rgba(255, 255, 255, 0.035);
       backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
       color: var(--text-white);
       padding: 10px 14px;
       border-radius: 13px;
       font-size: 0.88rem;
       outline: none;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-      transition: all 0.2s;
     }
 
-    .search-box input::placeholder {
-      color: #666;
-    }
+    .search-box input::placeholder { color: #666; }
 
-    .search-box input:focus {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: var(--glass-border-bright);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.15);
-    }
+    .search-box input:focus { border-color: var(--glass-border-bright); }
 
-    /* TARJETAS DE ESTADO DE STOCK (KPI) */
+    /* TARJETAS KPI */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -369,39 +318,19 @@
     .kpi-card {
       background: var(--glass-card);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       border-radius: 18px;
       padding: 12px;
       text-align: left;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       transition: all 0.2s ease;
     }
 
-    .kpi-card:hover {
-      background: var(--glass-card-hover);
-      border-color: var(--glass-border-bright);
-      transform: translateY(-2px);
-    }
-
-    .kpi-card.active-filter-white {
-      border-color: var(--neon-white);
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    }
-
-    .kpi-card.active-filter-yellow {
-      border-color: var(--neon-yellow);
-      background: rgba(255, 234, 0, 0.1);
-      box-shadow: 0 0 25px rgba(255, 234, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .kpi-card.active-filter-pink {
-      border-color: var(--neon-pink);
-      background: rgba(255, 0, 85, 0.1);
-      box-shadow: 0 0 25px rgba(255, 0, 85, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
+    .kpi-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); }
+    .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.1); }
+    .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.1); }
+    .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.1); }
 
     .kpi-label {
       font-size: 0.62rem;
@@ -415,18 +344,11 @@
       gap: 5px;
     }
 
-    .status-indicator-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      display: inline-block;
-      flex-shrink: 0;
-    }
-
-    .dot-white { background: var(--neon-white); box-shadow: 0 0 6px var(--neon-white); }
-    .dot-yellow { background: var(--neon-yellow); box-shadow: 0 0 6px var(--neon-yellow); }
-    .dot-pink { background: var(--neon-pink); box-shadow: 0 0 6px var(--neon-pink); }
-    .dot-cyan { background: var(--neon-cyan); box-shadow: 0 0 6px var(--neon-cyan); }
+    .status-indicator-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .dot-white { background: var(--neon-white); }
+    .dot-yellow { background: var(--neon-yellow); }
+    .dot-pink { background: var(--neon-pink); }
+    .dot-cyan { background: var(--neon-cyan); }
 
     .kpi-value {
       font-size: 1.25rem;
@@ -436,23 +358,14 @@
       justify-content: space-between;
     }
 
-    .kpi-range {
-      font-size: 0.6rem;
-      color: var(--text-muted);
-      font-weight: 700;
-    }
-
-    .kpi-value.neon-white { color: var(--neon-white); text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
-    .kpi-value.neon-yellow { color: var(--neon-yellow); text-shadow: 0 0 10px rgba(255, 234, 0, 0.45); }
-    .kpi-value.neon-pink { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255, 0, 85, 0.45); }
-    .kpi-value.neon-cyan { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 240, 255, 0.45); font-size: 1.15rem; }
+    .kpi-range { font-size: 0.6rem; color: var(--text-muted); font-weight: 700; }
+    .kpi-value.neon-white { color: var(--neon-white); }
+    .kpi-value.neon-yellow { color: var(--neon-yellow); }
+    .kpi-value.neon-pink { color: var(--neon-pink); }
+    .kpi-value.neon-cyan { color: var(--neon-cyan); font-size: 1.15rem; }
 
     /* FILTROS Y CATEGORÍAS */
-    .controls-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .controls-wrapper { display: flex; flex-direction: column; gap: 2px; }
 
     .stock-tabs {
       display: flex;
@@ -461,12 +374,10 @@
       overflow-x: auto;
       scrollbar-width: none;
     }
-
     .stock-tabs::-webkit-scrollbar { display: none; }
 
     .stock-tab {
       background: var(--glass-card);
-      backdrop-filter: blur(15px);
       color: var(--text-muted);
       border: 1px solid var(--glass-border);
       padding: 7px 12px;
@@ -474,57 +385,18 @@
       font-size: 0.7rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.4px;
       white-space: nowrap;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transition: all 0.2s;
     }
+    .stock-tab.active-all { background: var(--neon-white); color: #000; border-color: var(--neon-white); }
+    .stock-tab.active-low { background: rgba(255, 234, 0, 0.16); color: var(--neon-yellow); border-color: var(--neon-yellow); }
+    .stock-tab.active-out { background: rgba(255, 0, 85, 0.18); color: var(--neon-pink); border-color: var(--neon-pink); }
 
-    .stock-tab:hover {
-      border-color: var(--glass-border-bright);
-      color: #fff;
-    }
-
-    .stock-tab.active-all {
-      background: var(--neon-white);
-      color: #000000;
-      border-color: var(--neon-white);
-      box-shadow: 0 0 18px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    }
-
-    .stock-tab.active-low {
-      background: rgba(255, 234, 0, 0.16);
-      color: var(--neon-yellow);
-      border-color: var(--neon-yellow);
-      box-shadow: 0 0 18px rgba(255, 234, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .stock-tab.active-out {
-      background: rgba(255, 0, 85, 0.18);
-      color: var(--neon-pink);
-      border-color: var(--neon-pink);
-      box-shadow: 0 0 18px rgba(255, 0, 85, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .categories-bar-row {
-      display: flex;
-      align-items: center;
-      padding: 4px 16px;
-      gap: 8px;
-    }
-
-    .categories-scroll {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      flex: 1;
-    }
-
+    .categories-bar-row { display: flex; align-items: center; padding: 4px 16px; gap: 8px; }
+    .categories-scroll { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
     .categories-scroll::-webkit-scrollbar { display: none; }
 
     .delete-cat-chip {
@@ -538,17 +410,10 @@
       text-transform: uppercase;
       white-space: nowrap;
       cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: all 0.2s;
-    }
-
-    .delete-cat-chip:active {
-      background: rgba(255, 0, 85, 0.25);
     }
 
     .cat-chip {
       background: var(--glass-card);
-      backdrop-filter: blur(15px);
       color: var(--text-white);
       border: 1px solid var(--glass-border);
       padding: 6px 13px;
@@ -557,21 +422,8 @@
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transition: all 0.2s;
     }
-
-    .cat-chip:hover {
-      border-color: var(--glass-border-bright);
-    }
-
-    .cat-chip.active {
-      background: var(--neon-white);
-      color: #000000;
-      border-color: var(--neon-white);
-      font-weight: 800;
-      box-shadow: 0 0 16px rgba(255, 255, 255, 0.45);
-    }
+    .cat-chip.active { background: var(--neon-white); color: #000; font-weight: 800; }
 
     .section-banner {
       margin: 4px 16px;
@@ -582,24 +434,11 @@
       display: none;
       align-items: center;
       justify-content: space-between;
-      backdrop-filter: blur(15px);
     }
+    .section-banner.show-low { display: flex; background: rgba(255, 234, 0, 0.12); border: 1px solid rgba(255, 234, 0, 0.45); color: var(--neon-yellow); }
+    .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.12); border: 1px solid rgba(255, 0, 85, 0.45); color: var(--neon-pink); }
 
-    .section-banner.show-low {
-      display: flex;
-      background: rgba(255, 234, 0, 0.12);
-      border: 1px solid rgba(255, 234, 0, 0.45);
-      color: var(--neon-yellow);
-    }
-
-    .section-banner.show-out {
-      display: flex;
-      background: rgba(255, 0, 85, 0.12);
-      border: 1px solid rgba(255, 0, 85, 0.45);
-      color: var(--neon-pink);
-    }
-
-    /* CUADRÍCULA DE PRODUCTOS (LIQUID GLASS CARDS) */
+    /* CUADRÍCULA DE PRODUCTOS (CLICKABLE CARDS) */
     .product-list {
       padding: 8px 16px;
       display: grid;
@@ -610,7 +449,6 @@
     .product-card {
       background: var(--glass-card);
       backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
       border: 1px solid var(--glass-border);
       border-radius: 20px;
       padding: 14px 16px;
@@ -618,51 +456,19 @@
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
+    .product-card:hover { background: var(--glass-card-hover); border-color: var(--glass-border-bright); transform: translateY(-2px); }
 
-    .product-card:hover {
-      background: var(--glass-card-hover);
-      border-color: var(--glass-border-bright);
-      transform: translateY(-2px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
+    .product-info { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
+    .product-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); font-weight: 700; }
+    .product-name { font-size: 0.95rem; font-weight: 800; color: var(--text-white); line-height: 1.3; }
 
-    .product-info {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .product-cat {
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--text-muted);
-      font-weight: 700;
-    }
-
-    .product-name {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--text-white);
-      line-height: 1.3;
-      word-wrap: break-word;
-    }
-
-    .product-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      align-items: center;
-    }
-
+    .product-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
     .meta-pill {
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
       color: var(--text-white);
       padding: 4px 9px;
       border-radius: 7px;
@@ -673,439 +479,112 @@
       align-items: center;
       gap: 5px;
       white-space: nowrap;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
-
-    .price-pill {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(255, 255, 255, 0.35);
-      color: var(--neon-white);
-      font-weight: 800;
-    }
-
-    .wholesale-pill {
-      background: rgba(255, 234, 0, 0.1);
-      border-color: rgba(255, 234, 0, 0.4);
-      color: var(--neon-yellow);
-      font-weight: 800;
-    }
-
-    .color-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      flex-shrink: 0;
-    }
+    .price-pill { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.35); color: var(--neon-white); font-weight: 800; }
+    .wholesale-pill { background: rgba(255, 234, 0, 0.1); border-color: rgba(255, 234, 0, 0.4); color: var(--neon-yellow); font-weight: 800; }
+    .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 
     /* CONTROLES DE STOCK Y SEMÁFORO */
-    .stock-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .stock-status {
-      font-size: 0.6rem;
-      font-weight: 900;
-      padding: 4px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-    }
-
-    .status-ok {
-      background: rgba(255, 255, 255, 0.12);
-      color: var(--neon-white);
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
-    }
-
-    .status-low {
-      background: rgba(255, 234, 0, 0.15);
-      color: var(--neon-yellow);
-      border: 1px solid rgba(255, 234, 0, 0.55);
-      box-shadow: 0 0 10px rgba(255, 234, 0, 0.2);
-    }
-
-    .status-out {
-      background: rgba(255, 0, 85, 0.16);
-      color: var(--neon-pink);
-      border: 1px solid rgba(255, 0, 85, 0.55);
-      box-shadow: 0 0 10px rgba(255, 0, 85, 0.22);
-    }
-
-    .delete-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      color: var(--text-muted);
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .delete-btn svg {
-      width: 12px;
-      height: 12px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-
-    .delete-btn:hover, .delete-btn:active {
-      background: rgba(255, 0, 85, 0.2);
-      color: var(--neon-pink);
-      border-color: var(--neon-pink);
-    }
+    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+    .status-row { display: flex; align-items: center; gap: 5px; }
+    .stock-status { font-size: 0.6rem; font-weight: 900; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
+    .status-ok { background: rgba(255, 255, 255, 0.12); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.45); }
+    .status-low { background: rgba(255, 234, 0, 0.15); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.55); }
+    .status-out { background: rgba(255, 0, 85, 0.16); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.55); }
 
     .stepper {
       display: flex;
       align-items: center;
       gap: 6px;
       background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
       padding: 3px;
       border-radius: 10px;
       border: 1px solid var(--glass-border);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
     }
-
     .stepper button {
-      width: 27px;
-      height: 27px;
-      border-radius: 7px;
-      border: none;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-white);
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.15s;
+      width: 27px; height: 27px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.08); color: var(--text-white); font-size: 0.95rem; font-weight: 700; cursor: pointer;
     }
+    .stepper button:active { background: var(--neon-white); color: #000; }
+    .stock-count { min-width: 24px; text-align: center; font-weight: 800; font-size: 0.9rem; }
 
-    .stepper button:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .stepper button:active {
-      background: var(--neon-white);
-      color: #000000;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
-    }
-
-    .stock-count {
-      min-width: 24px;
-      text-align: center;
-      font-weight: 800;
-      font-size: 0.9rem;
-    }
-
-    /* DOCK FLOTANTE INFERIOR (LIQUID GLASS DOCK) */
+    /* DOCK FLOTANTE */
     .bottom-dock {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 24px);
-      max-width: 480px;
-      padding: 7px;
-      background: rgba(16, 16, 16, 0.75);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      border: 1px solid var(--glass-border-bright);
-      border-radius: 999px;
-      display: flex;
-      gap: 7px;
-      z-index: 30;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      width: calc(100% - 24px); max-width: 480px; padding: 7px;
+      background: rgba(16, 16, 16, 0.75); backdrop-filter: blur(30px);
+      border: 1px solid var(--glass-border-bright); border-radius: 999px;
+      display: flex; gap: 7px; z-index: 30; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8);
     }
+    .fab-btn { flex: 1.4; background: #fff; color: #000; border: none; padding: 13px 14px; border-radius: 999px; font-size: 0.76rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .fab-cat-btn { flex: 1; background: rgba(255, 255, 255, 0.06); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.35); padding: 13px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    .fab-btn {
-      flex: 1.4;
-      background: rgba(255, 255, 255, 0.92);
-      color: #000000;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      padding: 13px 14px;
-      border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-      transition: all 0.2s;
-    }
-
-    .fab-btn:hover {
-      background: #ffffff;
-      box-shadow: 0 6px 25px rgba(255, 255, 255, 0.55);
-    }
-
-    .fab-cat-btn {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(10px);
-      color: var(--neon-white);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 13px 10px;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      transition: all 0.2s;
-    }
-
-    .fab-cat-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: #fff;
-    }
-
-    /* VENTANAS MODALES */
+    /* MODALES Y VENTANA DETALLES */
     .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      display: none;
-      justify-content: center;
-      align-items: flex-end;
-      z-index: 50;
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(18px);
+      display: none; justify-content: center; align-items: flex-end; z-index: 50;
     }
-
     .modal-overlay.open { display: flex; }
 
     .modal-sheet {
-      width: 100%;
-      max-width: 440px;
-      background: var(--glass-modal);
-      backdrop-filter: blur(35px);
-      -webkit-backdrop-filter: blur(35px);
-      border: 1px solid var(--glass-border-bright);
-      border-top: 2px solid var(--neon-white);
-      border-radius: 26px 26px 0 0;
-      padding: 22px 20px 28px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      width: 100%; max-width: 440px; background: var(--glass-modal); backdrop-filter: blur(35px);
+      border: 1px solid var(--glass-border-bright); border-top: 2px solid var(--neon-white);
+      border-radius: 26px 26px 0 0; padding: 22px 20px 28px; max-height: 90vh; overflow-y: auto;
     }
+    .modal-sheet.danger-sheet { border-top: 2px solid var(--neon-pink); }
 
-    .modal-sheet.danger-sheet {
-      border-top: 2px solid var(--neon-pink);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .modal-title { font-size: 1.1rem; font-weight: 800; }
-
-    .close-btn {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-white);
-      border: 1px solid var(--glass-border);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
+    .close-btn { background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--glass-border); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .close-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2.2; }
 
     .form-group { margin-bottom: 12px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    label {
-      display: block;
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-    }
-
-    input, select {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid var(--glass-border);
-      color: var(--text-white);
-      padding: 10px 12px;
-      border-radius: 11px;
-      font-size: 0.88rem;
-      outline: none;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-      transition: all 0.2s;
-    }
-
+    label { display: block; font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; font-weight: 700; }
+    input, select { width: 100%; background: rgba(0, 0, 0, 0.55); border: 1px solid var(--glass-border); color: #fff; padding: 10px 12px; border-radius: 11px; font-size: 0.88rem; outline: none; }
     select option { background: #111; color: #fff; }
-
-    input:focus, select:focus {
-      border-color: var(--glass-border-bright);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 255, 255, 0.2);
-    }
+    input:focus, select:focus { border-color: var(--glass-border-bright); }
 
     .submit-btn {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.92);
-      color: #000000;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 13px;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-top: 8px;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(255, 255, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-      transition: all 0.2s;
+      width: 100%; background: #fff; color: #000; border: none; padding: 13px; border-radius: 12px; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-top: 8px; cursor: pointer;
     }
+    .size-type-hint { font-size: 0.7rem; color: var(--neon-yellow); margin-top: 5px; font-weight: 600; }
 
-    .submit-btn:hover {
-      background: #ffffff;
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.45);
+    /* DETALLES DE PRODUCTO (MODAL) */
+    .detail-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
     }
-
-    .size-type-hint {
-      font-size: 0.7rem;
-      color: var(--neon-yellow);
-      margin-top: 5px;
-      font-weight: 600;
+    .detail-box {
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px;
     }
+    .detail-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+    .detail-val { font-size: 1rem; font-weight: 900; color: #fff; margin-top: 3px; }
 
-    .delete-text {
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      line-height: 1.4;
-      margin-bottom: 12px;
+    .detail-actions {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;
     }
+    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .detail-del-btn { background: var(--neon-pink); color: #fff; border: none; padding: 12px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-    .delete-text strong { color: var(--text-white); }
+    .delete-text { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px; }
+    .delete-pass-input { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border); color: #fff; padding: 11px; border-radius: 11px; font-size: 0.9rem; text-align: center; letter-spacing: 2px; outline: none; }
+    .delete-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 10px; text-align: center; }
+    .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .cancel-action-btn { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--glass-border); padding: 11px; border-radius: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+    .confirm-delete-btn { background: var(--neon-pink); color: #fff; border: none; padding: 11px; border-radius: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-    .delete-pass-box { margin-bottom: 6px; }
+    .empty-state { grid-column: 1 / -1; text-align: center; padding: 40px 16px; color: var(--text-muted); font-size: 0.88rem; background: var(--glass-card); border: 1px dashed var(--glass-border); border-radius: 18px; }
 
-    .delete-pass-input {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid var(--glass-border);
-      color: var(--text-white);
-      padding: 11px 12px;
-      border-radius: 11px;
-      font-size: 0.9rem;
-      text-align: center;
-      letter-spacing: 2px;
-      outline: none;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
-    }
-
-    .delete-error-msg {
-      color: var(--neon-pink);
-      font-size: 0.74rem;
-      font-weight: 700;
-      min-height: 18px;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .confirm-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .cancel-action-btn {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-white);
-      border: 1px solid var(--glass-border);
-      padding: 11px;
-      border-radius: 11px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    .confirm-delete-btn {
-      background: var(--neon-pink);
-      color: var(--text-white);
-      border: none;
-      padding: 11px;
-      border-radius: 11px;
-      font-size: 0.82rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 0 18px rgba(255, 0, 85, 0.45);
-    }
-
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 40px 16px;
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      background: var(--glass-card);
-      border: 1px dashed var(--glass-border);
-      border-radius: 18px;
-      backdrop-filter: blur(15px);
-    }
-
-    /* ESCRITORIO Y TABLETS */
     @media (min-width: 768px) {
       header { padding: 18px 30px; }
       .header-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; }
       .brand-row { flex: 1; margin-bottom: 0; }
       .search-box { max-width: 360px; }
       .kpi-grid { grid-template-columns: repeat(4, 1fr); padding: 22px 30px 6px; gap: 16px; }
-      .kpi-card { padding: 16px 20px; }
-      .kpi-value { font-size: 1.55rem; }
-      .controls-wrapper { padding: 4px 30px 0; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-      .stock-tabs, .categories-bar-row { padding: 4px 0; }
-      .section-banner { margin: 8px 30px 4px; }
       .product-list { padding: 14px 30px; grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .modal-overlay { align-items: center; padding: 20px; }
-      .modal-sheet { border-radius: 26px; border: 1px solid var(--glass-border-bright); border-top: 2px solid var(--neon-white); }
+      .modal-sheet { border-radius: 26px; border: 1px solid var(--glass-border-bright); }
     }
-
-    @media (min-width: 1100px) {
-      .product-list { grid-template-columns: repeat(3, 1fr); }
-    }
+    @media (min-width: 1100px) { .product-list { grid-template-columns: repeat(3, 1fr); } }
   </style>
 </head>
 <body>
@@ -1150,7 +629,7 @@
       </div>
     </header>
 
-    <!-- 4 TARJETAS CONTADORAS (INCLUYENDO VALOR DE INVERSIÓN / COSTO) -->
+    <!-- TARJETAS KPI -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
@@ -1195,18 +674,19 @@
 
   <!-- DOCK FLOTANTE INFERIOR -->
   <div class="bottom-dock">
-    <button class="fab-btn" onclick="toggleModal(true)">+ PRODUCTO</button>
+    <button class="fab-btn" onclick="abrirModalCrear()">+ PRODUCTO</button>
     <button class="fab-cat-btn" onclick="toggleCategoryModal(true)">+ CATEGORÍA</button>
   </div>
 
-  <!-- MODAL AGREGAR PRODUCTO -->
+  <!-- MODAL AGREGAR / EDITAR PRODUCTO -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
       <div class="modal-header">
-        <div class="modal-title">Nuevo Producto con 4 Precios</div>
+        <div class="modal-title" id="modalProductTitle">Nuevo Producto con 4 Precios</div>
         <button class="close-btn" onclick="toggleModal(false)" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <form id="productForm" onsubmit="addProduct(event)">
+      <form id="productForm" onsubmit="guardarProducto(event)">
+        <input type="hidden" id="pId" />
         <div class="form-group">
           <label>Nombre del Producto</label>
           <input type="text" id="pName" placeholder="Ej. Hoodie Oversize / Tenis" required />
@@ -1253,8 +733,23 @@
           </div>
         </div>
 
-        <button type="submit" class="submit-btn">Guardar en Inventario</button>
+        <button type="submit" class="submit-btn" id="btnGuardarProd">Guardar en Inventario</button>
       </form>
+    </div>
+  </div>
+
+  <!-- MODAL DETALLES DEL PRODUCTO (INFORMACIÓN COMPLETA + EDITAR + ELIMINAR) -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title" id="detailName">Detalles del Producto</div>
+        <button class="close-btn" onclick="cerrarDetalles()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+      <div id="detailContent"></div>
+      <div class="detail-actions">
+        <button class="detail-edit-btn" onclick="editarProductoDesdeDetalle()">Editar</button>
+        <button class="detail-del-btn" onclick="eliminarProductoDesdeDetalle()">Eliminar</button>
+      </div>
     </div>
   </div>
 
@@ -1277,7 +772,7 @@
             <option value="calzado">Tenis / Calzado (22 MX a 30 MX)</option>
             <option value="unitalla">Accesorios / Unitalla</option>
           </select>
-          <div class="size-type-hint" id="sizeTypeHint">El selector de tallas se adaptará automáticamente.</div>
+          <div class="size-type-hint">El selector de tallas se adaptará automáticamente.</div>
         </div>
         <button type="submit" class="submit-btn">Crear Categoría</button>
       </form>
@@ -1368,6 +863,7 @@
     let activeCategory = "Todos";
     let activeStockFilter = "TODOS";
     let productToDeleteId = null;
+    let currentSelectedProduct = null;
     let dbRef = null;
     let firebaseIniciado = false;
 
@@ -1433,10 +929,7 @@
       const listaTallas = SISTEMAS_TALLAS[tipo] || SISTEMAS_TALLAS.ropa;
 
       labelTalla.textContent = tipo === "calzado" ? "Talla (MX)" : (tipo === "unitalla" ? "Medida" : "Talla");
-      selectTalla.innerHTML = listaTallas.map(t => {
-        const isDefault = (tipo === "ropa" && t === "M") || (tipo === "calzado" && t === "26 MX") || (tipo === "unitalla" && t === "Unitalla");
-        return `<option value="${t}" ${isDefault ? "selected" : ""}>${t}</option>`;
-      }).join("");
+      selectTalla.innerHTML = listaTallas.map(t => `<option value="${t}">${t}</option>`).join("");
     }
 
     function autoDetectarTipoTalla() {
@@ -1582,7 +1075,8 @@
       renderProducts();
     }
 
-    function updateStock(id, delta) {
+    function updateStock(id, delta, event) {
+      if (event) event.stopPropagation();
       const item = products.find(p => p.id === id);
       if (item) {
         item.stock = Math.max(0, (Number(item.stock) || 0) + delta);
@@ -1590,10 +1084,23 @@
       }
     }
 
-    function addProduct(e) {
+    function abrirModalCrear() {
+      document.getElementById("modalProductTitle").textContent = "Nuevo Producto con 4 Precios";
+      document.getElementById("btnGuardarProd").textContent = "Guardar en Inventario";
+      document.getElementById("productForm").reset();
+      document.getElementById("pId").value = "";
+      renderCategoriesUI();
+      if (activeCategory !== "Todos") {
+        document.getElementById("pCat").value = activeCategory;
+        actualizarOpcionesTalla();
+      }
+      toggleModal(true);
+    }
+
+    function guardarProducto(e) {
       e.preventDefault();
-      const newProduct = {
-        id: Date.now(),
+      const idExistente = document.getElementById("pId").value;
+      const pData = {
         name: document.getElementById("pName").value.trim(),
         category: document.getElementById("pCat").value,
         size: document.getElementById("pSize").value,
@@ -1604,11 +1111,86 @@
         vip: parseFloat(document.getElementById("pVip").value) || 0,
         stock: parseInt(document.getElementById("pStock").value, 10) || 0
       };
-      products.unshift(newProduct);
+
+      if (idExistente) {
+        // Editando existente
+        const index = products.findIndex(p => p.id == idExistente);
+        if (index !== -1) {
+          products[index] = { ...products[index], ...pData };
+        }
+      } else {
+        // Creando nuevo
+        const nuevo = { id: Date.now(), ...pData };
+        products.unshift(nuevo);
+      }
+
       saveToDB();
       document.getElementById("productForm").reset();
-      actualizarOpcionesTalla();
       toggleModal(false);
+      cerrarDetalles();
+    }
+
+    function verDetalles(id) {
+      const p = products.find(prod => prod.id === id);
+      if (!p) return;
+      currentSelectedProduct = p;
+
+      document.getElementById("detailName").textContent = p.name;
+      const content = document.getElementById("detailContent");
+
+      const costo = Number(p.cost) || 0;
+      const menudeo = Number(p.price) || 0;
+      const mayoreo = Number(p.wholesale) || 0;
+      const vip = Number(p.vip) || 0;
+      const stock = Number(p.stock) || 0;
+
+      content.innerHTML = `
+        <div class="detail-grid">
+          <div class="detail-box"><div class="detail-label">Categoría</div><div class="detail-val" style="font-size:0.85rem;">${p.category}</div></div>
+          <div class="detail-box"><div class="detail-label">Talla / Medida</div><div class="detail-val" style="font-size:0.85rem;">${p.size}</div></div>
+          <div class="detail-box"><div class="detail-label">Color</div><div class="detail-val" style="font-size:0.85rem;">${p.color}</div></div>
+          <div class="detail-box"><div class="detail-label">Stock Actual</div><div class="detail-val" style="font-size:0.85rem;">${stock} pzas</div></div>
+          <div class="detail-box"><div class="detail-label">Costo (Adquisición)</div><div class="detail-val" style="color:var(--neon-cyan);">$${costo.toLocaleString("es-MX")}</div></div>
+          <div class="detail-box"><div class="detail-label">Precio Menudeo</div><div class="detail-val" style="color:var(--neon-white);">$${menudeo.toLocaleString("es-MX")}</div></div>
+          <div class="detail-box"><div class="detail-label">Precio Mayoreo</div><div class="detail-val" style="color:var(--neon-yellow);">$${mayoreo.toLocaleString("es-MX")}</div></div>
+          <div class="detail-box"><div class="detail-label">Precio VIP</div><div class="detail-val" style="color:#00ffcc;">$${vip.toLocaleString("es-MX")}</div></div>
+        </div>
+      `;
+
+      document.getElementById("detailModal").classList.add("open");
+    }
+
+    function cerrarDetalles() {
+      document.getElementById("detailModal").classList.remove("open");
+    }
+
+    function editarProductoDesdeDetalle() {
+      if (!currentSelectedProduct) return;
+      cerrarDetalles();
+
+      const p = currentSelectedProduct;
+      document.getElementById("modalProductTitle").textContent = "Editar Producto";
+      document.getElementById("btnGuardarProd").textContent = "Actualizar Producto";
+
+      document.getElementById("pId").value = p.id;
+      document.getElementById("pName").value = p.name;
+      document.getElementById("pCat").value = p.category;
+      actualizarOpcionesTalla();
+      document.getElementById("pSize").value = p.size;
+      document.getElementById("pColor").value = p.color;
+      document.getElementById("pStock").value = p.stock;
+      document.getElementById("pCost").value = p.cost;
+      document.getElementById("pPrice").value = p.price;
+      document.getElementById("pWholesale").value = p.wholesale;
+      document.getElementById("pVip").value = p.vip;
+
+      toggleModal(true);
+    }
+
+    function eliminarProductoDesdeDetalle() {
+      if (!currentSelectedProduct) return;
+      cerrarDetalles();
+      askDeleteProduct(currentSelectedProduct.id);
     }
 
     function addCategory(e) {
@@ -1700,13 +1282,6 @@
     }
 
     function toggleModal(show) {
-      if (show) {
-        renderCategoriesUI();
-        if (activeCategory !== "Todos") {
-          document.getElementById("pCat").value = activeCategory;
-          actualizarOpcionesTalla();
-        }
-      }
       document.getElementById("addModal").classList.toggle("open", show);
     }
 
@@ -1718,7 +1293,6 @@
       document.getElementById("kpiLow").textContent = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
       document.getElementById("kpiOut").textContent = products.filter(p => (Number(p.stock) || 0) === 0).length;
 
-      // Cálculo del valor de stock al precio de COSTO (Inversión total)
       const costoTotalInvertido = products.reduce((acc, p) => acc + ((Number(p.cost) || 0) * (Number(p.stock) || 0)), 0);
       document.getElementById("kpiCostTotal").textContent = "$" + costoTotalInvertido.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -1742,7 +1316,7 @@
         const precioMayoreo = Number(p.wholesale) || 0;
 
         return `
-          <div class="product-card">
+          <div class="product-card" onclick="verDetalles(${p.id})">
             <div class="product-info">
               <span class="product-cat">${p.category}</span>
               <div class="product-name">${p.name}</div>
@@ -1756,12 +1330,12 @@
             <div class="stock-controls">
               <div class="status-row">
                 <span class="stock-status ${estado.clase}">${estado.texto}</span>
-                <button class="delete-btn" onclick="askDeleteProduct(${p.id})" title="Eliminar"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                <button class="delete-btn" onclick="event.stopPropagation(); askDeleteProduct(${p.id})" title="Eliminar"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
               </div>
-              <div class="stepper">
-                <button onclick="updateStock(${p.id}, -1)">−</button>
+              <div class="stepper" onclick="event.stopPropagation()">
+                <button onclick="updateStock(${p.id}, -1, event)">−</button>
                 <span class="stock-count">${p.stock}</span>
-                <button onclick="updateStock(${p.id}, 1)">+</button>
+                <button onclick="updateStock(${p.id}, 1, event)">+</button>
               </div>
             </div>
           </div>
@@ -1835,9 +1409,9 @@
           idx + 1, p.name, p.category, p.size, p.color,
           Number(p.cost) || 0, Number(p.price) || 0, Number(p.wholesale) || 0, Number(p.vip) || 0, stockNum,
           { formula: `IF(J${rIdx}=0,"NO HAY STOCK",IF(J${rIdx}<=15,"BAJO STOCK","EN STOCK"))` },
-          { formula: `F${rIdx}*J${rIdx}` }, // Inversión total al costo
-          { formula: `(G${rIdx}-F${rIdx})*J${rIdx}` }, // Utilidad total
-          { formula: `G${rIdx}*J${rIdx}` }  // Valor de venta total
+          { formula: `F${rIdx}*J${rIdx}` },
+          { formula: `(G${rIdx}-F${rIdx})*J${rIdx}` },
+          { formula: `G${rIdx}*J${rIdx}` }
         ];
         row.height = 20;
         row.eachCell((cell, colNum) => {
