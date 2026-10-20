@@ -91,13 +91,18 @@
     /* CONTENEDOR PRINCIPAL */
     .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 140px; position: relative; }
 
-    /* ENCABEZADO REDONDEADO */
+    /* ENCABEZADO FLOTANTE INTELIGENTE (SE OCULTA AL BAJAR Y APARECE AL SUBIR) */
     header {
-      padding: 14px 18px; position: sticky; top: 0; background: rgba(6, 6, 6, 0.82);
+      padding: 14px 18px; position: sticky; top: 0; background: rgba(6, 6, 6, 0.85);
       backdrop-filter: blur(20px); z-index: 20; border-bottom: 1px solid var(--glass-border);
       border-bottom-left-radius: 24px; border-bottom-right-radius: 24px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease-in-out;
     }
+    header.header-hidden {
+      transform: translateY(-100%);
+    }
+
     .header-inner { display: flex; flex-direction: column; gap: 10px; }
     .brand-row { display: flex; justify-content: space-between; align-items: center; }
     
@@ -145,7 +150,6 @@
       border-radius: 18px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.15s;
     }
     .kpi-card:hover { border-color: rgba(255,255,255,0.25); }
-    
     .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.08); }
     .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.08); }
     .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.08); }
@@ -203,7 +207,7 @@
     .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.1); border: 1px solid rgba(255, 0, 85, 0.4); color: var(--neon-pink); }
     .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.1); border: 1px solid rgba(0, 255, 102, 0.4); color: var(--price-vip); }
 
-    /* CUADRÍCULA DE PRODUCTOS (SIN BOTE DE BASURA) */
+    /* CUADRÍCULA DE PRODUCTOS */
     .product-list { padding: 8px 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
 
     .product-card {
@@ -224,13 +228,12 @@
       font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
     }
     
-    .pill-menudeo { background: rgba(0, 240, 255, 0.08); border-color: rgba(0, 240, 255, 0.35); color: var(--price-menudeo); font-weight: 800; }
-    .pill-mayoreo { background: rgba(255, 234, 0, 0.08); border-color: rgba(255, 234, 0, 0.35); color: var(--price-mayoreo); font-weight: 800; }
-    .pill-vip { background: rgba(0, 255, 102, 0.08); border-color: rgba(0, 255, 102, 0.35); color: var(--price-vip); font-weight: 800; }
+    .pill-menudeo { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); color: var(--text-white); font-weight: 700; }
+    .pill-mayoreo { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); color: var(--text-white); font-weight: 700; }
 
     .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.4); flex-shrink: 0; }
 
-    /* CONTROLES DE STOCK Y SEMÁFORO (SIN EL BOTÓN DE ELIMINAR) */
+    /* CONTROLES DE STOCK Y SEMÁFORO */
     .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
     .status-row { display: flex; align-items: center; gap: 5px; }
     .stock-status { font-size: 0.6rem; font-weight: 900; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
@@ -246,13 +249,14 @@
     .stepper button:active { background: var(--neon-white); color: #000; }
     .stock-count { min-width: 22px; text-align: center; font-weight: 800; font-size: 0.88rem; }
 
+    /* SELECTOR DE PRECIO SIN COLOR LLAMATIVO (ESTILO SUTIL Y LIMPIO) */
     .card-bottom-action {
       display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;
       border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; margin-top: 2px;
     }
     .price-select-mini {
-      background: rgba(14, 14, 14, 0.7); border: 1px solid rgba(0, 240, 255, 0.3); color: var(--price-menudeo);
-      padding: 7px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 800; outline: none; flex: 1.1;
+      background: rgba(14, 14, 14, 0.7); border: 1px solid var(--glass-border); color: var(--text-white);
+      padding: 7px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; outline: none; flex: 1.1;
       backdrop-filter: blur(10px);
     }
     .sell-card-full-btn {
@@ -265,7 +269,7 @@
     /* LISTA DE HISTORIAL DE VENTAS */
     .sales-list { padding: 8px 16px; display: grid; grid-template-columns: 1fr; gap: 10px; }
     .sale-card {
-      background: var(--glass-bg); border: 1px solid rgba(0, 255, 102, 0.25); border-radius: 16px; padding: 12px 16px;
+      background: var(--glass-bg); border: 1px solid rgba(0, 255, 102, 0.25); border-radius: 18px; padding: 14px 18px;
       display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
     .sale-info { display: flex; flex-direction: column; gap: 4px; }
@@ -393,7 +397,7 @@
 
   <!-- APLICACIÓN PRINCIPAL -->
   <div class="app-container">
-    <header>
+    <header id="mainHeader">
       <div class="header-inner">
         <div class="brand-row">
           <div class="brand-title">neew<span>shop</span></div>
@@ -414,7 +418,7 @@
       </div>
     </header>
 
-    <!-- 5 TARJETAS KPI (SELECCIÓN EN VERDE CORRECTA PARA VENTAS) -->
+    <!-- 5 TARJETAS KPI -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
@@ -434,7 +438,7 @@
       </div>
       <div class="kpi-card" id="cardSales" onclick="vibrar(20); setStockFilter('VENTAS')">
         <div class="kpi-label"><span class="status-indicator-dot dot-green"></span> Total Ventas</div>
-        <div class="kpi-value neon-green"><span id="kpiSalesProfit" style="font-size: 1.05rem;">$0</span></div>
+        <div class="kpi-value neon-green" style="color:var(--price-vip); font-size: 1.05rem;"><span id="kpiSalesProfit">$0</span></div>
       </div>
     </section>
 
@@ -647,6 +651,19 @@
     const CLAVE_TIENDA = "neew2026";
     const CLAVE_ELIMINAR = "neew2026";
 
+    // Ocultar o mostrar encabezado flotante al hacer scroll
+    let lastScrollTop = 0;
+    window.addEventListener("scroll", function() {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      let header = document.getElementById("mainHeader");
+      if (currentScroll > lastScrollTop && currentScroll > 60) {
+        header.classList.add("header-hidden");
+      } else {
+        header.classList.remove("header-hidden");
+      }
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }, false);
+
     function vibrar(tipo) {
       if (!navigator.vibrate) return;
       if (tipo === 15) navigator.vibrate(15);
@@ -830,7 +847,7 @@
           firebase.initializeApp({ databaseURL: FIREBASE_DATABASE_URL });
           firebaseIniciado = true;
         }
-        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v11");
+        dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v12");
         dbRef.on("value", (snapshot) => {
           const data = snapshot.val();
           if (data !== null) {
@@ -892,7 +909,6 @@
       document.getElementById("cardLow").className = "kpi-card" + (activeStockFilter === "BAJO_STOCK" ? " active-filter-yellow" : "");
       document.getElementById("cardOut").className = "kpi-card" + (activeStockFilter === "SIN_STOCK" ? " active-filter-pink" : "");
       
-      // Activar color verde correctamente en el KPI de ventas
       const cardSales = document.getElementById("cardSales");
       if (activeStockFilter === "VENTAS") {
         cardSales.className = "kpi-card active-filter-green";
