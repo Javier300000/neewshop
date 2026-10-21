@@ -2,24 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#040404" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>neewshop | Stock & Sales OS</title>
   <style>
     :root {
-      --bg-black: #040404;
-      --glass-bg: rgba(20, 20, 20, 0.65);
-      --glass-elevated: rgba(32, 32, 32, 0.75);
-      --glass-modal: rgba(14, 14, 14, 0.96);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-border-hover: rgba(255, 255, 255, 0.3);
+      --bg-oled: #000000;
+      /* Efecto Apple Music Frosted Glass */
+      --glass-surface: rgba(28, 28, 32, 0.52);
+      --glass-surface-hover: rgba(38, 38, 44, 0.68);
+      --glass-dock: rgba(34, 34, 38, 0.56);
+      --glass-modal: rgba(20, 20, 24, 0.78);
+      --glass-pill: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.13);
+      --glass-specular: rgba(255, 255, 255, 0.24);
+      --blur-strong: blur(40px) saturate(210%);
+      --blur-medium: blur(28px) saturate(190%);
+      
       --text-white: #ffffff;
-      --text-muted: #8a8a8a;
+      --text-secondary: rgba(255, 255, 255, 0.58);
       --neon-white: #ffffff;
       --neon-yellow: #ffea00;
-      --neon-pink: #ff0055;
+      --neon-pink: #ff2a5f;
+      
+      /* Colores de precios diferenciados */
       --price-menudeo: #00f0ff;
       --price-mayoreo: #ffea00;
       --price-vip: #00ff66;
@@ -29,56 +37,82 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
-      background-color: var(--bg-black);
+      background-color: var(--bg-oled);
       background-image:
-        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.05) 0%, transparent 35%),
-        radial-gradient(circle at 85% 25%, rgba(255, 234, 0, 0.035) 0%, transparent 35%),
-        radial-gradient(circle at 50% 85%, rgba(255, 0, 85, 0.035) 0%, transparent 40%);
+        radial-gradient(circle at 18% 12%, rgba(0, 240, 255, 0.08) 0%, transparent 42%),
+        radial-gradient(circle at 82% 28%, rgba(255, 42, 95, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(0, 255, 102, 0.07) 0%, transparent 48%);
       background-attachment: fixed;
       color: var(--text-white);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
+    /* DIFUMINADO AMBIENTAL SUPERIOR E INFERIOR (ESTILO APPLE MUSIC) */
+    .ambient-Mask-top {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 95px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+      pointer-events: none;
+      z-index: 15;
+    }
+    .ambient-Mask-bottom {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 55%, transparent 100%);
+      pointer-events: none;
+      z-index: 25;
+    }
+
     /* PANTALLA DE ACCESO */
     .login-screen {
-      position: fixed; inset: 0; background: rgba(4, 4, 4, 0.88);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: var(--blur-strong);
+      -webkit-backdrop-filter: var(--blur-strong);
+      z-index: 100;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
     }
     .login-screen.hidden { display: none; }
 
     .login-card {
-      width: 100%; max-width: 360px; background: var(--glass-bg);
-      backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
-      border-radius: 28px; padding: 32px 22px; text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      width: 100%; max-width: 360px;
+      background: var(--glass-dock);
+      backdrop-filter: var(--blur-strong);
+      -webkit-backdrop-filter: var(--blur-strong);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85), inset 0 1px 0 var(--glass-specular);
+      border-radius: 32px; padding: 34px 24px; text-align: center;
     }
     .login-logo {
-      font-size: 1.8rem; font-weight: 900; letter-spacing: -0.8px; text-transform: lowercase;
+      font-size: 1.9rem; font-weight: 900; letter-spacing: -0.8px; text-transform: lowercase;
       color: var(--text-white); display: inline-flex; align-items: center; gap: 5px; margin-bottom: 6px;
     }
-    .login-logo span { background: var(--text-white); color: var(--bg-black); padding: 2px 8px; border-radius: 8px; }
-    .login-subtitle { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; margin-bottom: 22px; }
+    .login-logo span { background: var(--text-white); color: #000; padding: 2px 10px; border-radius: 999px; }
+    .login-subtitle { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; margin-bottom: 24px; }
 
     .pass-wrapper { position: relative; margin-bottom: 12px; }
     .pass-wrapper input {
-      width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border);
-      color: var(--text-white); padding: 12px 50px 12px 14px; border-radius: 14px; font-size: 0.95rem; text-align: center; letter-spacing: 2px; outline: none;
+      width: 100%; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--glass-border);
+      color: var(--text-white); padding: 13px 50px 13px 16px; border-radius: 16px; font-size: 0.95rem; text-align: center; letter-spacing: 2px; outline: none;
     }
-    .pass-wrapper input:focus { border-color: var(--neon-white); }
+    .pass-wrapper input:focus { border-color: rgba(255,255,255,0.45); }
     .pass-wrapper input.input-error { border-color: var(--neon-pink) !important; animation: shake 0.35s ease; }
-    .toggle-pass-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
+    .toggle-pass-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
 
     .login-error-msg { color: var(--neon-pink); font-size: 0.75rem; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
     .login-btn {
-      width: 100%; background: var(--neon-white); color: #000000; border: none; padding: 13px;
-      border-radius: 14px; font-size: 0.88rem; font-weight: 900; text-transform: uppercase;
-      letter-spacing: 0.6px; cursor: pointer; box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+      width: 100%; background: var(--neon-white); color: #000000; border: none; padding: 14px;
+      border-radius: 999px; font-size: 0.88rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.5px; cursor: pointer; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
     }
 
     @keyframes shake {
@@ -89,74 +123,90 @@
     }
 
     /* CONTENEDOR PRINCIPAL */
-    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 140px; position: relative; }
+    .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 155px; position: relative; z-index: 1; }
 
-    /* ENCABEZADO FLOTANTE INTELIGENTE */
+    /* ENCABEZADO FLOTANTE CRISTAL ESMERILADO */
     header {
-      padding: 14px 18px; position: sticky; top: 0; background: rgba(6, 6, 6, 0.85);
-      backdrop-filter: blur(20px); z-index: 20; border-bottom: 1px solid var(--glass-border);
-      border-bottom-left-radius: 24px; border-bottom-right-radius: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease-in-out;
+      margin: 10px 14px 0;
+      padding: 13px 16px;
+      position: sticky; top: 10px;
+      background: var(--glass-dock);
+      backdrop-filter: var(--blur-strong);
+      -webkit-backdrop-filter: var(--blur-strong);
+      z-index: 20;
+      border: 1px solid var(--glass-border);
+      border-radius: 26px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), inset 0 1px 0 var(--glass-specular);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
     }
-    header.header-hidden { transform: translateY(-100%); }
+    header.header-hidden {
+      transform: translateY(-130%);
+      opacity: 0;
+    }
 
     .header-inner { display: flex; flex-direction: column; gap: 10px; }
     .brand-row { display: flex; justify-content: space-between; align-items: center; }
     
     .brand-title {
-      font-size: 1.35rem; font-weight: 900; letter-spacing: -0.5px; text-transform: lowercase;
-      color: var(--text-white); display: inline-flex; align-items: center; gap: 0px;
-      background: rgba(255, 255, 255, 0.06); border: 1px solid var(--glass-border);
+      font-size: 1.3rem; font-weight: 900; letter-spacing: -0.6px; text-transform: lowercase;
+      color: var(--text-white); display: inline-flex; align-items: center;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border);
       padding: 4px 12px; border-radius: 999px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
     }
-    .brand-title span { background: var(--text-white); color: var(--bg-black); padding: 1px 8px; border-radius: 999px; margin-left: 3px; }
+    .brand-title span { background: var(--text-white); color: #000; padding: 1px 8px; border-radius: 999px; margin-left: 4px; }
 
     .header-actions { display: flex; align-items: center; gap: 7px; }
     .excel-btn {
-      background: rgba(255, 255, 255, 0.07); color: var(--text-white); border: 1px solid rgba(255, 255, 255, 0.35);
+      background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border);
       padding: 6px 12px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
       cursor: pointer; display: flex; align-items: center; gap: 4px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
     }
     .excel-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .badge-live {
-      font-size: 0.64rem; font-weight: 800; text-transform: uppercase; padding: 5px 10px;
-      border-radius: 999px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.04);
+      font-size: 0.64rem; font-weight: 800; text-transform: uppercase; padding: 6px 10px;
+      border-radius: 999px; border: 1px solid var(--glass-border); background: var(--glass-pill);
       color: var(--text-white); display: flex; align-items: center; gap: 5px;
     }
     .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon-white); box-shadow: 0 0 6px var(--neon-white); }
     .lock-btn {
-      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--text-white);
-      width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
+      background: var(--glass-pill); border: 1px solid var(--glass-border); color: var(--text-white);
+      width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
     }
     .lock-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .search-box { width: 100%; }
     .search-box input {
-      width: 100%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border); color: var(--text-white); padding: 11px 16px;
-      border-radius: 999px; font-size: 0.88rem; outline: none;
+      width: 100%; background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--glass-border); color: var(--text-white); padding: 10px 16px;
+      border-radius: 999px; font-size: 0.88rem; outline: none; transition: border-color 0.2s, background 0.2s;
     }
-    .search-box input::placeholder { color: #666; }
-    .search-box input:focus { border-color: var(--neon-white); }
+    .search-box input::placeholder { color: rgba(255,255,255,0.38); }
+    .search-box input:focus { border-color: rgba(255,255,255,0.4); background: rgba(0, 0, 0, 0.55); }
 
-    /* TARJETAS KPI */
-    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 14px 16px 4px; }
+    /* TARJETAS KPI COMPACTAS EN MÓVIL (ACOMODADAS JUNTITAS) */
+    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; padding: 12px 14px 4px; }
     .kpi-card {
-      background: var(--glass-bg); backdrop-filter: blur(14px); border: 1px solid var(--glass-border);
-      border-radius: 18px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.15s;
+      background: var(--glass-surface);
+      backdrop-filter: var(--blur-medium);
+      -webkit-backdrop-filter: var(--blur-medium);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      border-radius: 20px; padding: 12px 14px; text-align: left; cursor: pointer; transition: all 0.2s ease;
     }
-    .kpi-card:hover { border-color: rgba(255,255,255,0.25); }
-    
-    .kpi-card-full { grid-column: span 2; }
+    .kpi-card:active { transform: scale(0.97); }
+    .kpi-card-full { grid-column: span 2; display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; }
+    .kpi-card-full .kpi-label { margin-bottom: 0; }
 
-    .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.08); }
-    .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.08); }
-    .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 0, 85, 0.08); }
-    .kpi-card.active-filter-green { border-color: var(--price-vip); background: rgba(0, 255, 102, 0.12); box-shadow: 0 0 15px rgba(0,255,102,0.25); }
+    .kpi-card.active-filter-white { border-color: var(--neon-white); background: rgba(255, 255, 255, 0.15); }
+    .kpi-card.active-filter-yellow { border-color: var(--neon-yellow); background: rgba(255, 234, 0, 0.14); }
+    .kpi-card.active-filter-pink { border-color: var(--neon-pink); background: rgba(255, 42, 95, 0.15); }
+    .kpi-card.active-filter-green { border-color: var(--price-vip); background: rgba(0, 255, 102, 0.16); box-shadow: 0 0 20px rgba(0,255,102,0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
 
-    .kpi-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+    .kpi-label { font-size: 0.62rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .status-indicator-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
     .dot-white { background: var(--neon-white); box-shadow: 0 0 6px var(--neon-white); }
     .dot-yellow { background: var(--neon-yellow); box-shadow: 0 0 6px var(--neon-yellow); }
@@ -164,234 +214,282 @@
     .dot-cyan { background: var(--price-menudeo); box-shadow: 0 0 6px var(--price-menudeo); }
     .dot-green { background: var(--price-vip); box-shadow: 0 0 6px var(--price-vip); }
 
-    .kpi-value { font-size: 1.25rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; }
-    .kpi-range { font-size: 0.62rem; color: var(--text-muted); font-weight: 700; }
+    .kpi-value { font-size: 1.25rem; font-weight: 900; display: flex; align-items: baseline; justify-content: space-between; letter-spacing: -0.5px; }
+    .kpi-range { font-size: 0.62rem; color: var(--text-secondary); font-weight: 700; }
     .kpi-value.neon-white { color: var(--neon-white); }
     .kpi-value.neon-yellow { color: var(--neon-yellow); }
     .kpi-value.neon-pink { color: var(--neon-pink); }
-    .kpi-value.neon-cyan { color: var(--price-menudeo); font-size: 1.05rem; }
-    .kpi-value.neon-green { color: var(--price-vip); font-size: 1.1rem; text-shadow: 0 0 8px rgba(0,255,102,0.3); }
+    .kpi-value.neon-green { color: var(--price-vip); font-size: 1.15rem; text-shadow: 0 0 10px rgba(0,255,102,0.3); }
 
     /* FILTROS Y CATEGORÍAS */
-    .controls-wrapper { display: flex; flex-direction: column; gap: 2px; }
-    .stock-tabs { display: flex; gap: 6px; padding: 8px 16px 2px; overflow-x: auto; scrollbar-width: none; }
+    .controls-wrapper { display: flex; flex-direction: column; gap: 3px; margin-top: 2px; }
+    .stock-tabs { display: flex; gap: 6px; padding: 6px 14px 2px; overflow-x: auto; scrollbar-width: none; }
     .stock-tabs::-webkit-scrollbar { display: none; }
 
     .stock-tab {
-      background: var(--glass-bg); color: var(--text-muted); border: 1px solid var(--glass-border);
-      padding: 7px 12px; border-radius: 999px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      background: var(--glass-surface);
+      backdrop-filter: var(--blur-medium);
+      -webkit-backdrop-filter: var(--blur-medium);
+      color: var(--text-secondary); border: 1px solid var(--glass-border);
+      padding: 7px 13px; border-radius: 999px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
       white-space: nowrap; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
     }
     .stock-tab.active-all { background: var(--neon-white); color: #000; border-color: var(--neon-white); }
-    .stock-tab.active-low { background: rgba(255, 234, 0, 0.14); color: var(--neon-yellow); border-color: var(--neon-yellow); }
-    .stock-tab.active-out { background: rgba(255, 0, 85, 0.15); color: var(--neon-pink); border-color: var(--neon-pink); }
-    .stock-tab.active-sales { background: rgba(0, 255, 102, 0.15); color: var(--price-vip); border-color: var(--price-vip); }
+    .stock-tab.active-low { background: rgba(255, 234, 0, 0.16); color: var(--neon-yellow); border-color: var(--neon-yellow); }
+    .stock-tab.active-out { background: rgba(255, 42, 95, 0.18); color: var(--neon-pink); border-color: var(--neon-pink); }
+    .stock-tab.active-sales { background: rgba(0, 255, 102, 0.18); color: var(--price-vip); border-color: var(--price-vip); }
 
-    .categories-bar-row { display: flex; align-items: center; padding: 4px 16px; gap: 8px; }
+    .categories-bar-row { display: flex; align-items: center; padding: 4px 14px; gap: 8px; }
     .categories-scroll { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
     .categories-scroll::-webkit-scrollbar { display: none; }
 
     .delete-cat-chip {
-      background: rgba(255, 0, 85, 0.1); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.35);
-      padding: 6px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
+      background: rgba(255, 42, 95, 0.12); color: var(--neon-pink); border: 1px solid rgba(255, 42, 95, 0.35);
+      padding: 6px 12px; border-radius: 999px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; cursor: pointer;
     }
     .cat-chip {
-      background: var(--glass-bg); color: var(--text-white); border: 1px solid var(--glass-border);
+      background: var(--glass-surface);
+      backdrop-filter: var(--blur-medium);
+      -webkit-backdrop-filter: var(--blur-medium);
+      color: var(--text-white); border: 1px solid var(--glass-border);
       padding: 6px 14px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
     }
     .cat-chip.active { background: var(--neon-white); color: #000; border-color: var(--neon-white); font-weight: 800; }
 
     .section-banner {
-      margin: 4px 16px; padding: 9px 12px; border-radius: 12px; font-size: 0.72rem; font-weight: 800; display: none; align-items: center; justify-content: space-between;
+      margin: 4px 14px; padding: 9px 14px; border-radius: 14px; font-size: 0.72rem; font-weight: 800; display: none; align-items: center; justify-content: space-between;
+      backdrop-filter: var(--blur-medium); -webkit-backdrop-filter: var(--blur-medium);
     }
-    .section-banner.show-low { display: flex; background: rgba(255, 234, 0, 0.1); border: 1px solid rgba(255, 234, 0, 0.4); color: var(--neon-yellow); }
-    .section-banner.show-out { display: flex; background: rgba(255, 0, 85, 0.1); border: 1px solid rgba(255, 0, 85, 0.4); color: var(--neon-pink); }
-    .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.1); border: 1px solid rgba(0, 255, 102, 0.4); color: var(--price-vip); }
+    .section-banner.show-low { display: flex; background: rgba(255, 234, 0, 0.12); border: 1px solid rgba(255, 234, 0, 0.4); color: var(--neon-yellow); }
+    .section-banner.show-out { display: flex; background: rgba(255, 42, 95, 0.12); border: 1px solid rgba(255, 42, 95, 0.4); color: var(--neon-pink); }
+    .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.4); color: var(--price-vip); }
 
-    /* CUADRÍCULA DE PRODUCTOS */
-    .product-list { padding: 8px 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
+    /* CUADRÍCULA DE PRODUCTOS CON TRANSPARENCIA PROFUNDA */
+    .product-list { padding: 8px 14px; display: grid; grid-template-columns: 1fr; gap: 11px; }
 
     .product-card {
-      background: var(--glass-bg); backdrop-filter: blur(14px); border: 1px solid var(--glass-border);
-      border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; cursor: pointer;
+      background: var(--glass-surface);
+      backdrop-filter: var(--blur-medium);
+      -webkit-backdrop-filter: var(--blur-medium);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
     }
-    .product-card:hover { border-color: rgba(255,255,255,0.25); }
+    .product-card:hover { background: var(--glass-surface-hover); border-color: rgba(255,255,255,0.24); }
+    .product-card:active { transform: scale(0.985); }
 
     .product-top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; width: 100%; }
 
     .product-info { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; }
-    .product-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-muted); font-weight: 700; }
-    .product-name { font-size: 0.95rem; font-weight: 800; color: var(--text-white); line-height: 1.25; }
+    .product-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-secondary); font-weight: 700; }
+    .product-name { font-size: 0.98rem; font-weight: 800; color: var(--text-white); line-height: 1.25; letter-spacing: -0.3px; }
 
-    .product-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+    .product-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; margin-top: 2px; }
     .meta-pill {
-      background: var(--glass-elevated); color: var(--text-white); padding: 4px 9px; border-radius: 8px;
+      background: rgba(255, 255, 255, 0.07); color: var(--text-white); padding: 4px 9px; border-radius: 8px;
       font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.1); display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
     }
     
-    .pill-menudeo { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); color: var(--text-white); font-weight: 700; }
-    .pill-mayoreo { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); color: var(--text-white); font-weight: 700; }
+    /* Precios con su color único */
+    .pill-menudeo { background: rgba(0, 240, 255, 0.1); border-color: rgba(0, 240, 255, 0.35); color: var(--price-menudeo); font-weight: 800; }
+    .pill-mayoreo { background: rgba(255, 234, 0, 0.1); border-color: rgba(255, 234, 0, 0.35); color: var(--price-mayoreo); font-weight: 800; }
+    .pill-vip { background: rgba(0, 255, 102, 0.1); border-color: rgba(0, 255, 102, 0.35); color: var(--price-vip); font-weight: 800; }
 
     .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.4); flex-shrink: 0; }
 
     /* CONTROLES DE STOCK Y SEMÁFORO */
     .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
     .status-row { display: flex; align-items: center; gap: 5px; }
-    .stock-status { font-size: 0.6rem; font-weight: 900; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
-    .status-ok { background: rgba(255, 255, 255, 0.1); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.4); }
-    .status-low { background: rgba(255, 234, 0, 0.12); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.5); }
-    .status-out { background: rgba(255, 0, 85, 0.14); color: var(--neon-pink); border: 1px solid rgba(255, 0, 85, 0.5); }
+    .stock-status { font-size: 0.58rem; font-weight: 900; padding: 4px 8px; border-radius: 999px; text-transform: uppercase; white-space: nowrap; }
+    .status-ok { background: rgba(255, 255, 255, 0.1); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.35); }
+    .status-low { background: rgba(255, 234, 0, 0.14); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.5); }
+    .status-out { background: rgba(255, 42, 95, 0.16); color: var(--neon-pink); border: 1px solid rgba(255, 42, 95, 0.5); }
 
     .stepper {
-      display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.4);
-      padding: 3px; border-radius: 10px; border: 1px solid var(--glass-border);
+      display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.45);
+      padding: 3px; border-radius: 999px; border: 1px solid var(--glass-border);
     }
-    .stepper button { width: 26px; height: 26px; border-radius: 7px; border: none; background: rgba(255, 255, 255, 0.06); color: var(--text-white); font-size: 0.9rem; font-weight: 700; cursor: pointer; }
+    .stepper button { width: 26px; height: 26px; border-radius: 50%; border: none; background: rgba(255, 255, 255, 0.1); color: var(--text-white); font-size: 0.9rem; font-weight: 700; cursor: pointer; }
     .stepper button:active { background: var(--neon-white); color: #000; }
     .stock-count { min-width: 22px; text-align: center; font-weight: 800; font-size: 0.88rem; }
 
+    /* BARRA INFERIOR DE TARJETA (SELECTOR DE PRECIO NEUTRO Y BOTÓN DE PEDIDO) */
     .card-bottom-action {
       display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;
-      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; margin-top: 2px;
+      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: 2px;
     }
     .price-select-mini {
-      background: rgba(14, 14, 14, 0.7); border: 1px solid var(--glass-border); color: var(--text-white);
-      padding: 7px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; outline: none; flex: 1.1;
-      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.45); border: 1px solid var(--glass-border); color: var(--text-white);
+      padding: 7px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 600; outline: none; flex: 1.1;
     }
     .sell-card-full-btn {
       background: rgba(0, 255, 102, 0.15); color: var(--price-vip); border: 1px solid rgba(0, 255, 102, 0.4);
-      padding: 7px 14px; border-radius: 10px; font-size: 0.72rem; font-weight: 900; text-transform: uppercase; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 5px; flex: 1.2; box-shadow: 0 0 10px rgba(0,255,102,0.15);
+      padding: 7px 14px; border-radius: 999px; font-size: 0.72rem; font-weight: 900; text-transform: uppercase; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 5px; flex: 1.2;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
     }
-    .sell-card-full-btn:hover { background: rgba(0, 255, 102, 0.28); }
+    .sell-card-full-btn:active { transform: scale(0.96); }
 
     /* LISTA DE HISTORIAL DE VENTAS */
-    .sales-list { padding: 8px 16px; display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .sales-list { padding: 8px 14px; display: grid; grid-template-columns: 1fr; gap: 10px; }
     .sale-card {
-      background: var(--glass-bg); border: 1px solid rgba(0, 255, 102, 0.25); border-radius: 18px; padding: 14px 18px;
-      display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.4); cursor: pointer;
-      transition: all 0.2s ease;
+      background: var(--glass-surface);
+      backdrop-filter: var(--blur-medium);
+      -webkit-backdrop-filter: var(--blur-medium);
+      border: 1px solid rgba(0, 255, 102, 0.28); border-radius: 22px; padding: 14px 18px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.15); cursor: pointer;
     }
-    .sale-card:hover { border-color: var(--price-vip); transform: translateY(-2px); }
     .sale-info { display: flex; flex-direction: column; gap: 4px; }
-    .sale-title { font-size: 0.92rem; font-weight: 800; color: var(--text-white); }
-    .sale-sub { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+    .sale-title { font-size: 0.94rem; font-weight: 800; color: var(--text-white); }
+    .sale-sub { font-size: 0.72rem; color: var(--text-secondary); font-weight: 600; }
     .sale-profit { text-align: right; }
-    .sale-profit-val { font-size: 1rem; font-weight: 900; color: var(--price-vip); }
-    .sale-profit-lbl { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+    .sale-profit-val { font-size: 1.05rem; font-weight: 900; color: var(--price-vip); }
+    .sale-profit-lbl { font-size: 0.6rem; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; }
 
-    /* DOCK FLOTANTE */
+    /* DOCK FLOTANTE INFERIOR (IDÉNTICO AL DOCK PÍLDORA DE APPLE MUSIC) */
     .bottom-dock {
       position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
-      width: calc(100% - 24px); max-width: 420px; padding: 6px;
-      background: rgba(14, 14, 14, 0.85); backdrop-filter: blur(18px);
-      border: 1px solid var(--glass-border); border-radius: 20px;
-      display: flex; flex-direction: column; gap: 5px; z-index: 30; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      width: calc(100% - 28px); max-width: 420px; padding: 7px;
+      background: var(--glass-dock);
+      backdrop-filter: var(--blur-strong);
+      -webkit-backdrop-filter: var(--blur-strong);
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      display: flex; flex-direction: column; gap: 6px; z-index: 30;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), inset 0 1px 0.5px var(--glass-specular);
     }
     .dock-top-row { display: flex; width: 100%; }
-    .dock-bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; width: 100%; }
+    .dock-bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; }
 
     .fab-cart-btn {
       width: 100%; background: var(--price-vip); color: #000; border: none; padding: 11px;
-      border-radius: 14px; font-size: 0.78rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
-      box-shadow: 0 0 18px rgba(0, 255, 102, 0.4);
+      border-radius: 999px; font-size: 0.78rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+      box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
     }
     .fab-cart-btn.hidden { display: none; }
 
     .fab-btn {
-      background: var(--neon-white); color: #000000; border: none; padding: 11px; border-radius: 14px;
-      font-size: 0.72rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      background: var(--neon-white); color: #000000; border: none; padding: 11px; border-radius: 999px;
+      font-size: 0.73rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 15px rgba(255,255,255,0.2);
     }
     .fab-cat-btn {
-      background: rgba(255, 255, 255, 0.05); color: var(--neon-white); border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 11px; border-radius: 14px; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.09); color: var(--neon-white); border: 1px solid var(--glass-border);
+      padding: 11px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
     }
 
-    /* MODALES POSICIONADOS ARRIBA CUANDO ABRE EL TECLADO EN CELULAR */
+    /* MODALES POSICIONADOS EN LA PARTE SUPERIOR (PARA QUE EL TECLADO NUNCA ESTORBE) */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.78); backdrop-filter: blur(10px);
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       display: none; justify-content: center; align-items: flex-start; z-index: 50;
-      padding-top: 35px;
+      padding: 14px 12px;
+      overflow-y: auto;
     }
     .modal-overlay.open { display: flex; }
 
     .modal-sheet {
-      width: calc(100% - 24px); max-width: 440px; background: var(--glass-modal); backdrop-filter: blur(24px);
-      border: 1px solid var(--glass-border); border-top: 2px solid var(--neon-white);
-      border-radius: 24px; padding: 20px 18px 26px; max-height: 85vh; overflow-y: auto;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+      width: 100%; max-width: 440px;
+      background: var(--glass-modal);
+      backdrop-filter: var(--blur-strong);
+      -webkit-backdrop-filter: var(--blur-strong);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 1px 0 var(--glass-specular);
+      border-radius: 28px; padding: 18px 18px 22px;
+      margin-top: 4px;
     }
-    .modal-sheet.danger-sheet { border-top: 2px solid var(--neon-pink); }
-    .modal-sheet.success-sheet { border-top: 2px solid var(--price-vip); }
+    .modal-sheet.danger-sheet { border-top: 1.5px solid var(--neon-pink); }
+    .modal-sheet.success-sheet { border-top: 1.5px solid var(--price-vip); }
 
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .modal-title { font-size: 1.05rem; font-weight: 800; }
-    .close-btn { background: rgba(255, 255, 255, 0.08); color: var(--text-white); border: 1px solid var(--glass-border); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .close-btn svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.2; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .modal-title { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.3px; }
+    .close-btn {
+      background: rgba(255, 255, 255, 0.1); color: var(--text-white); border: 1px solid var(--glass-border);
+      width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .close-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2.2; }
 
-    .cart-items-container { max-height: 240px; overflow-y: auto; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px; }
-    .cart-item-row { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+    .cart-items-container { max-height: 220px; overflow-y: auto; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .cart-item-row { background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border); border-radius: 14px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; }
     .cart-item-name { font-size: 0.85rem; font-weight: 800; color: #fff; }
-    .cart-item-sub { font-size: 0.68rem; color: var(--text-muted); }
-    .cart-total-box { background: rgba(0,255,102,0.1); border: 1px solid rgba(0,255,102,0.3); border-radius: 12px; padding: 11px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .cart-item-sub { font-size: 0.68rem; color: var(--text-secondary); }
+    .cart-total-box { background: rgba(0,255,102,0.12); border: 1px solid rgba(0,255,102,0.35); border-radius: 14px; padding: 11px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
     .cart-total-lbl { font-size: 0.72rem; text-transform: uppercase; font-weight: 800; color: var(--price-vip); }
     .cart-total-val { font-size: 1.15rem; font-weight: 900; color: var(--price-vip); }
 
-    .form-group { margin-bottom: 12px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    label { display: block; font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; font-weight: 700; }
-    input, select { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border); color: var(--text-white); padding: 10px 12px; border-radius: 10px; font-size: 0.88rem; outline: none; }
-    select option { background: #111; color: #fff; }
-    input:focus, select:focus { border-color: var(--neon-white); }
+    /* FORMULARIO COMPACTO PARA QUE SE VEA COMPLETO CON EL TECLADO ABIERTO */
+    .form-group { margin-bottom: 9px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    label { display: block; font-size: 0.64rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px; font-weight: 700; }
+    input, select {
+      width: 100%; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--glass-border);
+      color: var(--text-white); padding: 9px 12px; border-radius: 12px; font-size: 0.86rem; outline: none;
+    }
+    select option { background: #141416; color: #fff; }
+    input:focus, select:focus { border-color: var(--neon-white); background: rgba(0,0,0,0.7); }
 
-    .submit-btn { width: 100%; background: var(--neon-white); color: #000; border: none; padding: 13px; border-radius: 12px; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-top: 6px; cursor: pointer; }
+    .submit-btn { width: 100%; background: var(--neon-white); color: #000; border: none; padding: 12px; border-radius: 999px; font-size: 0.84rem; font-weight: 900; text-transform: uppercase; margin-top: 6px; cursor: pointer; }
     .submit-btn.green-btn { background: var(--price-vip); color: #000; box-shadow: 0 0 18px rgba(0,255,102,0.4); }
 
-    .size-type-hint { font-size: 0.7rem; color: var(--neon-yellow); margin-top: 5px; font-weight: 600; }
-    .delete-text { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px; }
-    .delete-pass-input { width: 100%; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--glass-border); color: var(--text-white); padding: 11px; border-radius: 10px; font-size: 0.9rem; text-align: center; letter-spacing: 2px; outline: none; }
-    .delete-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 10px; text-align: center; }
+    .size-type-hint { font-size: 0.68rem; color: var(--neon-yellow); margin-top: 4px; font-weight: 600; }
+    .delete-text { color: var(--text-secondary); font-size: 0.86rem; margin-bottom: 12px; }
+    .delete-pass-input { width: 100%; background: rgba(0, 0, 0, 0.55); border: 1px solid var(--glass-border); color: var(--text-white); padding: 11px; border-radius: 12px; font-size: 0.9rem; text-align: center; letter-spacing: 2px; outline: none; }
+    .delete-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 8px; text-align: center; }
     .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .cancel-action-btn { background: rgba(255, 255, 255, 0.06); color: var(--text-white); border: 1px solid var(--glass-border); padding: 11px; border-radius: 10px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
-    .confirm-delete-btn { background: var(--neon-pink); color: var(--text-white); border: none; padding: 11px; border-radius: 10px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .cancel-action-btn { background: rgba(255, 255, 255, 0.08); color: var(--text-white); border: 1px solid var(--glass-border); padding: 11px; border-radius: 999px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+    .confirm-delete-btn { background: var(--neon-pink); color: var(--text-white); border: none; padding: 11px; border-radius: 999px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    .detail-box { background: var(--glass-elevated); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px; }
-    .detail-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .detail-box { background: rgba(255, 255, 255, 0.06); border: 1px solid var(--glass-border); border-radius: 14px; padding: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1); }
+    .detail-label { font-size: 0.6rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; }
     .detail-val { font-size: 0.95rem; font-weight: 900; color: #fff; margin-top: 3px; }
-    .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
-    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 11px; border-radius: 10px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-    .detail-del-btn { background: var(--neon-pink); color: var(--text-white); border: none; padding: 11px; border-radius: 10px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+    .detail-edit-btn { background: var(--neon-white); color: #000; border: none; padding: 11px; border-radius: 999px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .detail-del-btn { background: var(--neon-pink); color: var(--text-white); border: none; padding: 11px; border-radius: 999px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-    .empty-state { grid-column: 1 / -1; text-align: center; padding: 40px 16px; color: var(--text-muted); font-size: 0.88rem; background: var(--glass-bg); border: 1px dashed var(--glass-border); border-radius: 16px; }
+    .empty-state {
+      grid-column: 1 / -1; text-align: center; padding: 40px 16px; color: var(--text-secondary);
+      font-size: 0.88rem; background: var(--glass-surface); backdrop-filter: var(--blur-medium);
+      border: 1px dashed var(--glass-border); border-radius: 22px;
+    }
 
     @media (min-width: 768px) {
-      header { padding: 16px 28px; }
+      header { margin: 14px 28px 0; padding: 16px 24px; }
       .header-inner { flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; }
       .brand-row { flex: 1; margin-bottom: 0; }
       .search-box { max-width: 350px; }
-      .kpi-grid { grid-template-columns: repeat(5, 1fr); padding: 20px 28px 6px; gap: 12px; }
-      .kpi-card-full { grid-column: span 1; }
+      .kpi-grid { grid-template-columns: repeat(5, 1fr); padding: 18px 28px 6px; gap: 12px; }
+      .kpi-card-full { grid-column: span 1; display: block; padding: 14px 16px; }
+      .kpi-card-full .kpi-label { margin-bottom: 4px; }
       .kpi-card { padding: 14px 16px; }
-      .kpi-value { font-size: 1.4rem; }
+      .kpi-value { font-size: 1.35rem; }
       .product-list, .sales-list { padding: 12px 28px; grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .modal-overlay { align-items: center; padding: 20px; }
-      .modal-sheet { border-radius: 24px; border: 1px solid var(--glass-border); }
     }
     @media (min-width: 1100px) { .product-list, .sales-list { grid-template-columns: repeat(3, 1fr); } }
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA DE ACCESO -->
+  <!-- DIFUMINADO AMBIENTAL SUPERIOR E INFERIOR -->
+  <div class="ambient-Mask-top"></div>
+  <div class="ambient-Mask-bottom"></div>
+
+  <!-- PANTALLA DE BLOQUEO -->
   <div class="login-screen" id="loginScreen">
     <div class="login-card">
       <div class="login-logo">neew<span>shop</span></div>
       <div class="login-subtitle">Acceso Personal Autorizado</div>
-      <form onsubmit="verificarAcceso(event)">
+      <form onsubmit="verificarAcceso(event)" autocomplete="off">
         <div class="pass-wrapper">
-          <input type="password" id="passInput" placeholder="Contraseña" autocomplete="current-password" required />
+          <input type="password" id="passInput" placeholder="Contraseña" autocomplete="one-time-code" required />
           <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()" id="eyeBtn">Ver</button>
         </div>
         <div class="login-error-msg" id="loginError"></div>
@@ -418,12 +516,12 @@
           </div>
         </div>
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Buscar prenda, tenis, color..." autocomplete="off" autocapitalize="off" spellcheck="false" oninput="renderProducts()" />
+          <input type="search" id="searchInput" name="q_filter_ns" placeholder="Buscar prenda, tenis, color..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="renderProducts()" />
         </div>
       </div>
     </header>
 
-    <!-- 5 TARJETAS KPI -->
+    <!-- 5 TARJETAS KPI COMPACTAS Y JUNTAS EN MÓVIL -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
@@ -442,8 +540,8 @@
         <div class="kpi-value neon-white"><span id="kpiCostTotal" style="font-size: 1.05rem;">$0</span></div>
       </div>
       <div class="kpi-card kpi-card-full" id="cardSales" onclick="vibrar(20); setStockFilter('VENTAS')">
-        <div class="kpi-label"><span class="status-indicator-dot dot-green"></span> Total Ventas</div>
-        <div class="kpi-value neon-green" style="color:var(--price-vip);"><span id="kpiSalesProfit">$0</span></div>
+        <div class="kpi-label"><span class="status-indicator-dot dot-green"></span> Total Ventas (Ganancia)</div>
+        <div class="kpi-value neon-green"><span id="kpiSalesProfit">$0</span></div>
       </div>
     </section>
 
@@ -471,7 +569,7 @@
     <main class="product-list" id="productList"></main>
   </div>
 
-  <!-- DOCK FLOTANTE -->
+  <!-- DOCK FLOTANTE INFERIOR ESTILO APPLE MUSIC -->
   <div class="bottom-dock">
     <div class="dock-top-row">
       <button class="fab-cart-btn hidden" id="fabCartBtn" onclick="vibrar(25); abrirModalCarrito()">
@@ -507,7 +605,7 @@
         <div class="modal-title">Detalle del Pedido Vendido</div>
         <button class="close-btn" onclick="cerrarModalDetalleVenta()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <div id="saleDetailContent" style="margin-bottom: 16px;"></div>
+      <div id="saleDetailContent" style="margin-bottom: 14px;"></div>
       <button type="button" class="submit-btn" style="background:var(--neon-pink); color:#fff;" onclick="pedirPasswordEliminarVenta()">Eliminar este Registro de Venta</button>
     </div>
   </div>
@@ -520,10 +618,10 @@
         <button class="close-btn" onclick="cerrarModalPasswordVenta()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <p class="delete-text">¿Estás seguro de borrar este registro de venta?</p>
-      <form onsubmit="confirmarEliminarVenta(event)">
+      <form onsubmit="confirmarEliminarVenta(event)" autocomplete="off">
         <div class="delete-pass-box">
           <label>Contraseña requerida</label>
-          <input type="password" id="delSalePassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="new-password" required />
+          <input type="password" id="delSalePassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
         </div>
         <div class="delete-error-msg" id="delSaleErrorMsg"></div>
         <div class="confirm-actions">
@@ -534,18 +632,18 @@
     </div>
   </div>
 
-  <!-- MODAL AGREGAR / EDITAR PRODUCTO -->
+  <!-- MODAL AGREGAR / EDITAR PRODUCTO (ALINEADO ARRIBA Y PROTEGIDO CONTRA AUTOFILL) -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title" id="modalProductTitle">Nuevo Producto con 4 Precios</div>
         <button class="close-btn" onclick="toggleModal(false)" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <form id="productForm" onsubmit="guardarProducto(event)">
+      <form id="productForm" onsubmit="guardarProducto(event)" autocomplete="off">
         <input type="hidden" id="pId" />
         <div class="form-group">
           <label>Nombre del Producto</label>
-          <input type="text" id="pName" placeholder="Ej. Hoodie Oversize / Tenis" autocomplete="off" required />
+          <input type="search" id="pName" name="prod_title_ns" placeholder="Ej. Hoodie Oversize / Tenis" autocomplete="one-time-code" autocorrect="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" required />
         </div>
         <div class="form-row">
           <div class="form-group">
@@ -560,31 +658,31 @@
         <div class="form-row">
           <div class="form-group">
             <label>Color</label>
-            <input type="text" id="pColor" placeholder="Ej. Negro, Blanco..." autocomplete="off" required />
+            <input type="search" id="pColor" name="prod_tone_ns" placeholder="Ej. Negro, Blanco..." autocomplete="one-time-code" autocorrect="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" required />
           </div>
           <div class="form-group">
             <label>Stock Inicial</label>
-            <input type="number" id="pStock" placeholder="20" min="0" autocomplete="off" required />
+            <input type="number" id="pStock" name="prod_qty_ns" inputmode="numeric" placeholder="20" min="0" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Costo (Nos cuesta)</label>
-            <input type="number" id="pCost" placeholder="300" min="0" step="0.5" autocomplete="off" required />
+            <input type="number" id="pCost" name="prod_c_ns" inputmode="decimal" placeholder="300" min="0" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
           </div>
           <div class="form-group">
             <label>Precio Menudeo</label>
-            <input type="number" id="pPrice" placeholder="550" min="1" step="0.5" autocomplete="off" required />
+            <input type="number" id="pPrice" name="prod_p1_ns" inputmode="decimal" placeholder="550" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Precio Mayoreo</label>
-            <input type="number" id="pWholesale" placeholder="450" min="1" step="0.5" autocomplete="off" required />
+            <input type="number" id="pWholesale" name="prod_p2_ns" inputmode="decimal" placeholder="450" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
           </div>
           <div class="form-group">
             <label>Precio VIP</label>
-            <input type="number" id="pVip" placeholder="400" min="1" step="0.5" autocomplete="off" required />
+            <input type="number" id="pVip" name="prod_p3_ns" inputmode="decimal" placeholder="400" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
           </div>
         </div>
         <button type="submit" class="submit-btn" id="btnGuardarProd">Guardar en Inventario</button>
@@ -614,10 +712,10 @@
         <div class="modal-title">Nueva Categoría</div>
         <button class="close-btn" onclick="toggleCategoryModal(false)" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <form id="categoryForm" onsubmit="addCategory(event)">
+      <form id="categoryForm" onsubmit="addCategory(event)" autocomplete="off">
         <div class="form-group">
           <label>Nombre de Categoría</label>
-          <input type="text" id="cName" placeholder="Ej. Tenis, Gorras..." autocomplete="off" oninput="autoDetectarTipoTalla()" required />
+          <input type="search" id="cName" name="cat_title_ns" placeholder="Ej. Tenis, Gorras..." autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="autoDetectarTipoTalla()" required />
         </div>
         <div class="form-group">
           <label>Tipo de Tallas</label>
@@ -640,14 +738,14 @@
         <div class="modal-title">Eliminar Categoría</div>
         <button class="close-btn" onclick="toggleDeleteCategoryModal(false)" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <form onsubmit="confirmDeleteCategory(event)">
+      <form onsubmit="confirmDeleteCategory(event)" autocomplete="off">
         <div class="form-group">
           <label>Selecciona la categoría a borrar</label>
           <select id="delCatSelect" required></select>
         </div>
         <div class="delete-pass-box">
           <label>Contraseña requerida</label>
-          <input type="password" id="deleteCatPassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="new-password" required />
+          <input type="password" id="deleteCatPassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
         </div>
         <div class="delete-error-msg" id="deleteCatErrorMsg"></div>
         <div class="confirm-actions">
@@ -666,10 +764,10 @@
         <button class="close-btn" onclick="closeDeleteModal()" aria-label="Cerrar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <p class="delete-text" id="deleteMessage"></p>
-      <form onsubmit="confirmDeleteProduct(event)">
+      <form onsubmit="confirmDeleteProduct(event)" autocomplete="off">
         <div class="delete-pass-box">
           <label>Contraseña requerida</label>
-          <input type="password" id="deletePassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="new-password" required />
+          <input type="password" id="deletePassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
         </div>
         <div class="delete-error-msg" id="deleteErrorMsg"></div>
         <div class="confirm-actions">
@@ -887,7 +985,7 @@
           firebaseIniciado = true;
         }
         dbRef = firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v14");
-        dbRef.on("value", (snapshot) => {
+        dbRef.on("value", async (snapshot) => {
           const data = snapshot.val();
           if (data !== null) {
             if (data.initialized) {
@@ -900,14 +998,28 @@
             } else {
               products = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
             }
+            renderCategoriesUI();
+            renderProducts();
           } else {
-            products = productosIniciales;
-            salesHistory = [];
-            categories = categoriasIniciales;
+            // Recuperación automática si tenía datos en stock_v13 o stock_v12
+            const prevSnap = await firebase.database().ref("neewshop_vault/" + claveActiva + "/stock_v13").once("value");
+            const prevData = prevSnap.val();
+            if (prevData && prevData.initialized) {
+              products = Array.isArray(prevData.items) ? prevData.items.filter(Boolean) : Object.values(prevData.items || {});
+              salesHistory = Array.isArray(prevData.sales) ? prevData.sales.filter(Boolean) : Object.values(prevData.sales || {});
+              if (prevData.categories) {
+                const rawCats = Array.isArray(prevData.categories) ? prevData.categories.filter(Boolean) : Object.values(prevData.categories);
+                if (rawCats.length > 0) categories = rawCats;
+              }
+            } else {
+              products = productosIniciales;
+              salesHistory = [];
+              categories = categoriasIniciales;
+            }
             saveToDB();
+            renderCategoriesUI();
+            renderProducts();
           }
-          renderCategoriesUI();
-          renderProducts();
         });
       } else {
         document.getElementById("syncText").textContent = "Local";
@@ -1114,7 +1226,7 @@
       const nuevaVenta = {
         id: Date.now(),
         date: new Date().toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
-        name: `Pedido Múltiple (${cartItems.length} prod)`,
+        name: `Pedido (${cartItems.length} prod)`,
         category: "Varios",
         size: "Varias",
         color: "Varios",
@@ -1144,7 +1256,7 @@
         <div class="detail-grid">
           <div class="detail-box"><div class="detail-label">Fecha y Hora</div><div class="detail-val" style="font-size:0.8rem;">${s.date}</div></div>
           <div class="detail-box"><div class="detail-label">Total Unidades</div><div class="detail-val">${s.qty} pzas</div></div>
-          <div class="detail-box" style="grid-column: span 2;"><div class="detail-label">Productos Vendidos (Detalle)</div><div class="detail-val" style="font-size:0.85rem; font-weight:600; color:var(--text-white); margin-top:5px;">${s.itemsDetail || s.name}</div></div>
+          <div class="detail-box" style="grid-column: span 2;"><div class="detail-label">Productos Vendidos (Qué se pidió)</div><div class="detail-val" style="font-size:0.85rem; font-weight:600; color:var(--text-white); margin-top:5px; line-height:1.4;">${s.itemsDetail || s.name}</div></div>
           <div class="detail-box"><div class="detail-label">Total Cobrado</div><div class="detail-val" style="color:var(--price-menudeo);">$${Number(s.totalSold).toLocaleString("es-MX")}</div></div>
           <div class="detail-box"><div class="detail-label">Ganancia Neta</div><div class="detail-val" style="color:var(--price-vip);">+$${Number(s.profit).toLocaleString("es-MX", {minimumFractionDigits: 2})}</div></div>
         </div>
@@ -1326,7 +1438,6 @@
     function toggleCategoryModal(show) {
       vibrar(25);
       document.getElementById("addCategoryModal").classList.toggle("open", show);
-      if (show) setTimeout(() => document.getElementById("cName").focus(), 120);
     }
 
     function toggleDeleteCategoryModal(show) {
@@ -1375,7 +1486,6 @@
       passInput.value = "";
       document.getElementById("deleteErrorMsg").textContent = "";
       document.getElementById("deleteModal").classList.add("open");
-      setTimeout(() => passInput.focus(), 150);
     }
 
     function closeDeleteModal() {
@@ -1433,9 +1543,9 @@
           <div class="sale-card" onclick="verDetalleVenta(${s.id})">
             <div class="sale-info">
               <div class="sale-title">${s.name}</div>
-              <div class="sale-sub">${s.category} • Cantidad total: <strong>${s.qty} pzas</strong></div>
+              <div class="sale-sub">${s.itemsDetail ? s.itemsDetail : (s.category + ' • ' + s.qty + ' pzas')}</div>
               <div class="sale-sub">Total Cobrado: <strong>$${Number(s.totalSold).toLocaleString("es-MX")}</strong></div>
-              <div class="sale-sub" style="color: #666; font-size: 0.65rem;">${s.date} (Toca para ver o eliminar)</div>
+              <div class="sale-sub" style="color: rgba(255,255,255,0.4); font-size: 0.65rem;">${s.date} • Toca para ver detalle o eliminar</div>
             </div>
             <div class="sale-profit">
               <div class="sale-profit-val">+$${Number(s.profit).toLocaleString("es-MX", { minimumFractionDigits: 2 })}</div>
@@ -1478,6 +1588,7 @@
                   <span class="meta-pill"><span class="color-dot" style="background: ${bgColorDot};"></span>${p.color}</span>
                   <span class="meta-pill pill-menudeo">Men: $${precioMenudeo.toLocaleString("es-MX")}</span>
                   ${precioMayoreo > 0 ? `<span class="meta-pill pill-mayoreo">May: $${precioMayoreo.toLocaleString("es-MX")}</span>` : ''}
+                  ${precioVip > 0 ? `<span class="meta-pill pill-vip">VIP: $${precioVip.toLocaleString("es-MX")}</span>` : ''}
                 </div>
               </div>
               <div class="stock-controls">
