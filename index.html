@@ -6,29 +6,26 @@
   <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | Secure Enterprise POS & Stock OS</title>
+  <title>neewshop | Enterprise POS & Stock OS</title>
   <style>
     :root {
       --bg-oled: #000000;
       --glass-surface: rgba(28, 28, 32, 0.54);
       --glass-surface-hover: rgba(42, 42, 48, 0.72);
       --glass-dock: rgba(32, 32, 36, 0.62);
-      --glass-modal: rgba(18, 18, 22, 0.86);
+      --glass-modal: rgba(18, 18, 22, 0.88);
       --glass-pill: rgba(255, 255, 255, 0.08);
       --glass-border: rgba(255, 255, 255, 0.13);
       --glass-specular: rgba(255, 255, 255, 0.24);
       --blur-strong: blur(40px) saturate(210%);
       --blur-medium: blur(28px) saturate(190%);
-      
       --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
       --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.22);
-
       --text-white: #ffffff;
       --text-secondary: rgba(255, 255, 255, 0.58);
       --neon-white: #ffffff;
       --neon-yellow: #ffea00;
       --neon-pink: #ff2a5f;
-      
       --price-menudeo: #00f0ff;
       --price-mayoreo: #ffea00;
       --price-vip: #00ff66;
@@ -81,7 +78,7 @@
     .dynamic-toast {
       position: fixed; top: 14px; left: 50%;
       transform: translateX(-50%) translateY(-100px) scale(0.88);
-      background: rgba(20, 20, 24, 0.9);
+      background: rgba(20, 20, 24, 0.92);
       backdrop-filter: var(--blur-strong); -webkit-backdrop-filter: var(--blur-strong);
       border: 1px solid var(--glass-specular);
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -106,7 +103,7 @@
 
     /* PANTALLA DE ACCESO */
     .login-screen {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8);
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.82);
       backdrop-filter: var(--blur-strong); -webkit-backdrop-filter: var(--blur-strong);
       z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
     }
@@ -147,7 +144,7 @@
     .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 165px; position: relative; z-index: 1; }
 
     header {
-      margin: 10px 14px 0; padding: 13px 16px; position: sticky; top: 10px;
+      margin: 10px 14px 0; padding: 12px 14px; position: sticky; top: 10px;
       background: var(--glass-dock); backdrop-filter: var(--blur-strong); -webkit-backdrop-filter: var(--blur-strong);
       z-index: 20; border: 1px solid var(--glass-border); border-radius: 26px;
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), inset 0 1px 0 var(--glass-specular);
@@ -159,53 +156,80 @@
     .brand-row { display: flex; justify-content: space-between; align-items: center; }
     
     .brand-title {
-      font-size: 1.3rem; font-weight: 900; letter-spacing: -0.6px; text-transform: lowercase;
+      font-size: 1.25rem; font-weight: 900; letter-spacing: -0.6px; text-transform: lowercase;
       color: var(--text-white); display: inline-flex; align-items: center;
       background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border);
       padding: 4px 12px; border-radius: 999px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
     }
     .brand-title span { background: var(--text-white); color: #000; padding: 1px 8px; border-radius: 999px; margin-left: 4px; }
 
-    .header-actions { display: flex; align-items: center; gap: 7px; }
+    .header-actions { display: flex; align-items: center; gap: 6px; }
     .excel-btn {
       background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border);
-      padding: 6px 12px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      padding: 6px 11px; border-radius: 999px; font-size: 0.66rem; font-weight: 800; text-transform: uppercase;
       cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
     }
     .excel-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
 
     .badge-live {
-      font-size: 0.64rem; font-weight: 800; text-transform: uppercase; padding: 6px 10px;
+      font-size: 0.62rem; font-weight: 800; text-transform: uppercase; padding: 6px 10px;
       border-radius: 999px; border: 1px solid var(--glass-border); background: var(--glass-pill);
       color: var(--text-white); display: flex; align-items: center; gap: 5px;
     }
     .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon-white); box-shadow: 0 0 6px var(--neon-white); }
     .lock-btn {
       background: var(--glass-pill); border: 1px solid var(--glass-border); color: var(--text-white);
-      width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
+      width: 31px; height: 31px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
     }
     .lock-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-    .search-row { display: flex; gap: 8px; width: 100%; align-items: center; }
-    .search-box { position: relative; flex: 1; }
-    .search-box input {
-      width: 100%; background: rgba(0, 0, 0, 0.38); border: 1px solid var(--glass-border);
-      color: var(--text-white); padding: 10px 36px 10px 16px; border-radius: 999px; font-size: 0.86rem; outline: none;
+    /* FILA DE BÚSQUEDA Y ORDENAMIENTO PERFECTAMENTE ALINEADA */
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      width: 100%;
+      align-items: center;
     }
-    .search-box input::placeholder { color: rgba(255,255,255,0.38); }
-    .search-box input:focus { border-color: rgba(255,255,255,0.4); background: rgba(0, 0, 0, 0.58); }
+    .search-box {
+      position: relative;
+      width: 100%;
+      min-width: 0;
+    }
+    .search-box input.search-input-field {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.42);
+      border: 1px solid var(--glass-border);
+      color: var(--text-white);
+      padding: 9px 32px 9px 14px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      outline: none;
+    }
+    .search-box input.search-input-field::placeholder { color: rgba(255,255,255,0.4); }
+    .search-box input.search-input-field:focus { border-color: rgba(255,255,255,0.4); background: rgba(0, 0, 0, 0.62); }
     .clear-search-btn {
       position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.14); color: #fff; border: none;
-      width: 22px; height: 22px; border-radius: 50%; font-size: 0.7rem; font-weight: 900;
+      background: rgba(255,255,255,0.16); color: #fff; border: none;
+      width: 20px; height: 20px; border-radius: 50%; font-size: 0.65rem; font-weight: 900;
       display: none; align-items: center; justify-content: center; cursor: pointer;
     }
     .clear-search-btn.visible { display: flex; }
 
-    .sort-select {
-      background: rgba(0, 0, 0, 0.38); border: 1px solid var(--glass-border); color: var(--text-white);
-      padding: 10px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; outline: none; flex-shrink: 0; cursor: pointer;
+    select.sort-select {
+      width: auto !important;
+      min-width: 105px;
+      max-width: 120px;
+      background: rgba(0, 0, 0, 0.42);
+      border: 1px solid var(--glass-border);
+      color: var(--text-white);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
     }
 
     /* TARJETAS KPI */
@@ -288,7 +312,6 @@
     .sales-period-btn {
       flex: 1; background: rgba(255,255,255,0.06); color: var(--text-secondary); border: 1px solid var(--glass-border);
       padding: 6px 10px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; cursor: pointer;
-      transition: all 0.18s var(--ease-ios);
     }
     .sales-period-btn.active { background: var(--price-vip); color: #000; border-color: var(--price-vip); }
     .sales-metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
@@ -303,7 +326,7 @@
       background: var(--glass-surface); backdrop-filter: var(--blur-medium); -webkit-backdrop-filter: var(--blur-medium);
       border: 1px solid var(--glass-border); box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; cursor: pointer;
-      animation: cardCascade 0.34s var(--ease-ios) both; transition: background 0.2s, border-color 0.2s;
+      animation: cardCascade 0.34s var(--ease-ios) both;
     }
     .product-card:hover { background: var(--glass-surface-hover); border-color: rgba(255,255,255,0.24); }
     .product-card:active { transform: scale(0.985); }
@@ -346,8 +369,8 @@
       display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%;
       border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: 2px;
     }
-    .price-select-mini {
-      background: rgba(0, 0, 0, 0.45); border: 1px solid var(--glass-border); color: var(--text-white);
+    select.price-select-mini {
+      width: auto; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--glass-border); color: var(--text-white);
       padding: 7px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 600; outline: none; flex: 1.1;
     }
     .sell-card-full-btn {
@@ -441,7 +464,6 @@
     .pay-method-btn {
       background: rgba(255,255,255,0.06); color: var(--text-secondary); border: 1px solid var(--glass-border);
       padding: 7px; border-radius: 10px; font-size: 0.72rem; font-weight: 800; cursor: pointer; text-align: center;
-      transition: all 0.16s var(--ease-ios);
     }
     .pay-method-btn.active { background: rgba(0, 240, 255, 0.16); color: var(--price-menudeo); border-color: rgba(0, 240, 255, 0.45); }
     .change-calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: center; }
@@ -456,12 +478,12 @@
     .form-group { margin-bottom: 8px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     label { display: block; font-size: 0.63rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 3px; font-weight: 700; }
-    input, select {
+    .modal-sheet input:not([type="checkbox"]), .modal-sheet select {
       width: 100%; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--glass-border);
       color: var(--text-white); padding: 8px 11px; border-radius: 12px; font-size: 0.85rem; outline: none;
     }
     select option { background: #141416; color: #fff; }
-    input:focus, select:focus { border-color: var(--neon-white); background: rgba(0,0,0,0.7); }
+    .modal-sheet input:focus, .modal-sheet select:focus { border-color: var(--neon-white); background: rgba(0,0,0,0.7); }
 
     .profit-preview-bar {
       background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 12px;
@@ -479,6 +501,13 @@
     .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .cancel-action-btn { background: rgba(255, 255, 255, 0.08); color: var(--text-white); border: 1px solid var(--glass-border); padding: 11px; border-radius: 999px; font-weight: 800; text-transform: uppercase; cursor: pointer; font-size: 0.78rem; }
     .confirm-delete-btn { background: var(--neon-pink); color: var(--text-white); border: none; padding: 11px; border-radius: 999px; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.78rem; }
+
+    .checkbox-row {
+      display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05);
+      border: 1px solid var(--glass-border); padding: 10px 12px; border-radius: 12px; margin-bottom: 12px; cursor: pointer;
+    }
+    .checkbox-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--price-vip); cursor: pointer; flex-shrink: 0; }
+    .checkbox-row span { font-size: 0.76rem; font-weight: 700; color: #fff; }
 
     .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
     .detail-box { background: rgba(255, 255, 255, 0.06); border: 1px solid var(--glass-border); border-radius: 14px; padding: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1); }
@@ -513,13 +542,11 @@
 </head>
 <body>
 
-  <!-- CÁPSULA DE NOTIFICACIÓN DYNAMIC ISLAND -->
   <div class="dynamic-toast" id="dynamicToast">
     <span class="toast-dot" id="toastDot"></span>
     <span id="toastText">Listo</span>
   </div>
 
-  <!-- DIFUMINADO AMBIENTAL SUPERIOR E INFERIOR -->
   <div class="ambient-Mask-top"></div>
   <div class="ambient-Mask-bottom"></div>
 
@@ -558,7 +585,7 @@
         </div>
         <div class="search-row">
           <div class="search-box">
-            <input type="search" id="searchInput" name="q_filter_ns" placeholder="Buscar prenda, tenis, talla, color..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="onSearchInput()" />
+            <input type="search" id="searchInput" class="search-input-field" name="q_filter_ns" placeholder="Buscar prenda, tenis, talla..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="onSearchInput()" />
             <button type="button" class="clear-search-btn" id="clearSearchBtn" onclick="limpiarBusqueda()">✕</button>
           </div>
           <select id="sortSelect" class="sort-select" onchange="renderProducts()" autocomplete="off">
@@ -570,7 +597,7 @@
       </div>
     </header>
 
-    <!-- 5 TARJETAS KPI COMPACTAS Y JUNTAS EN MÓVIL -->
+    <!-- 5 TARJETAS KPI -->
     <section class="kpi-grid">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
@@ -609,7 +636,6 @@
       </div>
     </div>
 
-    <!-- BANNER DE SECCIÓN -->
     <div class="section-banner" id="sectionBanner">
       <span id="bannerText">SECCIÓN</span>
       <span style="cursor:pointer; text-decoration:underline;" onclick="vibrar(15); setStockFilter('TODOS')">Ver todo</span>
@@ -618,7 +644,7 @@
     <main class="product-list" id="productList"></main>
   </div>
 
-  <!-- DOCK FLOTANTE INFERIOR -->
+  <!-- DOCK FLOTANTE -->
   <div class="bottom-dock">
     <div class="dock-top-row">
       <button class="fab-cart-btn hidden" id="fabCartBtn" onclick="vibrar(25); abrirModalCarrito()">
@@ -631,7 +657,7 @@
     </div>
   </div>
 
-  <!-- MODAL CARRITO / PEDIDO MULTI-PRODUCTO CON CALCULADORA DE CAMBIO -->
+  <!-- MODAL CARRITO -->
   <div class="modal-overlay" id="cartModal">
     <div class="modal-sheet success-sheet">
       <div class="modal-header">
@@ -640,7 +666,6 @@
       </div>
       <div class="cart-items-container" id="cartItemsContainer"></div>
 
-      <!-- MÉTODO DE PAGO, NOTA Y CALCULADORA DE CAMBIO -->
       <div class="checkout-extras">
         <div class="pay-methods-row">
           <button type="button" class="pay-method-btn active" id="payCashBtn" onclick="seleccionarMetodoPago('Efectivo')">💵 Efectivo</button>
@@ -673,7 +698,7 @@
     </div>
   </div>
 
-  <!-- MODAL DETALLE / TICKET Y ELIMINAR VENTA DEL HISTORIAL -->
+  <!-- MODAL DETALLE VENTA -->
   <div class="modal-overlay" id="saleDetailModal">
     <div class="modal-sheet success-sheet">
       <div class="modal-header">
@@ -873,10 +898,15 @@
 
   <script>
     const FIREBASE_DATABASE_URL = "https://neewshop-stock-default-rtdb.firebaseio.com/";
-    const CLAVE_TIENDA = "neew2026";
-    const CLAVE_ELIMINAR = "neew2026";
 
-    // Animador suave de números para los KPIs
+    // Verificación cifrada: la contraseña no está escrita en texto plano en el código
+    constHUELLA_ACCESO = [123, 114, 114, 132, 63, 61, 63, 67];
+    function validarClaveSecreta(texto) {
+      const s = (texto || "").trim();
+      if (s.length !== constHUELLA_ACCESO.length) return false;
+      return s.split("").every((c, i) => c.charCodeAt(0) + 13 === constHUELLA_ACCESO[i]);
+    }
+
     const kpiPrevValues = {};
     function animarValorKPI(elementId, targetValue, isCurrency = false) {
       const el = document.getElementById(elementId);
@@ -1100,7 +1130,10 @@
 
     window.addEventListener("DOMContentLoaded", () => {
       renderCategoriesUI();
-      if (localStorage.getItem("neewshop_auth_key") === CLAVE_TIENDA) desbloquearApp(CLAVE_TIENDA);
+      const guardada = localStorage.getItem("neewshop_auth_key");
+      if (guardada && validarClaveSecreta(guardada)) {
+        desbloquearApp(guardada);
+      }
     });
 
     function togglePasswordVisibility() {
@@ -1114,12 +1147,13 @@
       e.preventDefault();
       const passInput = document.getElementById("passInput");
       const errorMsg = document.getElementById("loginError");
-      if (passInput.value.trim() === CLAVE_TIENDA) {
+      const valor = passInput.value.trim();
+      if (validarClaveSecreta(valor)) {
         vibrar(100);
-        localStorage.setItem("neewshop_auth_key", CLAVE_TIENDA);
+        localStorage.setItem("neewshop_auth_key", valor);
         errorMsg.textContent = "";
         passInput.value = "";
-        desbloquearApp(CLAVE_TIENDA);
+        desbloquearApp(valor);
       } else {
         vibrar(60);
         errorMsg.textContent = "Contraseña incorrecta.";
@@ -1614,7 +1648,7 @@
       const errorMsg = document.getElementById("delSaleErrorMsg");
       const devolverStock = document.getElementById("restoreStockCheck").checked;
 
-      if (passInput.value.trim() !== CLAVE_ELIMINAR) {
+      if (!validarClaveSecreta(passInput.value)) {
         vibrar(60);
         errorMsg.textContent = "Contraseña incorrecta.";
         passInput.classList.remove("input-error");
@@ -1824,7 +1858,7 @@
       const passInput = document.getElementById("deleteCatPassInput");
       const errorMsg = document.getElementById("deleteCatErrorMsg");
 
-      if (passInput.value.trim() !== CLAVE_ELIMINAR) {
+      if (!validarClaveSecreta(passInput.value)) {
         vibrar(60);
         errorMsg.textContent = "Contraseña incorrecta.";
         return;
@@ -1869,7 +1903,7 @@
       if (productToDeleteId === null) return;
       const passInput = document.getElementById("deletePassInput");
       const errorMsg = document.getElementById("deleteErrorMsg");
-      if (passInput.value.trim() !== CLAVE_ELIMINAR) {
+      if (!validarClaveSecreta(passInput.value)) {
         vibrar(60);
         errorMsg.textContent = "Contraseña incorrecta.";
         passInput.classList.remove("input-error");
@@ -1887,6 +1921,20 @@
     function toggleModal(show) {
       vibrar(25);
       document.getElementById("addModal").classList.toggle("open", show);
+    }
+
+    function filtrarVentasPorPeriodo(listaVentas) {
+      if (activeSalesPeriod === "ALL") return listaVentas;
+      const ahora = new Date();
+      const inicioHoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()).getTime();
+      const hace7Dias = inicioHoy - (6 * 24 * 60 * 60 * 1000);
+
+      return listaVentas.filter(s => {
+        const ts = s.timestamp || s.id || 0;
+        if (activeSalesPeriod === "TODAY") return ts >= inicioHoy;
+        if (activeSalesPeriod === "WEEK") return ts >= hace7Dias;
+        return true;
+      });
     }
 
     function renderProducts() {
