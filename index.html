@@ -470,6 +470,7 @@
     }
     .submit-btn.green-btn { background: #00ff66; color: #000; }
     .submit-btn.cyan-btn { background: rgba(0, 240, 255, 0.16); color: var(--price-menudeo); border: 1px solid var(--price-menudeo); }
+    .submit-btn.pink-btn { background: rgba(255, 42, 95, 0.16); color: var(--neon-pink); border: 1px solid var(--neon-pink); }
 
     .size-type-hint { font-size: 0.68rem; color: var(--neon-yellow); margin-top: 4px; font-weight: 600; }
     .delete-text { color: var(--text-secondary); font-size: 0.84rem; margin-bottom: 12px; line-height: 1.4; }
@@ -653,7 +654,7 @@
     </div>
   </div>
 
-  <!-- VISOR DE FOTO EN GRANDE (ZOOM) Y CAMBIO RÁPIDO -->
+  <!-- VISOR DE FOTO EN GRANDE (ZOOM) CON CAMBIAR Y BORRAR FOTO -->
   <div class="modal-overlay" id="photoZoomModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -661,13 +662,17 @@
         <button class="close-btn" onclick="cerrarZoomFoto()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <img id="zoomModalImg" class="zoom-photo-full" src="" alt="Vista previa" />
-      <div class="confirm-actions">
-        <button type="button" class="cancel-action-btn" onclick="cerrarZoomFoto()">Cerrar</button>
+      <div class="confirm-actions" style="margin-bottom:8px;">
         <button type="button" class="submit-btn cyan-btn" style="margin-top:0;" onclick="cambiarFotoDesdeZoom()">
           <svg class="ico" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
           Cambiar Foto
         </button>
+        <button type="button" class="submit-btn pink-btn" style="margin-top:0;" onclick="borrarFotoDesdeZoom()">
+          <svg class="ico" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          Borrar Foto
+        </button>
       </div>
+      <button type="button" class="cancel-action-btn" style="width:100%;" onclick="cerrarZoomFoto()">Cerrar</button>
     </div>
   </div>
 
@@ -866,7 +871,7 @@
     </div>
   </div>
 
-  <!-- MODAL AGREGAR / EDITAR PRODUCTO CON SUBIDA DE FOTO Y AUTO-SYNC -->
+  <!-- MODAL AGREGAR / EDITAR PRODUCTO CON SUBIDA Y BORRADO DE FOTO -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -876,7 +881,7 @@
       <form id="productForm" onsubmit="guardarProducto(event)" oninput="autoGuardarBorradorFormulario()" autocomplete="off">
         <input type="hidden" id="pId" />
         
-        <label>Fotografía de la Prenda (Se aplica a todas las tallas del modelo)</label>
+        <label>Fotografía de la Prenda (Mismo producto y mismo color)</label>
         <div class="photo-upload-box">
           <div class="photo-preview-thumb" id="pImagePreviewBox">
             <svg class="ico" style="width:20px;height:20px;color:var(--text-secondary);" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
@@ -887,12 +892,12 @@
               Subir / Tomar Foto
             </label>
             <input type="file" id="pImageInput" accept="image/*" style="display:none;" onchange="procesarImagenProducto(event)" />
-            <button type="button" class="photo-remove-btn" id="pImageRemoveBtn" onclick="quitarImagenProducto()">Quitar</button>
+            <button type="button" class="photo-remove-btn" id="pImageRemoveBtn" onclick="quitarImagenProducto()">Borrar Foto</button>
           </div>
         </div>
         <label class="checkbox-row" style="padding:7px 10px; margin-bottom:8px;">
           <input type="checkbox" id="syncPhotoAcrossSizesCheck" checked />
-          <span style="font-size:0.7rem;">Sincronizar esta foto en todas las tallas del mismo modelo</span>
+          <span style="font-size:0.7rem;">Aplicar a todas las tallas del mismo producto y mismo color</span>
         </label>
 
         <div class="form-group">
@@ -1191,10 +1196,11 @@
     let pendingStockChange = null;
     let quickPhotoTargetId = null;
     let currentProductImageBase64 = "";
+    let imageExplicitlyRemoved = false;
     let dbRef = null;
     let firebaseIniciado = false;
 
-    // COMPRESIÓN Y SINCRONIZACIÓN AUTOMÁTICA DE FOTOS POR MODELO
+    // COMPRESIÓN Y SINCRONIZACIÓN ESTRICTA SOLO EN MISMO PRODUCTO Y MISMO COLOR
     function comprimirArchivoImagen(file, callback) {
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -1222,6 +1228,7 @@
       reader.readAsDataURL(file);
     }
 
+    // Solo aplica la imagen (o el borrado) si coinciden exactamente el nombre del producto Y el color
     function sincronizarFotoEnModelo(nombreModelo, colorModelo, base64Img) {
       const n = (nombreModelo || "").trim().toLowerCase();
       const c = (colorModelo || "").trim().toLowerCase();
@@ -1229,8 +1236,7 @@
       products.forEach(prod => {
         const prodName = (prod.name || "").trim().toLowerCase();
         const prodColor = (prod.color || "").trim().toLowerCase();
-        // Sincroniza todas las tallas del mismo nombre y color (o del mismo nombre si aún no tenían foto)
-        if (prodName === n && (prodColor === c || !prod.image)) {
+        if (prodName === n && prodColor === c) {
           prod.image = base64Img;
           actualizados++;
         }
@@ -1246,7 +1252,7 @@
       quickPhotoTargetId = id;
 
       if (p.image) {
-        document.getElementById("zoomModalTitle").textContent = `${p.name} (${p.color})`;
+        document.getElementById("zoomModalTitle").textContent = `${p.name} • ${p.color}`;
         document.getElementById("zoomModalImg").src = p.image;
         document.getElementById("photoZoomModal").classList.add("open");
       } else {
@@ -1267,6 +1273,17 @@
       document.getElementById("quickCardPhotoInput").click();
     }
 
+    function borrarFotoDesdeZoom() {
+      if (!quickPhotoTargetId) return;
+      const targetProd = products.find(prod => prod.id === quickPhotoTargetId);
+      if (!targetProd) return;
+      vibrar(40);
+      const totalBorrados = sincronizarFotoEnModelo(targetProd.name, targetProd.color, "");
+      saveToDB();
+      cerrarZoomFoto();
+      mostrarToast(totalBorrados > 1 ? `Foto eliminada en las ${totalBorrados} tallas (${targetProd.color})` : "Foto eliminada", "#ff2a5f");
+    }
+
     function procesarFotoRapidaTarjeta(event) {
       const file = event.target.files && event.target.files[0];
       if (!file || !quickPhotoTargetId) return;
@@ -1278,7 +1295,7 @@
         const totalSync = sincronizarFotoEnModelo(targetProd.name, targetProd.color, compressedDataUrl);
         saveToDB();
         vibrar(30);
-        mostrarToast(totalSync > 1 ? `Foto aplicada a ${totalSync} tallas de ${targetProd.name}` : `Foto guardada en ${targetProd.name}`);
+        mostrarToast(totalSync > 1 ? `Foto aplicada a ${totalSync} tallas de ${targetProd.name} (${targetProd.color})` : `Foto guardada en ${targetProd.name}`);
       });
     }
 
@@ -1296,16 +1313,19 @@
     }
 
     function quitarImagenProducto() {
-      vibrar(15);
+      vibrar(20);
       document.getElementById("pImageInput").value = "";
+      imageExplicitlyRemoved = true;
       actualizarVistaPreviaFotoModal("");
       autoGuardarBorradorFormulario();
+      mostrarToast("Foto quitada (guarda para confirmar)", "#ffea00");
     }
 
     function procesarImagenProducto(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
       comprimirArchivoImagen(file, (compressedDataUrl) => {
+        imageExplicitlyRemoved = false;
         actualizarVistaPreviaFotoModal(compressedDataUrl);
         autoGuardarBorradorFormulario();
         mostrarToast("Foto lista y optimizada", "#00f0ff");
@@ -1990,6 +2010,7 @@
       document.getElementById("productForm").reset();
       document.getElementById("pId").value = "";
       document.getElementById("syncPhotoAcrossSizesCheck").checked = true;
+      imageExplicitlyRemoved = false;
       actualizarVistaPreviaFotoModal("");
       renderCategoriesUI();
       if (activeCategory !== "Todos") {
@@ -2036,6 +2057,7 @@
       document.getElementById("pPrice").value = p.price;
       document.getElementById("pWholesale").value = p.wholesale;
       document.getElementById("pVip").value = p.vip;
+      imageExplicitlyRemoved = false;
       actualizarVistaPreviaFotoModal(p.image || "");
       actualizarVistaPreviaMargen();
       toggleModal(true);
@@ -2050,17 +2072,15 @@
       const colorLimpiado = document.getElementById("pColor").value.trim();
       const syncCheck = document.getElementById("syncPhotoAcrossSizesCheck").checked;
 
-      // Si no subió foto pero ya existe otra talla del mismo modelo con foto, la hereda automáticamente
+      // Solo hereda automáticamente si NO se borró explícitamente y si existe otro producto con el MISMO nombre Y MISMO color
       let fotoFinal = currentProductImageBase64 || "";
-      if (!fotoFinal) {
-        const modeloConFoto = products.find(prod =>
+      if (!fotoFinal && !imageExplicitlyRemoved) {
+        const modeloMismoColorConFoto = products.find(prod =>
           (prod.name || "").trim().toLowerCase() === nombreLimpiado.toLowerCase() &&
           (prod.color || "").trim().toLowerCase() === colorLimpiado.toLowerCase() &&
           prod.image
-        ) || products.find(prod =>
-          (prod.name || "").trim().toLowerCase() === nombreLimpiado.toLowerCase() && prod.image
         );
-        if (modeloConFoto) fotoFinal = modeloConFoto.image;
+        if (modeloMismoColorConFoto) fotoFinal = modeloMismoColorConFoto.image;
       }
 
       const pData = {
@@ -2084,13 +2104,21 @@
         localStorage.removeItem("neewshop_form_draft");
       }
 
-      if (syncCheck && fotoFinal) {
-        const sincronizados = sincronizarFotoEnModelo(nombreLimpiado, colorLimpiado, fotoFinal);
-        mostrarToast(sincronizados > 1 ? `Guardado y foto aplicada en ${sincronizados} tallas` : "Producto guardado en stock");
+      if (syncCheck) {
+        if (fotoFinal) {
+          const sincronizados = sincronizarFotoEnModelo(nombreLimpiado, colorLimpiado, fotoFinal);
+          mostrarToast(sincronizados > 1 ? `Guardado y foto aplicada en ${sincronizados} tallas (${colorLimpiado})` : "Producto guardado en stock");
+        } else if (imageExplicitlyRemoved) {
+          sincronizarFotoEnModelo(nombreLimpiado, colorLimpiado, "");
+          mostrarToast("Producto actualizado y foto eliminada", "#ff2a5f");
+        } else {
+          mostrarToast("Producto guardado en stock");
+        }
       } else {
         mostrarToast("Producto guardado en stock");
       }
 
+      imageExplicitlyRemoved = false;
       saveToDB();
       document.getElementById("productForm").reset();
       actualizarVistaPreviaFotoModal("");
@@ -2154,6 +2182,7 @@
       document.getElementById("pWholesale").value = p.wholesale;
       document.getElementById("pVip").value = p.vip;
       document.getElementById("syncPhotoAcrossSizesCheck").checked = true;
+      imageExplicitlyRemoved = false;
       actualizarVistaPreviaFotoModal(p.image || "");
       actualizarVistaPreviaMargen();
       toggleModal(true);
@@ -2384,7 +2413,7 @@
         const enCarritoQty = cartItems.filter(i => i.id === p.id).reduce((acc, i) => acc + i.qty, 0);
 
         const slotFotoHTML = p.image
-          ? `<div class="product-thumb-slot" onclick="tocarMiniaturaTarjeta(${p.id}, event)" title="Toca para ver en grande o cambiar foto">
+          ? `<div class="product-thumb-slot" onclick="tocarMiniaturaTarjeta(${p.id}, event)" title="Toca para ver en grande, cambiar o borrar foto">
                <img src="${p.image}" alt="${p.name}" />
              </div>`
           : `<div class="product-thumb-slot" onclick="tocarMiniaturaTarjeta(${p.id}, event)" title="Toca para subir foto de esta prenda">
