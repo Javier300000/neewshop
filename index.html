@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000000" id="metaThemeColor" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | Stock </title>
+  <title>neewshop | Stock</title>
   <style>
     :root {
       --bg-oled: #000000;
@@ -88,7 +88,7 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    svg.ico { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    svg.ico { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
     @keyframes cardCascade { from { opacity: 0; transform: translateY(10px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes sheetSlideIn { from { opacity: 0; transform: translateY(-14px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -121,7 +121,7 @@
       width: 100%; max-width: 360px; background: var(--glass-dock);
       backdrop-filter: var(--blur-strong); -webkit-backdrop-filter: var(--blur-strong);
       border: 1px solid var(--glass-border-strong); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 var(--glass-specular);
-      border-radius: 32px; padding: 34px 24px; text-align: center; animation: sheetSlideIn 0.4s var(--ease-ios);
+      border-radius: 32px; padding: 34px 24px 22px; text-align: center; animation: sheetSlideIn 0.4s var(--ease-ios);
     }
     .login-logo { font-size: 1.9rem; font-weight: 900; letter-spacing: -0.8px; text-transform: lowercase; color: var(--text-white); display: inline-flex; align-items: center; gap: 5px; margin-bottom: 6px; }
     .login-logo span { background: var(--invert-bg); color: var(--invert-fg); padding: 2px 10px; border-radius: 999px; }
@@ -132,38 +132,42 @@
     .toggle-pass-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
     .login-error-msg { color: var(--neon-pink); font-size: 0.75rem; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
     .login-btn { width: 100%; background: var(--invert-bg); color: var(--invert-fg); border: none; padding: 14px; border-radius: 999px; font-size: 0.88rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; }
+    .version-tiny-tag {
+      margin-top: 14px; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--text-secondary); opacity: 0.55; user-select: none;
+    }
 
     .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 165px; position: relative; }
 
-    /* ENCABEZADO NÍTIDO, DE ALTO CONTRASTE Y SIEMPRE VISIBLE */
+    /* ENCABEZADO NÍTIDO Y AJUSTADO PARA QUE EL CANDADO NUNCA SE SALGA EN CELULAR */
     header {
-      margin: 10px 12px 0; padding: 12px; position: sticky; top: 8px;
+      margin: 8px 10px 0; padding: 10px 10px; position: sticky; top: 8px;
       background: var(--glass-header);
       backdrop-filter: var(--blur-header); -webkit-backdrop-filter: var(--blur-header);
       z-index: 40;
       border: 1px solid var(--glass-border-strong);
-      border-radius: 24px;
+      border-radius: 22px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65), inset 0 1px 0 var(--glass-specular);
     }
 
-    .header-inner { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-    .brand-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; width: 100%; }
+    .header-inner { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .brand-row { display: flex; justify-content: space-between; align-items: center; gap: 4px; width: 100%; overflow: hidden; }
     
     .brand-title {
-      font-size: 1.08rem; font-weight: 900; letter-spacing: -0.5px; text-transform: lowercase;
-      color: var(--text-white); display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.96rem; font-weight: 900; letter-spacing: -0.5px; text-transform: lowercase;
+      color: var(--text-white); display: inline-flex; align-items: center; gap: 4px;
       background: var(--glass-pill); border: 1px solid var(--glass-border-strong);
-      padding: 5px 11px; border-radius: 999px; flex-shrink: 0;
+      padding: 4px 8px; border-radius: 999px; flex-shrink: 0;
       box-shadow: inset 0 1px 0 var(--glass-specular);
     }
-    .brand-title span.logo-box { background: var(--invert-bg); color: var(--invert-fg); padding: 1px 8px; border-radius: 999px; font-weight: 900; }
-    .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--price-vip); box-shadow: 0 0 8px var(--price-vip); flex-shrink: 0; }
+    .brand-title span.logo-box { background: var(--invert-bg); color: var(--invert-fg); padding: 1px 6px; border-radius: 999px; font-weight: 900; }
+    .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--price-vip); box-shadow: 0 0 8px var(--price-vip); flex-shrink: 0; }
 
-    .header-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .header-actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
     .hdr-pill-btn {
       background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border-strong);
-      height: 33px; padding: 0 11px; border-radius: 999px; font-size: 0.66rem; font-weight: 800; text-transform: uppercase;
-      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;
+      height: 29px; padding: 0 8px; border-radius: 999px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; white-space: nowrap;
       box-shadow: inset 0 1px 0 var(--glass-specular); flex-shrink: 0;
     }
     .hdr-pill-btn.pdf-accent {
@@ -172,31 +176,31 @@
     .hdr-pill-btn:active, .circle-icon-btn:active { transform: scale(0.93); }
     .circle-icon-btn {
       background: var(--glass-pill); border: 1px solid var(--glass-border-strong); color: var(--text-white);
-      width: 33px; height: 33px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+      width: 29px; height: 29px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
       cursor: pointer; flex-shrink: 0; box-shadow: inset 0 1px 0 var(--glass-specular);
     }
 
-    /* BUSCADOR + FILTRO DE TALLA + ORDENAMIENTO CON NITIDEZ MEJORADA */
-    .search-stack { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    /* BUSCADOR + FILTRO DE TALLA + ORDENAMIENTO */
+    .search-stack { display: flex; flex-direction: column; gap: 7px; width: 100%; }
     .search-box { position: relative; width: 100%; }
-    .search-box .search-ico { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--text-white); opacity: 0.85; pointer-events: none; }
+    .search-box .search-ico { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-white); opacity: 0.85; pointer-events: none; }
     .search-box input.search-input-field {
       width: 100%; background: var(--glass-input); border: 1px solid var(--glass-border-strong);
-      color: var(--text-white); padding: 10px 34px 10px 36px; border-radius: 999px; font-size: 0.84rem; font-weight: 600; outline: none;
+      color: var(--text-white); padding: 9px 32px 9px 34px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; outline: none;
     }
     .search-box input.search-input-field::placeholder { color: var(--text-secondary); font-weight: 500; }
     .search-box input.search-input-field:focus { border-color: var(--price-menudeo); }
     .clear-search-btn {
       position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
       background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border);
-      width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; cursor: pointer;
+      width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; justify-content: center; cursor: pointer;
     }
     .clear-search-btn.visible { display: flex; }
 
-    .filters-subrow { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+    .filters-subrow { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; width: 100%; }
     select.filter-pill-select {
       width: 100% !important; background: var(--glass-input); border: 1px solid var(--glass-border-strong);
-      color: var(--text-white); padding: 8px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; outline: none; cursor: pointer;
+      color: var(--text-white); padding: 7px 11px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; outline: none; cursor: pointer;
     }
 
     /* TARJETAS DE SELECCIÓN DE TEMA EN MODAL */
@@ -551,7 +555,7 @@
 
   <div class="ambient-Mask-bottom"></div>
 
-  <!-- PANTALLA DE BLOQUEO -->
+  <!-- PANTALLA DE BLOQUEO CON INDICADOR DE VERSIÓN EN MINIATURA -->
   <div class="login-screen" id="loginScreen">
     <div class="login-card">
       <div class="login-logo">neew<span>shop</span></div>
@@ -564,6 +568,7 @@
         <div class="login-error-msg" id="loginError"></div>
         <button type="submit" class="login-btn">Desbloquear Stock</button>
       </form>
+      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v15.4</div>
     </div>
   </div>
 
@@ -785,6 +790,7 @@
         </button>
       </div>
       <button type="button" class="submit-btn" onclick="cerrarModalTema()">Listo</button>
+      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v15.4</div>
     </div>
   </div>
 
