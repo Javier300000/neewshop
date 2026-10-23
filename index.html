@@ -15,8 +15,8 @@
       --bg-grad-3: rgba(0, 255, 102, 0.06);
       --glass-surface: rgba(28, 28, 32, 0.58);
       --glass-surface-hover: rgba(42, 42, 48, 0.74);
-      --glass-dock: rgba(28, 28, 32, 0.72);
-      --glass-modal: rgba(18, 18, 22, 0.92);
+      --glass-dock: rgba(28, 28, 32, 0.75);
+      --glass-modal: rgba(18, 18, 22, 0.94);
       --glass-pill: rgba(255, 255, 255, 0.08);
       --glass-input: rgba(0, 0, 0, 0.45);
       --glass-border: rgba(255, 255, 255, 0.13);
@@ -47,7 +47,7 @@
       --bg-grad-3: rgba(52, 199, 89, 0.08);
       --glass-surface: rgba(255, 255, 255, 0.78);
       --glass-surface-hover: rgba(255, 255, 255, 0.92);
-      --glass-dock: rgba(255, 255, 255, 0.86);
+      --glass-dock: rgba(255, 255, 255, 0.88);
       --glass-modal: rgba(248, 248, 252, 0.96);
       --glass-pill: rgba(0, 0, 0, 0.05);
       --glass-input: rgba(0, 0, 0, 0.05);
@@ -133,7 +133,7 @@
 
     .app-container { width: 100%; max-width: 1240px; margin: 0 auto; min-height: 100vh; padding-bottom: 165px; position: relative; z-index: 1; }
 
-    /* ENCABEZADO COMPACTO Y ALINEADO SIN DESBORDAMIENTO */
+    /* ENCABEZADO PERFECTAMENTE DISTRIBUIDO SIN ENCIMARSE */
     header {
       margin: 10px 12px 0; padding: 12px; position: sticky; top: 10px;
       background: var(--glass-dock); backdrop-filter: var(--blur-strong); -webkit-backdrop-filter: var(--blur-strong);
@@ -144,37 +144,31 @@
     header.header-hidden { transform: translateY(-130%); opacity: 0; }
 
     .header-inner { display: flex; flex-direction: column; gap: 9px; width: 100%; }
-    .brand-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; width: 100%; }
-    .brand-left { display: flex; align-items: center; gap: 6px; min-width: 0; }
+    .brand-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; }
     
     .brand-title {
       font-size: 1.12rem; font-weight: 900; letter-spacing: -0.5px; text-transform: lowercase;
-      color: var(--text-white); display: inline-flex; align-items: center;
+      color: var(--text-white); display: inline-flex; align-items: center; gap: 6px;
       background: var(--glass-pill); border: 1px solid var(--glass-border);
       padding: 4px 10px; border-radius: 999px; flex-shrink: 0;
     }
-    .brand-title span { background: var(--invert-bg); color: var(--invert-fg); padding: 1px 7px; border-radius: 999px; margin-left: 3px; }
+    .brand-title span.logo-box { background: var(--invert-bg); color: var(--invert-fg); padding: 1px 7px; border-radius: 999px; }
+    .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--price-vip); box-shadow: 0 0 6px var(--price-vip); flex-shrink: 0; }
 
-    .header-actions { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    .header-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .hdr-pill-btn {
       background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border);
-      height: 30px; padding: 0 9px; border-radius: 999px; font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
-      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap;
+      height: 31px; padding: 0 10px; border-radius: 999px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;
       box-shadow: inset 0 1px 0 var(--glass-specular);
     }
     .hdr-pill-btn:active { transform: scale(0.95); }
-    .badge-live {
-      height: 30px; padding: 0 8px; border-radius: 999px; border: 1px solid var(--glass-border);
-      background: var(--glass-pill); color: var(--text-white); font-size: 0.58rem; font-weight: 800;
-      text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;
-    }
-    .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--price-vip); box-shadow: 0 0 6px var(--price-vip); flex-shrink: 0; }
     .lock-btn {
       background: var(--glass-pill); border: 1px solid var(--glass-border); color: var(--text-white);
-      width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+      width: 31px; height: 31px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
     }
 
-    /* BUSCADOR + FILTRO DE TALLA + ORDENAMIENTO PERFECTAMENTE ALINEADOS */
+    /* BUSCADOR + FILTRO DE TALLA + ORDENAMIENTO */
     .search-stack { display: flex; flex-direction: column; gap: 7px; width: 100%; }
     .search-box { position: relative; width: 100%; }
     .search-box .search-ico { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }
@@ -194,6 +188,33 @@
     select.filter-pill-select {
       width: 100% !important; background: var(--glass-input); border: 1px solid var(--glass-border);
       color: var(--text-white); padding: 8px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; outline: none; cursor: pointer;
+    }
+
+    /* TARJETAS DE SELECCIÓN DE TEMA EN MODAL */
+    .theme-options-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+    .theme-option-card {
+      background: var(--glass-pill); border: 1.5px solid var(--glass-border); border-radius: 18px;
+      padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      cursor: pointer; transition: all 0.2s var(--ease-ios); text-align: left; width: 100%; color: var(--text-white);
+    }
+    .theme-option-card:active { transform: scale(0.98); }
+    .theme-option-card.active {
+      border-color: var(--price-vip);
+      background: rgba(0, 255, 102, 0.12);
+    }
+    .theme-opt-left { display: flex; align-items: center; gap: 12px; }
+    .theme-opt-icon {
+      width: 36px; height: 36px; border-radius: 12px; background: var(--glass-input);
+      border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .theme-opt-title { font-size: 0.88rem; font-weight: 800; color: var(--text-white); }
+    .theme-opt-desc { font-size: 0.68rem; color: var(--text-secondary); font-weight: 600; margin-top: 2px; }
+    .theme-opt-check {
+      width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .theme-option-card.active .theme-opt-check {
+      background: var(--price-vip); border-color: var(--price-vip); color: #000;
     }
 
     /* TARJETAS KPI */
@@ -483,17 +504,20 @@
     <header id="mainHeader">
       <div class="header-inner">
         <div class="brand-row">
-          <div class="brand-left">
-            <div class="brand-title">neew<span>shop</span></div>
-            <div class="badge-live"><span class="sync-dot"></span><span id="syncText">Auto-Save</span></div>
+          <div class="brand-title" title="Sincronización y Autoguardado Activo">
+            <span class="sync-dot" id="syncDot"></span>
+            neew<span class="logo-box">shop</span>
           </div>
           <div class="header-actions">
-            <button class="hdr-pill-btn" id="themeToggleBtn" onclick="cambiarModoTema()" title="Cambiar Tema"></button>
-            <button class="hdr-pill-btn" onclick="exportarExcel()" title="Descargar Excel">
+            <button type="button" class="hdr-pill-btn" id="themeOpenBtn" onclick="abrirModalTema()" title="Configurar Apariencia">
+              <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"></path></svg>
+              <span id="themeBtnLabel">Tema</span>
+            </button>
+            <button type="button" class="hdr-pill-btn" onclick="exportarExcel()" title="Descargar Excel">
               <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line></svg>
               Excel
             </button>
-            <button class="lock-btn" onclick="bloquearApp()" title="Bloquear sesión">
+            <button type="button" class="lock-btn" onclick="bloquearApp()" title="Bloquear sesión">
               <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
             </button>
           </div>
@@ -501,7 +525,7 @@
         <div class="search-stack">
           <div class="search-box">
             <svg class="ico search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="search" id="searchInput" class="search-input-field" name="q_filter_ns" placeholder="Buscar prenda y talla (Ej: Alo L, Tenis 26)..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="onSearchInput()" />
+            <input type="search" id="searchInput" class="search-input-field" name="q_filter_ns" placeholder="Buscar prenda y talla (Ej: Denim L, Tenis 26)..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="onSearchInput()" />
             <button type="button" class="clear-search-btn" id="clearSearchBtn" onclick="limpiarBusqueda()">
               <svg class="ico" style="width:11px;height:11px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
@@ -578,6 +602,58 @@
     <div class="dock-bottom-row">
       <button class="fab-btn" onclick="vibrar(25); abrirModalCrear()">+ PRODUCTO</button>
       <button class="fab-cat-btn" onclick="vibrar(25); toggleCategoryModal(true)">+ CATEGORÍA</button>
+    </div>
+  </div>
+
+  <!-- VENTANA MODAL PARA ELEGIR ENTRE LAS 3 OPCIONES DE TEMA -->
+  <div class="modal-overlay" id="themeModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title">Apariencia del Sistema</div>
+        <button class="close-btn" onclick="cerrarModalTema()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+      <p class="delete-text">Selecciona cómo deseas visualizar neewshop. El color del sistema viene activado por defecto.</p>
+      <div class="theme-options-list">
+        <button type="button" class="theme-option-card" id="optThemeAuto" onclick="seleccionarModoTema('auto')">
+          <div class="theme-opt-left">
+            <div class="theme-opt-icon">
+              <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"></path></svg>
+            </div>
+            <div>
+              <div class="theme-opt-title">Color del Sistema (Predeterminado)</div>
+              <div class="theme-opt-desc">Cambia automáticamente según tu dispositivo</div>
+            </div>
+          </div>
+          <div class="theme-opt-check"><svg class="ico" style="width:12px;height:12px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        </button>
+
+        <button type="button" class="theme-option-card" id="optThemeLight" onclick="seleccionarModoTema('light')">
+          <div class="theme-opt-left">
+            <div class="theme-opt-icon">
+              <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </div>
+            <div>
+              <div class="theme-opt-title">Modo Claro</div>
+              <div class="theme-opt-desc">Acabado luminoso de cristal blanco perlado</div>
+            </div>
+          </div>
+          <div class="theme-opt-check"><svg class="ico" style="width:12px;height:12px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        </button>
+
+        <button type="button" class="theme-option-card" id="optThemeDark" onclick="seleccionarModoTema('dark')">
+          <div class="theme-opt-left">
+            <div class="theme-opt-icon">
+              <svg class="ico" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </div>
+            <div>
+              <div class="theme-opt-title">Modo Oscuro</div>
+              <div class="theme-opt-desc">Acabado negro OLED profundo de alto contraste</div>
+            </div>
+          </div>
+          <div class="theme-opt-check"><svg class="ico" style="width:12px;height:12px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        </button>
+      </div>
+      <button type="button" class="submit-btn" onclick="cerrarModalTema()">Listo</button>
     </div>
   </div>
 
@@ -860,10 +936,7 @@
       return s.split("").every((c, i) => c.charCodeAt(0) + 13 === HUELLA_ACCESO[i]);
     }
 
-    const SVG_AUTO = `<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"></path></svg> Auto`;
-    const SVG_SUN = `<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg> Claro`;
-    const SVG_MOON = `<svg class="ico" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> Oscuro`;
-
+    // TEMA PREDETERMINADO: COLOR DEL SISTEMA ('auto')
     let preferredThemeMode = localStorage.getItem("neewshop_theme_mode") || "auto";
     const systemLightMedia = window.matchMedia("(prefers-color-scheme: light)");
 
@@ -876,28 +949,40 @@
       const metaTheme = document.getElementById("metaThemeColor");
       if (metaTheme) metaTheme.setAttribute("content", resolved === "light" ? "#f2f2f7" : "#000000");
 
-      const btn = document.getElementById("themeToggleBtn");
-      if (btn) {
-        if (preferredThemeMode === "auto") btn.innerHTML = SVG_AUTO;
-        else if (preferredThemeMode === "light") btn.innerHTML = SVG_SUN;
-        else btn.innerHTML = SVG_MOON;
+      const lbl = document.getElementById("themeBtnLabel");
+      if (lbl) {
+        if (preferredThemeMode === "auto") lbl.textContent = "Tema: Sistema";
+        else if (preferredThemeMode === "light") lbl.textContent = "Tema: Claro";
+        else lbl.textContent = "Tema: Oscuro";
       }
+
+      const cAuto = document.getElementById("optThemeAuto");
+      const cLight = document.getElementById("optThemeLight");
+      const cDark = document.getElementById("optThemeDark");
+      if (cAuto) cAuto.classList.toggle("active", preferredThemeMode === "auto");
+      if (cLight) cLight.classList.toggle("active", preferredThemeMode === "light");
+      if (cDark) cDark.classList.toggle("active", preferredThemeMode === "dark");
     }
 
-    function cambiarModoTema() {
+    function abrirModalTema() {
+      vibrar(20);
+      aplicarTemaVisual();
+      document.getElementById("themeModal").classList.add("open");
+    }
+
+    function cerrarModalTema() {
       vibrar(15);
-      if (preferredThemeMode === "auto") {
-        preferredThemeMode = "light";
-        mostrarToast("Modo Claro activado", "#0066cc");
-      } else if (preferredThemeMode === "light") {
-        preferredThemeMode = "dark";
-        mostrarToast("Modo Oscuro activado", "#00f0ff");
-      } else {
-        preferredThemeMode = "auto";
-        mostrarToast("Tema Automático según el sistema", "#00ff66");
-      }
+      document.getElementById("themeModal").classList.remove("open");
+    }
+
+    function seleccionarModoTema(modo) {
+      vibrar(25);
+      preferredThemeMode = modo;
       localStorage.setItem("neewshop_theme_mode", preferredThemeMode);
       aplicarTemaVisual();
+      if (modo === "auto") mostrarToast("Tema: Color del Sistema activo", "#00ff66");
+      else if (modo === "light") mostrarToast("Modo Claro activado", "#0066cc");
+      else mostrarToast("Modo Oscuro activado", "#00f0ff");
     }
 
     systemLightMedia.addEventListener("change", () => {
@@ -1253,9 +1338,7 @@
               renderProducts();
             }
           });
-        } catch (err) {
-          document.getElementById("syncText").textContent = "Local";
-        }
+        } catch (err) {}
       }
     }
 
@@ -1912,7 +1995,6 @@
       });
     }
 
-    // BÚSQUEDA INTELIGENTE POR PRODUCTO + TALLA + COLOR
     function coincideBusquedaProductoYTalla(p, rawQuery, sizeFilter) {
       if (sizeFilter && sizeFilter !== "ALL") {
         if ((p.size || "").toLowerCase() !== sizeFilter.toLowerCase()) return false;
