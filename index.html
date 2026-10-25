@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000000" id="metaThemeColor" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | Stock</title>
+  <title>neewshop | Enterprise POS & Stock OS</title>
   <style>
     :root {
       --bg-oled: #000000;
@@ -568,7 +568,7 @@
         <div class="login-error-msg" id="loginError"></div>
         <button type="submit" class="login-btn">Desbloquear Stock</button>
       </form>
-      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v15.4</div>
+      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v15.5</div>
     </div>
   </div>
 
@@ -582,7 +582,7 @@
             neew<span class="logo-box">shop</span>
           </div>
           <div class="header-actions">
-            <button type="button" class="hdr-pill-btn pdf-accent" onclick="abrirModalCatalogoPDF()" title="Crear Catálogo PDF con Fotos para Clientes">
+            <button type="button" class="hdr-pill-btn pdf-accent" onclick="abrirModalCatalogoPDF()" title="Crear Catálogo PDF Editorial para Clientes">
               <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="10" cy="13" r="2"></circle><path d="m20 17-1.09-1.09a2 2 0 0 0-2.82 0L10 22"></path></svg>
               PDF
             </button>
@@ -704,39 +704,45 @@
     </div>
   </div>
 
-  <!-- MODAL EXPORTAR CATÁLOGO PDF PARA CLIENTES CON AGRUPACIÓN DE TALLAS -->
+  <!-- MODAL EXPORTAR CATÁLOGO PDF EDITORIAL PARA CLIENTES -->
   <div class="modal-overlay" id="pdfCatalogModal">
     <div class="modal-sheet">
       <div class="modal-header">
-        <div class="modal-title">Catálogo PDF para Clientes</div>
+        <div class="modal-title">Catálogo Editorial PDF</div>
         <button class="close-btn" onclick="cerrarModalCatalogoPDF()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <p class="delete-text">Genera un archivo PDF con fotos de los productos que tienen stock disponible listo para enviar por WhatsApp.</p>
+      <p class="delete-text">Genera un catálogo profesional estilo Lookbook con los colores de neewshop y fotografías de los productos disponibles.</p>
       <div class="form-group">
-        <label>Categoría a incluir</label>
-        <select id="pdfCatSelect"></select>
+        <label>Título o Colección (Opcional)</label>
+        <input type="search" id="pdfCustomTitleInput" placeholder="Ej. CATÁLOGO OFICIAL DE TEMPORADA" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" />
       </div>
-      <div class="form-group">
-        <label>Precios visibles para el cliente</label>
-        <select id="pdfPriceModeSelect">
-          <option value="menudeo">Solo Precio Menudeo</option>
-          <option value="men_may">Precio Menudeo y Mayoreo</option>
-          <option value="mayoreo">Solo Precio Mayoreo</option>
-          <option value="vip">Solo Precio VIP</option>
-          <option value="todos">Mostrar Menudeo, Mayoreo y VIP</option>
-        </select>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Categoría a incluir</label>
+          <select id="pdfCatSelect"></select>
+        </div>
+        <div class="form-group">
+          <label>Precios visibles</label>
+          <select id="pdfPriceModeSelect">
+            <option value="menudeo">Solo Menudeo</option>
+            <option value="men_may">Menudeo y Mayoreo</option>
+            <option value="mayoreo">Solo Mayoreo</option>
+            <option value="vip">Solo Precio VIP</option>
+            <option value="todos">Menudeo, Mayoreo y VIP</option>
+          </select>
+        </div>
       </div>
       <label class="checkbox-row">
         <input type="checkbox" id="pdfGroupSizesCheck" checked />
         <span>Agrupar tallas del mismo producto y color en 1 sola tarjeta</span>
       </label>
       <label class="checkbox-row">
-        <input type="checkbox" id="pdfShowExactQty" checked />
-        <span>Mostrar cantidad exacta de piezas disponibles</span>
+        <input type="checkbox" id="pdfShowExactQty" />
+        <span>Mostrar cantidad exacta de piezas junto a cada talla</span>
       </label>
-      <button type="button" class="submit-btn green-btn" onclick="generarCatalogoPDFClientes()">
+      <button type="button" class="submit-btn" onclick="generarCatalogoPDFClientes()">
         <svg class="ico" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Descargar Catálogo PDF
+        Descargar Catálogo Editorial PDF
       </button>
     </div>
   </div>
@@ -790,7 +796,7 @@
         </button>
       </div>
       <button type="button" class="submit-btn" onclick="cerrarModalTema()">Listo</button>
-      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v15.4</div>
+      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v15.5</div>
     </div>
   </div>
 
@@ -1274,7 +1280,7 @@
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement("canvas");
-          const MAX_SIZE = 380;
+          const MAX_SIZE = 420;
           let w = img.width;
           let h = img.height;
           if (w > h) { if (w > MAX_SIZE) { h = Math.round(h * (MAX_SIZE / w)); w = MAX_SIZE; } }
@@ -1284,7 +1290,7 @@
           ctx.fillStyle = "#ffffff";
           ctx.fillRect(0, 0, w, h);
           ctx.drawImage(img, 0, 0, w, h);
-          callback(canvas.toDataURL("image/jpeg", 0.76));
+          callback(canvas.toDataURL("image/jpeg", 0.8));
         };
         img.src = e.target.result;
       };
@@ -1466,6 +1472,34 @@
         return `linear-gradient(135deg, ${buscarHexSimple(partes[0], mapaColores)} 50%, ${buscarHexSimple(partes[1] || "", mapaColores)} 50%)`;
       }
       return buscarHexSimple(t, mapaColores);
+    }
+
+    function obtenerRGBParaPDF(textoColor) {
+      if (!textoColor) return [140, 140, 148];
+      const t = textoColor.toLowerCase().trim();
+      const mapaRGB = [
+        { k: ["negro", "black", "carbon", "carbón", "oscuro"], rgb: [22, 22, 26] },
+        { k: ["blanco", "white", "hueso", "marfil", "off white"], rgb: [245, 245, 247] },
+        { k: ["gris", "gray", "grey", "plata", "plateado", "jaspe"], rgb: [135, 135, 142] },
+        { k: ["beige", "arena", "crema", "camel", "caqui", "khaki", "nude"], rgb: [208, 190, 162] },
+        { k: ["rojo", "red", "vino", "guinda", "burgundy", "cherry"], rgb: [185, 35, 55] },
+        { k: ["azul marino", "navy"], rgb: [28, 52, 98] },
+        { k: ["azul cielo", "celeste", "baby blue", "cian", "turquesa"], rgb: [70, 160, 210] },
+        { k: ["azul", "blue", "rey", "mezclilla", "denim"], rgb: [45, 95, 185] },
+        { k: ["verde militar", "olivo", "olive", "kaki"], rgb: [85, 107, 47] },
+        { k: ["verde", "green", "menta", "esmeralda", "lima"], rgb: [40, 140, 85] },
+        { k: ["rosa", "pink", "fiucsa", "fucsia", "pastel", "magenta"], rgb: [215, 90, 145] },
+        { k: ["morado", "purple", "lila", "violeta", "lavanda"], rgb: [125, 80, 175] },
+        { k: ["amarillo", "yellow", "mostaza", "dorado", "oro"], rgb: [215, 170, 35] },
+        { k: ["naranja", "orange", "coral", "terracota"], rgb: [210, 105, 40] },
+        { k: ["cafe", "café", "marron", "marrón", "chocolate", "brown", "tabaco"], rgb: [115, 75, 42] }
+      ];
+      for (const item of mapaRGB) {
+        for (const palabra of item.k) {
+          if (t.includes(palabra)) return item.rgb;
+        }
+      }
+      return [150, 150, 158];
     }
 
     function buscarHexSimple(fragmento, mapa) {
@@ -2806,6 +2840,7 @@
       document.getElementById("pdfCatalogModal").classList.remove("open");
     }
 
+    // GENERADOR DE CATÁLOGO PDF EDITORIAL LOOKBOOK (COLORES DE MARCA NEEWSHOP, CERO NEÓN)
     async function generarCatalogoPDFClientes() {
       vibrar(40);
       if (!window.jspdf || !window.jspdf.jsPDF) {
@@ -2817,6 +2852,7 @@
       const modoPrecio = document.getElementById("pdfPriceModeSelect").value;
       const agruparTallas = document.getElementById("pdfGroupSizesCheck").checked;
       const mostrarCantidad = document.getElementById("pdfShowExactQty").checked;
+      const customTitleRaw = (document.getElementById("pdfCustomTitleInput").value || "").trim();
 
       const disponiblesRaw = products.filter(p => {
         const tieneStock = (Number(p.stock) || 0) > 0;
@@ -2853,54 +2889,108 @@
         });
         itemsParaPDF = Object.values(grupos).map(g => ({
           ...g,
-          sizeText: `Tallas: ${g.tallasList.join(", ")}`,
+          tallasArray: g.tallasList,
           stock: g.totalStock
         }));
       } else {
         itemsParaPDF = disponiblesRaw.map(p => ({
           ...p,
-          sizeText: `Talla: ${p.size}`
+          tallasArray: [mostrarCantidad ? `${p.size} (${p.stock})` : `${p.size}`]
         }));
       }
 
-      mostrarToast("Generando Catálogo PDF...", "#00f0ff");
+      mostrarToast("Diseñando Catálogo Editorial PDF...", "#ffffff");
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-      const dibujarEncabezadoPagina = (numPag) => {
-        doc.setFillColor(12, 12, 16);
-        doc.rect(0, 0, 210, 28, "F");
-        doc.setTextColor(255, 255, 255);
+      const ITEMS_POR_PAGINA = 6; // 2 columnas x 3 filas para tarjetas amplias y elegantes
+      const totalPaginas = Math.ceil(itemsParaPDF.length / ITEMS_POR_PAGINA);
+      const fechaFormateada = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+      const tituloColeccion = customTitleRaw
+        ? customTitleRaw.toUpperCase()
+        : (catElegida === "Todos" ? "CATÁLOGO OFICIAL DE EXISTENCIAS" : `COLECCIÓN • ${catElegida.toUpperCase()}`);
+
+      const dibujarLayoutPagina = (numPag) => {
+        // Fondo general marfil editorial suave (#F6F6F8)
+        doc.setFillColor(246, 246, 248);
+        doc.rect(0, 0, 210, 297, "F");
+
+        // Cabecera Negro Obsidiana de la marca (#0E0E11)
+        doc.setFillColor(14, 14, 17);
+        doc.rect(0, 0, 210, 31, "F");
+
+        // Cápsula exterior del logo neewshop
+        doc.setFillColor(26, 26, 32);
+        doc.setDrawColor(58, 58, 68);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(14, 7.5, 42, 11, 5.5, 5.5, "FD");
+
+        // Texto "neew" en blanco
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(18);
-        doc.text("neewshop", 14, 15);
+        doc.setFontSize(12.5);
+        doc.setTextColor(255, 255, 255);
+        doc.text("neew", 18.2, 14.6);
+
+        // Píldora blanca "shop"
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(33.2, 9.1, 21, 7.8, 3.9, 3.9, "F");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.setTextColor(14, 14, 17);
+        doc.text("shop", 43.7, 14.4, { align: "center" });
+
+        // Subtítulo de colección debajo del logo
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(7.5);
+        doc.setTextColor(175, 175, 185);
+        doc.text(tituloColeccion, 14.5, 24.8);
+
+        // Metadatos alineados a la derecha en cabecera
+        doc.setFillColor(26, 26, 32);
+        doc.setDrawColor(52, 52, 62);
+        doc.roundedRect(146, 8.5, 50, 9, 4.5, 4.5, "FD");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(7);
+        doc.setTextColor(235, 235, 240);
+        doc.text(`${fechaFormateada}  •  PÁG. ${String(numPag).padStart(2, "0")}/${String(totalPaginas).padStart(2, "0")}`, 171, 14.1, { align: "center" });
 
         doc.setFont("helvetica", "normal");
-        doc.setFontSize(9);
-        doc.setTextColor(180, 180, 190);
-        const subtitulo = catElegida === "Todos" ? "CATÁLOGO DE STOCK DISPONIBLE" : `CATÁLOGO: ${catElegida.toUpperCase()}`;
-        doc.text(subtitulo, 14, 22);
+        doc.setFontSize(7.2);
+        doc.setTextColor(150, 150, 160);
+        doc.text(`${itemsParaPDF.length} MODELOS DISPONIBLES`, 196, 24.8, { align: "right" });
 
-        const fechaHoy = new Date().toLocaleDateString("es-MX", { dateStyle: "medium" });
-        doc.text(`${fechaHoy}  |  Pág. ${numPag}`, 196, 18, { align: "right" });
+        // Pie de página minimalista
+        doc.setDrawColor(218, 218, 224);
+        doc.setLineWidth(0.3);
+        doc.line(14, 284, 196, 284);
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(7);
+        doc.setTextColor(95, 95, 105);
+        doc.text("neewshop  •  Catálogo Oficial de Stock", 14, 289.5);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(7);
+        doc.setTextColor(125, 125, 135);
+        doc.text(`Existencias actualizadas en tiempo real  |  Página ${numPag} de ${totalPaginas}`, 196, 289.5, { align: "right" });
       };
 
       let paginaActual = 1;
-      dibujarEncabezadoPagina(paginaActual);
+      dibujarLayoutPagina(paginaActual);
 
       const cardW = 88;
-      const cardH = 52;
+      const cardH = 74;
       const marginX = 14;
       const gapX = 6;
-      const startY = 35;
+      const startY = 38;
       const gapY = 6;
 
       itemsParaPDF.forEach((p, index) => {
-        const indexEnPagina = index % 8;
+        const indexEnPagina = index % ITEMS_POR_PAGINA;
         if (index > 0 && indexEnPagina === 0) {
           doc.addPage();
           paginaActual++;
-          dibujarEncabezadoPagina(paginaActual);
+          dibujarLayoutPagina(paginaActual);
         }
 
         const col = indexEnPagina % 2;
@@ -2908,85 +2998,149 @@
         const x = marginX + col * (cardW + gapX);
         const y = startY + row * (cardH + gapY);
 
-        doc.setFillColor(246, 246, 250);
-        doc.setDrawColor(220, 220, 228);
+        // Sombra sutil editorial detrás de la tarjeta
+        doc.setFillColor(232, 232, 238);
+        doc.roundedRect(x + 0.7, y + 0.9, cardW, cardH, 4, 4, "F");
+
+        // Contenedor principal blanco puro (#FFFFFF)
+        doc.setFillColor(255, 255, 255);
+        doc.setDrawColor(222, 222, 229);
+        doc.setLineWidth(0.35);
         doc.roundedRect(x, y, cardW, cardH, 4, 4, "FD");
 
-        const imgX = x + 3;
-        const imgY = y + 3;
-        const imgSize = 46;
+        // Marco de fotografía cuadrado (44x44 mm)
+        const imgX = x + 3.5;
+        const imgY = y + 3.5;
+        const imgSize = 44;
+
+        doc.setFillColor(245, 245, 248);
+        doc.setDrawColor(230, 230, 236);
+        doc.setLineWidth(0.25);
+        doc.roundedRect(imgX, imgY, imgSize, imgSize, 3, 3, "FD");
 
         if (p.image && p.image.startsWith("data:image")) {
           try {
-            doc.addImage(p.image, "JPEG", imgX, imgY, imgSize, imgSize, undefined, "FAST");
+            doc.addImage(p.image, "JPEG", imgX + 0.5, imgY + 0.5, imgSize - 1, imgSize - 1, undefined, "FAST");
           } catch (err) {
-            doc.setFillColor(228, 228, 235);
-            doc.roundedRect(imgX, imgY, imgSize, imgSize, 3, 3, "F");
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(8);
+            doc.setTextColor(155, 155, 165);
+            doc.text("neewshop", imgX + imgSize / 2, imgY + imgSize / 2, { align: "center" });
           }
         } else {
-          doc.setFillColor(230, 230, 238);
-          doc.roundedRect(imgX, imgY, imgSize, imgSize, 3, 3, "F");
-          doc.setTextColor(130, 130, 145);
+          // Placeholder editorial sobrio
+          doc.setDrawColor(200, 200, 210);
+          doc.setLineWidth(0.35);
+          doc.circle(imgX + imgSize / 2, imgY + imgSize / 2 - 3, 5, "D");
           doc.setFont("helvetica", "bold");
-          doc.setFontSize(8);
-          doc.text("NEEWSHOP", imgX + imgSize / 2, imgY + imgSize / 2, { align: "center" });
+          doc.setFontSize(7.5);
+          doc.setTextColor(140, 140, 150);
+          doc.text("neewshop", imgX + imgSize / 2, imgY + imgSize / 2 + 6, { align: "center" });
         }
 
-        const textX = imgX + imgSize + 4;
-        const maxTextW = cardW - imgSize - 10;
+        // Columna derecha de información del producto
+        const infoX = imgX + imgSize + 3.5;
+        const infoW = cardW - imgSize - 10.5;
+
+        // Píldora de Categoría
+        const catText = (p.category || "PRENDA").toUpperCase().slice(0, 18);
+        doc.setFillColor(242, 242, 246);
+        doc.roundedRect(infoX, y + 3.8, infoW, 5.2, 1.5, 1.5, "F");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(6.2);
+        doc.setTextColor(95, 95, 108);
+        doc.text(catText, infoX + 2, y + 7.4);
+
+        // Nombre del Producto en Negro Carbón (#111115)
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9.8);
+        doc.setTextColor(17, 17, 21);
+        const lineasNombre = doc.splitTextToSize(p.name || "Producto", infoW);
+        doc.text(lineasNombre.slice(0, 2), infoX, y + 14);
+
+        // Píldora con muestra del Color real
+        const colorY = y + (lineasNombre.length > 1 ? 21.5 : 18);
+        doc.setFillColor(246, 246, 249);
+        doc.setDrawColor(225, 225, 232);
+        doc.setLineWidth(0.25);
+        doc.roundedRect(infoX, colorY, infoW, 6.2, 2, 2, "FD");
+
+        const rgbColor = obtenerRGBParaPDF(p.color);
+        doc.setFillColor(rgbColor[0], rgbColor[1], rgbColor[2]);
+        doc.setDrawColor(180, 180, 190);
+        doc.circle(infoX + 3.4, colorY + 3.1, 1.6, "FD");
 
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(6.8);
-        doc.setTextColor(110, 110, 125);
-        doc.text(`${(p.category || "").toUpperCase()} • ${(p.color || "").toUpperCase()}`.slice(0, 26), textX, y + 7.5);
-
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9.5);
-        doc.setTextColor(15, 15, 20);
-        const nombreLineas = doc.splitTextToSize(p.name || "Producto", maxTextW);
-        doc.text(nombreLineas.slice(0, 2), textX, y + 13);
-
-        const offsetAfterName = nombreLineas.length > 1 ? 22 : 18.5;
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(7.8);
+        doc.setFontSize(7.2);
         doc.setTextColor(45, 45, 55);
-        const tallasLineas = doc.splitTextToSize(p.sizeText, maxTextW);
-        doc.text(tallasLineas.slice(0, 2), textX, y + offsetAfterName);
+        doc.text((p.color || "Único").slice(0, 15), infoX + 6.5, colorY + 4.1);
 
+        // Sección de Tallas Disponibles
+        const tallasLabelY = colorY + 10.2;
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(7.5);
-        doc.setTextColor(0, 140, 60);
-        const stockLabel = mostrarCantidad ? `Total disp: ${p.stock} pzas` : `EN STOCK DISPONIBLE`;
-        doc.text(stockLabel, textX, y + offsetAfterName + (tallasLineas.length > 1 ? 8 : 5));
+        doc.setFontSize(5.8);
+        doc.setTextColor(125, 125, 138);
+        doc.text(mostrarCantidad ? "TALLAS Y PIEZAS:" : "TALLAS DISPONIBLES:", infoX, tallasLabelY);
 
-        let lineasPrecio = [];
+        const tallasStr = (p.tallasArray || []).join("   •   ");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(7.6);
+        doc.setTextColor(22, 22, 28);
+        const tallasLineas = doc.splitTextToSize(tallasStr, infoW);
+        doc.text(tallasLineas.slice(0, 3), infoX, tallasLabelY + 4.2);
+
+        // Barra inferior ejecutiva de Precios (Carbón Oscuro #141418 sin colores neón)
+        const barY = y + 51.5;
+        const barH = 19;
+        doc.setFillColor(20, 20, 24);
+        doc.roundedRect(x + 3.5, barY, cardW - 7, barH, 2.8, 2.8, "F");
+
         const men = Number(p.price) || 0;
         const may = Number(p.wholesale) || 0;
         const vip = Number(p.vip) || 0;
 
-        if (modoPrecio === "menudeo") lineasPrecio.push(`Precio: $${men.toLocaleString("es-MX")}`);
-        else if (modoPrecio === "mayoreo") lineasPrecio.push(`Mayoreo: $${(may || men).toLocaleString("es-MX")}`);
-        else if (modoPrecio === "vip") lineasPrecio.push(`VIP: $${(vip || men).toLocaleString("es-MX")}`);
-        else if (modoPrecio === "men_may") {
-          lineasPrecio.push(`Menudeo: $${men.toLocaleString("es-MX")}`);
-          if (may > 0) lineasPrecio.push(`Mayoreo: $${may.toLocaleString("es-MX")}`);
+        let bloquesPrecio = [];
+        if (modoPrecio === "menudeo") {
+          bloquesPrecio.push({ lbl: "PRECIO MENUDEO", val: `$${men.toLocaleString("es-MX")} MXN` });
+        } else if (modoPrecio === "mayoreo") {
+          bloquesPrecio.push({ lbl: "PRECIO MAYOREO", val: `$${(may || men).toLocaleString("es-MX")} MXN` });
+        } else if (modoPrecio === "vip") {
+          bloquesPrecio.push({ lbl: "PRECIO ESPECIAL VIP", val: `$${(vip || men).toLocaleString("es-MX")} MXN` });
+        } else if (modoPrecio === "men_may") {
+          bloquesPrecio.push({ lbl: "MENUDEO", val: `$${men.toLocaleString("es-MX")}` });
+          if (may > 0) bloquesPrecio.push({ lbl: "MAYOREO", val: `$${may.toLocaleString("es-MX")}` });
         } else {
-          lineasPrecio.push(`Men: $${men} ${may > 0 ? '| May: $' + may : ''}`);
-          if (vip > 0) lineasPrecio.push(`VIP: $${vip.toLocaleString("es-MX")}`);
+          bloquesPrecio.push({ lbl: "MENUDEO", val: `$${men.toLocaleString("es-MX")}` });
+          if (may > 0) bloquesPrecio.push({ lbl: "MAYOREO", val: `$${may.toLocaleString("es-MX")}` });
+          if (vip > 0) bloquesPrecio.push({ lbl: "VIP", val: `$${vip.toLocaleString("es-MX")}` });
         }
 
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(9);
-        doc.setTextColor(0, 95, 190);
-        lineasPrecio.forEach((lp, idxP) => {
-          doc.text(lp, textX, y + 42 + (idxP * 4.5));
+        const innerBarW = cardW - 7;
+        const colW = innerBarW / bloquesPrecio.length;
+
+        bloquesPrecio.forEach((bp, idxP) => {
+          const centerX = x + 3.5 + colW * idxP + colW / 2;
+          if (idxP > 0) {
+            doc.setDrawColor(52, 52, 62);
+            doc.setLineWidth(0.25);
+            doc.line(x + 3.5 + colW * idxP, barY + 3.5, x + 3.5 + colW * idxP, barY + barH - 3.5);
+          }
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(5.8);
+          doc.setTextColor(168, 168, 178);
+          doc.text(bp.lbl, centerX, barY + 6.8, { align: "center" });
+
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(bloquesPrecio.length === 1 ? 11.5 : (bloquesPrecio.length === 2 ? 10.2 : 9.2));
+          doc.setTextColor(255, 255, 255);
+          doc.text(bp.val, centerX, barY + 14.2, { align: "center" });
         });
       });
 
       const nombreArchivo = `Catalogo_neewshop_${new Date().toISOString().slice(0, 10)}.pdf`;
       doc.save(nombreArchivo);
       cerrarModalCatalogoPDF();
-      mostrarToast("Catálogo PDF descargado", "#00ff66");
+      mostrarToast("Catálogo Editorial PDF descargado", "#ffffff");
     }
 
     async function exportarExcel() {
