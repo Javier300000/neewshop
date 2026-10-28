@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000000" id="metaThemeColor" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | Enterprise POS & Stock OS</title>
+  <title>neewshop | Stock </title>
   <style>
     :root {
       --bg-oled: #000000;
@@ -92,9 +92,7 @@
 
     @keyframes cardCascade { from { opacity: 0; transform: translateY(10px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes sheetSlideIn { from { opacity: 0; transform: translateY(-14px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes numPop { 0% { transform: scale(1); } 45% { transform: scale(1.24); color: var(--price-vip); } 100% { transform: scale(1); } }
     @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 75% { transform: translateX(-4px); } }
-    .pop-anim { animation: numPop 0.26s var(--ease-spring); }
 
     .dynamic-toast {
       position: fixed; top: max(14px, env(safe-area-inset-top)); left: 50%;
@@ -262,7 +260,6 @@
     .stock-tab.active-all { background: var(--invert-bg); color: var(--invert-fg); border-color: var(--invert-bg); }
     .stock-tab.active-low { background: rgba(255, 234, 0, 0.16); color: var(--neon-yellow); border-color: var(--neon-yellow); }
     .stock-tab.active-out { background: rgba(255, 42, 95, 0.18); color: var(--neon-pink); border-color: var(--neon-pink); }
-    .stock-tab.active-layaway { background: rgba(0, 240, 255, 0.16); color: var(--price-menudeo); border-color: var(--price-menudeo); }
     .stock-tab.active-sales { background: rgba(0, 255, 102, 0.18); color: var(--price-vip); border-color: var(--price-vip); }
 
     .categories-bar-row { display: flex; align-items: center; padding: 4px 12px; gap: 8px; }
@@ -285,7 +282,6 @@
     }
     .section-banner.show-low { display: flex; background: rgba(255, 234, 0, 0.12); border: 1px solid rgba(255, 234, 0, 0.4); color: var(--neon-yellow); }
     .section-banner.show-out { display: flex; background: rgba(255, 42, 95, 0.12); border: 1px solid rgba(255, 42, 95, 0.4); color: var(--neon-pink); }
-    .section-banner.show-layaway { display: flex; background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.4); color: var(--price-menudeo); }
     .section-banner.show-sales { display: flex; background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.4); color: var(--price-vip); }
 
     .sales-summary-bar, .top-sellers-card {
@@ -346,18 +342,18 @@
     .pill-vip { background: rgba(0, 255, 102, 0.12); border-color: rgba(0, 255, 102, 0.35); color: var(--price-vip); font-weight: 800; }
     .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(128, 128, 128, 0.5); flex-shrink: 0; }
 
-    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
+    .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
     .status-row { display: flex; align-items: center; gap: 5px; }
     .stock-status { font-size: 0.56rem; font-weight: 900; padding: 4px 8px; border-radius: 999px; text-transform: uppercase; white-space: nowrap; }
     .status-ok { background: var(--glass-pill); color: var(--neon-white); border: 1px solid var(--glass-border); }
     .status-low { background: rgba(255, 234, 0, 0.14); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.5); }
     .status-out { background: rgba(255, 42, 95, 0.16); color: var(--neon-pink); border: 1px solid rgba(255, 42, 95, 0.5); }
 
-    .stepper { display: flex; align-items: center; gap: 5px; background: var(--glass-input); padding: 3px; border-radius: 999px; border: 1px solid var(--glass-border); }
-    .stepper button { width: 25px; height: 25px; border-radius: 50%; border: none; background: var(--glass-pill); color: var(--text-white); font-size: 0.9rem; font-weight: 700; cursor: pointer; }
-    .stepper button:active { background: var(--invert-bg); color: var(--invert-fg); }
-    .stock-count { min-width: 24px; text-align: center; font-weight: 800; font-size: 0.86rem; font-variant-numeric: tabular-nums; display: inline-block; cursor: pointer; padding: 2px 4px; border-radius: 6px; }
-    .stock-count:hover { background: var(--glass-pill); }
+    .stock-only-badge {
+      background: var(--glass-input); border: 1px solid var(--glass-border);
+      padding: 5px 11px; border-radius: 999px; font-size: 0.78rem; font-weight: 900;
+      color: var(--text-white); font-variant-numeric: tabular-nums; white-space: nowrap;
+    }
 
     .card-bottom-action { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; border-top: 1px solid var(--glass-border); padding-top: 10px; margin-top: 2px; }
     select.price-select-mini { width: auto; background: var(--glass-input); border: 1px solid var(--glass-border); color: var(--text-white); padding: 7px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; outline: none; flex: 1.1; }
@@ -373,12 +369,6 @@
       background: var(--glass-surface); backdrop-filter: var(--blur-medium); -webkit-backdrop-filter: var(--blur-medium);
       border: 1px solid rgba(0, 255, 102, 0.28); border-radius: 22px; padding: 13px 15px;
       display: flex; justify-content: space-between; align-items: center; box-shadow: var(--card-shadow); cursor: pointer;
-      animation: cardCascade 0.3s var(--ease-ios) both;
-    }
-    .layaway-card {
-      background: var(--glass-surface); backdrop-filter: var(--blur-medium); -webkit-backdrop-filter: var(--blur-medium);
-      border: 1px solid rgba(0, 240, 255, 0.35); border-radius: 22px; padding: 14px 16px;
-      display: flex; flex-direction: column; gap: 10px; box-shadow: var(--card-shadow);
       animation: cardCascade 0.3s var(--ease-ios) both;
     }
     .sale-info { display: flex; flex-direction: column; gap: 3px; padding-right: 10px; }
@@ -416,9 +406,9 @@
     .multi-size-item span { font-size: 0.72rem; font-weight: 800; color: var(--text-white); }
     .multi-size-item input { width: 48px !important; padding: 5px 6px !important; text-align: center; font-size: 16px !important; border-radius: 8px !important; }
 
-    .batch-quick-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0; }
-    .batch-chip-btn { background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border); padding: 8px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; cursor: pointer; }
-    .batch-chip-btn:active { transform: scale(0.95); background: var(--invert-bg); color: var(--invert-fg); }
+    .edit-stock-quick-row { display: flex; gap: 4px; margin-top: 5px; }
+    .edit-stock-chip { flex: 1; background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border); padding: 5px 0; border-radius: 8px; font-size: 0.68rem; font-weight: 800; cursor: pointer; text-align: center; }
+    .edit-stock-chip:active { background: var(--invert-bg); color: var(--invert-fg); }
 
     .bottom-dock {
       position: fixed; bottom: max(14px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
@@ -465,13 +455,13 @@
     .pay-methods-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
     .pay-method-btn {
       background: var(--glass-pill); color: var(--text-secondary); border: 1px solid var(--glass-border);
-      padding: 7px; border-radius: 10px; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 8px; border-radius: 10px; font-size: 0.74rem; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     }
-    .pay-method-btn.active { background: rgba(0, 240, 255, 0.16); color: var(--price-menudeo); border-color: var(--price-menudeo); }
-    .change-calc-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; align-items: center; }
-    .change-box { background: var(--glass-pill); border: 1px solid var(--glass-border); border-radius: 10px; padding: 7px 8px; display: flex; flex-direction: column; justify-content: center; }
+    .pay-method-btn.active { background: rgba(0, 240, 255, 0.18); color: var(--price-menudeo); border-color: var(--price-menudeo); }
+    .change-calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: center; }
+    .change-box { background: var(--glass-pill); border: 1px solid var(--glass-border); border-radius: 10px; padding: 7px 10px; display: flex; flex-direction: column; justify-content: center; }
     .change-lbl { font-size: 0.55rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; }
-    .change-val { font-size: 0.85rem; font-weight: 900; color: var(--neon-yellow); font-variant-numeric: tabular-nums; }
+    .change-val { font-size: 0.9rem; font-weight: 900; color: var(--neon-yellow); font-variant-numeric: tabular-nums; }
 
     .cart-total-box { background: rgba(0,255,102,0.12); border: 1px solid rgba(0,255,102,0.35); border-radius: 14px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .cart-total-lbl { font-size: 0.72rem; text-transform: uppercase; font-weight: 800; color: var(--price-vip); }
@@ -494,7 +484,6 @@
     }
     .submit-btn.green-btn { background: #00ff66; color: #000; }
     .submit-btn.cyan-btn { background: rgba(0, 240, 255, 0.16); color: var(--price-menudeo); border: 1px solid var(--price-menudeo); }
-    .submit-btn.yellow-btn { background: rgba(255, 234, 0, 0.16); color: var(--neon-yellow); border: 1px solid var(--neon-yellow); }
     .submit-btn.pink-btn { background: rgba(255, 42, 95, 0.16); color: var(--neon-pink); border: 1px solid var(--neon-pink); }
 
     .size-type-hint { font-size: 0.68rem; color: var(--neon-yellow); margin-top: 4px; font-weight: 600; }
@@ -566,7 +555,7 @@
         <div class="login-error-msg" id="loginError"></div>
         <button type="submit" class="login-btn">Desbloquear Stock</button>
       </form>
-      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v16.0 iOS/PRO</div>
+      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v16.1</div>
     </div>
   </div>
 
@@ -648,7 +637,6 @@
         <button class="stock-tab active-all" id="tabAll" onclick="vibrar(15); setStockFilter('TODOS')"><span class="status-indicator-dot dot-white"></span> Todo</button>
         <button class="stock-tab" id="tabLow" onclick="vibrar(15); setStockFilter('BAJO_STOCK')"><span class="status-indicator-dot dot-yellow"></span> Bajo Stock</button>
         <button class="stock-tab" id="tabOut" onclick="vibrar(15); setStockFilter('SIN_STOCK')"><span class="status-indicator-dot dot-pink"></span> Sin Stock</button>
-        <button class="stock-tab" id="tabLayaway" onclick="vibrar(20); setStockFilter('APARTADOS')"><span class="status-indicator-dot dot-cyan"></span> Apartados (<span id="layawayCountTab">0</span>)</button>
         <button class="stock-tab" id="tabSales" onclick="vibrar(25); setStockFilter('VENTAS')"><span class="status-indicator-dot dot-green"></span> Historial Ventas</button>
       </div>
 
@@ -732,28 +720,20 @@
         <div class="modal-title">Catálogo Editorial PDF</div>
         <button class="close-btn" onclick="cerrarModalCatalogoPDF()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <p class="delete-text">Genera un catálogo profesional estilo Lookbook con los colores de neewshop y fotografías de los productos disponibles.</p>
-      <div class="form-group">
-        <label>Título o Colección (Opcional)</label>
-        <input type="search" id="pdfCustomTitleInput" placeholder="Ej. CATÁLOGO OFICIAL DE TEMPORADA" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" />
-      </div>
-      <div class="form-group">
-        <label>Nota al pie de página (Contacto / Envíos)</label>
-        <input type="search" id="pdfFooterNoteInput" value="Pedidos por WhatsApp • Existencias sujetas a disponibilidad" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" />
-      </div>
+      <p class="delete-text">Genera tu catálogo con portada minimalista, productos seguidos por categoría y cantidad disponible por talla.</p>
       <div class="form-row">
         <div class="form-group">
           <label>Categoría a incluir</label>
           <select id="pdfCatSelect"></select>
         </div>
         <div class="form-group">
-          <label>Precios visibles</label>
+          <label>Modalidad de Precios</label>
           <select id="pdfPriceModeSelect">
+            <option value="mayoreo" selected>Solo Mayoreo</option>
             <option value="menudeo">Solo Menudeo</option>
-            <option value="men_may">Menudeo y Mayoreo</option>
-            <option value="mayoreo">Solo Mayoreo</option>
-            <option value="vip">Solo Precio VIP</option>
-            <option value="todos">Menudeo, Mayoreo y VIP</option>
+            <option value="may_men">Mayoreo con Menudeo</option>
+            <option value="vip">Solo VIP</option>
+            <option value="vip_may">VIP con Mayoreo</option>
           </select>
         </div>
       </div>
@@ -762,12 +742,12 @@
         <span>Agrupar tallas del mismo producto y color en 1 sola tarjeta</span>
       </label>
       <label class="checkbox-row">
-        <input type="checkbox" id="pdfShowExactQty" />
-        <span>Mostrar cantidad exacta de piezas junto a cada talla</span>
+        <input type="checkbox" id="pdfShowExactQty" checked />
+        <span>Mostrar cantidad de piezas disponibles en cada talla</span>
       </label>
       <button type="button" class="submit-btn" onclick="generarCatalogoPDFClientes()">
         <svg class="ico" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Generar Catálogo Editorial PDF
+        Generar Catálogo PDF
       </button>
     </div>
   </div>
@@ -821,55 +801,11 @@
         </button>
       </div>
       <button type="button" class="submit-btn" onclick="cerrarModalTema()">Listo</button>
-      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v16.0 iOS/PRO</div>
+      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v16.1</div>
     </div>
   </div>
 
-  <!-- MODAL CONFIRMACIÓN DE AJUSTE DE STOCK + ENTRADA RÁPIDA DE LOTES -->
-  <div class="modal-overlay" id="stockConfirmModal">
-    <div class="modal-sheet">
-      <div class="modal-header">
-        <div class="modal-title" id="stockConfirmTitle">Confirmar / Ajustar Stock</div>
-        <button class="close-btn" onclick="cerrarConfirmacionStock()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-      </div>
-      <p class="delete-text" id="stockConfirmMessage" style="font-size:0.86rem; color:var(--text-white); margin-bottom:8px;"></p>
-      <div class="batch-quick-row">
-        <button type="button" class="batch-chip-btn" onclick="ajustarInputStockLote(-5)">-5</button>
-        <button type="button" class="batch-chip-btn" onclick="ajustarInputStockLote(-1)">-1</button>
-        <button type="button" class="batch-chip-btn" onclick="ajustarInputStockLote(5)">+5</button>
-        <button type="button" class="batch-chip-btn" onclick="ajustarInputStockLote(10)">+10</button>
-      </div>
-      <div class="form-group" style="margin-bottom:12px;">
-        <label>Nuevo Stock Total (Puedes escribir el número exacto)</label>
-        <input type="number" id="batchStockNewInput" inputmode="numeric" min="0" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" style="text-align:center; font-size:1.1rem; font-weight:900;" />
-      </div>
-      <div class="confirm-actions">
-        <button type="button" class="cancel-action-btn" onclick="cerrarConfirmacionStock()">Cancelar</button>
-        <button type="button" class="submit-btn green-btn" style="margin-top:0;" onclick="ejecutarCambioStockConfirmado()">Confirmar Stock</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL ABONAR A APARTADO -->
-  <div class="modal-overlay" id="abonoModal">
-    <div class="modal-sheet">
-      <div class="modal-header">
-        <div class="modal-title">Registrar Abono de Apartado</div>
-        <button class="close-btn" onclick="cerrarModalAbono()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-      </div>
-      <p class="delete-text" id="abonoInfoText"></p>
-      <div class="form-group" style="margin-bottom:12px;">
-        <label>Monto que abona hoy ($)</label>
-        <input type="number" id="abonoAmountInput" inputmode="decimal" min="1" step="0.5" placeholder="Ej. 200" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" />
-      </div>
-      <div class="confirm-actions">
-        <button type="button" class="cancel-action-btn" onclick="cerrarModalAbono()">Cancelar</button>
-        <button type="button" class="submit-btn green-btn" style="margin-top:0;" onclick="confirmarAbonoApartado()">Guardar Abono</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL CARRITO CON DESCUENTO, COTIZACIÓN WA Y APARTADOS -->
+  <!-- MODAL CARRITO / CHECKOUT LIMPIO -->
   <div class="modal-overlay" id="cartModal">
     <div class="modal-sheet success-sheet">
       <div class="modal-header">
@@ -889,28 +825,26 @@
             Transferencia
           </button>
         </div>
+
         <div class="change-calc-row" id="cashCalcRow">
-          <div>
-            <label style="margin-bottom:2px;">Descuento ($)</label>
-            <input type="number" id="discountCartInput" name="disc_amt_ns" inputmode="decimal" placeholder="0" min="0" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="recalcularTotalesCarritoUI()" />
-          </div>
           <div>
             <label style="margin-bottom:2px;">Pagó con ($)</label>
             <input type="number" id="paidWithInput" name="paid_amt_ns" inputmode="decimal" placeholder="Ej. 1000" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="calcularCambioCarrito()" />
           </div>
           <div class="change-box">
-            <span class="change-lbl">Cambio</span>
+            <span class="change-lbl">Cambio a devolver</span>
             <span class="change-val" id="changeAmountVal">$0.00</span>
           </div>
         </div>
+
         <div class="form-row">
           <div>
-            <label style="margin-bottom:2px;">Cliente / Nota</label>
-            <input type="search" id="clientNoteInput" name="cli_note_ns" placeholder="Nombre o nota..." autocomplete="one-time-code" autocorrect="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="guardarBorradorCarrito()" style="padding:7px 10px;" />
+            <label style="margin-bottom:2px;">Descuento ($)</label>
+            <input type="number" id="discountCartInput" name="disc_amt_ns" inputmode="decimal" placeholder="0" min="0" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="recalcularTotalesCarritoUI()" style="padding:7px 10px;" />
           </div>
           <div>
-            <label style="margin-bottom:2px;">Anticipo Apartado ($)</label>
-            <input type="number" id="layawayDepositInput" name="dep_amt_ns" inputmode="decimal" placeholder="Opcional" min="0" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" style="padding:7px 10px;" />
+            <label style="margin-bottom:2px;">Cliente / Nota</label>
+            <input type="search" id="clientNoteInput" name="cli_note_ns" placeholder="Opcional..." autocomplete="one-time-code" autocorrect="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="guardarBorradorCarrito()" style="padding:7px 10px;" />
           </div>
         </div>
       </div>
@@ -923,10 +857,6 @@
         <span class="cart-total-val" id="cartModalTotal">$0</span>
       </div>
       <button type="button" class="submit-btn green-btn" onclick="confirmarPedidoCarrito()">Confirmar Venta y Descontar Stock</button>
-      <div class="confirm-actions" style="margin-top:7px;">
-        <button type="button" class="submit-btn cyan-btn" style="margin-top:0; padding:10px; font-size:0.72rem;" onclick="guardarPedidoComoApartado()">Guardar Apartado</button>
-        <button type="button" class="submit-btn yellow-btn" style="margin-top:0; padding:10px; font-size:0.72rem;" onclick="enviarCotizacionWhatsApp()">Cotizar WA (Sin Descontar)</button>
-      </div>
       <button type="button" class="cancel-action-btn" style="width:100%; margin-top:7px;" onclick="vaciarCarrito()">Vaciar Pedido</button>
     </div>
   </div>
@@ -944,12 +874,8 @@
           <svg class="ico" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
           Copiar Ticket
         </button>
-        <button type="button" class="submit-btn green-btn" style="margin-top:0;" onclick="enviarTicketWhatsAppDirecto()">
-          <svg class="ico" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-          WhatsApp
-        </button>
+        <button type="button" class="submit-btn" style="background:var(--neon-pink); color:#fff; margin-top:0;" onclick="pedirPasswordEliminarVenta()">Eliminar Venta</button>
       </div>
-      <button type="button" class="submit-btn" style="background:var(--neon-pink); color:#fff; margin-top:8px;" onclick="pedirPasswordEliminarVenta()">Eliminar Registro de Venta</button>
     </div>
   </div>
 
@@ -979,7 +905,7 @@
     </div>
   </div>
 
-  <!-- MODAL AGREGAR / EDITAR PRODUCTO CON ALTA MÚLTIPLE DE TALLAS -->
+  <!-- MODAL AGREGAR / EDITAR PRODUCTO -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -989,7 +915,7 @@
       <form id="productForm" onsubmit="guardarProducto(event)" oninput="autoGuardarBorradorFormulario()" autocomplete="off">
         <input type="hidden" id="pId" />
         
-        <label>Fotografía de la Prenda (Encuadre de estudio automático)</label>
+        <label>Fotografía de la Prenda (Alta Definición)</label>
         <div class="photo-upload-box">
           <div class="photo-preview-thumb" id="pImagePreviewBox">
             <svg class="ico" style="width:20px;height:20px;color:var(--text-secondary);" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
@@ -1005,7 +931,7 @@
         </div>
         <label class="checkbox-row" style="padding:7px 10px; margin-bottom:8px;">
           <input type="checkbox" id="syncPhotoAcrossSizesCheck" checked />
-          <span style="font-size:0.7rem;">Aplicar foto a todas las tallas del mismo producto y color</span>
+          <span style="font-size:0.7rem;">Sincronizar foto y precios en todas las tallas del mismo color</span>
         </label>
 
         <div class="form-group">
@@ -1040,8 +966,14 @@
             <input type="search" id="pColor" name="prod_tone_ns" placeholder="Ej. Negro, Gris..." autocomplete="one-time-code" autocorrect="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" required />
           </div>
           <div class="form-group" id="singleStockBox">
-            <label>Stock Inicial</label>
+            <label>Cantidad en Stock</label>
             <input type="number" id="pStock" name="prod_qty_ns" inputmode="numeric" placeholder="20" min="0" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
+            <div class="edit-stock-quick-row">
+              <button type="button" class="edit-stock-chip" onclick="ajustarStockEnFormulario(-5)">-5</button>
+              <button type="button" class="edit-stock-chip" onclick="ajustarStockEnFormulario(-1)">-1</button>
+              <button type="button" class="edit-stock-chip" onclick="ajustarStockEnFormulario(1)">+1</button>
+              <button type="button" class="edit-stock-chip" onclick="ajustarStockEnFormulario(5)">+5</button>
+            </div>
           </div>
         </div>
         <div class="form-row">
@@ -1050,14 +982,14 @@
             <input type="number" id="pCost" name="prod_c_ns" inputmode="decimal" placeholder="300" min="0" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
           </div>
           <div class="form-group">
-            <label>Precio Menudeo</label>
-            <input type="number" id="pPrice" name="prod_p1_ns" inputmode="decimal" placeholder="550" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
+            <label>Precio Mayoreo</label>
+            <input type="number" id="pWholesale" name="prod_p2_ns" inputmode="decimal" placeholder="450" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Precio Mayoreo</label>
-            <input type="number" id="pWholesale" name="prod_p2_ns" inputmode="decimal" placeholder="450" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
+            <label>Precio Menudeo</label>
+            <input type="number" id="pPrice" name="prod_p1_ns" inputmode="decimal" placeholder="550" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
           </div>
           <div class="form-group">
             <label>Precio VIP</label>
@@ -1066,7 +998,7 @@
         </div>
         <div class="profit-preview-bar" id="profitPreviewBar">
           <span style="color:var(--text-secondary);">Utilidad estimada:</span>
-          <span id="profitPreviewText" style="color:var(--price-vip);">Men: +$0 | May: +$0 | VIP: +$0</span>
+          <span id="profitPreviewText" style="color:var(--price-vip);">May: +$0 | Men: +$0 | VIP: +$0</span>
         </div>
         <button type="submit" class="submit-btn" id="btnGuardarProd">Guardar en Inventario</button>
       </form>
@@ -1086,7 +1018,7 @@
         Duplicar para Otra Talla / Color
       </button>
       <div class="detail-actions">
-        <button class="detail-edit-btn" onclick="vibrar(30); editarProductoDesdeDetalle()">Editar</button>
+        <button class="detail-edit-btn" onclick="vibrar(30); editarProductoDesdeDetalle()">Editar Stock / Precios</button>
         <button class="detail-del-btn" onclick="vibrar(60); eliminarProductoDesdeDetalle()">Eliminar</button>
       </div>
     </div>
@@ -1181,7 +1113,6 @@
       return s.split("").every((c, i) => c.charCodeAt(0) + 13 === HUELLA_ACCESO[i]);
     }
 
-    // GESTOR UNIVERSAL DE ARCHIVOS PARA IPHONE (iOS SAFARI / WEBAPP) Y ANDROID
     let lastGeneratedFileObj = null;
     let lastGeneratedBlobUrl = null;
     let lastGeneratedFileName = "";
@@ -1202,7 +1133,6 @@
       document.getElementById("readyFileNameText").textContent = nombreArchivo;
       document.getElementById("iosFileReadyModal").classList.add("open");
 
-      // En PC o Android inicia también la descarga directa sin destruir la URL en memoria
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
       if (!isIOS) {
         forzarDescargaDirectaNavegador();
@@ -1248,7 +1178,6 @@
       mostrarToast("Descargando archivo...", "#00f0ff");
     }
 
-    // ORDENAMIENTO INTELIGENTE DE TALLAS (ROPA Y CALZADO)
     const ORDEN_TALLAS_MAP = {
       "xxs": 1, "xs": 2, "s": 3, "ch": 3, "chico": 3, "m": 4, "med": 4, "mediano": 4,
       "l": 5, "g": 5, "grande": 5, "xl": 6, "xxl": 7, "2xl": 7, "3xl": 8, "unitalla": 9, "ajustable": 10
@@ -1375,34 +1304,33 @@
     let productToDeleteId = null;
     let currentSelectedProduct = null;
     let selectedSaleForDetail = null;
-    let pendingStockChange = null;
-    let activeLayawayForAbono = null;
     let quickPhotoTargetId = null;
     let currentProductImageBase64 = "";
     let imageExplicitlyRemoved = false;
     let dbRef = null;
     let firebaseIniciado = false;
 
-    // PROCESADOR DE IMAGEN CUADRADO DE ESTUDIO (SIN DEFORMACIÓN, 480x480PX)
+    // PROCESADOR DE IMAGEN DE ALTA DEFINICIÓN (600x600PX, CALIDAD 0.88)
     function comprimirArchivoImagen(file, callback) {
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement("canvas");
-          const TARGET_SIZE = 480;
+          const TARGET_SIZE = 600;
           canvas.width = TARGET_SIZE;
           canvas.height = TARGET_SIZE;
           const ctx = canvas.getContext("2d");
           ctx.fillStyle = "#ffffff";
           ctx.fillRect(0, 0, TARGET_SIZE, TARGET_SIZE);
 
-          // Recorte centrado cuadrado tipo estudio (Center-Crop)
           const minSide = Math.min(img.width, img.height);
           const sx = (img.width - minSide) / 2;
           const sy = (img.height - minSide) / 2;
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
           ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, TARGET_SIZE, TARGET_SIZE);
-          callback(canvas.toDataURL("image/jpeg", 0.82));
+          callback(canvas.toDataURL("image/jpeg", 0.88));
         };
         img.src = e.target.result;
       };
@@ -1462,7 +1390,7 @@
         const totalSync = sincronizarFotoEnModelo(targetProd.name, targetProd.color, compressedDataUrl);
         saveToDB();
         vibrar(30);
-        mostrarToast(totalSync > 1 ? `Foto aplicada a ${totalSync} tallas de ${targetProd.name} (${targetProd.color})` : `Foto guardada en ${targetProd.name}`);
+        mostrarToast(totalSync > 1 ? `Foto HD aplicada a ${totalSync} tallas de ${targetProd.name} (${targetProd.color})` : `Foto HD guardada en ${targetProd.name}`);
       });
     }
 
@@ -1495,8 +1423,16 @@
         imageExplicitlyRemoved = false;
         actualizarVistaPreviaFotoModal(compressedDataUrl);
         autoGuardarBorradorFormulario();
-        mostrarToast("Foto encuadrada y optimizada", "#00f0ff");
+        mostrarToast("Foto HD encuadrada y lista", "#00f0ff");
       });
+    }
+
+    function ajustarStockEnFormulario(delta) {
+      vibrar(15);
+      const inp = document.getElementById("pStock");
+      const actual = parseInt(inp.value, 10) || 0;
+      inp.value = Math.max(0, actual + delta);
+      autoGuardarBorradorFormulario();
     }
 
     function actualizarFiltroTallasDisponibles() {
@@ -1687,7 +1623,7 @@
       const p2 = parseFloat(document.getElementById("pWholesale").value) || 0;
       const p3 = parseFloat(document.getElementById("pVip").value) || 0;
       document.getElementById("profitPreviewText").textContent =
-        `Men: +$${(p1 > 0 ? p1 - c : 0).toFixed(0)} | May: +$${(p2 > 0 ? p2 - c : 0).toFixed(0)} | VIP: +$${(p3 > 0 ? p3 - c : 0).toFixed(0)}`;
+        `May: +$${(p2 > 0 ? p2 - c : 0).toFixed(0)} | Men: +$${(p1 > 0 ? p1 - c : 0).toFixed(0)} | VIP: +$${(p3 > 0 ? p3 - c : 0).toFixed(0)}`;
     }
 
     function renderCategoriesUI() {
@@ -1864,7 +1800,6 @@
       document.getElementById("tabAll").className = "stock-tab" + (activeStockFilter === "TODOS" ? " active-all" : "");
       document.getElementById("tabLow").className = "stock-tab" + (activeStockFilter === "BAJO_STOCK" ? " active-low" : "");
       document.getElementById("tabOut").className = "stock-tab" + (activeStockFilter === "SIN_STOCK" ? " active-out" : "");
-      document.getElementById("tabLayaway").className = "stock-tab" + (activeStockFilter === "APARTADOS" ? " active-layaway" : "");
       document.getElementById("tabSales").className = "stock-tab" + (activeStockFilter === "VENTAS" ? " active-sales" : "");
 
       document.getElementById("cardOk").className = "kpi-card" + (activeStockFilter === "EN_STOCK" ? " active-filter-white" : "");
@@ -1881,60 +1816,12 @@
         banner.classList.add("show-low"); bannerText.textContent = "SECCIÓN BAJO STOCK (1 A 15 UNIDADES)"; catBarRow.style.display = "flex";
       } else if (activeStockFilter === "SIN_STOCK") {
         banner.classList.add("show-out"); bannerText.textContent = "SECCIÓN NO HAY STOCK (0 UNIDADES)"; catBarRow.style.display = "flex";
-      } else if (activeStockFilter === "APARTADOS") {
-        banner.classList.add("show-layaway"); bannerText.textContent = "PEDIDOS APARTADOS / PENDIENTES DE LIQUIDAR"; catBarRow.style.display = "none";
       } else if (activeStockFilter === "VENTAS") {
         banner.classList.add("show-sales"); bannerText.textContent = "HISTORIAL DE VENTAS Y CORTE DE CAJA"; catBarRow.style.display = "none";
       } else {
         catBarRow.style.display = "flex";
       }
       renderProducts();
-    }
-
-    function updateStock(id, delta, event) {
-      if (event) event.stopPropagation();
-      vibrar(20);
-      const item = products.find(p => p.id === id);
-      if (!item) return;
-
-      const stockActual = Number(item.stock) || 0;
-      const nuevoStock = Math.max(0, stockActual + delta);
-      pendingStockChange = { id, stockActual };
-
-      document.getElementById("stockConfirmTitle").textContent = `Stock: ${item.name}`;
-      document.getElementById("stockConfirmMessage").innerHTML =
-        `Talla <strong>${item.size}</strong> • Color <strong>${item.color}</strong> (Actual: <strong>${stockActual} pzas</strong>)`;
-      document.getElementById("batchStockNewInput").value = nuevoStock;
-      document.getElementById("stockConfirmModal").classList.add("open");
-    }
-
-    function ajustarInputStockLote(delta) {
-      vibrar(15);
-      const inp = document.getElementById("batchStockNewInput");
-      const val = parseInt(inp.value, 10) || 0;
-      inp.value = Math.max(0, val + delta);
-    }
-
-    function cerrarConfirmacionStock() {
-      vibrar(15);
-      pendingStockChange = null;
-      document.getElementById("stockConfirmModal").classList.remove("open");
-    }
-
-    function ejecutarCambioStockConfirmado() {
-      if (!pendingStockChange) return;
-      vibrar(30);
-      const { id, stockActual } = pendingStockChange;
-      const nuevoStock = Math.max(0, parseInt(document.getElementById("batchStockNewInput").value, 10) || 0);
-      const item = products.find(p => p.id === id);
-      if (item) {
-        item.stock = nuevoStock;
-        saveToDB();
-        const diff = nuevoStock - stockActual;
-        const signo = diff > 0 ? `+${diff}` : `${diff}`;
-        mostrarToast(`Stock actualizado: ${item.stock} pzas (${signo})`);
-      }
-      cerrarConfirmacionStock();
     }
 
     function agregarAlCarritoSeleccionado(id, event) {
@@ -1951,7 +1838,6 @@
       }
 
       const selectTipo = document.getElementById(`selPrice_${id}`);
-      // Predeterminado en Mayoreo si está disponible
       const priceType = selectTipo ? selectTipo.value : (Number(p.wholesale) > 0 ? "wholesale" : "price");
 
       let chosenPrice = Number(p.wholesale) > 0 ? Number(p.wholesale) : (Number(p.price) || 0);
@@ -2048,7 +1934,6 @@
         `;
       }).join("");
 
-      // Forzar actualización visual del método de pago actual
       seleccionarMetodoPago(currentPayMethod || "Efectivo");
       recalcularTotalesCarritoUI();
       document.getElementById("cartModal").classList.add("open");
@@ -2080,7 +1965,6 @@
       cartItems = [];
       document.getElementById("paidWithInput").value = "";
       document.getElementById("discountCartInput").value = "";
-      document.getElementById("layawayDepositInput").value = "";
       document.getElementById("clientNoteInput").value = "";
       localStorage.removeItem("neewshop_cart_autosave");
       actualizarBotonCarritoFlotante();
@@ -2102,150 +1986,6 @@
     function cerrarModalCarrito() {
       vibrar(15);
       document.getElementById("cartModal").classList.remove("open");
-    }
-
-    function enviarCotizacionWhatsApp() {
-      if (cartItems.length === 0) return;
-      vibrar(25);
-      const { subtotal, descuento, totalCobrar } = obtenerTotalesCarritoConDescuento();
-      const notaCliente = document.getElementById("clientNoteInput").value.trim();
-      let texto = `*COTIZACIÓN — NEEWSHOP*\n`;
-      if (notaCliente) texto += `Cliente: ${notaCliente}\n`;
-      texto += `------------------------------\n`;
-      cartItems.forEach(it => {
-        texto += `- ${it.qty}x ${it.name} (Talla ${it.size}, ${it.color}) — $${(it.price * it.qty).toLocaleString("es-MX")}\n`;
-      });
-      texto += `------------------------------\n`;
-      if (descuento > 0) {
-        texto += `Subtotal: $${subtotal.toLocaleString("es-MX")}\nDescuento: -$${descuento.toLocaleString("es-MX")}\n`;
-      }
-      texto += `*TOTAL A PAGAR: $${totalCobrar.toLocaleString("es-MX")} MXN*\nQuedamos atentos para confirmar tu pedido.`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, "_blank");
-    }
-
-    function guardarPedidoComoApartado() {
-      if (cartItems.length === 0) return;
-      vibrar(60);
-      const { descuento, totalCobrar, gananciaNeta } = obtenerTotalesCarritoConDescuento();
-      const anticipo = Math.max(0, parseFloat(document.getElementById("layawayDepositInput").value) || 0);
-      const notaCliente = document.getElementById("clientNoteInput").value.trim() || "Cliente Apartado";
-      const totalPzas = cartItems.reduce((acc, i) => acc + i.qty, 0);
-
-      const itemsSnapshot = cartItems.map(c => ({
-        id: c.id, name: c.name, size: c.size, color: c.color, qty: c.qty, price: c.price, cost: c.cost, priceType: c.priceType
-      }));
-
-      cartItems.forEach(cartItem => {
-        const p = products.find(prod => prod.id === cartItem.id);
-        if (p) p.stock = Math.max(0, p.stock - cartItem.qty);
-      });
-
-      const detalleItemsTexto = cartItems.map(i => `${i.qty}x ${i.name} (Talla ${i.size}, ${i.color})`).join(" | ");
-
-      layawaysHistory.unshift({
-        id: Date.now(),
-        timestamp: Date.now(),
-        date: new Date().toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
-        clientNote: notaCliente,
-        payMethod: currentPayMethod || "Efectivo",
-        itemsDetail: detalleItemsTexto,
-        itemsRaw: itemsSnapshot,
-        qty: totalPzas,
-        discount: descuento,
-        totalSold: totalCobrar,
-        deposit: anticipo,
-        profit: gananciaNeta
-      });
-
-      cartItems = [];
-      document.getElementById("paidWithInput").value = "";
-      document.getElementById("discountCartInput").value = "";
-      document.getElementById("layawayDepositInput").value = "";
-      document.getElementById("clientNoteInput").value = "";
-      localStorage.removeItem("neewshop_cart_autosave");
-      actualizarBotonCarritoFlotante();
-      saveToDB();
-      cerrarModalCarrito();
-      setStockFilter("APARTADOS");
-      mostrarToast("Apartado guardado y stock reservado", "#00f0ff");
-    }
-
-    function abrirModalAbono(layawayId) {
-      vibrar(20);
-      const lay = layawaysHistory.find(l => l.id === layawayId);
-      if (!lay) return;
-      activeLayawayForAbono = lay;
-      const resta = Math.max(0, (Number(lay.totalSold) || 0) - (Number(lay.deposit) || 0));
-      document.getElementById("abonoInfoText").innerHTML =
-        `Cliente: <strong>${lay.clientNote}</strong><br/>Total: $${Number(lay.totalSold).toLocaleString("es-MX")} • Abonado: $${Number(lay.deposit).toLocaleString("es-MX")}<br/>Resta por pagar: <strong style="color:var(--neon-yellow);">$${resta.toLocaleString("es-MX")}</strong>`;
-      document.getElementById("abonoAmountInput").value = "";
-      document.getElementById("abonoModal").classList.add("open");
-    }
-
-    function cerrarModalAbono() {
-      vibrar(15);
-      activeLayawayForAbono = null;
-      document.getElementById("abonoModal").classList.remove("open");
-    }
-
-    function confirmarAbonoApartado() {
-      if (!activeLayawayForAbono) return;
-      const monto = parseFloat(document.getElementById("abonoAmountInput").value) || 0;
-      if (monto <= 0) return;
-      vibrar(30);
-      activeLayawayForAbono.deposit = (Number(activeLayawayForAbono.deposit) || 0) + monto;
-      if (activeLayawayForAbono.deposit >= activeLayawayForAbono.totalSold) {
-        const idLiquidar = activeLayawayForAbono.id;
-        cerrarModalAbono();
-        liquidarApartadoAVenta(idLiquidar);
-        return;
-      }
-      saveToDB();
-      cerrarModalAbono();
-      mostrarToast(`Abono de $${monto} registrado`, "#00f0ff");
-    }
-
-    function liquidarApartadoAVenta(layawayId) {
-      vibrar(100);
-      const lay = layawaysHistory.find(l => l.id === layawayId);
-      if (!lay) return;
-
-      salesHistory.unshift({
-        id: Date.now(),
-        timestamp: Date.now(),
-        date: new Date().toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
-        name: `Apartado: ${lay.clientNote} (${lay.qty} pzas)`,
-        clientNote: lay.clientNote,
-        payMethod: lay.payMethod || "Efectivo",
-        category: "Varios",
-        size: "Varias",
-        color: "Varios",
-        itemsDetail: lay.itemsDetail,
-        itemsRaw: lay.itemsRaw,
-        qty: lay.qty,
-        priceType: "Apartado",
-        totalSold: lay.totalSold,
-        profit: lay.profit
-      });
-
-      layawaysHistory = layawaysHistory.filter(l => l.id !== layawayId);
-      saveToDB();
-      mostrarToast("Apartado liquidado y enviado a Ventas");
-    }
-
-    function cancelarApartadoYDevolverStock(layawayId) {
-      vibrar(60);
-      const lay = layawaysHistory.find(l => l.id === layawayId);
-      if (!lay) return;
-      if (lay.itemsRaw && Array.isArray(lay.itemsRaw)) {
-        lay.itemsRaw.forEach(it => {
-          const p = products.find(prod => prod.id === it.id);
-          if (p) p.stock = (Number(p.stock) || 0) + (Number(it.qty) || 0);
-        });
-      }
-      layawaysHistory = layawaysHistory.filter(l => l.id !== layawayId);
-      saveToDB();
-      mostrarToast("Apartado cancelado y prendas devueltas al stock", "#ff2a5f");
     }
 
     function confirmarPedidoCarrito() {
@@ -2278,7 +2018,6 @@
       cartItems = [];
       document.getElementById("paidWithInput").value = "";
       document.getElementById("discountCartInput").value = "";
-      document.getElementById("layawayDepositInput").value = "";
       document.getElementById("clientNoteInput").value = "";
       localStorage.removeItem("neewshop_cart_autosave");
       actualizarBotonCarritoFlotante();
@@ -2340,12 +2079,6 @@
       vibrar(25);
       const texto = armarTextoTicket(selectedSaleForDetail);
       if (navigator.clipboard) navigator.clipboard.writeText(texto).then(() => mostrarToast("Ticket copiado al portapapeles", "#00f0ff"));
-    }
-
-    function enviarTicketWhatsAppDirecto() {
-      if (!selectedSaleForDetail) return;
-      vibrar(25);
-      window.open(`https://wa.me/?text=${encodeURIComponent(armarTextoTicket(selectedSaleForDetail))}`, "_blank");
     }
 
     function cerrarModalDetalleVenta() { vibrar(15); document.getElementById("saleDetailModal").classList.remove("open"); }
@@ -2533,7 +2266,6 @@
           const index = products.findIndex(p => p.id == idExistente);
           if (index !== -1) products[index] = { ...products[index], ...pData };
           
-          // Actualización global automática de precios para el mismo producto y color
           let propagados = 0;
           products.forEach(prod => {
             if (prod.id != idExistente &&
@@ -2551,7 +2283,7 @@
             }
           });
           if (propagados > 0) {
-            mostrarToast(`Precios actualizados en las ${propagados + 1} tallas (${colorLimpiado})`);
+            mostrarToast(`Actualizado en las ${propagados + 1} tallas (${colorLimpiado})`);
           } else {
             mostrarToast("Producto actualizado");
           }
@@ -2593,8 +2325,8 @@
           <div class="detail-box"><div class="detail-label">Color</div><div class="detail-val">${p.color}</div></div>
           <div class="detail-box"><div class="detail-label">Stock Actual</div><div class="detail-val">${stock} pzas</div></div>
           <div class="detail-box"><div class="detail-label">Costo (Adquisición)</div><div class="detail-val">$${costo.toLocaleString("es-MX")}</div><div class="detail-sub">Inversión: $${(costo * stock).toLocaleString("es-MX")}</div></div>
-          <div class="detail-box"><div class="detail-label">Precio Menudeo</div><div class="detail-val" style="color:var(--price-menudeo);">$${menudeo.toLocaleString("es-MX")}</div><div class="detail-sub">Utilidad: +$${(menudeo - costo).toLocaleString("es-MX")}</div></div>
           <div class="detail-box"><div class="detail-label">Precio Mayoreo</div><div class="detail-val" style="color:var(--price-mayoreo);">$${mayoreo.toLocaleString("es-MX")}</div><div class="detail-sub">Utilidad: +$${(mayoreo - costo).toLocaleString("es-MX")}</div></div>
+          <div class="detail-box"><div class="detail-label">Precio Menudeo</div><div class="detail-val" style="color:var(--price-menudeo);">$${menudeo.toLocaleString("es-MX")}</div><div class="detail-sub">Utilidad: +$${(menudeo - costo).toLocaleString("es-MX")}</div></div>
           <div class="detail-box"><div class="detail-label">Precio VIP</div><div class="detail-val" style="color:var(--price-vip);">$${vip.toLocaleString("es-MX")}</div><div class="detail-sub">Utilidad: +$${(vip - costo).toLocaleString("es-MX")}</div></div>
         </div>
       `;
@@ -2802,46 +2534,11 @@
       const costoTotalInvertido = products.reduce((acc, p) => acc + ((Number(p.cost) || 0) * (Number(p.stock) || 0)), 0);
       const gananciaVentasTotal = salesHistory.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
 
-      document.getElementById("layawayCountTab").textContent = layawaysHistory.length;
-
       animarValorKPI("kpiOk", countOk, false);
       animarValorKPI("kpiLow", countLow, false);
       animarValorKPI("kpiOut", countOut, false);
       animarValorKPI("kpiCostTotal", costoTotalInvertido, true);
       animarValorKPI("kpiSalesProfit", gananciaVentasTotal, true);
-
-      if (activeStockFilter === "APARTADOS") {
-        list.className = "sales-list";
-        if (layawaysHistory.length === 0) {
-          list.innerHTML = `<div class="empty-state">No hay pedidos apartados pendientes por liquidar.</div>`;
-          return;
-        }
-        list.innerHTML = layawaysHistory.map((l, idx) => {
-          const resta = Math.max(0, (Number(l.totalSold) || 0) - (Number(l.deposit) || 0));
-          return `
-            <div class="layaway-card" style="animation-delay: ${Math.min(idx * 25, 200)}ms;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                <div>
-                  <div class="sale-title">${l.clientNote} <span class="pay-badge">${l.qty} pzas</span></div>
-                  <div class="sale-sub" style="margin-top:3px;">${l.itemsDetail}</div>
-                  <div class="sale-sub" style="font-size:0.65rem; margin-top:2px;">Apartado el ${l.date}</div>
-                </div>
-                <div style="text-align:right;">
-                  <div style="font-size:0.62rem; color:var(--text-secondary); font-weight:700;">RESTA POR PAGAR</div>
-                  <div style="font-size:1.05rem; font-weight:900; color:var(--neon-yellow);">$${resta.toLocaleString("es-MX")}</div>
-                  <div style="font-size:0.64rem; color:var(--text-secondary);">Anticipo: $${Number(l.deposit).toLocaleString("es-MX")} / Total: $${Number(l.totalSold).toLocaleString("es-MX")}</div>
-                </div>
-              </div>
-              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:6px; border-top:1px solid var(--glass-border); padding-top:8px;">
-                <button type="button" class="submit-btn green-btn" style="margin-top:0; padding:8px; font-size:0.7rem;" onclick="liquidarApartadoAVenta(${l.id})">Liquidar</button>
-                <button type="button" class="submit-btn cyan-btn" style="margin-top:0; padding:8px; font-size:0.7rem;" onclick="abrirModalAbono(${l.id})">Abonar</button>
-                <button type="button" class="submit-btn pink-btn" style="margin-top:0; padding:8px; font-size:0.7rem;" onclick="cancelarApartadoYDevolverStock(${l.id})">Cancelar</button>
-              </div>
-            </div>
-          `;
-        }).join("");
-        return;
-      }
 
       if (activeStockFilter === "VENTAS") {
         list.className = "sales-list";
@@ -2945,11 +2642,7 @@
                 <div class="status-row">
                   <span class="stock-status ${estado.clase}">${estado.texto}</span>
                 </div>
-                <div class="stepper" onclick="event.stopPropagation()">
-                  <button onclick="updateStock(${p.id}, -1, event)">−</button>
-                  <span class="stock-count" id="stock_num_${p.id}" onclick="updateStock(${p.id}, 0, event)" title="Toca para escribir lote rápido">${p.stock}</span>
-                  <button onclick="updateStock(${p.id}, 1, event)">+</button>
-                </div>
+                <div class="stock-only-badge">Stock: ${p.stock}</div>
               </div>
             </div>
             <div class="card-bottom-action" onclick="event.stopPropagation()">
@@ -2977,7 +2670,7 @@
       document.getElementById("pdfCatalogModal").classList.remove("open");
     }
 
-    // GENERADOR DE CATÁLOGO PDF EDITORIAL LOOKBOOK CON PORTADA Y SECCIONADO POR CATEGORÍA
+    // GENERADOR DE CATÁLOGO PDF CON PORTADA MINIMALISTA Y FLUJO CONTINUO POR CATEGORÍA
     async function generarCatalogoPDFClientes() {
       vibrar(40);
       if (!window.jspdf || !window.jspdf.jsPDF) {
@@ -2989,8 +2682,6 @@
       const modoPrecio = document.getElementById("pdfPriceModeSelect").value;
       const agruparTallas = document.getElementById("pdfGroupSizesCheck").checked;
       const mostrarCantidad = document.getElementById("pdfShowExactQty").checked;
-      const customTitleRaw = (document.getElementById("pdfCustomTitleInput").value || "").trim();
-      const footerNoteRaw = (document.getElementById("pdfFooterNoteInput").value || "neewshop • Catálogo Oficial de Existencias").trim();
 
       const disponiblesRaw = products.filter(p => {
         const tieneStock = (Number(p.stock) || 0) > 0;
@@ -3003,7 +2694,14 @@
         return;
       }
 
-      // Agrupación y ordenamiento por Categoría
+      const etiquetaModoPortada = {
+        "mayoreo": "MAYOREO",
+        "menudeo": "MENUDEO",
+        "may_men": "MAYOREO Y MENUDEO",
+        "vip": "VIP",
+        "vip_may": "VIP Y MAYOREO"
+      }[modoPrecio] || "MAYOREO";
+
       const categoriasOrdenadas = [...new Set(disponiblesRaw.map(p => p.category))];
       const itemsPorCategoria = {};
 
@@ -3034,329 +2732,292 @@
             const ordenadas = [...g.tallasRawObj].sort((a, b) => obtenerPesoOrdenTalla(a.size) - obtenerPesoOrdenTalla(b.size));
             return {
               ...g,
-              tallasArray: ordenadas.map(t => `${t.size} (${t.stock} pzas)`),
+              tallasArray: ordenadas.map(t => mostrarCantidad ? `${t.size} (${t.stock})` : `${t.size}`),
               stock: g.totalStock
             };
           });
         } else {
           itemsPorCategoria[cat] = prodsEnCat.map(p => ({
             ...p,
-            tallasArray: [`${p.size} (${p.stock} pzas)`]
+            tallasArray: [mostrarCantidad ? `${p.size} (${p.stock})` : `${p.size}`]
           }));
         }
       });
 
-      mostrarToast("Diseñando Catálogo Editorial PDF...", "#ffffff");
+      mostrarToast("Diseñando Catálogo PDF...", "#ffffff");
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-      const fechaFormateada = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
-      const tituloColeccion = customTitleRaw
-        ? customTitleRaw.toUpperCase()
-        : (catElegida === "Todos" ? "CATÁLOGO OFICIAL DE EXISTENCIAS" : `COLECCIÓN • ${catElegida.toUpperCase()}`);
+      const fechaFormateada = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "long", year: "numeric" }).toUpperCase();
 
-      // ==========================================
-      // PÁGINA 1: PORTADA EDITORIAL LOOKBOOK
-      // ==========================================
+      // =========================================================
+      // PÁGINA 1: PORTADA MINIMALISTA (SOLO MARCA, MODALIDAD Y FECHA)
+      // =========================================================
       doc.setFillColor(12, 12, 15);
       doc.rect(0, 0, 210, 297, "F");
 
-      // Marco fino exterior blanco/plata
-      doc.setDrawColor(48, 48, 58);
+      doc.setDrawColor(42, 42, 52);
       doc.setLineWidth(0.4);
-      doc.rect(12, 12, 186, 273, "D");
+      doc.rect(14, 14, 182, 269, "D");
 
-      // Cápsula central grande con logo
+      // Logo central neewshop
       doc.setFillColor(22, 22, 28);
       doc.setDrawColor(65, 65, 78);
       doc.setLineWidth(0.5);
-      doc.roundedRect(65, 78, 80, 24, 12, 12, "FD");
+      doc.roundedRect(65, 112, 80, 24, 12, 12, "FD");
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(26);
       doc.setTextColor(255, 255, 255);
-      doc.text("neew", 73, 94.5);
+      doc.text("neew", 73, 128.5);
 
       doc.setFillColor(255, 255, 255);
-      doc.roundedRect(102, 81.5, 38, 17, 8.5, 8.5, "F");
+      doc.roundedRect(102, 115.5, 38, 17, 8.5, 8.5, "F");
       doc.setTextColor(12, 12, 15);
-      doc.text("shop", 121, 94.2, { align: "center" });
+      doc.text("shop", 121, 128.2, { align: "center" });
 
-      // Tipografía de portada
+      // Modalidad de precios (Mayoreo / Menudeo / VIP)
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
-      doc.setTextColor(230, 230, 240);
-      doc.text("LOOKBOOK & STOCK DISPONIBLE", 105, 125, { align: "center" });
+      doc.setTextColor(255, 255, 255);
+      doc.text(etiquetaModoPortada, 105, 154, { align: "center" });
 
+      // Fecha
       doc.setFont("helvetica", "normal");
-      doc.setFontSize(10);
-      doc.setTextColor(150, 150, 165);
-      doc.text(tituloColeccion, 105, 134, { align: "center" });
+      doc.setFontSize(9.5);
+      doc.setTextColor(155, 155, 168);
+      doc.text(fechaFormateada, 105, 165, { align: "center" });
 
-      doc.setDrawColor(60, 60, 75);
-      doc.setLineWidth(0.3);
-      doc.line(75, 145, 135, 145);
-
-      // Resumen de la colección en la portada
-      let totalModelosGlobal = 0;
-      Object.values(itemsPorCategoria).forEach(arr => totalModelosGlobal += arr.length);
-      const totalPiezasGlobal = disponiblesRaw.reduce((acc, p) => acc + (Number(p.stock) || 0), 0);
-
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
-      doc.setTextColor(190, 190, 205);
-      doc.text(`${totalModelosGlobal} MODELOS  •  ${totalPiezasGlobal} PRENDAS EN EXISTENCIA`, 105, 158, { align: "center" });
-
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(8);
-      doc.setTextColor(120, 120, 135);
-      doc.text(`ACTUALIZADO: ${fechaFormateada}`, 105, 166, { align: "center" });
-
-      // Pie de portada
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8);
-      doc.setTextColor(160, 160, 175);
-      doc.text(footerNoteRaw, 105, 260, { align: "center" });
-
-      // ==========================================
-      // PÁGINAS DE PRODUCTOS POR SECCIONES
-      // ==========================================
+      // =========================================================
+      // PÁGINAS DE CONTENIDO: FLUJO CONTINUO POR CATEGORÍA
+      // =========================================================
       let paginaActual = 1;
+      const cardW = 88;
+      const cardH = 70;
+      const marginX = 14;
+      const gapX = 6;
+      const gapY = 5;
+      const maxPageY = 280;
 
-      const dibujarLayoutPagina = (catTitulo) => {
+      const iniciarNuevaPaginaContenido = () => {
+        doc.addPage();
+        paginaActual++;
         doc.setFillColor(246, 246, 248);
         doc.rect(0, 0, 210, 297, "F");
 
         doc.setFillColor(14, 14, 17);
-        doc.rect(0, 0, 210, 31, "F");
+        doc.rect(0, 0, 210, 24, "F");
 
-        // Logo neewshop en cabecera
+        // Logo compacto en cabecera
         doc.setFillColor(26, 26, 32);
         doc.setDrawColor(58, 58, 68);
         doc.setLineWidth(0.3);
-        doc.roundedRect(14, 7.5, 42, 11, 5.5, 5.5, "FD");
+        doc.roundedRect(14, 6.5, 36, 9.5, 4.7, 4.7, "FD");
 
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(12.5);
+        doc.setFontSize(10.5);
         doc.setTextColor(255, 255, 255);
-        doc.text("neew", 18.2, 14.6);
+        doc.text("neew", 17.5, 12.8);
 
         doc.setFillColor(255, 255, 255);
-        doc.roundedRect(33.2, 9.1, 21, 7.8, 3.9, 3.9, "F");
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(11);
+        doc.roundedRect(30.5, 7.8, 18, 6.8, 3.4, 3.4, "F");
+        doc.setFontSize(9.5);
         doc.setTextColor(14, 14, 17);
-        doc.text("shop", 43.7, 14.4, { align: "center" });
+        doc.text("shop", 39.5, 12.5, { align: "center" });
 
-        // Título de Sección de Categoría en cabecera
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(8);
-        doc.setTextColor(185, 185, 195);
-        doc.text(`SECCIÓN: ${catTitulo.toUpperCase()}`, 14.5, 25);
+        doc.setFontSize(7.5);
+        doc.setTextColor(210, 210, 220);
+        doc.text(`${etiquetaModoPortada}  •  ${fechaFormateada}`, 196, 12.8, { align: "right" });
 
-        // Fecha y paginación
-        doc.setFillColor(26, 26, 32);
-        doc.setDrawColor(52, 52, 62);
-        doc.roundedRect(148, 8.5, 48, 9, 4.5, 4.5, "FD");
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(7);
-        doc.setTextColor(235, 235, 240);
-        doc.text(`${fechaFormateada}  •  PÁG. ${paginaActual}`, 172, 14.1, { align: "center" });
-
-        // Pie de página
+        // Pie de página limpio
         doc.setDrawColor(218, 218, 224);
         doc.setLineWidth(0.3);
-        doc.line(14, 284, 196, 284);
-
+        doc.line(14, 285, 196, 285);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(7);
-        doc.setTextColor(75, 75, 85);
-        doc.text(footerNoteRaw.slice(0, 75), 14, 289.5);
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(7);
-        doc.setTextColor(125, 125, 135);
-        doc.text(`Página ${paginaActual}`, 196, 289.5, { align: "right" });
+        doc.setTextColor(110, 110, 120);
+        doc.text("neewshop", 14, 290);
+        doc.text(`Pág. ${paginaActual}`, 196, 290, { align: "right" });
       };
 
-      const cardW = 88;
-      const cardH = 74;
-      const marginX = 14;
-      const gapX = 6;
-      const startY = 38;
-      const gapY = 6;
-      const ITEMS_POR_PAGINA = 6;
+      const dibujarTarjetaProductoPDF = (p, x, y) => {
+        doc.setFillColor(232, 232, 238);
+        doc.roundedRect(x + 0.6, y + 0.8, cardW, cardH, 3.8, 3.8, "F");
 
-      // Iterar por cada categoría de forma independiente para que no se mezclen
-      categoriasOrdenadas.forEach(cat => {
-        const productosDeEstaCat = itemsPorCategoria[cat] || [];
-        if (productosDeEstaCat.length === 0) return;
+        doc.setFillColor(255, 255, 255);
+        doc.setDrawColor(222, 222, 229);
+        doc.setLineWidth(0.35);
+        doc.roundedRect(x, y, cardW, cardH, 3.8, 3.8, "FD");
 
-        productosDeEstaCat.forEach((p, idxEnCat) => {
-          const indexEnPagina = idxEnCat % ITEMS_POR_PAGINA;
-          if (idxEnCat === 0 || indexEnPagina === 0) {
-            doc.addPage();
-            paginaActual++;
-            dibujarLayoutPagina(cat);
-          }
+        const imgX = x + 3.2;
+        const imgY = y + 3.2;
+        const imgSize = 42;
 
-          const col = indexEnPagina % 2;
-          const row = Math.floor(indexEnPagina / 2);
-          const x = marginX + col * (cardW + gapX);
-          const y = startY + row * (cardH + gapY);
+        doc.setFillColor(245, 245, 248);
+        doc.setDrawColor(230, 230, 236);
+        doc.setLineWidth(0.25);
+        doc.roundedRect(imgX, imgY, imgSize, imgSize, 2.8, 2.8, "FD");
 
-          // Sombra editorial
-          doc.setFillColor(232, 232, 238);
-          doc.roundedRect(x + 0.7, y + 0.9, cardW, cardH, 4, 4, "F");
-
-          // Contenedor principal
-          doc.setFillColor(255, 255, 255);
-          doc.setDrawColor(222, 222, 229);
-          doc.setLineWidth(0.35);
-          doc.roundedRect(x, y, cardW, cardH, 4, 4, "FD");
-
-          const imgX = x + 3.5;
-          const imgY = y + 3.5;
-          const imgSize = 44;
-
-          doc.setFillColor(245, 245, 248);
-          doc.setDrawColor(230, 230, 236);
-          doc.setLineWidth(0.25);
-          doc.roundedRect(imgX, imgY, imgSize, imgSize, 3, 3, "FD");
-
-          if (p.image && p.image.startsWith("data:image")) {
-            try {
-              doc.addImage(p.image, "JPEG", imgX + 0.5, imgY + 0.5, imgSize - 1, imgSize - 1, undefined, "FAST");
-            } catch (err) {
-              doc.setFont("helvetica", "bold");
-              doc.setFontSize(8);
-              doc.setTextColor(155, 155, 165);
-              doc.text("neewshop", imgX + imgSize / 2, imgY + imgSize / 2, { align: "center" });
-            }
-          } else {
-            doc.setDrawColor(200, 200, 210);
-            doc.setLineWidth(0.35);
-            doc.circle(imgX + imgSize / 2, imgY + imgSize / 2 - 3, 5, "D");
+        if (p.image && p.image.startsWith("data:image")) {
+          try {
+            doc.addImage(p.image, "JPEG", imgX + 0.4, imgY + 0.4, imgSize - 0.8, imgSize - 0.8, undefined, "SLOW");
+          } catch (err) {
             doc.setFont("helvetica", "bold");
             doc.setFontSize(7.5);
-            doc.setTextColor(140, 140, 150);
-            doc.text("neewshop", imgX + imgSize / 2, imgY + imgSize / 2 + 6, { align: "center" });
+            doc.setTextColor(155, 155, 165);
+            doc.text("neewshop", imgX + imgSize / 2, imgY + imgSize / 2, { align: "center" });
           }
-
-          const infoX = imgX + imgSize + 3.5;
-          const infoW = cardW - imgSize - 10.5;
-
-          // Categoría
-          doc.setFillColor(242, 242, 246);
-          doc.roundedRect(infoX, y + 3.8, infoW, 5.2, 1.5, 1.5, "F");
+        } else {
           doc.setFont("helvetica", "bold");
-          doc.setFontSize(6.2);
-          doc.setTextColor(95, 95, 108);
-          doc.text((p.category || "PRENDA").toUpperCase().slice(0, 18), infoX + 2, y + 7.4);
+          doc.setFontSize(7.5);
+          doc.setTextColor(145, 145, 155);
+          doc.text("neewshop", imgX + imgSize / 2, imgY + imgSize / 2, { align: "center" });
+        }
 
-          // Nombre del Producto
+        const infoX = imgX + imgSize + 3.2;
+        const infoW = cardW - imgSize - 9.8;
+
+        // Nombre del Producto
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9.5);
+        doc.setTextColor(17, 17, 21);
+        const lineasNombre = doc.splitTextToSize(p.name || "Producto", infoW);
+        doc.text(lineasNombre.slice(0, 2), infoX, y + 8.5);
+
+        // Píldora de Color
+        const colorY = y + (lineasNombre.length > 1 ? 15.2 : 11.8);
+        doc.setFillColor(246, 246, 249);
+        doc.setDrawColor(225, 225, 232);
+        doc.setLineWidth(0.25);
+        doc.roundedRect(infoX, colorY, infoW, 5.5, 1.6, 1.6, "FD");
+
+        const rgbColor = obtenerRGBParaPDF(p.color);
+        doc.setFillColor(rgbColor[0], rgbColor[1], rgbColor[2]);
+        doc.setDrawColor(180, 180, 190);
+        doc.circle(infoX + 3, colorY + 2.75, 1.4, "FD");
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(6.8);
+        doc.setTextColor(45, 45, 55);
+        doc.text((p.color || "Único").slice(0, 16), infoX + 5.8, colorY + 3.7);
+
+        // Etiquetas de Talla y Cantidad disponible
+        const tallasLabelY = colorY + 8.6;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(5.5);
+        doc.setTextColor(120, 120, 132);
+        doc.text("TALLA (CANTIDAD DISPONIBLE):", infoX, tallasLabelY);
+
+        let pillCursorX = infoX;
+        let pillCursorY = tallasLabelY + 1.4;
+        const maxRightX = infoX + infoW;
+
+        (p.tallasArray || []).slice(0, 9).forEach(tStr => {
           doc.setFont("helvetica", "bold");
-          doc.setFontSize(9.6);
-          doc.setTextColor(17, 17, 21);
-          const lineasNombre = doc.splitTextToSize(p.name || "Producto", infoW);
-          doc.text(lineasNombre.slice(0, 2), infoX, y + 13.8);
+          doc.setFontSize(6.4);
+          const textW = doc.getTextWidth(tStr);
+          const badgeW = Math.max(7, textW + 3.2);
+          const badgeH = 4.4;
 
-          // Color real
-          const colorY = y + (lineasNombre.length > 1 ? 21 : 17.5);
-          doc.setFillColor(246, 246, 249);
-          doc.setDrawColor(225, 225, 232);
-          doc.setLineWidth(0.25);
-          doc.roundedRect(infoX, colorY, infoW, 5.8, 1.8, 1.8, "FD");
+          if (pillCursorX + badgeW > maxRightX) {
+            pillCursorX = infoX;
+            pillCursorY += badgeH + 1.1;
+          }
+          if (pillCursorY + badgeH <= y + 47.5) {
+            doc.setFillColor(238, 238, 244);
+            doc.setDrawColor(210, 210, 220);
+            doc.setLineWidth(0.2);
+            doc.roundedRect(pillCursorX, pillCursorY, badgeW, badgeH, 1.1, 1.1, "FD");
+            doc.setTextColor(20, 20, 26);
+            doc.text(tStr, pillCursorX + badgeW / 2, pillCursorY + 3.1, { align: "center" });
+            pillCursorX += badgeW + 1.2;
+          }
+        });
 
-          const rgbColor = obtenerRGBParaPDF(p.color);
-          doc.setFillColor(rgbColor[0], rgbColor[1], rgbColor[2]);
-          doc.setDrawColor(180, 180, 190);
-          doc.circle(infoX + 3.2, colorY + 2.9, 1.5, "FD");
+        // Barra inferior de Precios (#141418)
+        const barY = y + 48.5;
+        const barH = 18;
+        doc.setFillColor(20, 20, 24);
+        doc.roundedRect(x + 3.2, barY, cardW - 6.4, barH, 2.6, 2.6, "F");
 
-          doc.setFont("helvetica", "bold");
-          doc.setFontSize(7);
-          doc.setTextColor(45, 45, 55);
-          doc.text((p.color || "Único").slice(0, 15), infoX + 6.2, colorY + 3.9);
+        const men = Number(p.price) || 0;
+        const may = Number(p.wholesale) || 0;
+        const vip = Number(p.vip) || 0;
 
-          // Tallas y piezas disponibles
-          const tallasLabelY = colorY + 9.2;
+        let bloquesPrecio = [];
+        if (modoPrecio === "mayoreo") {
+          bloquesPrecio.push({ lbl: "PRECIO MAYOREO", val: `$${(may || men).toLocaleString("es-MX")} MXN` });
+        } else if (modoPrecio === "menudeo") {
+          bloquesPrecio.push({ lbl: "PRECIO MENUDEO", val: `$${men.toLocaleString("es-MX")} MXN` });
+        } else if (modoPrecio === "vip") {
+          bloquesPrecio.push({ lbl: "PRECIO VIP", val: `$${(vip || may || men).toLocaleString("es-MX")} MXN` });
+        } else if (modoPrecio === "may_men") {
+          if (may > 0) bloquesPrecio.push({ lbl: "MAYOREO", val: `$${may.toLocaleString("es-MX")}` });
+          bloquesPrecio.push({ lbl: "MENUDEO", val: `$${men.toLocaleString("es-MX")}` });
+        } else if (modoPrecio === "vip_may") {
+          if (vip > 0) bloquesPrecio.push({ lbl: "PRECIO VIP", val: `$${vip.toLocaleString("es-MX")}` });
+          if (may > 0) bloquesPrecio.push({ lbl: "MAYOREO", val: `$${may.toLocaleString("es-MX")}` });
+          if (bloquesPrecio.length === 0) bloquesPrecio.push({ lbl: "PRECIO", val: `$${men.toLocaleString("es-MX")}` });
+        }
+
+        const innerBarW = cardW - 6.4;
+        const colW = innerBarW / bloquesPrecio.length;
+
+        bloquesPrecio.forEach((bp, idxP) => {
+          const centerX = x + 3.2 + colW * idxP + colW / 2;
+          if (idxP > 0) {
+            doc.setDrawColor(52, 52, 62);
+            doc.setLineWidth(0.25);
+            doc.line(x + 3.2 + colW * idxP, barY + 3, x + 3.2 + colW * idxP, barY + barH - 3);
+          }
           doc.setFont("helvetica", "bold");
           doc.setFontSize(5.6);
-          doc.setTextColor(125, 125, 138);
-          doc.text("TALLAS Y STOCK DISPONIBLE:", infoX, tallasLabelY);
+          doc.setTextColor(168, 168, 178);
+          doc.text(bp.lbl, centerX, barY + 6.4, { align: "center" });
 
-          let pillCursorX = infoX;
-          let pillCursorY = tallasLabelY + 1.5;
-          const maxRightX = infoX + infoW;
-
-          (p.tallasArray || []).slice(0, 8).forEach(tStr => {
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(6.6);
-            const textW = doc.getTextWidth(tStr);
-            const badgeW = Math.max(7.2, textW + 3.4);
-            const badgeH = 4.6;
-
-            if (pillCursorX + badgeW > maxRightX) {
-              pillCursorX = infoX;
-              pillCursorY += badgeH + 1.2;
-            }
-            if (pillCursorY + badgeH <= y + 50.5) {
-              doc.setFillColor(238, 238, 244);
-              doc.setDrawColor(210, 210, 220);
-              doc.setLineWidth(0.2);
-              doc.roundedRect(pillCursorX, pillCursorY, badgeW, badgeH, 1.2, 1.2, "FD");
-              doc.setTextColor(20, 20, 26);
-              doc.text(tStr, pillCursorX + badgeW / 2, pillCursorY + 3.2, { align: "center" });
-              pillCursorX += badgeW + 1.3;
-            }
-          });
-
-          // Barra ejecutiva inferior de Precios (Sin colores neón)
-          const barY = y + 51.5;
-          const barH = 19;
-          doc.setFillColor(20, 20, 24);
-          doc.roundedRect(x + 3.5, barY, cardW - 7, barH, 2.8, 2.8, "F");
-
-          const men = Number(p.price) || 0;
-          const may = Number(p.wholesale) || 0;
-          const vip = Number(p.vip) || 0;
-
-          let bloquesPrecio = [];
-          if (modoPrecio === "menudeo") {
-            bloquesPrecio.push({ lbl: "PRECIO MENUDEO", val: `$${men.toLocaleString("es-MX")} MXN` });
-          } else if (modoPrecio === "mayoreo") {
-            bloquesPrecio.push({ lbl: "PRECIO MAYOREO", val: `$${(may || men).toLocaleString("es-MX")} MXN` });
-          } else if (modoPrecio === "vip") {
-            bloquesPrecio.push({ lbl: "PRECIO ESPECIAL VIP", val: `$${(vip || men).toLocaleString("es-MX")} MXN` });
-          } else if (modoPrecio === "men_may") {
-            if (may > 0) bloquesPrecio.push({ lbl: "MAYOREO", val: `$${may.toLocaleString("es-MX")}` });
-            bloquesPrecio.push({ lbl: "MENUDEO", val: `$${men.toLocaleString("es-MX")}` });
-          } else {
-            if (may > 0) bloquesPrecio.push({ lbl: "MAYOREO", val: `$${may.toLocaleString("es-MX")}` });
-            bloquesPrecio.push({ lbl: "MENUDEO", val: `$${men.toLocaleString("es-MX")}` });
-            if (vip > 0) bloquesPrecio.push({ lbl: "VIP", val: `$${vip.toLocaleString("es-MX")}` });
-          }
-
-          const innerBarW = cardW - 7;
-          const colW = innerBarW / bloquesPrecio.length;
-
-          bloquesPrecio.forEach((bp, idxP) => {
-            const centerX = x + 3.5 + colW * idxP + colW / 2;
-            if (idxP > 0) {
-              doc.setDrawColor(52, 52, 62);
-              doc.setLineWidth(0.25);
-              doc.line(x + 3.5 + colW * idxP, barY + 3.5, x + 3.5 + colW * idxP, barY + barH - 3.5);
-            }
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(5.8);
-            doc.setTextColor(168, 168, 178);
-            doc.text(bp.lbl, centerX, barY + 6.8, { align: "center" });
-
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(bloquesPrecio.length === 1 ? 11.5 : (bloquesPrecio.length === 2 ? 10.2 : 9.2));
-            doc.setTextColor(255, 255, 255);
-            doc.text(bp.val, centerX, barY + 14.2, { align: "center" });
-          });
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(bloquesPrecio.length === 1 ? 11.2 : 10);
+          doc.setTextColor(255, 255, 255);
+          doc.text(bp.val, centerX, barY + 13.6, { align: "center" });
         });
+      };
+
+      iniciarNuevaPaginaContenido();
+      let cursorY = 30;
+
+      // Flujo continuo: dibuja barra de categoría y filas de 2 productos sin saltar de hoja innecesariamente
+      categoriasOrdenadas.forEach(cat => {
+        const listaCat = itemsPorCategoria[cat] || [];
+        if (listaCat.length === 0) return;
+
+        // Si no cabe el encabezado de categoría (9mm) + al menos 1 fila de tarjetas (70mm), pasa a la siguiente hoja
+        if (cursorY + 9 + cardH > maxPageY) {
+          iniciarNuevaPaginaContenido();
+          cursorY = 30;
+        }
+
+        // Barra divisoria de Categoría
+        doc.setFillColor(22, 22, 27);
+        doc.roundedRect(marginX, cursorY, 182, 7.5, 2, 2, "F");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8);
+        doc.setTextColor(255, 255, 255);
+        doc.text(cat.toUpperCase(), marginX + 4, cursorY + 5.1);
+        cursorY += 10.5;
+
+        for (let i = 0; i < listaCat.length; i += 2) {
+          if (cursorY + cardH > maxPageY) {
+            iniciarNuevaPaginaContenido();
+            cursorY = 30;
+          }
+          dibujarTarjetaProductoPDF(listaCat[i], marginX, cursorY);
+          if (i + 1 < listaCat.length) {
+            dibujarTarjetaProductoPDF(listaCat[i + 1], marginX + cardW + gapX, cursorY);
+          }
+          cursorY += cardH + gapY;
+        }
+
+        cursorY += 2.5;
       });
 
       const nombreArchivo = `Catalogo_neewshop_${new Date().toISOString().slice(0, 10)}.pdf`;
