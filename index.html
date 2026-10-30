@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000000" id="metaThemeColor" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>neewshop | Stock </title>
+  <title>neewshop | Stock</title>
   <style>
     :root {
       --bg-oled: #000000;
@@ -295,14 +295,15 @@
       padding: 6px 10px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; cursor: pointer;
     }
     .sales-period-btn.active { background: var(--price-vip); color: #000; border-color: var(--price-vip); }
-    .sales-metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
-    .sales-metric-box { background: var(--glass-input); border: 1px solid var(--glass-border); border-radius: 12px; padding: 7px 6px; }
+    .sales-metrics-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; text-align: center; }
+    .sales-metric-box { background: var(--glass-input); border: 1px solid var(--glass-border); border-radius: 12px; padding: 8px 6px; }
     .sales-metric-lbl { font-size: 0.56rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; }
-    .sales-metric-val { font-size: 0.9rem; font-weight: 900; color: var(--text-white); margin-top: 2px; font-variant-numeric: tabular-nums; }
+    .sales-metric-val { font-size: 0.92rem; font-weight: 900; color: var(--text-white); margin-top: 2px; font-variant-numeric: tabular-nums; }
 
     .top-seller-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; background: var(--glass-input); border-radius: 10px; font-size: 0.76rem; }
     .top-rank-badge { background: var(--invert-bg); color: var(--invert-fg); width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 900; margin-right: 6px; }
 
+    /* TARJETAS AGRUPADAS CON SELECTOR INTERACTIVO DE TALLAS */
     .product-list { padding: 8px 12px; display: grid; grid-template-columns: 1fr; gap: 11px; }
     .product-card {
       background: var(--glass-surface); backdrop-filter: var(--blur-medium); -webkit-backdrop-filter: var(--blur-medium);
@@ -311,7 +312,6 @@
       animation: cardCascade 0.34s var(--ease-ios) both;
     }
     .product-card:hover { background: var(--glass-surface-hover); }
-    .product-card:active { transform: scale(0.985); }
     .product-top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 11px; width: 100%; }
 
     .product-thumb-slot {
@@ -342,8 +342,36 @@
     .pill-vip { background: rgba(0, 255, 102, 0.12); border-color: rgba(0, 255, 102, 0.35); color: var(--price-vip); font-weight: 800; }
     .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(128, 128, 128, 0.5); flex-shrink: 0; }
 
+    /* PÍLDORAS DE TALLAS INTERACTIVAS EN LA TARJETA */
+    .sizes-pills-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .size-variant-chip {
+      background: var(--glass-input); color: var(--text-white); border: 1px solid var(--glass-border);
+      padding: 5px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s ease;
+    }
+    .size-variant-chip .sz-qty {
+      background: var(--glass-pill); padding: 1px 5px; border-radius: 6px; font-size: 0.64rem; color: var(--text-secondary);
+    }
+    .size-variant-chip.selected {
+      background: var(--invert-bg); color: var(--invert-fg); border-color: var(--invert-bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    }
+    .size-variant-chip.selected .sz-qty {
+      background: rgba(128,128,128,0.25); color: var(--invert-fg); font-weight: 900;
+    }
+    .size-variant-chip.out-of-stock {
+      opacity: 0.48; border-style: dashed;
+    }
+
     .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
     .status-row { display: flex; align-items: center; gap: 5px; }
+    .card-quick-edit-btn {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--glass-pill);
+      border: 1px solid var(--glass-border-strong); color: var(--text-white);
+      display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .card-quick-edit-btn:active { transform: scale(0.9); background: var(--invert-bg); color: var(--invert-fg); }
+
     .stock-status { font-size: 0.56rem; font-weight: 900; padding: 4px 8px; border-radius: 999px; text-transform: uppercase; white-space: nowrap; }
     .status-ok { background: var(--glass-pill); color: var(--neon-white); border: 1px solid var(--glass-border); }
     .status-low { background: rgba(255, 234, 0, 0.14); color: var(--neon-yellow); border: 1px solid rgba(255, 234, 0, 0.5); }
@@ -351,16 +379,17 @@
 
     .stock-only-badge {
       background: var(--glass-input); border: 1px solid var(--glass-border);
-      padding: 5px 11px; border-radius: 999px; font-size: 0.78rem; font-weight: 900;
+      padding: 4px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 900;
       color: var(--text-white); font-variant-numeric: tabular-nums; white-space: nowrap;
     }
 
-    .card-bottom-action { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; border-top: 1px solid var(--glass-border); padding-top: 10px; margin-top: 2px; }
-    select.price-select-mini { width: auto; background: var(--glass-input); border: 1px solid var(--glass-border); color: var(--text-white); padding: 7px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; outline: none; flex: 1.1; }
+    .card-bottom-action { display: flex; justify-content: space-between; align-items: center; gap: 6px; width: 100%; border-top: 1px solid var(--glass-border); padding-top: 10px; margin-top: 2px; }
+    select.price-select-mini { width: auto; background: var(--glass-input); border: 1px solid var(--glass-border); color: var(--text-white); padding: 7px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; outline: none; flex: 1.25; min-width: 0; }
+    select.qty-select-mini { width: 64px !important; background: var(--glass-input); border: 1px solid var(--glass-border); color: var(--text-white); padding: 7px 6px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; outline: none; text-align: center; flex-shrink: 0; }
     .sell-card-full-btn {
       background: rgba(0, 255, 102, 0.15); color: var(--price-vip); border: 1px solid rgba(0, 255, 102, 0.4);
-      padding: 7px 14px; border-radius: 999px; font-size: 0.72rem; font-weight: 900; text-transform: uppercase; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 5px; flex: 1.2;
+      padding: 7px 12px; border-radius: 999px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 4px; flex: 1; white-space: nowrap;
     }
     .sell-card-full-btn:active { transform: scale(0.96); }
 
@@ -398,17 +427,18 @@
       padding: 6px 10px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; cursor: pointer; display: none;
     }
 
+    /* CUADRÍCULA UNIFICADA DE TALLAS Y STOCK EN EL EDITOR */
     .multi-sizes-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px;
       background: var(--glass-input); border: 1px solid var(--glass-border); border-radius: 14px; padding: 10px; margin-bottom: 8px;
     }
-    .multi-size-item { display: flex; align-items: center; justify-content: space-between; gap: 5px; background: var(--glass-pill); padding: 5px 8px; border-radius: 10px; border: 1px solid var(--glass-border); }
-    .multi-size-item span { font-size: 0.72rem; font-weight: 800; color: var(--text-white); }
-    .multi-size-item input { width: 48px !important; padding: 5px 6px !important; text-align: center; font-size: 16px !important; border-radius: 8px !important; }
-
-    .edit-stock-quick-row { display: flex; gap: 4px; margin-top: 5px; }
-    .edit-stock-chip { flex: 1; background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border); padding: 5px 0; border-radius: 8px; font-size: 0.68rem; font-weight: 800; cursor: pointer; text-align: center; }
-    .edit-stock-chip:active { background: var(--invert-bg); color: var(--invert-fg); }
+    .multi-size-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 4px;
+      background: var(--glass-pill); padding: 5px 7px; border-radius: 10px; border: 1px solid var(--glass-border);
+    }
+    .multi-size-item.has-stock { border-color: rgba(0, 255, 102, 0.45); background: rgba(0, 255, 102, 0.08); }
+    .multi-size-item span { font-size: 0.7rem; font-weight: 800; color: var(--text-white); white-space: nowrap; }
+    .multi-size-item input { width: 46px !important; padding: 4px 5px !important; text-align: center; font-size: 15px !important; font-weight: 800; border-radius: 8px !important; }
 
     .bottom-dock {
       position: fixed; bottom: max(14px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
@@ -488,8 +518,6 @@
 
     .size-type-hint { font-size: 0.68rem; color: var(--neon-yellow); margin-top: 4px; font-weight: 600; }
     .delete-text { color: var(--text-secondary); font-size: 0.84rem; margin-bottom: 12px; line-height: 1.4; }
-    .delete-pass-input { width: 100%; background: var(--glass-input); border: 1px solid var(--glass-border); color: var(--text-white); padding: 11px; border-radius: 12px; font-size: 16px; text-align: center; letter-spacing: 2px; outline: none; }
-    .delete-error-msg { color: var(--neon-pink); font-size: 0.74rem; font-weight: 700; min-height: 18px; margin-bottom: 8px; text-align: center; }
     .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .cancel-action-btn { background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border); padding: 11px; border-radius: 999px; font-weight: 800; text-transform: uppercase; cursor: pointer; font-size: 0.76rem; }
     .confirm-delete-btn { background: var(--neon-pink); color: #fff; border: none; padding: 11px; border-radius: 999px; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.76rem; }
@@ -525,6 +553,7 @@
       .kpi-grid { grid-template-columns: repeat(5, 1fr); padding: 18px 28px 6px; gap: 12px; }
       .kpi-card-full { grid-column: span 1; display: block; padding: 14px 16px; }
       .kpi-card-full .kpi-label { margin-bottom: 4px; }
+      .sales-metrics-row { grid-template-columns: repeat(4, 1fr); }
       .product-list, .sales-list { padding: 12px 28px; grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .modal-overlay { align-items: center; padding: 20px; }
     }
@@ -534,6 +563,7 @@
 <body>
 
   <input type="file" id="quickCardPhotoInput" accept="image/*" style="display:none;" onchange="procesarFotoRapidaTarjeta(event)" />
+  <datalist id="existingModelsList"></datalist>
 
   <div class="dynamic-toast" id="dynamicToast">
     <span class="toast-dot" id="toastDot"></span>
@@ -555,7 +585,7 @@
         <div class="login-error-msg" id="loginError"></div>
         <button type="submit" class="login-btn">Desbloquear Stock</button>
       </form>
-      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v16.1</div>
+      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v17.0</div>
     </div>
   </div>
 
@@ -588,7 +618,7 @@
         <div class="search-stack">
           <div class="search-box">
             <svg class="ico search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="search" id="searchInput" class="search-input-field" name="q_filter_ns" placeholder="Buscar prenda y talla (Ej: Denim L, Slide 28)..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="onSearchInput()" />
+            <input type="search" id="searchInput" class="search-input-field" name="q_filter_ns" placeholder="Buscar prenda, color o talla (Ej: Slide 28)..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="onSearchInput()" />
             <button type="button" class="clear-search-btn" id="clearSearchBtn" onclick="limpiarBusqueda()">
               <svg class="ico" style="width:11px;height:11px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
@@ -801,7 +831,7 @@
         </button>
       </div>
       <button type="button" class="submit-btn" onclick="cerrarModalTema()">Listo</button>
-      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v16.1</div>
+      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v17.0</div>
     </div>
   </div>
 
@@ -874,48 +904,40 @@
           <svg class="ico" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
           Copiar Ticket
         </button>
-        <button type="button" class="submit-btn" style="background:var(--neon-pink); color:#fff; margin-top:0;" onclick="pedirPasswordEliminarVenta()">Eliminar Venta</button>
+        <button type="button" class="submit-btn" style="background:var(--neon-pink); color:#fff; margin-top:0;" onclick="pedirConfirmacionEliminarVenta()">Eliminar Venta</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL CONTRASEÑA ELIMINAR VENTA -->
+  <!-- MODAL ELIMINAR VENTA EN 1 TOQUE (SIN CONTRASEÑA) -->
   <div class="modal-overlay" id="deleteSaleModal">
     <div class="modal-sheet danger-sheet">
       <div class="modal-header">
-        <div class="modal-title">Autorizar Eliminación</div>
-        <button class="close-btn" onclick="cerrarModalPasswordVenta()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        <div class="modal-title">¿Eliminar Registro de Venta?</div>
+        <button class="close-btn" onclick="cerrarModalEliminarVenta()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <p class="delete-text">Confirma la contraseña para eliminar esta venta del historial.</p>
-      <form onsubmit="confirmarEliminarVenta(event)" autocomplete="off">
-        <label class="checkbox-row">
-          <input type="checkbox" id="restoreStockCheck" checked />
-          <span>Devolver las prendas vendidas al stock del inventario</span>
-        </label>
-        <div class="delete-pass-box">
-          <label>Contraseña requerida</label>
-          <input type="password" id="delSalePassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
-        </div>
-        <div class="delete-error-msg" id="delSaleErrorMsg"></div>
-        <div class="confirm-actions">
-          <button type="button" class="cancel-action-btn" onclick="cerrarModalPasswordVenta()">Cancelar</button>
-          <button type="submit" class="confirm-delete-btn">Eliminar Venta</button>
-        </div>
-      </form>
+      <label class="checkbox-row">
+        <input type="checkbox" id="restoreStockCheck" checked />
+        <span>Devolver las prendas vendidas al stock del inventario</span>
+      </label>
+      <div class="confirm-actions" style="margin-top:10px;">
+        <button type="button" class="cancel-action-btn" onclick="cerrarModalEliminarVenta()">Cancelar</button>
+        <button type="button" class="confirm-delete-btn" onclick="confirmarEliminarVentaDirecto()">Sí, Eliminar</button>
+      </div>
     </div>
   </div>
 
-  <!-- MODAL AGREGAR / EDITAR PRODUCTO -->
+  <!-- MODAL UNIFICADO DE CREAR / EDITAR MODELO Y TODAS SUS TALLAS -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
       <div class="modal-header">
         <div class="modal-title" id="modalProductTitle">Nuevo Producto</div>
         <button class="close-btn" onclick="toggleModal(false)" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
-      <form id="productForm" onsubmit="guardarProducto(event)" oninput="autoGuardarBorradorFormulario()" autocomplete="off">
-        <input type="hidden" id="pId" />
+      <form id="productForm" onsubmit="guardarProducto(event)" autocomplete="off">
+        <input type="hidden" id="pEditGroupKey" />
         
-        <label>Fotografía de la Prenda (Alta Definición)</label>
+        <label>Fotografía (Se aplica a todas las tallas de este color)</label>
         <div class="photo-upload-box">
           <div class="photo-preview-thumb" id="pImagePreviewBox">
             <svg class="ico" style="width:20px;height:20px;color:var(--text-secondary);" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
@@ -929,83 +951,65 @@
             <button type="button" class="photo-remove-btn" id="pImageRemoveBtn" onclick="quitarImagenProducto()">Borrar Foto</button>
           </div>
         </div>
-        <label class="checkbox-row" style="padding:7px 10px; margin-bottom:8px;">
-          <input type="checkbox" id="syncPhotoAcrossSizesCheck" checked />
-          <span style="font-size:0.7rem;">Sincronizar foto y precios en todas las tallas del mismo color</span>
-        </label>
 
         <div class="form-group">
-          <label>Nombre del Producto</label>
-          <input type="search" id="pName" name="prod_title_ns" placeholder="Ej. Denim Hoodie / Slide" autocomplete="one-time-code" autocorrect="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" required />
+          <label>Nombre del Producto (Autocompleta precios si ya existe)</label>
+          <input type="search" id="pName" list="existingModelsList" name="prod_title_ns" placeholder="Ej. SLIDE, DENIM HOODIE..." autocomplete="off" oninput="verificarAutocompletadoModelo()" required />
         </div>
 
-        <label class="checkbox-row" id="multiSizeToggleRow" style="padding:7px 10px; margin-bottom:8px;">
-          <input type="checkbox" id="multiSizeModeCheck" onchange="alternarModoMultiTalla()" />
-          <span style="font-size:0.7rem; color:var(--price-menudeo);">Registrar varias tallas al mismo tiempo (Alta rápida por lote)</span>
-        </label>
-
-        <div class="form-row" id="singleSizeRow">
+        <div class="form-row">
           <div class="form-group">
             <label>Categoría</label>
-            <select id="pCat" onchange="actualizarOpcionesTalla(); autoGuardarBorradorFormulario();" required></select>
+            <select id="pCat" onchange="renderGridMultiTallasEditor()" required></select>
           </div>
-          <div class="form-group" id="singleSizeSelectBox">
-            <label id="sizeLabel">Talla</label>
-            <select id="pSize" onchange="autoGuardarBorradorFormulario()" required></select>
+          <div class="form-group">
+            <label>Color</label>
+            <input type="search" id="pColor" name="prod_tone_ns" placeholder="Ej. Black, Gris..." autocomplete="off" required />
           </div>
         </div>
 
-        <div id="multiSizesContainer" style="display:none;">
-          <label>Escribe cuántas piezas llegaron de cada talla (Deja vacío las que no llegaron)</label>
+        <div>
+          <label id="multiSizesTitleLabel">Stock por Talla (Escribe la cantidad en las tallas que tengas)</label>
           <div class="multi-sizes-grid" id="multiSizesGrid"></div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label>Color</label>
-            <input type="search" id="pColor" name="prod_tone_ns" placeholder="Ej. Negro, Gris..." autocomplete="one-time-code" autocorrect="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" required />
-          </div>
-          <div class="form-group" id="singleStockBox">
-            <label>Cantidad en Stock</label>
-            <input type="number" id="pStock" name="prod_qty_ns" inputmode="numeric" placeholder="20" min="0" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
-            <div class="edit-stock-quick-row">
-              <button type="button" class="edit-stock-chip" onclick="ajustarStockEnFormulario(-5)">-5</button>
-              <button type="button" class="edit-stock-chip" onclick="ajustarStockEnFormulario(-1)">-1</button>
-              <button type="button" class="edit-stock-chip" onclick="ajustarStockEnFormulario(1)">+1</button>
-              <button type="button" class="edit-stock-chip" onclick="ajustarStockEnFormulario(5)">+5</button>
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
             <label>Costo (Nos cuesta)</label>
-            <input type="number" id="pCost" name="prod_c_ns" inputmode="decimal" placeholder="300" min="0" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
+            <input type="number" id="pCost" name="prod_c_ns" inputmode="decimal" placeholder="300" min="0" step="0.5" oninput="actualizarVistaPreviaMargen()" required />
           </div>
           <div class="form-group">
             <label>Precio Mayoreo</label>
-            <input type="number" id="pWholesale" name="prod_p2_ns" inputmode="decimal" placeholder="450" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
+            <input type="number" id="pWholesale" name="prod_p2_ns" inputmode="decimal" placeholder="450" min="1" step="0.5" oninput="actualizarVistaPreviaMargen()" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Precio Menudeo</label>
-            <input type="number" id="pPrice" name="prod_p1_ns" inputmode="decimal" placeholder="550" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
+            <input type="number" id="pPrice" name="prod_p1_ns" inputmode="decimal" placeholder="550" min="1" step="0.5" oninput="actualizarVistaPreviaMargen()" required />
           </div>
           <div class="form-group">
             <label>Precio VIP</label>
-            <input type="number" id="pVip" name="prod_p3_ns" inputmode="decimal" placeholder="400" min="1" step="0.5" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="actualizarVistaPreviaMargen()" required />
+            <input type="number" id="pVip" name="prod_p3_ns" inputmode="decimal" placeholder="400" min="1" step="0.5" oninput="actualizarVistaPreviaMargen()" required />
           </div>
         </div>
+
+        <label class="checkbox-row" style="padding:7px 10px; margin-bottom:6px;">
+          <input type="checkbox" id="syncPriceAllColorsCheck" checked />
+          <span style="font-size:0.7rem;">Actualizar estos precios en todos los colores de este mismo modelo</span>
+        </label>
+
         <div class="profit-preview-bar" id="profitPreviewBar">
-          <span style="color:var(--text-secondary);">Utilidad estimada:</span>
+          <span style="color:var(--text-secondary);">Utilidad:</span>
           <span id="profitPreviewText" style="color:var(--price-vip);">May: +$0 | Men: +$0 | VIP: +$0</span>
         </div>
         <button type="submit" class="submit-btn" id="btnGuardarProd">Guardar en Inventario</button>
+        <button type="button" class="submit-btn pink-btn" id="btnEliminarModeloEnEditor" style="display:none; margin-top:8px;" onclick="pedirEliminarGrupoActualDesdeEditor()">Eliminar Todo este Modelo y Color</button>
       </form>
     </div>
   </div>
 
-  <!-- MODAL DETALLES DEL PRODUCTO -->
+  <!-- MODAL DETALLES DEL MODELO -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-sheet">
       <div class="modal-header">
@@ -1013,13 +1017,13 @@
         <button class="close-btn" onclick="cerrarDetalles()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <div id="detailContent"></div>
-      <button type="button" class="submit-btn cyan-btn" onclick="vibrar(25); duplicarProductoVariante()">
+      <button type="button" class="submit-btn cyan-btn" onclick="vibrar(25); duplicarModeloParaOtroColor()">
         <svg class="ico" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-        Duplicar para Otra Talla / Color
+        Duplicar Modelo para Otro Color
       </button>
       <div class="detail-actions">
-        <button class="detail-edit-btn" onclick="vibrar(30); editarProductoDesdeDetalle()">Editar Stock / Precios</button>
-        <button class="detail-del-btn" onclick="vibrar(60); eliminarProductoDesdeDetalle()">Eliminar</button>
+        <button class="detail-edit-btn" onclick="vibrar(30); editarGrupoDesdeDetalle()">Editar Tallas / Precios</button>
+        <button class="detail-del-btn" onclick="vibrar(40); pedirEliminarGrupoDesdeDetalle()">Eliminar</button>
       </div>
     </div>
   </div>
@@ -1034,7 +1038,7 @@
       <form id="categoryForm" onsubmit="addCategory(event)" autocomplete="off">
         <div class="form-group">
           <label>Nombre de Categoría</label>
-          <input type="search" id="cName" name="cat_title_ns" placeholder="Ej. Tenis, Gorras..." autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="autoDetectarTipoTalla()" required />
+          <input type="search" id="cName" name="cat_title_ns" placeholder="Ej. Tenis, Gorras..." autocomplete="off" oninput="autoDetectarTipoTalla()" required />
         </div>
         <div class="form-group">
           <label>Tipo de Tallas</label>
@@ -1050,7 +1054,7 @@
     </div>
   </div>
 
-  <!-- MODAL ELIMINAR CATEGORÍA -->
+  <!-- MODAL ELIMINAR CATEGORÍA EN 1 TOQUE (SIN CONTRASEÑA) -->
   <div class="modal-overlay" id="deleteCategoryModal">
     <div class="modal-sheet danger-sheet">
       <div class="modal-header">
@@ -1059,41 +1063,30 @@
       </div>
       <form onsubmit="confirmDeleteCategory(event)" autocomplete="off">
         <div class="form-group">
-          <label>Selecciona la categoría a borrar</label>
+          <label>Selecciona la categoría vacía a borrar</label>
           <select id="delCatSelect" required></select>
         </div>
-        <div class="delete-pass-box">
-          <label>Contraseña requerida</label>
-          <input type="password" id="deleteCatPassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
-        </div>
-        <div class="delete-error-msg" id="deleteCatErrorMsg"></div>
+        <div class="login-error-msg" id="deleteCatErrorMsg" style="text-align:center;"></div>
         <div class="confirm-actions">
           <button type="button" class="cancel-action-btn" onclick="toggleDeleteCategoryModal(false)">Cancelar</button>
-          <button type="submit" class="confirm-delete-btn">Eliminar Categoría</button>
+          <button type="submit" class="confirm-delete-btn">Sí, Eliminar</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL ELIMINAR PRODUCTO -->
+  <!-- MODAL CONFIRMAR ELIMINACIÓN DE PRODUCTO / MODELO EN 1 TOQUE (SIN CONTRASEÑA) -->
   <div class="modal-overlay" id="deleteModal">
     <div class="modal-sheet danger-sheet">
       <div class="modal-header">
-        <div class="modal-title">Autorizar Eliminación</div>
+        <div class="modal-title">Confirmar Eliminación</div>
         <button class="close-btn" onclick="closeDeleteModal()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
       <p class="delete-text" id="deleteMessage"></p>
-      <form onsubmit="confirmDeleteProduct(event)" autocomplete="off">
-        <div class="delete-pass-box">
-          <label>Contraseña requerida</label>
-          <input type="password" id="deletePassInput" class="delete-pass-input" placeholder="Contraseña..." autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" required />
-        </div>
-        <div class="delete-error-msg" id="deleteErrorMsg"></div>
-        <div class="confirm-actions">
-          <button type="button" class="cancel-action-btn" onclick="closeDeleteModal()">Cancelar</button>
-          <button type="submit" class="confirm-delete-btn">Eliminar</button>
-        </div>
-      </form>
+      <div class="confirm-actions">
+        <button type="button" class="cancel-action-btn" onclick="closeDeleteModal()">Cancelar</button>
+        <button type="button" class="confirm-delete-btn" onclick="confirmDeleteProductGroup()">Sí, Eliminar</button>
+      </div>
     </div>
   </div>
 
@@ -1301,14 +1294,27 @@
     let activeStockFilter = "TODOS";
     let activeSalesPeriod = "ALL";
     let currentPayMethod = "Efectivo";
-    let productToDeleteId = null;
-    let currentSelectedProduct = null;
+
+    // Diccionario de talla seleccionada en cada tarjeta agrupada
+    let selectedVariantByGroup = {};
+    let currentSelectedGroupKey = null;
+    let groupKeyToDelete = null;
+    let singleVariantIdToDelete = null;
+
     let selectedSaleForDetail = null;
-    let quickPhotoTargetId = null;
+    let quickPhotoTargetGroupKey = null;
     let currentProductImageBase64 = "";
     let imageExplicitlyRemoved = false;
     let dbRef = null;
     let firebaseIniciado = false;
+
+    function construirGroupKey(name, color, category) {
+      return `${(name || "").trim().toLowerCase()}|${(color || "").trim().toLowerCase()}|${(category || "").trim().toLowerCase()}`;
+    }
+
+    function obtenerItemsDeGrupo(groupKey) {
+      return products.filter(p => construirGroupKey(p.name, p.color, p.category) === groupKey);
+    }
 
     // PROCESADOR DE IMAGEN DE ALTA DEFINICIÓN (600x600PX, CALIDAD 0.88)
     function comprimirArchivoImagen(file, callback) {
@@ -1350,12 +1356,14 @@
       return actualizados;
     }
 
-    function tocarMiniaturaTarjeta(id, event) {
+    function tocarMiniaturaGrupo(groupKey, event) {
       if (event) event.stopPropagation();
       vibrar(20);
-      const p = products.find(prod => prod.id === id);
-      if (!p) return;
-      quickPhotoTargetId = id;
+      const items = obtenerItemsDeGrupo(groupKey);
+      if (items.length === 0) return;
+      const p = items.find(i => i.image) || items[0];
+      quickPhotoTargetGroupKey = groupKey;
+
       if (p.image) {
         document.getElementById("zoomModalTitle").textContent = `${p.name} • ${p.color}`;
         document.getElementById("zoomModalImg").src = p.image;
@@ -1370,27 +1378,26 @@
     function cambiarFotoDesdeZoom() { vibrar(20); cerrarZoomFoto(); document.getElementById("quickCardPhotoInput").value = ""; document.getElementById("quickCardPhotoInput").click(); }
 
     function borrarFotoDesdeZoom() {
-      if (!quickPhotoTargetId) return;
-      const targetProd = products.find(prod => prod.id === quickPhotoTargetId);
-      if (!targetProd) return;
+      if (!quickPhotoTargetGroupKey) return;
+      const items = obtenerItemsDeGrupo(quickPhotoTargetGroupKey);
+      if (items.length === 0) return;
       vibrar(40);
-      const totalBorrados = sincronizarFotoEnModelo(targetProd.name, targetProd.color, "");
+      const totalBorrados = sincronizarFotoEnModelo(items[0].name, items[0].color, "");
       saveToDB();
       cerrarZoomFoto();
-      mostrarToast(totalBorrados > 1 ? `Foto eliminada en las ${totalBorrados} tallas (${targetProd.color})` : "Foto eliminada", "#ff2a5f");
+      mostrarToast(`Foto eliminada (${totalBorrados} tallas)`, "#ff2a5f");
     }
 
     function procesarFotoRapidaTarjeta(event) {
       const file = event.target.files && event.target.files[0];
-      if (!file || !quickPhotoTargetId) return;
-      const targetProd = products.find(prod => prod.id === quickPhotoTargetId);
-      if (!targetProd) return;
+      if (!file || !quickPhotoTargetGroupKey) return;
+      const items = obtenerItemsDeGrupo(quickPhotoTargetGroupKey);
+      if (items.length === 0) return;
       comprimirArchivoImagen(file, (compressedDataUrl) => {
-        targetProd.image = compressedDataUrl;
-        const totalSync = sincronizarFotoEnModelo(targetProd.name, targetProd.color, compressedDataUrl);
+        const totalSync = sincronizarFotoEnModelo(items[0].name, items[0].color, compressedDataUrl);
         saveToDB();
         vibrar(30);
-        mostrarToast(totalSync > 1 ? `Foto HD aplicada a ${totalSync} tallas de ${targetProd.name} (${targetProd.color})` : `Foto HD guardada en ${targetProd.name}`);
+        mostrarToast(`Foto HD aplicada a ${items[0].name} (${totalSync} tallas)`);
       });
     }
 
@@ -1412,7 +1419,6 @@
       document.getElementById("pImageInput").value = "";
       imageExplicitlyRemoved = true;
       actualizarVistaPreviaFotoModal("");
-      autoGuardarBorradorFormulario();
       mostrarToast("Foto quitada (guarda para confirmar)", "#ffea00");
     }
 
@@ -1422,17 +1428,32 @@
       comprimirArchivoImagen(file, (compressedDataUrl) => {
         imageExplicitlyRemoved = false;
         actualizarVistaPreviaFotoModal(compressedDataUrl);
-        autoGuardarBorradorFormulario();
         mostrarToast("Foto HD encuadrada y lista", "#00f0ff");
       });
     }
 
-    function ajustarStockEnFormulario(delta) {
-      vibrar(15);
-      const inp = document.getElementById("pStock");
-      const actual = parseInt(inp.value, 10) || 0;
-      inp.value = Math.max(0, actual + delta);
-      autoGuardarBorradorFormulario();
+    function actualizarDatalistModelos() {
+      const dl = document.getElementById("existingModelsList");
+      if (!dl) return;
+      const nombresUnicos = [...new Set(products.map(p => (p.name || "").trim()).filter(Boolean))];
+      dl.innerHTML = nombresUnicos.map(n => `<option value="${n}"></option>`).join("");
+    }
+
+    function verificarAutocompletadoModelo() {
+      const editKey = document.getElementById("pEditGroupKey").value;
+      if (editKey) return; // En modo edición ya están cargados los datos
+      const nombreEscrito = (document.getElementById("pName").value || "").trim().toLowerCase();
+      if (!nombreEscrito) return;
+      const coincidencia = products.find(p => (p.name || "").trim().toLowerCase() === nombreEscrito);
+      if (coincidencia) {
+        document.getElementById("pCat").value = coincidencia.category;
+        document.getElementById("pCost").value = coincidencia.cost;
+        document.getElementById("pWholesale").value = coincidencia.wholesale;
+        document.getElementById("pPrice").value = coincidencia.price;
+        document.getElementById("pVip").value = coincidencia.vip;
+        actualizarVistaPreviaMargen();
+        renderGridMultiTallasEditor();
+      }
     }
 
     function actualizarFiltroTallasDisponibles() {
@@ -1464,23 +1485,6 @@
           actualizarBotonCarritoFlotante();
         }
       } catch (e) {}
-    }
-
-    function autoGuardarBorradorFormulario() {
-      if (document.getElementById("pId").value) return;
-      const borrador = {
-        name: document.getElementById("pName").value,
-        cat: document.getElementById("pCat").value,
-        size: document.getElementById("pSize").value,
-        color: document.getElementById("pColor").value,
-        stock: document.getElementById("pStock").value,
-        cost: document.getElementById("pCost").value,
-        price: document.getElementById("pPrice").value,
-        wholesale: document.getElementById("pWholesale").value,
-        vip: document.getElementById("pVip").value,
-        image: currentProductImageBase64
-      };
-      try { localStorage.setItem("neewshop_form_draft", JSON.stringify(borrador)); } catch (e) {}
     }
 
     function onSearchInput() {
@@ -1574,40 +1578,29 @@
       return "ropa";
     }
 
-    function alternarModoMultiTalla() {
-      const activo = document.getElementById("multiSizeModeCheck").checked;
-      document.getElementById("singleSizeSelectBox").style.display = activo ? "none" : "block";
-      document.getElementById("singleStockBox").style.display = activo ? "none" : "block";
-      document.getElementById("pStock").required = !activo;
-      document.getElementById("multiSizesContainer").style.display = activo ? "block" : "none";
-      document.getElementById("singleSizeRow").style.gridTemplateColumns = activo ? "1fr" : "1fr 1fr";
-      if (activo) renderGridMultiTallas();
-    }
-
-    function renderGridMultiTallas() {
+    // RENDERIZADOR UNIFICADO DE TALLAS EN EL MODAL DE CREAR / EDITAR
+    function renderGridMultiTallasEditor(mapaTallasExistentes = null) {
       const catSeleccionada = document.getElementById("pCat").value;
       const tipo = obtenerTipoTallaDeCategoria(catSeleccionada);
-      const listaTallas = SISTEMAS_TALLAS[tipo] || SISTEMAS_TALLAS.ropa;
-      const grid = document.getElementById("multiSizesGrid");
-      grid.innerHTML = listaTallas.map((t, idx) => `
-        <div class="multi-size-item">
-          <span>${t}</span>
-          <input type="number" id="ms_qty_${idx}" data-size="${t}" inputmode="numeric" min="0" placeholder="0" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" />
-        </div>
-      `).join("");
-    }
+      let listaTallas = [...(SISTEMAS_TALLAS[tipo] || SISTEMAS_TALLAS.ropa)];
 
-    function actualizarOpcionesTalla() {
-      const catSeleccionada = document.getElementById("pCat").value;
-      const selectTalla = document.getElementById("pSize");
-      const labelTalla = document.getElementById("sizeLabel");
-      const tipo = obtenerTipoTallaDeCategoria(catSeleccionada);
-      const listaTallas = SISTEMAS_TALLAS[tipo] || SISTEMAS_TALLAS.ropa;
-      labelTalla.textContent = tipo === "calzado" ? "Talla (MX)" : (tipo === "unitalla" ? "Medida" : "Talla");
-      selectTalla.innerHTML = listaTallas.map(t => `<option value="${t}">${t}</option>`).join("");
-      if (document.getElementById("multiSizeModeCheck") && document.getElementById("multiSizeModeCheck").checked) {
-        renderGridMultiTallas();
+      if (mapaTallasExistentes) {
+        Object.keys(mapaTallasExistentes).forEach(tExist => {
+          if (!listaTallas.includes(tExist)) listaTallas.push(tExist);
+        });
       }
+
+      const grid = document.getElementById("multiSizesGrid");
+      grid.innerHTML = listaTallas.map((t, idx) => {
+        const tieneValor = mapaTallasExistentes && mapaTallasExistentes[t] !== undefined;
+        const val = tieneValor ? mapaTallasExistentes[t] : "";
+        return `
+          <div class="multi-size-item ${tieneValor && val > 0 ? 'has-stock' : ''}">
+            <span>${t}</span>
+            <input type="number" id="ms_qty_${idx}" data-size="${t}" value="${val}" inputmode="numeric" min="0" placeholder="—" oninput="this.parentElement.classList.toggle('has-stock', this.value !== '' && Number(this.value) > 0)" />
+          </div>
+        `;
+      }).join("");
     }
 
     function autoDetectarTipoTalla() {
@@ -1637,7 +1630,6 @@
       const valorActual = selectCat.value;
       selectCat.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
       if (valorActual && categories.some(c => c.name === valorActual)) selectCat.value = valorActual;
-      actualizarOpcionesTalla();
 
       const delSelect = document.getElementById("delCatSelect");
       if (delSelect) delSelect.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
@@ -1648,6 +1640,7 @@
           categories.map(c => `<option value="${c.name}">Solo ${c.name}</option>`).join("");
       }
       actualizarFiltroTallasDisponibles();
+      actualizarDatalistModelos();
     }
 
     window.addEventListener("DOMContentLoaded", () => {
@@ -1824,20 +1817,37 @@
       renderProducts();
     }
 
-    function agregarAlCarritoSeleccionado(id, event) {
+    function seleccionarTallaEnTarjeta(groupKey, variantId, event) {
+      if (event) event.stopPropagation();
+      vibrar(15);
+      selectedVariantByGroup[groupKey] = variantId;
+      renderProducts();
+    }
+
+    function agregarGrupoAlCarrito(groupKey, domIdx, event) {
       if (event) event.stopPropagation();
       vibrar(25);
-      const p = products.find(prod => prod.id === id);
+      const itemsGrupo = obtenerItemsDeGrupo(groupKey);
+      if (itemsGrupo.length === 0) return;
+
+      let chosenId = selectedVariantByGroup[groupKey];
+      let p = itemsGrupo.find(i => i.id === chosenId) || itemsGrupo.find(i => (Number(i.stock) || 0) > 0) || itemsGrupo[0];
       if (!p) return;
 
-      const totalEnCarrito = cartItems.filter(i => i.id === id).reduce((acc, i) => acc + i.qty, 0);
-      if ((Number(p.stock) || 0) <= 0 || totalEnCarrito >= p.stock) {
+      const qtySelect = document.getElementById(`selQty_${domIdx}`);
+      const qtyToAdd = qtySelect ? (parseInt(qtySelect.value, 10) || 1) : 1;
+
+      const totalEnCarrito = cartItems.filter(i => i.id === p.id).reduce((acc, i) => acc + i.qty, 0);
+      const disponibleReal = (Number(p.stock) || 0) - totalEnCarrito;
+
+      if (disponibleReal <= 0) {
         vibrar(60);
-        mostrarToast("Stock máximo disponible alcanzado", "#ffea00");
+        mostrarToast(`Sin stock disponible en talla ${p.size}`, "#ffea00");
         return;
       }
+      const cantidadFinal = Math.min(qtyToAdd, disponibleReal);
 
-      const selectTipo = document.getElementById(`selPrice_${id}`);
+      const selectTipo = document.getElementById(`selPrice_${domIdx}`);
       const priceType = selectTipo ? selectTipo.value : (Number(p.wholesale) > 0 ? "wholesale" : "price");
 
       let chosenPrice = Number(p.wholesale) > 0 ? Number(p.wholesale) : (Number(p.price) || 0);
@@ -1847,16 +1857,19 @@
       if (priceType === "wholesale") { chosenPrice = Number(p.wholesale) || chosenPrice; labelPrecio = "Mayoreo"; }
       if (priceType === "vip") { chosenPrice = Number(p.vip) || chosenPrice; labelPrecio = "VIP"; }
 
-      const existente = cartItems.find(item => item.id === id && item.priceType === labelPrecio);
-      if (existente) existente.qty++;
-      else {
+      const existente = cartItems.find(item => item.id === p.id && item.priceType === labelPrecio);
+      if (existente) {
+        existente.qty += cantidadFinal;
+      } else {
         cartItems.push({
           id: p.id, name: p.name, category: p.category, size: p.size, color: p.color,
-          cost: Number(p.cost) || 0, price: chosenPrice, priceType: labelPrecio, qty: 1, maxStock: p.stock,
+          cost: Number(p.cost) || 0, price: chosenPrice, priceType: labelPrecio, qty: cantidadFinal, maxStock: p.stock,
           image: p.image || ""
         });
       }
-      mostrarToast(`${p.name} (${labelPrecio}) agregado al pedido`);
+
+      if (qtySelect) qtySelect.value = "1";
+      mostrarToast(`+${cantidadFinal} ${p.name} (${p.size}) agregado`);
       actualizarBotonCarritoFlotante();
       guardarBorradorCarrito();
       renderProducts();
@@ -2083,248 +2096,222 @@
 
     function cerrarModalDetalleVenta() { vibrar(15); document.getElementById("saleDetailModal").classList.remove("open"); }
 
-    function pedirPasswordEliminarVenta() {
-      vibrar(30);
+    function pedirConfirmacionEliminarVenta() {
+      vibrar(25);
       cerrarModalDetalleVenta();
-      document.getElementById("delSalePassInput").value = "";
-      document.getElementById("delSaleErrorMsg").textContent = "";
       document.getElementById("restoreStockCheck").checked = true;
       document.getElementById("deleteSaleModal").classList.add("open");
     }
 
-    function cerrarModalPasswordVenta() {
+    function cerrarModalEliminarVenta() {
       vibrar(15);
       document.getElementById("deleteSaleModal").classList.remove("open");
       selectedSaleForDetail = null;
     }
 
-    function confirmarEliminarVenta(e) {
-      e.preventDefault();
-      const passInput = document.getElementById("delSalePassInput");
-      const errorMsg = document.getElementById("delSaleErrorMsg");
+    function confirmarEliminarVentaDirecto() {
+      if (!selectedSaleForDetail) return;
+      vibrar(60);
       const devolverStock = document.getElementById("restoreStockCheck").checked;
-
-      if (!validarClaveSecreta(passInput.value)) {
-        vibrar(60);
-        errorMsg.textContent = "Contraseña incorrecta.";
-        passInput.classList.remove("input-error");
-        void passInput.offsetWidth;
-        passInput.classList.add("input-error");
-        return;
+      if (devolverStock && selectedSaleForDetail.itemsRaw && Array.isArray(selectedSaleForDetail.itemsRaw)) {
+        selectedSaleForDetail.itemsRaw.forEach(soldItem => {
+          const p = products.find(prod => prod.id === soldItem.id);
+          if (p) p.stock = (Number(p.stock) || 0) + (Number(soldItem.qty) || 0);
+        });
       }
-
-      if (selectedSaleForDetail) {
-        vibrar(100);
-        if (devolverStock && selectedSaleForDetail.itemsRaw && Array.isArray(selectedSaleForDetail.itemsRaw)) {
-          selectedSaleForDetail.itemsRaw.forEach(soldItem => {
-            const p = products.find(prod => prod.id === soldItem.id);
-            if (p) p.stock = (Number(p.stock) || 0) + (Number(soldItem.qty) || 0);
-          });
-        }
-        salesHistory = salesHistory.filter(s => s.id !== selectedSaleForDetail.id);
-        saveToDB();
-        cerrarModalPasswordVenta();
-        renderProducts();
-        mostrarToast(devolverStock ? "Venta eliminada y stock restaurado" : "Registro de venta eliminado");
-      }
+      salesHistory = salesHistory.filter(s => s.id !== selectedSaleForDetail.id);
+      saveToDB();
+      cerrarModalEliminarVenta();
+      renderProducts();
+      mostrarToast(devolverStock ? "Venta eliminada y stock restaurado" : "Registro de venta eliminado");
     }
 
+    // CREAR Y EDITAR UNIFICADO (RÁPIDO Y SIN PASOS TEDIOSOS)
     function abrirModalCrear() {
       vibrar(25);
-      document.getElementById("modalProductTitle").textContent = "Nuevo Producto";
+      document.getElementById("modalProductTitle").textContent = "Agregar Producto / Lote";
       document.getElementById("btnGuardarProd").textContent = "Guardar en Inventario";
+      document.getElementById("btnEliminarModeloEnEditor").style.display = "none";
       document.getElementById("productForm").reset();
-      document.getElementById("pId").value = "";
-      document.getElementById("multiSizeToggleRow").style.display = "flex";
-      document.getElementById("multiSizeModeCheck").checked = false;
-      alternarModoMultiTalla();
-      document.getElementById("syncPhotoAcrossSizesCheck").checked = true;
+      document.getElementById("pEditGroupKey").value = "";
+      document.getElementById("syncPriceAllColorsCheck").checked = true;
       imageExplicitlyRemoved = false;
       actualizarVistaPreviaFotoModal("");
       renderCategoriesUI();
       if (activeCategory !== "Todos") {
         document.getElementById("pCat").value = activeCategory;
-        actualizarOpcionesTalla();
       }
-      try {
-        const draftRaw = localStorage.getItem("neewshop_form_draft");
-        if (draftRaw) {
-          const d = JSON.parse(draftRaw);
-          if (d.name) document.getElementById("pName").value = d.name;
-          if (d.cat && categories.some(c => c.name === d.cat)) {
-            document.getElementById("pCat").value = d.cat;
-            actualizarOpcionesTalla();
-          }
-          if (d.size) document.getElementById("pSize").value = d.size;
-          if (d.color) document.getElementById("pColor").value = d.color;
-          if (d.stock) document.getElementById("pStock").value = d.stock;
-          if (d.cost) document.getElementById("pCost").value = d.cost;
-          if (d.price) document.getElementById("pPrice").value = d.price;
-          if (d.wholesale) document.getElementById("pWholesale").value = d.wholesale;
-          if (d.vip) document.getElementById("pVip").value = d.vip;
-          if (d.image) actualizarVistaPreviaFotoModal(d.image);
-        }
-      } catch (err) {}
+      renderGridMultiTallasEditor(null);
       actualizarVistaPreviaMargen();
       toggleModal(true);
     }
 
-    function duplicarProductoVariante() {
-      if (!currentSelectedProduct) return;
-      const p = currentSelectedProduct;
+    function abrirEditorRapidoGrupo(groupKey, event) {
+      if (event) event.stopPropagation();
+      vibrar(25);
       cerrarDetalles();
-      document.getElementById("modalProductTitle").textContent = "Nueva Variante (" + p.name + ")";
-      document.getElementById("btnGuardarProd").textContent = "Crear Nueva Variante";
-      document.getElementById("pId").value = "";
-      document.getElementById("multiSizeToggleRow").style.display = "flex";
-      document.getElementById("multiSizeModeCheck").checked = false;
-      alternarModoMultiTalla();
-      document.getElementById("pName").value = p.name;
-      document.getElementById("pCat").value = p.category;
-      actualizarOpcionesTalla();
-      document.getElementById("pSize").value = p.size;
-      document.getElementById("pColor").value = p.color;
-      document.getElementById("pStock").value = p.stock;
-      document.getElementById("pCost").value = p.cost;
-      document.getElementById("pPrice").value = p.price;
-      document.getElementById("pWholesale").value = p.wholesale;
-      document.getElementById("pVip").value = p.vip;
+      const items = obtenerItemsDeGrupo(groupKey);
+      if (items.length === 0) return;
+      const base = items.find(i => i.image) || items[0];
+
+      document.getElementById("modalProductTitle").textContent = `Editar: ${base.name} (${base.color})`;
+      document.getElementById("btnGuardarProd").textContent = "Guardar Cambios";
+      document.getElementById("btnEliminarModeloEnEditor").style.display = "inline-flex";
+      document.getElementById("pEditGroupKey").value = groupKey;
+
+      renderCategoriesUI();
+      document.getElementById("pName").value = base.name;
+      document.getElementById("pCat").value = base.category;
+      document.getElementById("pColor").value = base.color;
+      document.getElementById("pCost").value = base.cost;
+      document.getElementById("pWholesale").value = base.wholesale;
+      document.getElementById("pPrice").value = base.price;
+      document.getElementById("pVip").value = base.vip;
+      document.getElementById("syncPriceAllColorsCheck").checked = true;
+
       imageExplicitlyRemoved = false;
-      actualizarVistaPreviaFotoModal(p.image || "");
+      actualizarVistaPreviaFotoModal(base.image || "");
+
+      const mapaTallas = {};
+      items.forEach(it => { mapaTallas[it.size] = Number(it.stock) || 0; });
+      renderGridMultiTallasEditor(mapaTallas);
       actualizarVistaPreviaMargen();
       toggleModal(true);
-      mostrarToast("Cambia la talla o color y guarda", "#00f0ff");
     }
 
     function guardarProducto(e) {
       e.preventDefault();
-      vibrar(100);
-      const idExistente = document.getElementById("pId").value;
+      vibrar(80);
+      const editGroupKey = document.getElementById("pEditGroupKey").value;
       const nombreLimpiado = document.getElementById("pName").value.trim();
+      const catLimpiada = document.getElementById("pCat").value;
       const colorLimpiado = document.getElementById("pColor").value.trim();
-      const syncCheck = document.getElementById("syncPhotoAcrossSizesCheck").checked;
-      const esMultiTalla = !idExistente && document.getElementById("multiSizeModeCheck").checked;
+      const syncAllColors = document.getElementById("syncPriceAllColorsCheck").checked;
+
+      const costVal = parseFloat(document.getElementById("pCost").value) || 0;
+      const wholesaleVal = parseFloat(document.getElementById("pWholesale").value) || 0;
+      const priceVal = parseFloat(document.getElementById("pPrice").value) || 0;
+      const vipVal = parseFloat(document.getElementById("pVip").value) || 0;
 
       let fotoFinal = currentProductImageBase64 || "";
       if (!fotoFinal && !imageExplicitlyRemoved) {
-        const modeloMismoColorConFoto = products.find(prod =>
+        const existenteConFoto = products.find(prod =>
           (prod.name || "").trim().toLowerCase() === nombreLimpiado.toLowerCase() &&
           (prod.color || "").trim().toLowerCase() === colorLimpiado.toLowerCase() &&
           prod.image
         );
-        if (modeloMismoColorConFoto) fotoFinal = modeloMismoColorConFoto.image;
+        if (existenteConFoto) fotoFinal = existenteConFoto.image;
       }
 
-      const costVal = parseFloat(document.getElementById("pCost").value) || 0;
-      const priceVal = parseFloat(document.getElementById("pPrice").value) || 0;
-      const wholesaleVal = parseFloat(document.getElementById("pWholesale").value) || 0;
-      const vipVal = parseFloat(document.getElementById("pVip").value) || 0;
+      const inputsTallas = document.querySelectorAll("#multiSizesGrid input[data-size]");
+      const existentesDelGrupo = editGroupKey
+        ? obtenerItemsDeGrupo(editGroupKey)
+        : obtenerItemsDeGrupo(construirGroupKey(nombreLimpiado, colorLimpiado, catLimpiada));
 
-      const baseInfo = {
-        name: nombreLimpiado,
-        category: document.getElementById("pCat").value,
-        color: colorLimpiado,
-        cost: costVal,
-        price: priceVal,
-        wholesale: wholesaleVal,
-        vip: vipVal,
-        image: fotoFinal
-      };
+      let procesados = 0;
+      let baseTime = Date.now();
 
-      if (esMultiTalla) {
-        const inputsTallas = document.querySelectorAll("#multiSizesGrid input[data-size]");
-        let creados = 0;
-        let baseTime = Date.now();
-        inputsTallas.forEach((inp, idx) => {
-          const valStr = inp.value.trim();
-          const qty = parseInt(valStr, 10);
-          if (valStr !== "" && !isNaN(qty) && qty >= 0) {
+      inputsTallas.forEach((inp, idx) => {
+        const sizeName = inp.getAttribute("data-size");
+        const rawVal = inp.value.trim();
+        const varianteExistente = existentesDelGrupo.find(v => (v.size || "").toLowerCase() === sizeName.toLowerCase());
+
+        if (rawVal !== "") {
+          const qty = Math.max(0, parseInt(rawVal, 10) || 0);
+          if (varianteExistente) {
+            varianteExistente.name = nombreLimpiado;
+            varianteExistente.category = catLimpiada;
+            varianteExistente.color = colorLimpiado;
+            varianteExistente.cost = costVal;
+            varianteExistente.wholesale = wholesaleVal;
+            varianteExistente.price = priceVal;
+            varianteExistente.vip = vipVal;
+            varianteExistente.stock = qty;
+            varianteExistente.image = imageExplicitlyRemoved ? "" : (fotoFinal || varianteExistente.image || "");
+          } else {
             products.unshift({
               id: baseTime + idx,
-              ...baseInfo,
-              size: inp.getAttribute("data-size"),
-              stock: qty
+              name: nombreLimpiado,
+              category: catLimpiada,
+              size: sizeName,
+              color: colorLimpiado,
+              cost: costVal,
+              wholesale: wholesaleVal,
+              price: priceVal,
+              vip: vipVal,
+              stock: qty,
+              image: imageExplicitlyRemoved ? "" : fotoFinal
             });
-            creados++;
+          }
+          procesados++;
+        } else if (varianteExistente) {
+          // Si borraron el número de una talla existente en modo edición, se elimina esa talla
+          products = products.filter(p => p.id !== varianteExistente.id);
+        }
+      });
+
+      if (procesados === 0 && !editGroupKey) {
+        mostrarToast("Escribe el stock en al menos 1 talla", "#ffea00");
+        return;
+      }
+
+      // Sincronizar foto en todas las tallas del mismo producto y color
+      sincronizarFotoEnModelo(nombreLimpiado, colorLimpiado, imageExplicitlyRemoved ? "" : fotoFinal);
+
+      // Si está marcada la casilla, actualizar precios en todos los colores del mismo modelo
+      if (syncAllColors) {
+        products.forEach(prod => {
+          if ((prod.name || "").trim().toLowerCase() === nombreLimpiado.toLowerCase()) {
+            prod.cost = costVal;
+            prod.wholesale = wholesaleVal;
+            prod.price = priceVal;
+            prod.vip = vipVal;
           }
         });
-        if (creados === 0) {
-          mostrarToast("Escribe el stock en al menos 1 talla", "#ffea00");
-          return;
-        }
-        localStorage.removeItem("neewshop_form_draft");
-        if (syncCheck && fotoFinal) sincronizarFotoEnModelo(nombreLimpiado, colorLimpiado, fotoFinal);
-        mostrarToast(`${creados} tallas creadas de ${nombreLimpiado}`);
-      } else {
-        const pData = {
-          ...baseInfo,
-          size: document.getElementById("pSize").value,
-          stock: parseInt(document.getElementById("pStock").value, 10) || 0
-        };
-
-        if (idExistente) {
-          const index = products.findIndex(p => p.id == idExistente);
-          if (index !== -1) products[index] = { ...products[index], ...pData };
-          
-          let propagados = 0;
-          products.forEach(prod => {
-            if (prod.id != idExistente &&
-                (prod.name || "").trim().toLowerCase() === nombreLimpiado.toLowerCase() &&
-                (prod.color || "").trim().toLowerCase() === colorLimpiado.toLowerCase()) {
-              prod.cost = costVal;
-              prod.price = priceVal;
-              prod.wholesale = wholesaleVal;
-              prod.vip = vipVal;
-              if (syncCheck) {
-                if (fotoFinal) prod.image = fotoFinal;
-                else if (imageExplicitlyRemoved) prod.image = "";
-              }
-              propagados++;
-            }
-          });
-          if (propagados > 0) {
-            mostrarToast(`Actualizado en las ${propagados + 1} tallas (${colorLimpiado})`);
-          } else {
-            mostrarToast("Producto actualizado");
-          }
-        } else {
-          products.unshift({ id: Date.now(), ...pData });
-          localStorage.removeItem("neewshop_form_draft");
-          if (syncCheck && fotoFinal) sincronizarFotoEnModelo(nombreLimpiado, colorLimpiado, fotoFinal);
-          mostrarToast("Producto guardado en stock");
-        }
       }
 
       imageExplicitlyRemoved = false;
       saveToDB();
-      document.getElementById("productForm").reset();
-      actualizarVistaPreviaFotoModal("");
       toggleModal(false);
-      cerrarDetalles();
+      mostrarToast(editGroupKey ? `Modelo ${nombreLimpiado} actualizado` : `${procesados} tallas guardadas de ${nombreLimpiado}`);
     }
 
-    function verDetalles(id) {
+    function verDetallesGrupo(groupKey) {
       vibrar(25);
-      const p = products.find(prod => prod.id === id);
-      if (!p) return;
-      currentSelectedProduct = p;
-      document.getElementById("detailName").textContent = p.name;
+      const items = obtenerItemsDeGrupo(groupKey);
+      if (items.length === 0) return;
+      currentSelectedGroupKey = groupKey;
+      const base = items.find(i => i.image) || items[0];
+      document.getElementById("detailName").textContent = `${base.name} (${base.color})`;
 
-      const costo = Number(p.cost) || 0;
-      const menudeo = Number(p.price) || 0;
-      const mayoreo = Number(p.wholesale) || 0;
-      const vip = Number(p.vip) || 0;
-      const stock = Number(p.stock) || 0;
-      const fotoHTML = p.image ? `<img src="${p.image}" class="detail-photo-banner" alt="${p.name}" />` : "";
+      const costo = Number(base.cost) || 0;
+      const menudeo = Number(base.price) || 0;
+      const mayoreo = Number(base.wholesale) || 0;
+      const vip = Number(base.vip) || 0;
+      const totalStock = items.reduce((acc, i) => acc + (Number(i.stock) || 0), 0);
+      const fotoHTML = base.image ? `<img src="${base.image}" class="detail-photo-banner" alt="${base.name}" />` : "";
+
+      const itemsOrdenados = [...items].sort((a, b) => obtenerPesoOrdenTalla(a.size) - obtenerPesoOrdenTalla(b.size));
+      const desgloseTallasHTML = itemsOrdenados.map(it => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 8px; background:var(--glass-input); border-radius:9px; font-size:0.78rem;">
+          <span>Talla <strong>${it.size}</strong></span>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-weight:900; color:${it.stock > 0 ? 'var(--price-vip)' : 'var(--neon-pink)'};">${it.stock} pzas</span>
+            <button type="button" onclick="pedirEliminarVarianteIndividual(${it.id})" style="background:none; border:none; color:var(--neon-pink); cursor:pointer; font-weight:900;">✕</button>
+          </div>
+        </div>
+      `).join("");
 
       document.getElementById("detailContent").innerHTML = `
         ${fotoHTML}
         <div class="detail-grid">
-          <div class="detail-box"><div class="detail-label">Categoría</div><div class="detail-val">${p.category}</div></div>
-          <div class="detail-box"><div class="detail-label">Talla / Medida</div><div class="detail-val">${p.size}</div></div>
-          <div class="detail-box"><div class="detail-label">Color</div><div class="detail-val">${p.color}</div></div>
-          <div class="detail-box"><div class="detail-label">Stock Actual</div><div class="detail-val">${stock} pzas</div></div>
-          <div class="detail-box"><div class="detail-label">Costo (Adquisición)</div><div class="detail-val">$${costo.toLocaleString("es-MX")}</div><div class="detail-sub">Inversión: $${(costo * stock).toLocaleString("es-MX")}</div></div>
+          <div class="detail-box"><div class="detail-label">Categoría / Color</div><div class="detail-val" style="font-size:0.86rem;">${base.category} • ${base.color}</div></div>
+          <div class="detail-box"><div class="detail-label">Stock Total Modelo</div><div class="detail-val">${totalStock} pzas</div><div class="detail-sub">Inv: $${(costo * totalStock).toLocaleString("es-MX")}</div></div>
+          <div class="detail-box" style="grid-column: span 2;">
+            <div class="detail-label" style="margin-bottom:6px;">Desglose por Talla</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">${desgloseTallasHTML}</div>
+          </div>
+          <div class="detail-box"><div class="detail-label">Costo</div><div class="detail-val">$${costo.toLocaleString("es-MX")}</div></div>
           <div class="detail-box"><div class="detail-label">Precio Mayoreo</div><div class="detail-val" style="color:var(--price-mayoreo);">$${mayoreo.toLocaleString("es-MX")}</div><div class="detail-sub">Utilidad: +$${(mayoreo - costo).toLocaleString("es-MX")}</div></div>
           <div class="detail-box"><div class="detail-label">Precio Menudeo</div><div class="detail-val" style="color:var(--price-menudeo);">$${menudeo.toLocaleString("es-MX")}</div><div class="detail-sub">Utilidad: +$${(menudeo - costo).toLocaleString("es-MX")}</div></div>
           <div class="detail-box"><div class="detail-label">Precio VIP</div><div class="detail-val" style="color:var(--price-vip);">$${vip.toLocaleString("es-MX")}</div><div class="detail-sub">Utilidad: +$${(vip - costo).toLocaleString("es-MX")}</div></div>
@@ -2335,42 +2322,94 @@
 
     function cerrarDetalles() { vibrar(15); document.getElementById("detailModal").classList.remove("open"); }
 
-    function editarProductoDesdeDetalle() {
-      if (!currentSelectedProduct) return;
-      cerrarDetalles();
-      const p = currentSelectedProduct;
-      document.getElementById("modalProductTitle").textContent = "Editar Producto";
-      document.getElementById("btnGuardarProd").textContent = "Actualizar Producto";
-      document.getElementById("pId").value = p.id;
-      document.getElementById("multiSizeToggleRow").style.display = "none";
-      document.getElementById("multiSizeModeCheck").checked = false;
-      alternarModoMultiTalla();
-      document.getElementById("pName").value = p.name;
-      document.getElementById("pCat").value = p.category;
-      actualizarOpcionesTalla();
-      document.getElementById("pSize").value = p.size;
-      document.getElementById("pColor").value = p.color;
-      document.getElementById("pStock").value = p.stock;
-      document.getElementById("pCost").value = p.cost;
-      document.getElementById("pPrice").value = p.price;
-      document.getElementById("pWholesale").value = p.wholesale;
-      document.getElementById("pVip").value = p.vip;
-      document.getElementById("syncPhotoAcrossSizesCheck").checked = true;
-      imageExplicitlyRemoved = false;
-      actualizarVistaPreviaFotoModal(p.image || "");
-      actualizarVistaPreviaMargen();
-      toggleModal(true);
+    function editarGrupoDesdeDetalle() {
+      if (!currentSelectedGroupKey) return;
+      abrirEditorRapidoGrupo(currentSelectedGroupKey);
     }
 
-    function eliminarProductoDesdeDetalle() {
-      if (!currentSelectedProduct) return;
+    function duplicarModeloParaOtroColor() {
+      if (!currentSelectedGroupKey) return;
+      const items = obtenerItemsDeGrupo(currentSelectedGroupKey);
+      if (items.length === 0) return;
+      const base = items[0];
       cerrarDetalles();
-      askDeleteProduct(currentSelectedProduct.id);
+
+      document.getElementById("modalProductTitle").textContent = `Nuevo Color de ${base.name}`;
+      document.getElementById("btnGuardarProd").textContent = "Guardar Nuevo Color";
+      document.getElementById("btnEliminarModeloEnEditor").style.display = "none";
+      document.getElementById("pEditGroupKey").value = "";
+
+      renderCategoriesUI();
+      document.getElementById("pName").value = base.name;
+      document.getElementById("pCat").value = base.category;
+      document.getElementById("pColor").value = "";
+      document.getElementById("pCost").value = base.cost;
+      document.getElementById("pWholesale").value = base.wholesale;
+      document.getElementById("pPrice").value = base.price;
+      document.getElementById("pVip").value = base.vip;
+      actualizarVistaPreviaFotoModal("");
+      renderGridMultiTallasEditor(null);
+      actualizarVistaPreviaMargen();
+      toggleModal(true);
+      mostrarToast("Escribe el nuevo color y las cantidades por talla", "#00f0ff");
+    }
+
+    // ELIMINACIÓN EN 1 TOQUE SIN PEDIR CONTRASEÑA
+    function pedirEliminarGrupoDesdeDetalle() {
+      if (!currentSelectedGroupKey) return;
+      const items = obtenerItemsDeGrupo(currentSelectedGroupKey);
+      if (items.length === 0) return;
+      cerrarDetalles();
+      groupKeyToDelete = currentSelectedGroupKey;
+      singleVariantIdToDelete = null;
+      document.getElementById("deleteMessage").innerHTML =
+        `¿Seguro que deseas eliminar <strong>${items[0].name} (${items[0].color})</strong> y sus ${items.length} tallas?`;
+      document.getElementById("deleteModal").classList.add("open");
+    }
+
+    function pedirEliminarGrupoActualDesdeEditor() {
+      const gKey = document.getElementById("pEditGroupKey").value;
+      if (!gKey) return;
+      toggleModal(false);
+      currentSelectedGroupKey = gKey;
+      pedirEliminarGrupoDesdeDetalle();
+    }
+
+    function pedirEliminarVarianteIndividual(variantId) {
+      vibrar(25);
+      const item = products.find(p => p.id === variantId);
+      if (!item) return;
+      cerrarDetalles();
+      singleVariantIdToDelete = variantId;
+      groupKeyToDelete = null;
+      document.getElementById("deleteMessage").innerHTML =
+        `¿Eliminar únicamente la talla <strong>${item.size}</strong> de <strong>${item.name} (${item.color})</strong>?`;
+      document.getElementById("deleteModal").classList.add("open");
+    }
+
+    function closeDeleteModal() {
+      vibrar(15);
+      groupKeyToDelete = null;
+      singleVariantIdToDelete = null;
+      document.getElementById("deleteModal").classList.remove("open");
+    }
+
+    function confirmDeleteProductGroup() {
+      vibrar(60);
+      if (singleVariantIdToDelete !== null) {
+        products = products.filter(p => p.id !== singleVariantIdToDelete);
+        mostrarToast("Talla eliminada", "#ff2a5f");
+      } else if (groupKeyToDelete) {
+        products = products.filter(p => construirGroupKey(p.name, p.color, p.category) !== groupKeyToDelete);
+        mostrarToast("Modelo eliminado del inventario", "#ff2a5f");
+      }
+      saveToDB();
+      closeDeleteModal();
     }
 
     function addCategory(e) {
       e.preventDefault();
-      vibrar(100);
+      vibrar(80);
       const nombre = document.getElementById("cName").value.trim();
       const tipoTalla = document.getElementById("cSizeType").value;
       if (!nombre) return;
@@ -2386,14 +2425,13 @@
       mostrarToast("Categoría creada");
     }
 
-    function toggleCategoryModal(show) { vibrar(25); document.getElementById("addCategoryModal").classList.toggle("open", show); }
+    function toggleCategoryModal(show) { vibrar(20); document.getElementById("addCategoryModal").classList.toggle("open", show); }
 
     function toggleDeleteCategoryModal(show) {
-      vibrar(25);
+      vibrar(20);
       document.getElementById("deleteCategoryModal").classList.toggle("open", show);
       if (show) {
         renderCategoriesUI();
-        document.getElementById("deleteCatPassInput").value = "";
         document.getElementById("deleteCatErrorMsg").textContent = "";
       }
     }
@@ -2401,20 +2439,14 @@
     function confirmDeleteCategory(e) {
       e.preventDefault();
       const catName = document.getElementById("delCatSelect").value;
-      const passInput = document.getElementById("deleteCatPassInput");
       const errorMsg = document.getElementById("deleteCatErrorMsg");
 
-      if (!validarClaveSecreta(passInput.value)) {
-        vibrar(60);
-        errorMsg.textContent = "Contraseña incorrecta.";
-        return;
-      }
       if (products.some(p => p.category.toLowerCase() === catName.toLowerCase())) {
         vibrar(60);
-        errorMsg.textContent = "No se puede borrar: hay productos en esta categoría.";
+        errorMsg.textContent = "No se puede borrar: aún hay productos en esta categoría.";
         return;
       }
-      vibrar(100);
+      vibrar(80);
       categories = categories.filter(c => c.name.toLowerCase() !== catName.toLowerCase());
       if (activeCategory === catName) activeCategory = "Todos";
       saveToDB();
@@ -2422,45 +2454,7 @@
       mostrarToast("Categoría eliminada", "#ff2a5f");
     }
 
-    function askDeleteProduct(id) {
-      vibrar(30);
-      const item = products.find(p => p.id === id);
-      if (!item) return;
-      productToDeleteId = id;
-      document.getElementById("deleteMessage").innerHTML = `¿Eliminar <strong>${item.name}</strong> (${item.size} • ${item.color})?`;
-      document.getElementById("deletePassInput").value = "";
-      document.getElementById("deleteErrorMsg").textContent = "";
-      document.getElementById("deleteModal").classList.add("open");
-    }
-
-    function closeDeleteModal() {
-      vibrar(15);
-      productToDeleteId = null;
-      document.getElementById("deletePassInput").value = "";
-      document.getElementById("deleteModal").classList.remove("open");
-    }
-
-    function confirmDeleteProduct(e) {
-      if (e) e.preventDefault();
-      if (productToDeleteId === null) return;
-      const passInput = document.getElementById("deletePassInput");
-      const errorMsg = document.getElementById("deleteErrorMsg");
-      if (!validarClaveSecreta(passInput.value)) {
-        vibrar(60);
-        errorMsg.textContent = "Contraseña incorrecta.";
-        passInput.classList.remove("input-error");
-        void passInput.offsetWidth;
-        passInput.classList.add("input-error");
-        return;
-      }
-      vibrar(100);
-      products = products.filter(p => p.id !== productToDeleteId);
-      saveToDB();
-      closeDeleteModal();
-      mostrarToast("Producto eliminado", "#ff2a5f");
-    }
-
-    function toggleModal(show) { vibrar(25); document.getElementById("addModal").classList.toggle("open", show); }
+    function toggleModal(show) { vibrar(20); document.getElementById("addModal").classList.toggle("open", show); }
 
     function filtrarVentasPorPeriodo(listaVentas) {
       if (activeSalesPeriod === "ALL") return listaVentas;
@@ -2523,6 +2517,7 @@
 
     function renderProducts() {
       actualizarFiltroTallasDisponibles();
+      actualizarDatalistModelos();
       const list = document.getElementById("productList");
       const query = document.getElementById("searchInput").value;
       const sizeFilter = document.getElementById("sizeFilterSelect") ? document.getElementById("sizeFilterSelect").value : "ALL";
@@ -2540,10 +2535,13 @@
       animarValorKPI("kpiCostTotal", costoTotalInvertido, true);
       animarValorKPI("kpiSalesProfit", gananciaVentasTotal, true);
 
+      // HISTORIAL DE VENTAS CON DESGLOSE EFECTIVO VS TRANSFERENCIA
       if (activeStockFilter === "VENTAS") {
         list.className = "sales-list";
         const ventasFiltradas = filtrarVentasPorPeriodo(salesHistory);
         const cobradoPeriodo = ventasFiltradas.reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
+        const cobradoEfectivo = ventasFiltradas.filter(s => (s.payMethod || "Efectivo") === "Efectivo").reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
+        const cobradoTransf = ventasFiltradas.filter(s => s.payMethod === "Transferencia").reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
         const gananciaPeriodo = ventasFiltradas.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
         const piezasPeriodo = ventasFiltradas.reduce((acc, s) => acc + (Number(s.qty) || 0), 0);
 
@@ -2555,9 +2553,10 @@
               <button type="button" class="sales-period-btn ${activeSalesPeriod === 'ALL' ? 'active' : ''}" onclick="setSalesPeriod('ALL')">Todo (${salesHistory.length})</button>
             </div>
             <div class="sales-metrics-row">
-              <div class="sales-metric-box"><div class="sales-metric-lbl">Cobrado</div><div class="sales-metric-val" style="color:var(--price-menudeo);">$${cobradoPeriodo.toLocaleString("es-MX")}</div></div>
-              <div class="sales-metric-box"><div class="sales-metric-lbl">Ganancia</div><div class="sales-metric-val" style="color:var(--price-vip);">+$${gananciaPeriodo.toLocaleString("es-MX")}</div></div>
-              <div class="sales-metric-box"><div class="sales-metric-lbl">Prendas</div><div class="sales-metric-val">${piezasPeriodo} pzas</div></div>
+              <div class="sales-metric-box"><div class="sales-metric-lbl">En Efectivo</div><div class="sales-metric-val">$${cobradoEfectivo.toLocaleString("es-MX")}</div></div>
+              <div class="sales-metric-box"><div class="sales-metric-lbl">Transferencia</div><div class="sales-metric-val" style="color:var(--price-menudeo);">$${cobradoTransf.toLocaleString("es-MX")}</div></div>
+              <div class="sales-metric-box"><div class="sales-metric-lbl">Total (${piezasPeriodo} pzas)</div><div class="sales-metric-val">$${cobradoPeriodo.toLocaleString("es-MX")}</div></div>
+              <div class="sales-metric-box"><div class="sales-metric-lbl">Ganancia Neta</div><div class="sales-metric-val" style="color:var(--price-vip);">+$${gananciaPeriodo.toLocaleString("es-MX")}</div></div>
             </div>
           </div>
           ${calcularTopMasVendidosHTML(ventasFiltradas)}
@@ -2576,7 +2575,7 @@
                 <span class="pay-badge">${s.payMethod || "Efectivo"}</span>
               </div>
               <div class="sale-sub" style="margin-top:2px; font-weight:700; color:var(--text-white);">$${Number(s.totalSold).toLocaleString("es-MX")} • ${s.qty} pzas</div>
-              <div class="sale-sub" style="font-size: 0.65rem; color:var(--text-secondary);">${s.date} • Toca para ticket</div>
+              <div class="sale-sub" style="font-size: 0.65rem; color:var(--text-secondary);">${s.date} • Toca para ver ticket</div>
             </div>
             <div class="sale-profit">
               <div class="sale-profit-val">+$${Number(s.profit).toLocaleString("es-MX", { minimumFractionDigits: 2 })}</div>
@@ -2587,6 +2586,7 @@
         return;
       }
 
+      // AGRUPACIÓN INTELIGENTE POR MODELO Y COLOR
       list.className = "product-list";
       let filtered = products.filter(p => {
         const estado = obtenerEstadoStock(p.stock);
@@ -2595,63 +2595,125 @@
         return matchesCat && matchesStock && coincideBusquedaProductoYTalla(p, query, sizeFilter);
       });
 
-      if (sortMode === "low_stock") filtered = [...filtered].sort((a, b) => (Number(a.stock) || 0) - (Number(b.stock) || 0));
-      else if (sortMode === "az") filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+      const mapaGrupos = {};
+      filtered.forEach(p => {
+        const gKey = construirGroupKey(p.name, p.color, p.category);
+        if (!mapaGrupos[gKey]) {
+          mapaGrupos[gKey] = {
+            groupKey: gKey,
+            name: p.name,
+            category: p.category,
+            color: p.color,
+            price: Number(p.price) || 0,
+            wholesale: Number(p.wholesale) || 0,
+            vip: Number(p.vip) || 0,
+            image: p.image || "",
+            totalStock: 0,
+            variants: []
+          };
+        }
+        if (!mapaGrupos[gKey].image && p.image) mapaGrupos[gKey].image = p.image;
+        mapaGrupos[gKey].totalStock += Number(p.stock) || 0;
+        mapaGrupos[gKey].variants.push(p);
+      });
 
-      if (filtered.length === 0) {
+      let listaGrupos = Object.values(mapaGrupos);
+      if (sortMode === "low_stock") listaGrupos.sort((a, b) => a.totalStock - b.totalStock);
+      else if (sortMode === "az") listaGrupos.sort((a, b) => a.name.localeCompare(b.name));
+
+      if (listaGrupos.length === 0) {
         list.innerHTML = `<div class="empty-state">No se encontraron productos con ese filtro o talla.</div>`;
         return;
       }
 
-      list.innerHTML = filtered.map((p, idx) => {
-        const estado = obtenerEstadoStock(p.stock);
-        const bgColorDot = obtenerColorCSS(p.color);
-        const precioMenudeo = Number(p.price) || 0;
-        const precioMayoreo = Number(p.wholesale) || 0;
-        const precioVip = Number(p.vip) || 0;
-        const enCarritoQty = cartItems.filter(i => i.id === p.id).reduce((acc, i) => acc + i.qty, 0);
+      list.innerHTML = listaGrupos.map((g, idx) => {
+        g.variants.sort((a, b) => obtenerPesoOrdenTalla(a.size) - obtenerPesoOrdenTalla(b.size));
 
-        const slotFotoHTML = p.image
-          ? `<div class="product-thumb-slot" onclick="tocarMiniaturaTarjeta(${p.id}, event)" title="Toca para ver en grande, cambiar o borrar foto">
-               <img src="${p.image}" alt="${p.name}" />
+        // Determinar talla activa seleccionada en esta tarjeta
+        let activeVarId = selectedVariantByGroup[g.groupKey];
+        let activeVar = g.variants.find(v => v.id === activeVarId);
+        if (!activeVar) {
+          activeVar = g.variants.find(v => (Number(v.stock) || 0) > 0) || g.variants[0];
+          selectedVariantByGroup[g.groupKey] = activeVar.id;
+        }
+
+        const estado = obtenerEstadoStock(g.totalStock);
+        const bgColorDot = obtenerColorCSS(g.color);
+        const precioMenudeo = Number(activeVar.price) || g.price;
+        const precioMayoreo = Number(activeVar.wholesale) || g.wholesale;
+        const precioVip = Number(activeVar.vip) || g.vip;
+
+        const idsGrupo = g.variants.map(v => v.id);
+        const enCarritoQty = cartItems.filter(i => idsGrupo.includes(i.id)).reduce((acc, i) => acc + i.qty, 0);
+        const safeGroupKeyAttr = g.groupKey.replace(/'/g, "\\'");
+
+        const slotFotoHTML = g.image
+          ? `<div class="product-thumb-slot" onclick="tocarMiniaturaGrupo('${safeGroupKeyAttr}', event)" title="Toca para ver en grande o cambiar foto">
+               <img src="${g.image}" alt="${g.name}" />
              </div>`
-          : `<div class="product-thumb-slot" onclick="tocarMiniaturaTarjeta(${p.id}, event)" title="Toca para subir foto de esta prenda">
+          : `<div class="product-thumb-slot" onclick="tocarMiniaturaGrupo('${safeGroupKeyAttr}', event)" title="Toca para subir foto">
                <svg class="ico" style="width:18px;height:18px;" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                <span class="add-photo-lbl">+ Foto</span>
              </div>`;
 
+        const pillsTallasHTML = g.variants.map(v => {
+          const isSel = v.id === activeVar.id;
+          const sinStock = (Number(v.stock) || 0) <= 0;
+          return `
+            <button type="button" class="size-variant-chip ${isSel ? 'selected' : ''} ${sinStock ? 'out-of-stock' : ''}" onclick="seleccionarTallaEnTarjeta('${safeGroupKeyAttr}', ${v.id}, event)">
+              <span>${v.size}</span>
+              <span class="sz-qty">${v.stock}</span>
+            </button>
+          `;
+        }).join("");
+
         return `
-          <div class="product-card" style="animation-delay: ${Math.min(idx * 22, 180)}ms;" onclick="verDetalles(${p.id})">
+          <div class="product-card" style="animation-delay: ${Math.min(idx * 22, 180)}ms;" onclick="verDetallesGrupo('${safeGroupKeyAttr}')">
             <div class="product-top-row">
               ${slotFotoHTML}
               <div class="product-info">
                 <span class="product-cat">
-                  ${p.category}
+                  ${g.category}
                   ${enCarritoQty > 0 ? `<span class="in-cart-badge">${enCarritoQty} en pedido</span>` : ''}
                 </span>
-                <div class="product-name">${p.name}</div>
+                <div class="product-name">${g.name}</div>
                 <div class="product-meta">
-                  <span class="meta-pill">Talla ${p.size}</span>
-                  <span class="meta-pill"><span class="color-dot" style="background: ${bgColorDot};"></span>${p.color}</span>
+                  <span class="meta-pill"><span class="color-dot" style="background: ${bgColorDot};"></span>${g.color}</span>
                   ${precioMayoreo > 0 ? `<span class="meta-pill pill-mayoreo">May: $${precioMayoreo.toLocaleString("es-MX")}</span>` : ''}
                   <span class="meta-pill pill-menudeo">Men: $${precioMenudeo.toLocaleString("es-MX")}</span>
                   ${precioVip > 0 ? `<span class="meta-pill pill-vip">VIP: $${precioVip.toLocaleString("es-MX")}</span>` : ''}
                 </div>
+                <div class="sizes-pills-wrap" onclick="event.stopPropagation()">
+                  ${pillsTallasHTML}
+                </div>
               </div>
-              <div class="stock-controls">
+              <div class="stock-controls" onclick="event.stopPropagation()">
                 <div class="status-row">
+                  <button type="button" class="card-quick-edit-btn" onclick="abrirEditorRapidoGrupo('${safeGroupKeyAttr}', event)" title="Editar tallas y precios">
+                    <svg class="ico" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                  </button>
                   <span class="stock-status ${estado.clase}">${estado.texto}</span>
                 </div>
-                <div class="stock-only-badge">Stock: ${p.stock}</div>
+                <div class="stock-only-badge">Total: ${g.totalStock}</div>
               </div>
             </div>
             <div class="card-bottom-action" onclick="event.stopPropagation()">
-              <select id="selPrice_${p.id}" class="price-select-mini" autocomplete="off">
+              <select id="selPrice_${idx}" class="price-select-mini" autocomplete="off">
                 ${precioMayoreo > 0 ? `<option value="wholesale" selected>Mayoreo ($${precioMayoreo})</option>` : ''}
                 <option value="price" ${precioMayoreo <= 0 ? 'selected' : ''}>Menudeo ($${precioMenudeo})</option>
                 ${precioVip > 0 ? `<option value="vip">VIP ($${precioVip})</option>` : ''}
               </select>
-              <button class="sell-card-full-btn" onclick="agregarAlCarritoSeleccionado(${p.id}, event)">+ Agregar al Pedido</button>
+              <select id="selQty_${idx}" class="qty-select-mini" autocomplete="off" title="Cantidad a agregar">
+                <option value="1" selected>1 pza</option>
+                <option value="2">2 pzas</option>
+                <option value="3">3 pzas</option>
+                <option value="4">4 pzas</option>
+                <option value="5">5 pzas</option>
+                <option value="6">6 pzas</option>
+                <option value="10">10 pzas</option>
+                <option value="12">12 pzas</option>
+              </select>
+              <button class="sell-card-full-btn" onclick="agregarGrupoAlCarrito('${safeGroupKeyAttr}', ${idx}, event)">+ Talla ${activeVar.size}</button>
             </div>
           </div>
         `;
@@ -2749,9 +2811,7 @@
       const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const fechaFormateada = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "long", year: "numeric" }).toUpperCase();
 
-      // =========================================================
       // PÁGINA 1: PORTADA MINIMALISTA (SOLO MARCA, MODALIDAD Y FECHA)
-      // =========================================================
       doc.setFillColor(12, 12, 15);
       doc.rect(0, 0, 210, 297, "F");
 
@@ -2759,7 +2819,6 @@
       doc.setLineWidth(0.4);
       doc.rect(14, 14, 182, 269, "D");
 
-      // Logo central neewshop
       doc.setFillColor(22, 22, 28);
       doc.setDrawColor(65, 65, 78);
       doc.setLineWidth(0.5);
@@ -2775,21 +2834,17 @@
       doc.setTextColor(12, 12, 15);
       doc.text("shop", 121, 128.2, { align: "center" });
 
-      // Modalidad de precios (Mayoreo / Menudeo / VIP)
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
       doc.setTextColor(255, 255, 255);
       doc.text(etiquetaModoPortada, 105, 154, { align: "center" });
 
-      // Fecha
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9.5);
       doc.setTextColor(155, 155, 168);
       doc.text(fechaFormateada, 105, 165, { align: "center" });
 
-      // =========================================================
       // PÁGINAS DE CONTENIDO: FLUJO CONTINUO POR CATEGORÍA
-      // =========================================================
       let paginaActual = 1;
       const cardW = 88;
       const cardH = 70;
@@ -2807,7 +2862,6 @@
         doc.setFillColor(14, 14, 17);
         doc.rect(0, 0, 210, 24, "F");
 
-        // Logo compacto en cabecera
         doc.setFillColor(26, 26, 32);
         doc.setDrawColor(58, 58, 68);
         doc.setLineWidth(0.3);
@@ -2829,7 +2883,6 @@
         doc.setTextColor(210, 210, 220);
         doc.text(`${etiquetaModoPortada}  •  ${fechaFormateada}`, 196, 12.8, { align: "right" });
 
-        // Pie de página limpio
         doc.setDrawColor(218, 218, 224);
         doc.setLineWidth(0.3);
         doc.line(14, 285, 196, 285);
@@ -2877,14 +2930,12 @@
         const infoX = imgX + imgSize + 3.2;
         const infoW = cardW - imgSize - 9.8;
 
-        // Nombre del Producto
         doc.setFont("helvetica", "bold");
         doc.setFontSize(9.5);
         doc.setTextColor(17, 17, 21);
         const lineasNombre = doc.splitTextToSize(p.name || "Producto", infoW);
         doc.text(lineasNombre.slice(0, 2), infoX, y + 8.5);
 
-        // Píldora de Color
         const colorY = y + (lineasNombre.length > 1 ? 15.2 : 11.8);
         doc.setFillColor(246, 246, 249);
         doc.setDrawColor(225, 225, 232);
@@ -2901,7 +2952,6 @@
         doc.setTextColor(45, 45, 55);
         doc.text((p.color || "Único").slice(0, 16), infoX + 5.8, colorY + 3.7);
 
-        // Etiquetas de Talla y Cantidad disponible
         const tallasLabelY = colorY + 8.6;
         doc.setFont("helvetica", "bold");
         doc.setFontSize(5.5);
@@ -2934,7 +2984,6 @@
           }
         });
 
-        // Barra inferior de Precios (#141418)
         const barY = y + 48.5;
         const barH = 18;
         doc.setFillColor(20, 20, 24);
@@ -2985,18 +3034,15 @@
       iniciarNuevaPaginaContenido();
       let cursorY = 30;
 
-      // Flujo continuo: dibuja barra de categoría y filas de 2 productos sin saltar de hoja innecesariamente
       categoriasOrdenadas.forEach(cat => {
         const listaCat = itemsPorCategoria[cat] || [];
         if (listaCat.length === 0) return;
 
-        // Si no cabe el encabezado de categoría (9mm) + al menos 1 fila de tarjetas (70mm), pasa a la siguiente hoja
         if (cursorY + 9 + cardH > maxPageY) {
           iniciarNuevaPaginaContenido();
           cursorY = 30;
         }
 
-        // Barra divisoria de Categoría
         doc.setFillColor(22, 22, 27);
         doc.roundedRect(marginX, cursorY, 182, 7.5, 2, 2, "F");
         doc.setFont("helvetica", "bold");
