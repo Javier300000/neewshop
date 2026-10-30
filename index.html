@@ -13,11 +13,11 @@
       --bg-grad-1: rgba(0, 240, 255, 0.07);
       --bg-grad-2: rgba(255, 42, 95, 0.06);
       --bg-grad-3: rgba(0, 255, 102, 0.06);
-      --glass-header: rgba(20, 20, 24, 0.93);
-      --glass-surface: rgba(28, 28, 32, 0.68);
-      --glass-surface-hover: rgba(42, 42, 48, 0.82);
-      --glass-dock: rgba(24, 24, 28, 0.9);
-      --glass-modal: rgba(18, 18, 22, 0.96);
+      --glass-header: rgba(20, 20, 24, 0.94);
+      --glass-surface: rgba(28, 28, 32, 0.72);
+      --glass-surface-hover: rgba(42, 42, 48, 0.84);
+      --glass-dock: rgba(24, 24, 28, 0.92);
+      --glass-modal: rgba(18, 18, 22, 0.97);
       --glass-pill: rgba(255, 255, 255, 0.12);
       --glass-input: rgba(0, 0, 0, 0.58);
       --glass-border: rgba(255, 255, 255, 0.18);
@@ -48,10 +48,10 @@
       --bg-grad-2: rgba(255, 45, 85, 0.06);
       --bg-grad-3: rgba(52, 199, 89, 0.08);
       --glass-header: rgba(255, 255, 255, 0.95);
-      --glass-surface: rgba(255, 255, 255, 0.85);
+      --glass-surface: rgba(255, 255, 255, 0.88);
       --glass-surface-hover: rgba(255, 255, 255, 0.96);
-      --glass-dock: rgba(255, 255, 255, 0.92);
-      --glass-modal: rgba(248, 248, 252, 0.97);
+      --glass-dock: rgba(255, 255, 255, 0.94);
+      --glass-modal: rgba(248, 248, 252, 0.98);
       --glass-pill: rgba(0, 0, 0, 0.07);
       --glass-input: rgba(0, 0, 0, 0.06);
       --glass-border: rgba(0, 0, 0, 0.14);
@@ -91,7 +91,7 @@
     svg.ico { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
     @keyframes cardCascade { from { opacity: 0; transform: translateY(10px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes sheetSlideIn { from { opacity: 0; transform: translateY(-14px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes sheetSlideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 75% { transform: translateX(-4px); } }
 
     .dynamic-toast {
@@ -119,7 +119,7 @@
       width: 100%; max-width: 360px; background: var(--glass-dock);
       backdrop-filter: var(--blur-strong); -webkit-backdrop-filter: var(--blur-strong);
       border: 1px solid var(--glass-border-strong); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 var(--glass-specular);
-      border-radius: 32px; padding: 34px 24px 22px; text-align: center; animation: sheetSlideIn 0.4s var(--ease-ios);
+      border-radius: 32px; padding: 34px 24px 22px; text-align: center; animation: sheetSlideUp 0.4s var(--ease-ios);
     }
     .login-logo { font-size: 1.9rem; font-weight: 900; letter-spacing: -0.8px; text-transform: lowercase; color: var(--text-white); display: inline-flex; align-items: center; gap: 5px; margin-bottom: 6px; }
     .login-logo span { background: var(--invert-bg); color: var(--invert-fg); padding: 2px 10px; border-radius: 999px; }
@@ -193,34 +193,36 @@
     }
     .clear-search-btn.visible { display: flex; }
 
-    .filters-subrow { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; width: 100%; }
+    .filters-subrow { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; width: 100%; align-items: center; }
     select.filter-pill-select {
       width: 100% !important; background: var(--glass-input); border: 1px solid var(--glass-border-strong);
-      color: var(--text-white); padding: 7px 11px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; outline: none; cursor: pointer;
+      color: var(--text-white); padding: 7px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; outline: none; cursor: pointer;
+    }
+    .view-mode-btn {
+      background: var(--glass-input); border: 1px solid var(--glass-border-strong); color: var(--text-white);
+      height: 31px; padding: 0 10px; border-radius: 999px; font-size: 0.65rem; font-weight: 800;
+      display: inline-flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap;
+    }
+    .view-mode-btn.active { background: var(--invert-bg); color: var(--invert-fg); }
+
+    /* BARRA COMPACTA DESPLEGABLE DE RESUMEN KPI */
+    .kpi-collapse-bar {
+      margin: 10px 12px 2px; padding: 9px 14px;
+      background: var(--glass-surface); backdrop-filter: var(--blur-medium); -webkit-backdrop-filter: var(--blur-medium);
+      border: 1px solid var(--glass-border); border-radius: 16px;
+      display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+      box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-specular);
+    }
+    .kpi-collapse-bar:active { transform: scale(0.99); }
+    .kpi-summary-inline { display: flex; align-items: center; gap: 10px; font-size: 0.74rem; font-weight: 800; flex-wrap: wrap; }
+    .kpi-toggle-badge {
+      background: var(--glass-pill); border: 1px solid var(--glass-border); padding: 4px 9px;
+      border-radius: 999px; font-size: 0.64rem; font-weight: 800; color: var(--text-secondary);
+      display: inline-flex; align-items: center; gap: 4px;
     }
 
-    .theme-options-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
-    .theme-option-card {
-      background: var(--glass-pill); border: 1.5px solid var(--glass-border); border-radius: 18px;
-      padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      cursor: pointer; transition: all 0.2s var(--ease-ios); text-align: left; width: 100%; color: var(--text-white);
-    }
-    .theme-option-card:active { transform: scale(0.98); }
-    .theme-option-card.active { border-color: var(--price-vip); background: rgba(0, 255, 102, 0.12); }
-    .theme-opt-left { display: flex; align-items: center; gap: 12px; }
-    .theme-opt-icon {
-      width: 36px; height: 36px; border-radius: 12px; background: var(--glass-input);
-      border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .theme-opt-title { font-size: 0.86rem; font-weight: 800; color: var(--text-white); }
-    .theme-opt-desc { font-size: 0.68rem; color: var(--text-secondary); font-weight: 600; margin-top: 2px; }
-    .theme-opt-check {
-      width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--glass-border);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .theme-option-card.active .theme-opt-check { background: var(--price-vip); border-color: var(--price-vip); color: #000; }
-
-    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; padding: 12px 12px 4px; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; padding: 8px 12px 4px; }
+    .kpi-grid.collapsed { display: none; }
     .kpi-card {
       background: var(--glass-surface); backdrop-filter: var(--blur-medium); -webkit-backdrop-filter: var(--blur-medium);
       border: 1px solid var(--glass-border); box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-specular);
@@ -296,15 +298,27 @@
     }
     .sales-period-btn.active { background: var(--price-vip); color: #000; border-color: var(--price-vip); }
     .sales-metrics-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; text-align: center; }
-    .sales-metric-box { background: var(--glass-input); border: 1px solid var(--glass-border); border-radius: 12px; padding: 8px 6px; }
+    .sales-metric-box {
+      background: var(--glass-input); border: 1.5px solid var(--glass-border); border-radius: 12px;
+      padding: 8px 6px; cursor: pointer; transition: all 0.15s ease;
+    }
+    .sales-metric-box.active-pay-filter { border-color: var(--price-menudeo); background: rgba(0, 240, 255, 0.14); }
     .sales-metric-lbl { font-size: 0.56rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; }
     .sales-metric-val { font-size: 0.92rem; font-weight: 900; color: var(--text-white); margin-top: 2px; font-variant-numeric: tabular-nums; }
 
     .top-seller-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; background: var(--glass-input); border-radius: 10px; font-size: 0.76rem; }
     .top-rank-badge { background: var(--invert-bg); color: var(--invert-fg); width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 900; margin-right: 6px; }
 
-    /* TARJETAS AGRUPADAS CON SELECTOR INTERACTIVO DE TALLAS */
+    /* TARJETAS AGRUPADAS Y VISTA MOSAICO 2 COLUMNAS */
     .product-list { padding: 8px 12px; display: grid; grid-template-columns: 1fr; gap: 11px; }
+    .product-list.grid-2-cols { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .product-list.grid-2-cols .product-card { padding: 10px; border-radius: 18px; gap: 8px; }
+    .product-list.grid-2-cols .product-top-row { flex-direction: column; gap: 8px; }
+    .product-list.grid-2-cols .product-thumb-slot { width: 100%; height: 110px; border-radius: 12px; }
+    .product-list.grid-2-cols .stock-controls { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; }
+    .product-list.grid-2-cols .card-bottom-action { flex-direction: column; align-items: stretch; gap: 5px; }
+    .product-list.grid-2-cols select.qty-select-mini { display: none; }
+
     .product-card {
       background: var(--glass-surface); backdrop-filter: var(--blur-medium); -webkit-backdrop-filter: var(--blur-medium);
       border: 1px solid var(--glass-border); box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-specular);
@@ -327,7 +341,7 @@
     .product-thumb-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .product-thumb-slot .add-photo-lbl { font-size: 0.54rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; }
 
-    .product-info { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; }
+    .product-info { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; width: 100%; }
     .product-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-secondary); font-weight: 700; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .in-cart-badge { background: rgba(0, 255, 102, 0.18); color: var(--price-vip); border: 1px solid rgba(0, 255, 102, 0.45); padding: 2px 7px; border-radius: 999px; font-size: 0.58rem; font-weight: 900; display: inline-flex; align-items: center; gap: 4px; }
     .product-name { font-size: 0.96rem; font-weight: 800; color: var(--text-white); line-height: 1.22; letter-spacing: -0.3px; }
@@ -342,7 +356,6 @@
     .pill-vip { background: rgba(0, 255, 102, 0.12); border-color: rgba(0, 255, 102, 0.35); color: var(--price-vip); font-weight: 800; }
     .color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid rgba(128, 128, 128, 0.5); flex-shrink: 0; }
 
-    /* PÍLDORAS DE TALLAS INTERACTIVAS EN LA TARJETA */
     .sizes-pills-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
     .size-variant-chip {
       background: var(--glass-input); color: var(--text-white); border: 1px solid var(--glass-border);
@@ -359,9 +372,7 @@
     .size-variant-chip.selected .sz-qty {
       background: rgba(128,128,128,0.25); color: var(--invert-fg); font-weight: 900;
     }
-    .size-variant-chip.out-of-stock {
-      opacity: 0.48; border-style: dashed;
-    }
+    .size-variant-chip.out-of-stock { opacity: 0.45; border-style: dashed; }
 
     .stock-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
     .status-row { display: flex; align-items: center; gap: 5px; }
@@ -427,18 +438,31 @@
       padding: 6px 10px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; cursor: pointer; display: none;
     }
 
-    /* CUADRÍCULA UNIFICADA DE TALLAS Y STOCK EN EL EDITOR */
+    /* SELECTOR DE MODO EN EL EDITOR: CORREGIR TOTAL VS SUMAR LLEGADA */
+    .stock-mode-switch {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--glass-input);
+      padding: 4px; border-radius: 12px; border: 1px solid var(--glass-border); margin-bottom: 7px;
+    }
+    .stock-mode-btn {
+      background: transparent; color: var(--text-secondary); border: none; padding: 7px 8px;
+      border-radius: 9px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; cursor: pointer;
+    }
+    .stock-mode-btn.active-replace { background: var(--invert-bg); color: var(--invert-fg); }
+    .stock-mode-btn.active-add { background: var(--price-vip); color: #000; }
+
     .multi-sizes-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px;
       background: var(--glass-input); border: 1px solid var(--glass-border); border-radius: 14px; padding: 10px; margin-bottom: 8px;
     }
     .multi-size-item {
-      display: flex; align-items: center; justify-content: space-between; gap: 4px;
-      background: var(--glass-pill); padding: 5px 7px; border-radius: 10px; border: 1px solid var(--glass-border);
+      display: flex; flex-direction: column; gap: 3px;
+      background: var(--glass-pill); padding: 6px 7px; border-radius: 10px; border: 1px solid var(--glass-border);
     }
+    .multi-size-top { display: flex; align-items: center; justify-content: space-between; gap: 4px; width: 100%; }
     .multi-size-item.has-stock { border-color: rgba(0, 255, 102, 0.45); background: rgba(0, 255, 102, 0.08); }
-    .multi-size-item span { font-size: 0.7rem; font-weight: 800; color: var(--text-white); white-space: nowrap; }
-    .multi-size-item input { width: 46px !important; padding: 4px 5px !important; text-align: center; font-size: 15px !important; font-weight: 800; border-radius: 8px !important; }
+    .multi-size-item span.sz-name { font-size: 0.72rem; font-weight: 900; color: var(--text-white); }
+    .multi-size-item input { width: 48px !important; padding: 4px 5px !important; text-align: center; font-size: 15px !important; font-weight: 800; border-radius: 8px !important; }
+    .multi-size-cur-hint { font-size: 0.58rem; color: var(--text-secondary); font-weight: 700; text-align: right; }
 
     .bottom-dock {
       position: fixed; bottom: max(14px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
@@ -457,23 +481,47 @@
     .fab-btn { background: var(--invert-bg); color: var(--invert-fg); border: none; padding: 11px; border-radius: 999px; font-size: 0.73rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .fab-cat-btn { background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border-strong); padding: 11px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
+    /* VENTANAS TIPO BOTTOM-SHEET EN TELÉFONO */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-      display: none; justify-content: center; align-items: flex-start; z-index: 50; padding: 12px; overflow-y: auto;
+      display: none; justify-content: center; align-items: flex-end; z-index: 50; padding: 0; overflow-y: auto;
     }
     .modal-overlay.open { display: flex; }
     .modal-sheet {
-      width: 100%; max-width: 440px; background: var(--glass-modal); backdrop-filter: var(--blur-strong); -webkit-backdrop-filter: var(--blur-strong);
-      border: 1px solid var(--glass-border-strong); box-shadow: 0 25px 60px rgba(0,0,0,0.7), inset 0 1px 0 var(--glass-specular);
-      border-radius: 28px; padding: 18px 18px 22px; margin-top: 2px; animation: sheetSlideIn 0.32s var(--ease-ios);
+      width: 100%; max-width: 460px; max-height: 92vh; overflow-y: auto;
+      background: var(--glass-modal); backdrop-filter: var(--blur-strong); -webkit-backdrop-filter: var(--blur-strong);
+      border: 1px solid var(--glass-border-strong); box-shadow: 0 -15px 50px rgba(0,0,0,0.7), inset 0 1px 0 var(--glass-specular);
+      border-radius: 28px 28px 0 0; padding: 14px 18px max(22px, env(safe-area-inset-bottom)); animation: sheetSlideUp 0.3s var(--ease-ios);
     }
+    .sheet-grabber { width: 38px; height: 4px; background: var(--glass-border-strong); border-radius: 999px; margin: 0 auto 10px; }
     .modal-sheet.danger-sheet { border-top: 2px solid var(--neon-pink); }
     .modal-sheet.success-sheet { border-top: 2px solid var(--price-vip); }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .modal-title { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.3px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .modal-title { font-size: 1.02rem; font-weight: 800; letter-spacing: -0.3px; }
     .close-btn { background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    .cart-items-container { max-height: 175px; overflow-y: auto; margin-bottom: 10px; display: flex; flex-direction: column; gap: 7px; }
+    /* CAMBIO DE TARIFA GLOBAL EN EL CARRITO + BILLETES RÁPIDOS */
+    .cart-global-tier-bar {
+      display: flex; align-items: center; justify-content: space-between; gap: 5px;
+      background: var(--glass-input); border: 1px solid var(--glass-border); border-radius: 12px;
+      padding: 6px 8px; margin-bottom: 8px;
+    }
+    .cart-global-tier-lbl { font-size: 0.6rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; }
+    .cart-tier-btns { display: flex; gap: 4px; }
+    .cart-tier-chip {
+      background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border);
+      padding: 4px 8px; border-radius: 8px; font-size: 0.64rem; font-weight: 800; cursor: pointer;
+    }
+    .cart-tier-chip:active { transform: scale(0.94); background: var(--invert-bg); color: var(--invert-fg); }
+
+    .quick-bills-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 4px; }
+    .quick-bill-btn {
+      background: var(--glass-pill); color: var(--text-white); border: 1px solid var(--glass-border);
+      padding: 6px 4px; border-radius: 8px; font-size: 0.68rem; font-weight: 800; cursor: pointer; text-align: center;
+    }
+    .quick-bill-btn:active { background: var(--price-vip); color: #000; }
+
+    .cart-items-container { max-height: 165px; overflow-y: auto; margin-bottom: 10px; display: flex; flex-direction: column; gap: 7px; }
     .cart-item-row { background: var(--glass-pill); border: 1px solid var(--glass-border); border-radius: 14px; padding: 8px 11px; display: flex; justify-content: space-between; align-items: center; gap: 9px; }
     .cart-item-thumb { width: 36px; height: 36px; border-radius: 9px; object-fit: cover; border: 1px solid var(--glass-border); flex-shrink: 0; }
     .cart-item-name { font-size: 0.82rem; font-weight: 800; color: var(--text-white); }
@@ -549,13 +597,15 @@
     @media (min-width: 768px) {
       header { margin: 14px 28px 0; padding: 16px 24px; }
       .search-stack { flex-direction: row; align-items: center; }
-      .filters-subrow { width: 320px; flex-shrink: 0; }
-      .kpi-grid { grid-template-columns: repeat(5, 1fr); padding: 18px 28px 6px; gap: 12px; }
+      .filters-subrow { width: 390px; flex-shrink: 0; }
+      .kpi-collapse-bar { margin: 14px 28px 4px; }
+      .kpi-grid { grid-template-columns: repeat(5, 1fr); padding: 10px 28px 6px; gap: 12px; }
       .kpi-card-full { grid-column: span 1; display: block; padding: 14px 16px; }
       .kpi-card-full .kpi-label { margin-bottom: 4px; }
       .sales-metrics-row { grid-template-columns: repeat(4, 1fr); }
       .product-list, .sales-list { padding: 12px 28px; grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .modal-overlay { align-items: center; padding: 20px; }
+      .modal-sheet { border-radius: 28px; }
     }
     @media (min-width: 1100px) { .product-list, .sales-list { grid-template-columns: repeat(3, 1fr); } }
   </style>
@@ -585,7 +635,7 @@
         <div class="login-error-msg" id="loginError"></div>
         <button type="submit" class="login-btn">Desbloquear Stock</button>
       </form>
-      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v17.0</div>
+      <div class="version-tiny-tag" id="lockVersionLabel">neewshop OS • v18.0</div>
     </div>
   </div>
 
@@ -618,7 +668,7 @@
         <div class="search-stack">
           <div class="search-box">
             <svg class="ico search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="search" id="searchInput" class="search-input-field" name="q_filter_ns" placeholder="Buscar prenda, color o talla (Ej: Slide 28)..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="onSearchInput()" />
+            <input type="search" id="searchInput" class="search-input-field" name="q_filter_ns" placeholder="Buscar prenda, color, talla o cliente..." autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly');" oninput="onSearchInput()" />
             <button type="button" class="clear-search-btn" id="clearSearchBtn" onclick="limpiarBusqueda()">
               <svg class="ico" style="width:11px;height:11px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
@@ -632,13 +682,27 @@
               <option value="low_stock">Menor Stock</option>
               <option value="az">Nombre A-Z</option>
             </select>
+            <button type="button" class="view-mode-btn" id="viewModeBtn" onclick="alternarModoColumnas()" title="Cambiar entre 1 y 2 columnas">
+              <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span id="viewModeLbl">2 Col</span>
+            </button>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- 5 TARJETAS KPI -->
-    <section class="kpi-grid">
+    <!-- BARRA COMPACTA DESPLEGABLE DE RESUMEN KPI -->
+    <div class="kpi-collapse-bar" onclick="alternarResumenKPI()">
+      <div class="kpi-summary-inline">
+        <span><span class="status-indicator-dot dot-white"></span> Stock: <strong id="miniTotalUnits">0</strong> pzas</span>
+        <span>•</span>
+        <span style="color:var(--price-vip);">Ganancia: <strong id="miniTotalProfit">$0</strong></span>
+      </div>
+      <span class="kpi-toggle-badge" id="kpiToggleText">Resumen ▼</span>
+    </div>
+
+    <!-- 5 TARJETAS KPI (PLEGABLES) -->
+    <section class="kpi-grid collapsed" id="kpiGridSection">
       <div class="kpi-card" id="cardOk" onclick="vibrar(20); setStockFilter('EN_STOCK')">
         <div class="kpi-label"><span class="status-indicator-dot dot-white"></span> En Stock</div>
         <div class="kpi-value neon-white"><span id="kpiOk">0</span><span class="kpi-range">16+</span></div>
@@ -701,6 +765,7 @@
   <!-- MODAL DE DESCARGA Y COMPARTIR NATIVO PARA IPHONE / ANDROID -->
   <div class="modal-overlay" id="iosFileReadyModal">
     <div class="modal-sheet success-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title" id="readyFileModalTitle">Documento Listo</div>
         <button class="close-btn" onclick="cerrarModalArchivoListo()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -724,6 +789,7 @@
   <!-- VISOR DE FOTO EN GRANDE (ZOOM) CON CAMBIAR Y BORRAR FOTO -->
   <div class="modal-overlay" id="photoZoomModal">
     <div class="modal-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title" id="zoomModalTitle">Foto de la Prenda</div>
         <button class="close-btn" onclick="cerrarZoomFoto()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -746,6 +812,7 @@
   <!-- MODAL EXPORTAR CATÁLOGO PDF EDITORIAL PARA CLIENTES -->
   <div class="modal-overlay" id="pdfCatalogModal">
     <div class="modal-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title">Catálogo Editorial PDF</div>
         <button class="close-btn" onclick="cerrarModalCatalogoPDF()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -785,6 +852,7 @@
   <!-- VENTANA MODAL PARA ELEGIR ENTRE LAS 3 OPCIONES DE TEMA -->
   <div class="modal-overlay" id="themeModal">
     <div class="modal-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title">Apariencia del Sistema</div>
         <button class="close-btn" onclick="cerrarModalTema()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -831,17 +899,29 @@
         </button>
       </div>
       <button type="button" class="submit-btn" onclick="cerrarModalTema()">Listo</button>
-      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v17.0</div>
+      <div class="version-tiny-tag" style="text-align:center; margin-top:10px;">neewshop OS • v18.0</div>
     </div>
   </div>
 
-  <!-- MODAL CARRITO / CHECKOUT LIMPIO -->
+  <!-- MODAL CARRITO / CHECKOUT CON CAMBIO DE TARIFA EN 1 TOQUE Y BILLETES RÁPIDOS -->
   <div class="modal-overlay" id="cartModal">
     <div class="modal-sheet success-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title">Pedido Actual / Checkout</div>
         <button class="close-btn" onclick="cerrarModalCarrito()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
+
+      <!-- CAMBIAR TARIFA DE TODO EL PEDIDO EN 1 TOQUE -->
+      <div class="cart-global-tier-bar">
+        <span class="cart-global-tier-lbl">Tarifa del pedido:</span>
+        <div class="cart-tier-btns">
+          <button type="button" class="cart-tier-chip" onclick="cambiarTarifaGlobalCarrito('Mayoreo')">Todo Mayoreo</button>
+          <button type="button" class="cart-tier-chip" onclick="cambiarTarifaGlobalCarrito('Menudeo')">Todo Menudeo</button>
+          <button type="button" class="cart-tier-chip" onclick="cambiarTarifaGlobalCarrito('VIP')">Todo VIP</button>
+        </div>
+      </div>
+
       <div class="cart-items-container" id="cartItemsContainer"></div>
 
       <div class="checkout-extras">
@@ -856,14 +936,22 @@
           </button>
         </div>
 
-        <div class="change-calc-row" id="cashCalcRow">
-          <div>
-            <label style="margin-bottom:2px;">Pagó con ($)</label>
-            <input type="number" id="paidWithInput" name="paid_amt_ns" inputmode="decimal" placeholder="Ej. 1000" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="calcularCambioCarrito()" />
+        <div id="cashCalcWrapper">
+          <div class="change-calc-row" id="cashCalcRow">
+            <div>
+              <label style="margin-bottom:2px;">Pagó con ($)</label>
+              <input type="number" id="paidWithInput" name="paid_amt_ns" inputmode="decimal" placeholder="Ej. 1000" autocomplete="one-time-code" readonly onfocus="this.removeAttribute('readonly');" oninput="calcularCambioCarrito()" />
+            </div>
+            <div class="change-box">
+              <span class="change-lbl">Cambio a devolver</span>
+              <span class="change-val" id="changeAmountVal">$0.00</span>
+            </div>
           </div>
-          <div class="change-box">
-            <span class="change-lbl">Cambio a devolver</span>
-            <span class="change-val" id="changeAmountVal">$0.00</span>
+          <div class="quick-bills-row">
+            <button type="button" class="quick-bill-btn" onclick="ponerBilleteRapido('EXACTO')">Exacto</button>
+            <button type="button" class="quick-bill-btn" onclick="ponerBilleteRapido(200)">$200</button>
+            <button type="button" class="quick-bill-btn" onclick="ponerBilleteRapido(500)">$500</button>
+            <button type="button" class="quick-bill-btn" onclick="ponerBilleteRapido(1000)">$1,000</button>
           </div>
         </div>
 
@@ -894,6 +982,7 @@
   <!-- MODAL DETALLE VENTA -->
   <div class="modal-overlay" id="saleDetailModal">
     <div class="modal-sheet success-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title">Ticket del Pedido Vendido</div>
         <button class="close-btn" onclick="cerrarModalDetalleVenta()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -909,9 +998,10 @@
     </div>
   </div>
 
-  <!-- MODAL ELIMINAR VENTA EN 1 TOQUE (SIN CONTRASEÑA) -->
+  <!-- MODAL ELIMINAR VENTA EN 1 TOQUE -->
   <div class="modal-overlay" id="deleteSaleModal">
     <div class="modal-sheet danger-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title">¿Eliminar Registro de Venta?</div>
         <button class="close-btn" onclick="cerrarModalEliminarVenta()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -927,9 +1017,10 @@
     </div>
   </div>
 
-  <!-- MODAL UNIFICADO DE CREAR / EDITAR MODELO Y TODAS SUS TALLAS -->
+  <!-- MODAL UNIFICADO DE CREAR / EDITAR MODELO CON MODO "+ SUMAR LLEGADA" -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title" id="modalProductTitle">Nuevo Producto</div>
         <button class="close-btn" onclick="toggleModal(false)" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -965,6 +1056,15 @@
           <div class="form-group">
             <label>Color</label>
             <input type="search" id="pColor" name="prod_tone_ns" placeholder="Ej. Black, Gris..." autocomplete="off" required />
+          </div>
+        </div>
+
+        <!-- INTERRUPTOR PARA TRABAJADORES: CORREGIR TOTAL VS SUMAR LLEGADA -->
+        <div id="stockEntryModeWrap" style="display:none;">
+          <label>¿Qué deseas hacer con las cantidades?</label>
+          <div class="stock-mode-switch">
+            <button type="button" class="stock-mode-btn active-replace" id="btnModeReplace" onclick="cambiarModoCapturaStock('REPLACE')">Corregir Total</button>
+            <button type="button" class="stock-mode-btn" id="btnModeAdd" onclick="cambiarModoCapturaStock('ADD')">+ Sumar Llegada</button>
           </div>
         </div>
 
@@ -1012,6 +1112,7 @@
   <!-- MODAL DETALLES DEL MODELO -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title" id="detailName">Detalles del Producto</div>
         <button class="close-btn" onclick="cerrarDetalles()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -1031,6 +1132,7 @@
   <!-- MODAL AGREGAR CATEGORÍA -->
   <div class="modal-overlay" id="addCategoryModal">
     <div class="modal-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title">Nueva Categoría</div>
         <button class="close-btn" onclick="toggleCategoryModal(false)" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -1054,9 +1156,10 @@
     </div>
   </div>
 
-  <!-- MODAL ELIMINAR CATEGORÍA EN 1 TOQUE (SIN CONTRASEÑA) -->
+  <!-- MODAL ELIMINAR CATEGORÍA EN 1 TOQUE -->
   <div class="modal-overlay" id="deleteCategoryModal">
     <div class="modal-sheet danger-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title">Eliminar Categoría</div>
         <button class="close-btn" onclick="toggleDeleteCategoryModal(false)" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -1075,9 +1178,10 @@
     </div>
   </div>
 
-  <!-- MODAL CONFIRMAR ELIMINACIÓN DE PRODUCTO / MODELO EN 1 TOQUE (SIN CONTRASEÑA) -->
+  <!-- MODAL CONFIRMAR ELIMINACIÓN DE PRODUCTO / MODELO EN 1 TOQUE -->
   <div class="modal-overlay" id="deleteModal">
     <div class="modal-sheet danger-sheet">
+      <div class="sheet-grabber"></div>
       <div class="modal-header">
         <div class="modal-title">Confirmar Eliminación</div>
         <button class="close-btn" onclick="closeDeleteModal()" aria-label="Cerrar"><svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -1293,9 +1397,15 @@
     let activeCategory = "Todos";
     let activeStockFilter = "TODOS";
     let activeSalesPeriod = "ALL";
+    let activeSalesPayFilter = "ALL"; // ALL | Efectivo | Transferencia
     let currentPayMethod = "Efectivo";
+    let isTwoColumnGrid = false;
+    let isKpiExpanded = false;
 
-    // Diccionario de talla seleccionada en cada tarjeta agrupada
+    // Estado del editor de tallas: REPLACE (corregir total) o ADD (+ sumar llegada)
+    let currentStockEntryMode = "REPLACE";
+    let currentEditingSizesMap = {};
+
     let selectedVariantByGroup = {};
     let currentSelectedGroupKey = null;
     let groupKeyToDelete = null;
@@ -1308,6 +1418,21 @@
     let dbRef = null;
     let firebaseIniciado = false;
 
+    function alternarResumenKPI() {
+      vibrar(15);
+      isKpiExpanded = !isKpiExpanded;
+      document.getElementById("kpiGridSection").classList.toggle("collapsed", !isKpiExpanded);
+      document.getElementById("kpiToggleText").textContent = isKpiExpanded ? "Ocultar ▲" : "Resumen ▼";
+    }
+
+    function alternarModoColumnas() {
+      vibrar(15);
+      isTwoColumnGrid = !isTwoColumnGrid;
+      document.getElementById("viewModeBtn").classList.toggle("active", isTwoColumnGrid);
+      document.getElementById("viewModeLbl").textContent = isTwoColumnGrid ? "1 Col" : "2 Col";
+      renderProducts();
+    }
+
     function construirGroupKey(name, color, category) {
       return `${(name || "").trim().toLowerCase()}|${(color || "").trim().toLowerCase()}|${(category || "").trim().toLowerCase()}`;
     }
@@ -1316,7 +1441,6 @@
       return products.filter(p => construirGroupKey(p.name, p.color, p.category) === groupKey);
     }
 
-    // PROCESADOR DE IMAGEN DE ALTA DEFINICIÓN (600x600PX, CALIDAD 0.88)
     function comprimirArchivoImagen(file, callback) {
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -1441,7 +1565,7 @@
 
     function verificarAutocompletadoModelo() {
       const editKey = document.getElementById("pEditGroupKey").value;
-      if (editKey) return; // En modo edición ya están cargados los datos
+      if (editKey) return;
       const nombreEscrito = (document.getElementById("pName").value || "").trim().toLowerCase();
       if (!nombreEscrito) return;
       const coincidencia = products.find(p => (p.name || "").trim().toLowerCase() === nombreEscrito);
@@ -1578,29 +1702,75 @@
       return "ropa";
     }
 
-    // RENDERIZADOR UNIFICADO DE TALLAS EN EL MODAL DE CREAR / EDITAR
+    // CAMBIO ENTRE MODO "CORREGIR TOTAL" Y "+ SUMAR LLEGADA" PARA TRABAJADORES
+    function cambiarModoCapturaStock(modo) {
+      vibrar(15);
+      currentStockEntryMode = modo;
+      document.getElementById("btnModeReplace").className = "stock-mode-btn" + (modo === "REPLACE" ? " active-replace" : "");
+      document.getElementById("btnModeAdd").className = "stock-mode-btn" + (modo === "ADD" ? " active-add" : "");
+      document.getElementById("multiSizesTitleLabel").textContent = modo === "ADD"
+        ? "Escribe cuántas piezas NUEVAS llegaron (Se sumarán al stock actual)"
+        : "Stock total por talla (Escribe el total exacto que hay)";
+      renderGridMultiTallasEditor(currentEditingSizesMap);
+    }
+
     function renderGridMultiTallasEditor(mapaTallasExistentes = null) {
+      if (mapaTallasExistentes !== null) currentEditingSizesMap = mapaTallasExistentes;
       const catSeleccionada = document.getElementById("pCat").value;
       const tipo = obtenerTipoTallaDeCategoria(catSeleccionada);
       let listaTallas = [...(SISTEMAS_TALLAS[tipo] || SISTEMAS_TALLAS.ropa)];
 
-      if (mapaTallasExistentes) {
-        Object.keys(mapaTallasExistentes).forEach(tExist => {
+      if (currentEditingSizesMap) {
+        Object.keys(currentEditingSizesMap).forEach(tExist => {
           if (!listaTallas.includes(tExist)) listaTallas.push(tExist);
         });
       }
 
+      const esModoSumar = currentStockEntryMode === "ADD" && document.getElementById("pEditGroupKey").value !== "";
       const grid = document.getElementById("multiSizesGrid");
+
       grid.innerHTML = listaTallas.map((t, idx) => {
-        const tieneValor = mapaTallasExistentes && mapaTallasExistentes[t] !== undefined;
-        const val = tieneValor ? mapaTallasExistentes[t] : "";
-        return `
-          <div class="multi-size-item ${tieneValor && val > 0 ? 'has-stock' : ''}">
-            <span>${t}</span>
-            <input type="number" id="ms_qty_${idx}" data-size="${t}" value="${val}" inputmode="numeric" min="0" placeholder="—" oninput="this.parentElement.classList.toggle('has-stock', this.value !== '' && Number(this.value) > 0)" />
-          </div>
-        `;
+        const tieneValor = currentEditingSizesMap && currentEditingSizesMap[t] !== undefined;
+        const stockActual = tieneValor ? Number(currentEditingSizesMap[t]) : 0;
+
+        if (esModoSumar) {
+          return `
+            <div class="multi-size-item">
+              <div class="multi-size-top">
+                <span class="sz-name">${t}</span>
+                <input type="number" id="ms_qty_${idx}" data-size="${t}" value="" inputmode="numeric" min="0" placeholder="+0" oninput="actualizarHintSumaTalla(${idx}, ${stockActual})" />
+              </div>
+              <div class="multi-size-cur-hint" id="ms_hint_${idx}">Actual: ${stockActual}</div>
+            </div>
+          `;
+        } else {
+          const valMostrar = tieneValor ? stockActual : "";
+          return `
+            <div class="multi-size-item ${tieneValor && stockActual > 0 ? 'has-stock' : ''}">
+              <div class="multi-size-top">
+                <span class="sz-name">${t}</span>
+                <input type="number" id="ms_qty_${idx}" data-size="${t}" value="${valMostrar}" inputmode="numeric" min="0" placeholder="—" oninput="this.closest('.multi-size-item').classList.toggle('has-stock', this.value !== '' && Number(this.value) > 0)" />
+              </div>
+            </div>
+          `;
+        }
       }).join("");
+    }
+
+    function actualizarHintSumaTalla(idx, stockActual) {
+      const inp = document.getElementById(`ms_qty_${idx}`);
+      const hint = document.getElementById(`ms_hint_${idx}`);
+      const box = inp.closest(".multi-size-item");
+      const sumado = parseInt(inp.value, 10) || 0;
+      if (sumado > 0) {
+        hint.textContent = `${stockActual} + ${sumado} = ${stockActual + sumado}`;
+        hint.style.color = "var(--price-vip)";
+        box.classList.add("has-stock");
+      } else {
+        hint.textContent = `Actual: ${stockActual}`;
+        hint.style.color = "var(--text-secondary)";
+        box.classList.remove("has-stock");
+      }
     }
 
     function autoDetectarTipoTalla() {
@@ -1788,6 +1958,12 @@
       renderProducts();
     }
 
+    function alternarFiltroMetodoVentas(metodo) {
+      vibrar(15);
+      activeSalesPayFilter = activeSalesPayFilter === metodo ? "ALL" : metodo;
+      renderProducts();
+    }
+
     function setStockFilter(filtro) {
       activeStockFilter = (activeStockFilter === filtro && filtro !== "TODOS") ? "TODOS" : filtro;
       document.getElementById("tabAll").className = "stock-tab" + (activeStockFilter === "TODOS" ? " active-all" : "");
@@ -1875,6 +2051,38 @@
       renderProducts();
     }
 
+    // CAMBIO GLOBAL DE PRECIO DENTRO DEL CARRITO EN 1 TOQUE
+    function cambiarTarifaGlobalCarrito(nuevaTarifa) {
+      if (cartItems.length === 0) return;
+      vibrar(25);
+      cartItems.forEach(item => {
+        const prodOrig = products.find(p => p.id === item.id);
+        if (!prodOrig) return;
+        if (nuevaTarifa === "Mayoreo" && Number(prodOrig.wholesale) > 0) {
+          item.price = Number(prodOrig.wholesale);
+          item.priceType = "Mayoreo";
+        } else if (nuevaTarifa === "VIP" && Number(prodOrig.vip) > 0) {
+          item.price = Number(prodOrig.vip);
+          item.priceType = "VIP";
+        } else {
+          item.price = Number(prodOrig.price) || item.price;
+          item.priceType = "Menudeo";
+        }
+      });
+      actualizarBotonCarritoFlotante();
+      guardarBorradorCarrito();
+      abrirModalCarrito();
+      mostrarToast(`Todo el pedido cambió a ${nuevaTarifa}`);
+    }
+
+    function ponerBilleteRapido(valor) {
+      vibrar(15);
+      const { totalCobrar } = obtenerTotalesCarritoConDescuento();
+      const inp = document.getElementById("paidWithInput");
+      inp.value = valor === "EXACTO" ? totalCobrar : valor;
+      calcularCambioCarrito();
+    }
+
     function actualizarBotonCarritoFlotante() {
       const btn = document.getElementById("fabCartBtn");
       const totalItems = cartItems.reduce((acc, item) => acc + item.qty, 0);
@@ -1889,7 +2097,7 @@
       currentPayMethod = metodo;
       document.getElementById("payCashBtn").classList.toggle("active", metodo === "Efectivo");
       document.getElementById("payTransBtn").classList.toggle("active", metodo === "Transferencia");
-      document.getElementById("cashCalcRow").style.display = metodo === "Efectivo" ? "grid" : "none";
+      document.getElementById("cashCalcWrapper").style.display = metodo === "Efectivo" ? "block" : "none";
       guardarBorradorCarrito();
     }
 
@@ -2126,22 +2334,24 @@
       mostrarToast(devolverStock ? "Venta eliminada y stock restaurado" : "Registro de venta eliminado");
     }
 
-    // CREAR Y EDITAR UNIFICADO (RÁPIDO Y SIN PASOS TEDIOSOS)
     function abrirModalCrear() {
       vibrar(25);
       document.getElementById("modalProductTitle").textContent = "Agregar Producto / Lote";
       document.getElementById("btnGuardarProd").textContent = "Guardar en Inventario";
       document.getElementById("btnEliminarModeloEnEditor").style.display = "none";
+      document.getElementById("stockEntryModeWrap").style.display = "none";
       document.getElementById("productForm").reset();
       document.getElementById("pEditGroupKey").value = "";
       document.getElementById("syncPriceAllColorsCheck").checked = true;
+      currentStockEntryMode = "REPLACE";
+      currentEditingSizesMap = {};
       imageExplicitlyRemoved = false;
       actualizarVistaPreviaFotoModal("");
       renderCategoriesUI();
       if (activeCategory !== "Todos") {
         document.getElementById("pCat").value = activeCategory;
       }
-      renderGridMultiTallasEditor(null);
+      renderGridMultiTallasEditor({});
       actualizarVistaPreviaMargen();
       toggleModal(true);
     }
@@ -2157,6 +2367,7 @@
       document.getElementById("modalProductTitle").textContent = `Editar: ${base.name} (${base.color})`;
       document.getElementById("btnGuardarProd").textContent = "Guardar Cambios";
       document.getElementById("btnEliminarModeloEnEditor").style.display = "inline-flex";
+      document.getElementById("stockEntryModeWrap").style.display = "block";
       document.getElementById("pEditGroupKey").value = groupKey;
 
       renderCategoriesUI();
@@ -2174,7 +2385,8 @@
 
       const mapaTallas = {};
       items.forEach(it => { mapaTallas[it.size] = Number(it.stock) || 0; });
-      renderGridMultiTallasEditor(mapaTallas);
+      currentEditingSizesMap = mapaTallas;
+      cambiarModoCapturaStock("REPLACE");
       actualizarVistaPreviaMargen();
       toggleModal(true);
     }
@@ -2187,6 +2399,7 @@
       const catLimpiada = document.getElementById("pCat").value;
       const colorLimpiado = document.getElementById("pColor").value.trim();
       const syncAllColors = document.getElementById("syncPriceAllColorsCheck").checked;
+      const esModoSumar = currentStockEntryMode === "ADD" && editGroupKey !== "";
 
       const costVal = parseFloat(document.getElementById("pCost").value) || 0;
       const wholesaleVal = parseFloat(document.getElementById("pWholesale").value) || 0;
@@ -2216,8 +2429,8 @@
         const rawVal = inp.value.trim();
         const varianteExistente = existentesDelGrupo.find(v => (v.size || "").toLowerCase() === sizeName.toLowerCase());
 
-        if (rawVal !== "") {
-          const qty = Math.max(0, parseInt(rawVal, 10) || 0);
+        if (esModoSumar) {
+          const sumado = Math.max(0, parseInt(rawVal, 10) || 0);
           if (varianteExistente) {
             varianteExistente.name = nombreLimpiado;
             varianteExistente.category = catLimpiada;
@@ -2226,9 +2439,10 @@
             varianteExistente.wholesale = wholesaleVal;
             varianteExistente.price = priceVal;
             varianteExistente.vip = vipVal;
-            varianteExistente.stock = qty;
+            varianteExistente.stock = (Number(varianteExistente.stock) || 0) + sumado;
             varianteExistente.image = imageExplicitlyRemoved ? "" : (fotoFinal || varianteExistente.image || "");
-          } else {
+            procesados++;
+          } else if (sumado > 0) {
             products.unshift({
               id: baseTime + idx,
               name: nombreLimpiado,
@@ -2239,14 +2453,43 @@
               wholesale: wholesaleVal,
               price: priceVal,
               vip: vipVal,
-              stock: qty,
+              stock: sumado,
               image: imageExplicitlyRemoved ? "" : fotoFinal
             });
+            procesados++;
           }
-          procesados++;
-        } else if (varianteExistente) {
-          // Si borraron el número de una talla existente en modo edición, se elimina esa talla
-          products = products.filter(p => p.id !== varianteExistente.id);
+        } else {
+          if (rawVal !== "") {
+            const qty = Math.max(0, parseInt(rawVal, 10) || 0);
+            if (varianteExistente) {
+              varianteExistente.name = nombreLimpiado;
+              varianteExistente.category = catLimpiada;
+              varianteExistente.color = colorLimpiado;
+              varianteExistente.cost = costVal;
+              varianteExistente.wholesale = wholesaleVal;
+              varianteExistente.price = priceVal;
+              varianteExistente.vip = vipVal;
+              varianteExistente.stock = qty;
+              varianteExistente.image = imageExplicitlyRemoved ? "" : (fotoFinal || varianteExistente.image || "");
+            } else {
+              products.unshift({
+                id: baseTime + idx,
+                name: nombreLimpiado,
+                category: catLimpiada,
+                size: sizeName,
+                color: colorLimpiado,
+                cost: costVal,
+                wholesale: wholesaleVal,
+                price: priceVal,
+                vip: vipVal,
+                stock: qty,
+                image: imageExplicitlyRemoved ? "" : fotoFinal
+              });
+            }
+            procesados++;
+          } else if (varianteExistente) {
+            products = products.filter(p => p.id !== varianteExistente.id);
+          }
         }
       });
 
@@ -2255,10 +2498,8 @@
         return;
       }
 
-      // Sincronizar foto en todas las tallas del mismo producto y color
       sincronizarFotoEnModelo(nombreLimpiado, colorLimpiado, imageExplicitlyRemoved ? "" : fotoFinal);
 
-      // Si está marcada la casilla, actualizar precios en todos los colores del mismo modelo
       if (syncAllColors) {
         products.forEach(prod => {
           if ((prod.name || "").trim().toLowerCase() === nombreLimpiado.toLowerCase()) {
@@ -2273,7 +2514,7 @@
       imageExplicitlyRemoved = false;
       saveToDB();
       toggleModal(false);
-      mostrarToast(editGroupKey ? `Modelo ${nombreLimpiado} actualizado` : `${procesados} tallas guardadas de ${nombreLimpiado}`);
+      mostrarToast(esModoSumar ? `Llegada de mercancía sumada a ${nombreLimpiado}` : (editGroupKey ? `Modelo ${nombreLimpiado} actualizado` : `${procesados} tallas guardadas de ${nombreLimpiado}`));
     }
 
     function verDetallesGrupo(groupKey) {
@@ -2337,6 +2578,7 @@
       document.getElementById("modalProductTitle").textContent = `Nuevo Color de ${base.name}`;
       document.getElementById("btnGuardarProd").textContent = "Guardar Nuevo Color";
       document.getElementById("btnEliminarModeloEnEditor").style.display = "none";
+      document.getElementById("stockEntryModeWrap").style.display = "none";
       document.getElementById("pEditGroupKey").value = "";
 
       renderCategoriesUI();
@@ -2347,14 +2589,15 @@
       document.getElementById("pWholesale").value = base.wholesale;
       document.getElementById("pPrice").value = base.price;
       document.getElementById("pVip").value = base.vip;
+      currentStockEntryMode = "REPLACE";
+      currentEditingSizesMap = {};
       actualizarVistaPreviaFotoModal("");
-      renderGridMultiTallasEditor(null);
+      renderGridMultiTallasEditor({});
       actualizarVistaPreviaMargen();
       toggleModal(true);
       mostrarToast("Escribe el nuevo color y las cantidades por talla", "#00f0ff");
     }
 
-    // ELIMINACIÓN EN 1 TOQUE SIN PEDIR CONTRASEÑA
     function pedirEliminarGrupoDesdeDetalle() {
       if (!currentSelectedGroupKey) return;
       const items = obtenerItemsDeGrupo(currentSelectedGroupKey);
@@ -2526,8 +2769,12 @@
       const countOk = products.filter(p => (Number(p.stock) || 0) >= 16).length;
       const countLow = products.filter(p => (Number(p.stock) || 0) >= 1 && (Number(p.stock) || 0) <= 15).length;
       const countOut = products.filter(p => (Number(p.stock) || 0) === 0).length;
+      const totalUnidadesStock = products.reduce((acc, p) => acc + (Number(p.stock) || 0), 0);
       const costoTotalInvertido = products.reduce((acc, p) => acc + ((Number(p.cost) || 0) * (Number(p.stock) || 0)), 0);
       const gananciaVentasTotal = salesHistory.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
+
+      document.getElementById("miniTotalUnits").textContent = totalUnidadesStock.toLocaleString("es-MX");
+      document.getElementById("miniTotalProfit").textContent = "$" + gananciaVentasTotal.toLocaleString("es-MX", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
       animarValorKPI("kpiOk", countOk, false);
       animarValorKPI("kpiLow", countLow, false);
@@ -2535,15 +2782,30 @@
       animarValorKPI("kpiCostTotal", costoTotalInvertido, true);
       animarValorKPI("kpiSalesProfit", gananciaVentasTotal, true);
 
-      // HISTORIAL DE VENTAS CON DESGLOSE EFECTIVO VS TRANSFERENCIA
+      // HISTORIAL DE VENTAS CON FILTRO POR MÉTODO DE PAGO Y BÚSQUEDA
       if (activeStockFilter === "VENTAS") {
         list.className = "sales-list";
-        const ventasFiltradas = filtrarVentasPorPeriodo(salesHistory);
-        const cobradoPeriodo = ventasFiltradas.reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
-        const cobradoEfectivo = ventasFiltradas.filter(s => (s.payMethod || "Efectivo") === "Efectivo").reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
-        const cobradoTransf = ventasFiltradas.filter(s => s.payMethod === "Transferencia").reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
-        const gananciaPeriodo = ventasFiltradas.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
-        const piezasPeriodo = ventasFiltradas.reduce((acc, s) => acc + (Number(s.qty) || 0), 0);
+        let ventasPeriodo = filtrarVentasPorPeriodo(salesHistory);
+
+        const cobradoEfectivo = ventasPeriodo.filter(s => (s.payMethod || "Efectivo") === "Efectivo").reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
+        const cobradoTransf = ventasPeriodo.filter(s => s.payMethod === "Transferencia").reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
+
+        if (activeSalesPayFilter !== "ALL") {
+          ventasPeriodo = ventasPeriodo.filter(s => (s.payMethod || "Efectivo") === activeSalesPayFilter);
+        }
+        if (query.trim() !== "") {
+          const qLow = query.toLowerCase().trim();
+          ventasPeriodo = ventasPeriodo.filter(s =>
+            (s.name || "").toLowerCase().includes(qLow) ||
+            (s.clientNote || "").toLowerCase().includes(qLow) ||
+            (s.itemsDetail || "").toLowerCase().includes(qLow) ||
+            (s.payMethod || "").toLowerCase().includes(qLow)
+          );
+        }
+
+        const cobradoPeriodo = ventasPeriodo.reduce((acc, s) => acc + (Number(s.totalSold) || 0), 0);
+        const gananciaPeriodo = ventasPeriodo.reduce((acc, s) => acc + (Number(s.profit) || 0), 0);
+        const piezasPeriodo = ventasPeriodo.reduce((acc, s) => acc + (Number(s.qty) || 0), 0);
 
         const barraCorteHTML = `
           <div class="sales-summary-bar">
@@ -2553,21 +2815,33 @@
               <button type="button" class="sales-period-btn ${activeSalesPeriod === 'ALL' ? 'active' : ''}" onclick="setSalesPeriod('ALL')">Todo (${salesHistory.length})</button>
             </div>
             <div class="sales-metrics-row">
-              <div class="sales-metric-box"><div class="sales-metric-lbl">En Efectivo</div><div class="sales-metric-val">$${cobradoEfectivo.toLocaleString("es-MX")}</div></div>
-              <div class="sales-metric-box"><div class="sales-metric-lbl">Transferencia</div><div class="sales-metric-val" style="color:var(--price-menudeo);">$${cobradoTransf.toLocaleString("es-MX")}</div></div>
-              <div class="sales-metric-box"><div class="sales-metric-lbl">Total (${piezasPeriodo} pzas)</div><div class="sales-metric-val">$${cobradoPeriodo.toLocaleString("es-MX")}</div></div>
-              <div class="sales-metric-box"><div class="sales-metric-lbl">Ganancia Neta</div><div class="sales-metric-val" style="color:var(--price-vip);">+$${gananciaPeriodo.toLocaleString("es-MX")}</div></div>
+              <div class="sales-metric-box ${activeSalesPayFilter === 'Efectivo' ? 'active-pay-filter' : ''}" onclick="alternarFiltroMetodoVentas('Efectivo')" title="Toca para filtrar solo Efectivo">
+                <div class="sales-metric-lbl">En Efectivo</div>
+                <div class="sales-metric-val">$${cobradoEfectivo.toLocaleString("es-MX")}</div>
+              </div>
+              <div class="sales-metric-box ${activeSalesPayFilter === 'Transferencia' ? 'active-pay-filter' : ''}" onclick="alternarFiltroMetodoVentas('Transferencia')" title="Toca para filtrar solo Transferencia">
+                <div class="sales-metric-lbl">Transferencia</div>
+                <div class="sales-metric-val" style="color:var(--price-menudeo);">$${cobradoTransf.toLocaleString("es-MX")}</div>
+              </div>
+              <div class="sales-metric-box" onclick="alternarFiltroMetodoVentas('ALL')">
+                <div class="sales-metric-lbl">Total (${piezasPeriodo} pzas)</div>
+                <div class="sales-metric-val">$${cobradoPeriodo.toLocaleString("es-MX")}</div>
+              </div>
+              <div class="sales-metric-box">
+                <div class="sales-metric-lbl">Ganancia Neta</div>
+                <div class="sales-metric-val" style="color:var(--price-vip);">+$${gananciaPeriodo.toLocaleString("es-MX")}</div>
+              </div>
             </div>
           </div>
-          ${calcularTopMasVendidosHTML(ventasFiltradas)}
+          ${calcularTopMasVendidosHTML(ventasPeriodo)}
         `;
 
-        if (ventasFiltradas.length === 0) {
-          list.innerHTML = barraCorteHTML + `<div class="empty-state">No hay ventas registradas en este periodo.</div>`;
+        if (ventasPeriodo.length === 0) {
+          list.innerHTML = barraCorteHTML + `<div class="empty-state">No hay ventas que coincidan con ese filtro.</div>`;
           return;
         }
 
-        list.innerHTML = barraCorteHTML + ventasFiltradas.map((s, idx) => `
+        list.innerHTML = barraCorteHTML + ventasPeriodo.map((s, idx) => `
           <div class="sale-card" style="animation-delay: ${Math.min(idx * 25, 200)}ms;" onclick="verDetalleVenta(${s.id})">
             <div class="sale-info">
               <div class="sale-title">
@@ -2586,8 +2860,7 @@
         return;
       }
 
-      // AGRUPACIÓN INTELIGENTE POR MODELO Y COLOR
-      list.className = "product-list";
+      list.className = "product-list" + (isTwoColumnGrid ? " grid-2-cols" : "");
       let filtered = products.filter(p => {
         const estado = obtenerEstadoStock(p.stock);
         const matchesCat = activeCategory === "Todos" || p.category === activeCategory;
@@ -2629,7 +2902,6 @@
       list.innerHTML = listaGrupos.map((g, idx) => {
         g.variants.sort((a, b) => obtenerPesoOrdenTalla(a.size) - obtenerPesoOrdenTalla(b.size));
 
-        // Determinar talla activa seleccionada en esta tarjeta
         let activeVarId = selectedVariantByGroup[g.groupKey];
         let activeVar = g.variants.find(v => v.id === activeVarId);
         if (!activeVar) {
@@ -2732,7 +3004,6 @@
       document.getElementById("pdfCatalogModal").classList.remove("open");
     }
 
-    // GENERADOR DE CATÁLOGO PDF CON PORTADA MINIMALISTA Y FLUJO CONTINUO POR CATEGORÍA
     async function generarCatalogoPDFClientes() {
       vibrar(40);
       if (!window.jspdf || !window.jspdf.jsPDF) {
